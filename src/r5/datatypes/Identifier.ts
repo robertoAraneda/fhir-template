@@ -18,7 +18,7 @@ export interface ISetterIdentifier {
   toJson: () => any;
 }
 
-interface IdentifierParams {
+export interface IdentifierParams {
   use?: string;
   system?: string;
   value?: string;

@@ -1,10 +1,11 @@
-import { Identifier } from './Identifier';
+import { Identifier, IdentifierParams } from './Identifier';
 import { ResourceR5 } from '../resources/Resource';
+import { OrganizationParams } from '../resources/Organization';
 
 export interface ReferenceParams {
-  reference?: string;
+  reference?: string | OrganizationParams;
   display?: string;
-  identifier?: Identifier;
+  identifier?: Identifier | IdentifierParams;
   type?: string;
 }
 

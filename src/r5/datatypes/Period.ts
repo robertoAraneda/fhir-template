@@ -20,11 +20,7 @@ export class Period {
 
   setStart(value: string): ISetStart {
     this.start = value;
-    return {
-      setEnd: this.setEnd,
-      toString: this.toString,
-      toJson: this.toJson,
-    };
+    return this;
   }
 
   getEnd(): string {
@@ -33,11 +29,7 @@ export class Period {
 
   setEnd(value: string): ISetEnd {
     this.end = value;
-    return {
-      setStart: this.setStart,
-      toString: this.toString,
-      toJson: this.toJson,
-    };
+    return this;
   }
 
   toString(): string {

@@ -21,4 +21,5 @@ export = {
   Reference,
   Organization: OrganizationR5,
   Patient: PatientR5,
+  FhirContextR5,
 };

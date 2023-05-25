@@ -3,11 +3,11 @@ import { Reference } from './Reference';
 import { OrganizationR5 } from '../resources/Organization';
 
 interface ISetterIdentifier {
-  setUse: (value: string) => any;
-  setSystem: (value: string) => any;
-  setValue: (value: string) => any;
-  setPeriod: (value: Period | any) => any;
-  setAssigner: (value: Reference<OrganizationR5> | any) => any;
+  setUse: (value: string) => SetUse;
+  setSystem: (value: string) => SetSystem;
+  setValue: (value: string) => SetValue;
+  setPeriod: (value: Period | any) => SetPeriod;
+  setAssigner: (value: Reference<OrganizationR5> | any) => SetAssigner;
   toString: () => string;
   toJson: () => any;
 }

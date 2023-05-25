@@ -1,12 +1,12 @@
-interface ISetterPeriod {
-  setEnd: (value: string) => any;
-  setStart: (value: string) => any;
+type SetStart = Omit<ISetterPeriod, 'setStart'>;
+type SetEnd = Omit<ISetterPeriod, 'setEnd'>;
+
+export interface ISetterPeriod {
+  setEnd: (value: string) => SetEnd;
+  setStart: (value: string) => SetStart;
   toString: () => string;
   toJson: () => any;
 }
-
-type SetStart = Omit<ISetterPeriod, 'setStart'>;
-type SetEnd = Omit<ISetterPeriod, 'setEnd'>;
 
 interface IPeriod {
   start: string;

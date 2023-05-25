@@ -2,7 +2,13 @@ import { Period } from './Period';
 import { Reference } from './Reference';
 import { OrganizationR5 } from '../resources/Organization';
 
-interface ISetterIdentifier {
+type SetUse = Omit<ISetterIdentifier, 'setUse'>;
+type SetSystem = Omit<ISetterIdentifier, 'setSystem'>;
+type SetValue = Omit<ISetterIdentifier, 'setValue'>;
+type SetPeriod = Omit<ISetterIdentifier, 'setPeriod'>;
+type SetAssigner = Omit<ISetterIdentifier, 'setAssigner'>;
+
+export interface ISetterIdentifier {
   setUse: (value: string) => SetUse;
   setSystem: (value: string) => SetSystem;
   setValue: (value: string) => SetValue;
@@ -11,12 +17,6 @@ interface ISetterIdentifier {
   toString: () => string;
   toJson: () => any;
 }
-
-type SetUse = Omit<ISetterIdentifier, 'setUse'>;
-type SetSystem = Omit<ISetterIdentifier, 'setSystem'>;
-type SetValue = Omit<ISetterIdentifier, 'setValue'>;
-type SetPeriod = Omit<ISetterIdentifier, 'setPeriod'>;
-type SetAssigner = Omit<ISetterIdentifier, 'setAssigner'>;
 
 interface IdentifierParams {
   use: string;

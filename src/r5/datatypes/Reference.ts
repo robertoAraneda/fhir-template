@@ -8,17 +8,17 @@ interface IReference {
   type: string;
 }
 
-interface ISetterReference {
-  setDisplay(value: string): void;
-  setType(value: string): void;
-  setReference(value: string | any): void;
-  setIdentifier(value: Identifier | any): void;
-}
-
 type SetReference = Omit<ISetterReference, 'SetReference'>;
 type SetIdentifier = Omit<ISetterReference, 'SetIdentifier'>;
 type SetDisplay = Omit<ISetterReference, 'SetDisplay'>;
 type SetType = Omit<ISetterReference, 'SetType'>;
+
+export interface ISetterReference {
+  setDisplay(value: string): SetDisplay;
+  setType(value: string): SetType;
+  setReference(value: string | any): SetReference;
+  setIdentifier(value: Identifier | any): SetIdentifier;
+}
 
 export class Reference<T> {
   private reference: string;

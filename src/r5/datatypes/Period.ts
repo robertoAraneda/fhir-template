@@ -1,3 +1,15 @@
+interface ISetStart {
+  setEnd: (value: string) => ISetEnd;
+  toString: () => string;
+  toJson: () => any;
+}
+
+interface ISetEnd {
+  setStart: (value: string) => ISetStart;
+  toString: () => string;
+  toJson: () => any;
+}
+
 export class Period {
   private start: string;
   private end: string;
@@ -6,7 +18,7 @@ export class Period {
     return this.start;
   }
 
-  setStart(value: string): any {
+  setStart(value: string): ISetStart {
     this.start = value;
     return {
       setEnd: this.setEnd,
@@ -19,7 +31,7 @@ export class Period {
     return this.end;
   }
 
-  setEnd(value: string): any {
+  setEnd(value: string): ISetEnd {
     this.end = value;
     return {
       setStart: this.setStart,

@@ -9,9 +9,9 @@ export class Period {
   setStart(value: string): any {
     this.start = value;
     return {
-      setEnd: this.setEnd.bind(this),
-      toString: this.toString.bind(this),
-      toJson: this.toJson.bind(this),
+      setEnd: this.setEnd,
+      toString: this.toString,
+      toJson: this.toJson,
     };
   }
 
@@ -22,9 +22,9 @@ export class Period {
   setEnd(value: string): any {
     this.end = value;
     return {
-      setStart: this.setStart.bind(this),
-      toString: this.toString.bind(this),
-      toJson: this.toJson.bind(this),
+      setStart: this.setStart,
+      toString: this.toString,
+      toJson: this.toJson,
     };
   }
 

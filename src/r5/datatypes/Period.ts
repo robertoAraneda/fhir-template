@@ -10,6 +10,11 @@ interface ISetEnd {
   toJson: () => any;
 }
 
+interface IPeriod {
+  start: string;
+  end: string;
+}
+
 export class Period {
   private start: string;
   private end: string;
@@ -43,7 +48,7 @@ export class Period {
     return JSON.parse(this.toString());
   }
 
-  constructor(ops?: Partial<Period>) {
+  constructor(ops?: IPeriod) {
     Object.assign(this, ops);
   }
 }

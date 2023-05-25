@@ -1,5 +1,4 @@
-import {Period} from "./Period";
-
+import { Period } from './Period';
 
 export class HumanName {
   use?: string;

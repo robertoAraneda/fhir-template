@@ -1,13 +1,13 @@
 import { Period } from './Period';
 import { Reference } from './Reference';
-import { Organization } from '../resources/Organization';
+import { OrganizationR5 } from '../resources/Organization';
 
 export class Identifier {
   use: string;
   system: string;
   value: string;
   period: Period;
-  assigner: Reference<Organization>;
+  assigner: Reference<OrganizationR5>;
 
   constructor(opts: any) {
     Object.assign(this, opts);

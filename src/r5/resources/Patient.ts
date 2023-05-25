@@ -12,17 +12,11 @@ export class PatientR5 extends ResourceR5 {
   gender?: AdministrativeGenderVS;
   birthDate?: string;
   toString() {
-    console.log('this', this);
     return JSON.stringify(this, null, 2);
   }
 
   toJson(json: string) {
     return JSON.parse(json);
-    return {
-      resourceType: this.resourceType,
-      id: this.id,
-      identifiers: this.identifiers,
-    };
   }
 
   constructor() {

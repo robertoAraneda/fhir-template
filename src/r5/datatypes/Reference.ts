@@ -1,6 +1,5 @@
-import {Identifier} from "./Identifier";
-import {Resource} from "../resources/Resource";
-
+import { Identifier } from './Identifier';
+import { ResourceR5 } from '../resources/Resource';
 
 export class Reference<T> {
   private reference: string;
@@ -12,7 +11,7 @@ export class Reference<T> {
     if (typeof value === 'string') {
       this.reference = value;
     } else {
-      if (value instanceof Resource) {
+      if (value instanceof ResourceR5) {
         this.reference = `${value.resourceType}/${value.id}`;
       }
     }

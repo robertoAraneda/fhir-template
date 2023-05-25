@@ -1,11 +1,11 @@
 import { Identifier } from './Identifier';
 import { ResourceR5 } from '../resources/Resource';
 
-interface IReference {
-  reference: string;
-  display: string;
-  identifier: Identifier;
-  type: string;
+export interface ReferenceParams {
+  reference?: string;
+  display?: string;
+  identifier?: Identifier;
+  type?: string;
 }
 
 type SetReference = Omit<ISetterReference, 'SetReference'>;
@@ -26,8 +26,12 @@ export class Reference<T> {
   private identifier: Identifier;
   private type: string;
 
-  constructor(opts?: IReference) {
+  constructor(opts?: ReferenceParams) {
     Object.assign(this, opts);
+
+    if (opts?.identifier) {
+      this.setIdentifier(opts.identifier);
+    }
   }
 
   setIdentifier(value: Identifier | any): SetIdentifier {

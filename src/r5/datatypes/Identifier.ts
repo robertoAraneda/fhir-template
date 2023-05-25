@@ -1,5 +1,5 @@
-import { Period } from './Period';
-import { Reference } from './Reference';
+import { Period, PeriodParams } from './Period';
+import { Reference, ReferenceParams } from './Reference';
 import { OrganizationR5 } from '../resources/Organization';
 
 type SetUse = Omit<ISetterIdentifier, 'setUse'>;
@@ -19,11 +19,11 @@ export interface ISetterIdentifier {
 }
 
 interface IdentifierParams {
-  use: string;
-  system: string;
-  value: string;
-  period: Period;
-  assigner: Reference<OrganizationR5>;
+  use?: string;
+  system?: string;
+  value?: string;
+  period?: Period | PeriodParams;
+  assigner?: Reference<OrganizationR5> | ReferenceParams;
 }
 
 export class Identifier {
@@ -106,5 +106,13 @@ export class Identifier {
 
   constructor(opts?: IdentifierParams) {
     Object.assign(this, opts);
+
+    if (opts?.period) {
+      this.setPeriod(opts.period);
+    }
+
+    if (opts?.assigner) {
+      this.setAssigner(opts.assigner);
+    }
   }
 }

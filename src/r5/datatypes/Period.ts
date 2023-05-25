@@ -8,9 +8,9 @@ export interface ISetterPeriod {
   toJson: () => any;
 }
 
-interface IPeriod {
-  start: string;
-  end: string;
+export interface PeriodParams {
+  start?: string;
+  end?: string;
 }
 
 export class Period {
@@ -46,7 +46,7 @@ export class Period {
     return JSON.parse(this.toString());
   }
 
-  constructor(ops?: IPeriod) {
+  constructor(ops?: PeriodParams) {
     Object.assign(this, ops);
   }
 }

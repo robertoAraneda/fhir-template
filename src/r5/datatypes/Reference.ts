@@ -20,4 +20,8 @@ export class Reference<T> {
   getReference(): string {
     return this.reference;
   }
+
+  constructor(opts?: Partial<Reference<T>>) {
+    Object.assign(this, opts);
+  }
 }

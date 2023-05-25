@@ -3,6 +3,7 @@ import { Identifier } from './r5/datatypes/Identifier';
 import { OrganizationR5 } from './r5/resources/Organization';
 import { Period } from './r5/datatypes/Period';
 import { Reference } from './r5/datatypes/Reference';
+import { PatientR5 } from './r5/resources/Patient';
 
 class FHIRTemplateResource {
   createContext(version: string) {
@@ -19,4 +20,5 @@ export = {
   Period,
   Reference,
   Organization: OrganizationR5,
+  Patient: PatientR5,
 };

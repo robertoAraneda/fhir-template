@@ -13,7 +13,7 @@ export interface ISetterIdentifier {
   setSystem: (value: string) => SetSystem;
   setValue: (value: string) => SetValue;
   setPeriod: (value: Period | any) => SetPeriod;
-  setAssigner: (value: Reference | any) => SetAssigner;
+  setAssigner: (value: Reference<OrganizationR5> | any) => SetAssigner;
   toString: () => string;
   toJson: () => any;
 }
@@ -23,7 +23,7 @@ export interface IdentifierParams {
   system?: string;
   value?: string;
   period?: Period | PeriodParams;
-  assigner?: Reference | ReferenceParams;
+  assigner?: Reference<OrganizationR5> | ReferenceParams<OrganizationR5>;
 }
 
 export class Identifier {
@@ -31,7 +31,7 @@ export class Identifier {
   private system: string;
   private value: string;
   private period: Period;
-  private assigner: Reference;
+  private assigner: Reference<OrganizationR5>;
 
   getUse(): string {
     return this.use;
@@ -76,15 +76,15 @@ export class Identifier {
     return this.period;
   }
 
-  getAssigner(): Reference {
+  getAssigner(): Reference<OrganizationR5> {
     return this.assigner;
   }
 
-  setAssigner(value: Reference | any): SetAssigner {
+  setAssigner(value: Reference<OrganizationR5> | any): SetAssigner {
     if (value instanceof Reference) {
       this.assigner = value;
     } else {
-      this.assigner = new Reference(value);
+      this.assigner = new Reference<OrganizationR5>(value);
     }
 
     return this;

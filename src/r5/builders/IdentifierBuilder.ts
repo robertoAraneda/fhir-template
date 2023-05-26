@@ -1,14 +1,16 @@
-import { Period, PeriodParams } from '../datatypes/Period';
-import { Reference, ReferenceParams } from '../datatypes/Reference';
+import { Period } from '../datatypes/Period';
+import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 import { Identifier } from '../datatypes/Identifier';
+import { PeriodInterface } from '../interfaces/PeriodInterface';
+import { ReferenceInterface } from '../interfaces/ReferenceInterface';
 
 export class IdentifierBuilder {
   private _use: string;
   private _system: string;
   private _value: string;
   private _period: Period;
-  private _assigner: Reference<Organization>;
+  private _assigner: Reference<Organization> | ReferenceInterface<Organization>;
 
   getUse(): string {
     return this._use;
@@ -44,7 +46,7 @@ export class IdentifierBuilder {
     return this._period;
   }
 
-  setPeriod(value: Period | PeriodParams): IdentifierBuilder {
+  setPeriod(value: Period | PeriodInterface): IdentifierBuilder {
     if (value instanceof Period) {
       this._period = value;
     } else {
@@ -58,7 +60,7 @@ export class IdentifierBuilder {
     return this._assigner;
   }
 
-  setAssigner(value: Reference<Organization> | ReferenceParams<Organization>): IdentifierBuilder {
+  setAssigner(value: Reference<Organization> | ReferenceInterface<Organization>): IdentifierBuilder {
     if (value instanceof Reference) {
       this._assigner = value;
     } else {

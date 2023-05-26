@@ -143,6 +143,36 @@ export class PatientBuilder {
     return this._birthDate;
   }
 
+  addContactPoint(contactPoint: ContactPoint): PatientBuilder {
+    if (!this._telecom) this._telecom = [];
+    this._telecom.push(contactPoint);
+
+    return this;
+  }
+
+  setContactPoint(index: number, contactPoint: ContactPoint): PatientBuilder {
+    if (!this._telecom) this._telecom = [];
+    this._telecom[index] = contactPoint;
+
+    return this;
+  }
+
+  setContactPoints(contactPoints: ContactPoint[]): PatientBuilder {
+    this._telecom = contactPoints;
+
+    return this;
+  }
+
+  getContactPoint(index: number) {
+    if (!this._telecom) return null;
+    return this._telecom[index];
+  }
+
+  getContactPoints() {
+    if (!this._telecom) return [];
+    return this._telecom;
+  }
+
   build() {
     const patient = new Patient();
 

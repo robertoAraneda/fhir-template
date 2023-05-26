@@ -4,6 +4,7 @@ import { Organization } from './r5/resources/Organization';
 import { Period } from './r5/datatypes/Period';
 import { Reference } from './r5/datatypes/Reference';
 import { Patient } from './r5/resources/Patient';
+import { HumanNameBuilder } from './r5/builders/HumanNameBuilder';
 
 class FHIRTemplateResource {
   createContext(version: string) {
@@ -14,6 +15,8 @@ class FHIRTemplateResource {
   }
 }
 
+const template = new FHIRTemplateResource();
 export = {
-  FHIRTemplateResource,
+  createContext: template.createContext,
+  HumanNameBuilder: HumanNameBuilder,
 };

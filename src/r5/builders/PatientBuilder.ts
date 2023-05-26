@@ -153,5 +153,7 @@ export class PatientBuilder {
     patient.telecom = this._telecom;
     patient.birthDate = this._birthDate;
     patient.gender = this._gender;
+
+    return patient;
   }
 }

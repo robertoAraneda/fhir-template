@@ -18,5 +18,5 @@ class FHIRTemplateResource {
 const template = new FHIRTemplateResource();
 export = {
   createContext: template.createContext,
-  HumanNameBuilder: HumanNameBuilder,
+  HumanNameBuilder,
 };

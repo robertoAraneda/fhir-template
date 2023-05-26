@@ -1,12 +1,12 @@
 import { Identifier } from '../datatypes/Identifier';
-import { ResourceR5 } from './Resource';
+import { Resource } from './Resource';
 
 export interface OrganizationParams {
   id?: string;
   identifiers?: Identifier[];
 }
 
-export class OrganizationR5 extends ResourceR5 {
+export class Organization extends Resource {
   identifiers?: Identifier[];
   constructor(args?: OrganizationParams) {
     super('Organization');

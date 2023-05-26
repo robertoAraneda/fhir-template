@@ -1,101 +1,18 @@
-import { Identifier, IdentifierParams } from './Identifier';
-import { ResourceR5 } from '../resources/Resource';
-import { OrganizationParams, OrganizationR5 } from '../resources/Organization';
-
-export interface ReferenceParams<T> {
-  reference?: string | T;
-  display?: string;
-  identifier?: Identifier | IdentifierParams;
-  type?: string;
-}
-
-type SetReference = Omit<ISetterReference, 'SetReference'>;
-type SetIdentifier = Omit<ISetterReference, 'SetIdentifier'>;
-type SetDisplay = Omit<ISetterReference, 'SetDisplay'>;
-type SetType = Omit<ISetterReference, 'SetType'>;
-
-export interface ISetterReference {
-  setDisplay(value: string): SetDisplay;
-  setType(value: string): SetType;
-  setReference(value: string | any): SetReference;
-  setIdentifier(value: Identifier | any): SetIdentifier;
-}
+import { Identifier } from './Identifier';
+import { Resource } from '../resources/Resource';
 
 export class Reference<T> {
-  private reference: string | T;
-  private display: string;
-  private identifier: Identifier;
-  private type: string;
+  reference?: string | T;
+  display?: string;
+  identifier?: Identifier;
+  type?: string;
 
-  constructor(opts?: ReferenceParams<T>) {
-    Object.assign(this, opts);
+  constructor(args?: Partial<Reference<T>>) {
+    Object.assign(this, args);
 
-    if (opts?.identifier) {
-      this.setIdentifier(opts.identifier);
+    if (args?.reference && typeof args.reference !== 'string') {
+      const reference = args.reference as unknown as Resource;
+      this.reference = `${reference.resourceType}/${reference.id}`;
     }
-
-    if (opts?.reference) {
-      this.setReference(opts.reference);
-    }
-  }
-
-  setIdentifier(value: Identifier | any): SetIdentifier {
-    if (value instanceof Identifier) {
-      this.identifier = value;
-    } else {
-      this.identifier = new Identifier(value);
-    }
-    return this;
-  }
-
-  getIdentifier(): Identifier {
-    return this.identifier;
-  }
-
-  setDisplay(value: string): SetDisplay {
-    this.display = value;
-    return this;
-  }
-
-  getDisplay(): string {
-    return this.display;
-  }
-
-  setType(value: string): SetType {
-    this.type = value;
-    return this;
-  }
-
-  getType(): string {
-    return this.type;
-  }
-
-  setReference(value: string | T): SetReference {
-    if (typeof value === 'string') {
-      this.reference = value;
-    }
-
-    if (value instanceof OrganizationR5) {
-      this.reference = `${value.resourceType}/${value.id}`;
-    }
-
-    return this;
-  }
-
-  getReference(): string {
-    return this.reference as string;
-  }
-
-  toString() {
-    return JSON.stringify({
-      reference: this.reference,
-      display: this.display,
-      identifier: this.identifier,
-      type: this.type,
-    });
-  }
-
-  toJson() {
-    return JSON.parse(this.toString());
   }
 }

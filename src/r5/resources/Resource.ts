@@ -1,5 +1,5 @@
-export class ResourceR5 {
-  id: string;
+export class Resource {
+  id?: number;
   resourceType: string;
 
   constructor(resourceType: string) {

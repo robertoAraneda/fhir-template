@@ -1,9 +1,9 @@
 import { Identifier, IdentifierParams } from './Identifier';
 import { ResourceR5 } from '../resources/Resource';
-import { OrganizationParams } from '../resources/Organization';
+import { OrganizationParams, OrganizationR5 } from '../resources/Organization';
 
 export interface ReferenceParams {
-  reference?: string | OrganizationParams;
+  reference?: string | OrganizationParams | OrganizationR5;
   display?: string;
   identifier?: Identifier | IdentifierParams;
   type?: string;
@@ -21,8 +21,8 @@ export interface ISetterReference {
   setIdentifier(value: Identifier | any): SetIdentifier;
 }
 
-export class Reference<T> {
-  private reference: string;
+export class Reference {
+  private reference: string | OrganizationR5 | OrganizationParams;
   private display: string;
   private identifier: Identifier;
   private type: string;
@@ -32,6 +32,10 @@ export class Reference<T> {
 
     if (opts?.identifier) {
       this.setIdentifier(opts.identifier);
+    }
+
+    if (opts?.reference) {
+      this.setReference(opts.reference);
     }
   }
 
@@ -66,19 +70,21 @@ export class Reference<T> {
     return this.type;
   }
 
-  setReference(value: string | T): SetReference {
+  setReference(value: string | OrganizationParams | OrganizationR5): SetReference {
     if (typeof value === 'string') {
       this.reference = value;
     } else {
       if (value instanceof ResourceR5) {
         this.reference = `${value.resourceType}/${value.id}`;
+      } else {
+        this.reference = `Organization/${value.id}`;
       }
     }
 
     return this;
   }
 
-  getReference(): string {
+  getReference() {
     return this.reference;
   }
 

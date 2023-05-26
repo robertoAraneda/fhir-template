@@ -2,6 +2,7 @@ import { Identifier } from '../datatypes/Identifier';
 import { ResourceR5 } from './Resource';
 
 export interface OrganizationParams {
+  id?: string;
   identifiers?: Identifier[];
 }
 

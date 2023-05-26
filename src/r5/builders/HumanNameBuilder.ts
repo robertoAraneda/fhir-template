@@ -44,6 +44,14 @@ export class HumanNameBuilder {
     return this.given;
   }
 
+  addGiven(value: string): HumanNameBuilder {
+    if (!this.given) this.given = [];
+
+    this.given.push(value);
+
+    return this;
+  }
+
   setGiven(value: string[]): HumanNameBuilder {
     this.given = value;
 
@@ -54,6 +62,14 @@ export class HumanNameBuilder {
     return this.prefix;
   }
 
+  addPrefix(value: string): HumanNameBuilder {
+    if (!this.prefix) this.prefix = [];
+
+    this.prefix.push(value);
+
+    return this;
+  }
+
   setPrefix(value: string[]): HumanNameBuilder {
     this.prefix = value;
 
@@ -62,6 +78,14 @@ export class HumanNameBuilder {
 
   getSuffix(): string[] {
     return this.suffix;
+  }
+
+  addSuffix(value: string): HumanNameBuilder {
+    if (!this.suffix) this.suffix = [];
+
+    this.suffix.push(value);
+
+    return this;
   }
 
   setSuffix(value: string[]): HumanNameBuilder {

@@ -8,4 +8,8 @@ export class HumanName {
   prefix?: string[];
   suffix?: string[];
   period?: Period;
+
+  constructor(args?: any) {
+    Object.assign(this, args);
+  }
 }

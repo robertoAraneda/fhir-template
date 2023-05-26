@@ -28,7 +28,7 @@ export interface ISetterPatient {
   setHumanNames(names: HumanName[]): SetHumanNames;
 }
 
-export class PatientR5 extends ResourceR5 {
+export class Patient extends ResourceR5 {
   private identifiers: Identifier[];
   private active?: boolean;
   private name?: HumanName[];
@@ -39,6 +39,13 @@ export class PatientR5 extends ResourceR5 {
   setHumanName(index: number, name: HumanName) {
     if (!this.name) this.name = [];
     this.name[index] = name;
+
+    return this;
+  }
+
+  addName(name: HumanName) {
+    if (!this.name) this.name = [];
+    this.name.push(name);
 
     return this;
   }

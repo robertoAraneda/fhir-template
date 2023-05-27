@@ -3,15 +3,19 @@ import { HumanName } from '../datatypes/HumanName';
 import { ContactPoint } from '../datatypes/ContactPoint';
 import { AdministrativeGenderVS } from '../valuesets/AdministrativeGenderVS';
 import { Patient } from '../resources/Patient';
+import { AdministrativeGender } from '../enumerators/AdministrativeGender';
+import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
 
 export class PatientBuilder {
-  private _id?: number;
+  private _id: number;
   private _identifiers: Identifier[];
-  private _active?: boolean;
-  private _name?: HumanName[];
-  private _telecom?: ContactPoint[];
-  private _gender?: AdministrativeGenderVS;
-  private _birthDate?: string;
+  private _active: boolean;
+  private _name: HumanName[];
+  private _telecom: ContactPoint[];
+  private _gender: AdministrativeGender | AdministrativeGenderType;
+  private _birthDate: string;
+  private _maritalStatus: CodeableConcept;
 
   setId(id: number): PatientBuilder {
     this._id = id;
@@ -59,7 +63,7 @@ export class PatientBuilder {
     return this;
   }
 
-  getActive(): boolean | undefined {
+  getActive(): boolean {
     return this._active;
   }
 
@@ -129,7 +133,7 @@ export class PatientBuilder {
     return this;
   }
 
-  getGender(): AdministrativeGenderVS | undefined {
+  getGender(): AdministrativeGender | AdministrativeGenderType {
     return this._gender;
   }
 
@@ -173,6 +177,16 @@ export class PatientBuilder {
     return this._telecom;
   }
 
+  setMaritalStatus(maritalStatus: CodeableConcept): PatientBuilder {
+    this._maritalStatus = maritalStatus;
+
+    return this;
+  }
+
+  getMaritalStatus(): CodeableConcept {
+    return this._maritalStatus;
+  }
+
   build() {
     const patient = new Patient();
 
@@ -183,6 +197,7 @@ export class PatientBuilder {
     patient.telecom = this._telecom;
     patient.birthDate = this._birthDate;
     patient.gender = this._gender;
+    patient.maritalStatus = this._maritalStatus;
 
     return patient;
   }

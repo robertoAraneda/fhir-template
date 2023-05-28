@@ -9,7 +9,6 @@ export class Reference<T> {
   type?: string;
 
   constructor(args?: Reference<T>) {
-    console.log('Reference args', args);
     Object.assign(this, args);
 
     if (args?.reference && typeof args?.reference !== 'string') {

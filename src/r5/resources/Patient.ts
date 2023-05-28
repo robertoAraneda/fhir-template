@@ -49,7 +49,6 @@ export class Patient extends Resource {
 
     if (args) {
       for (const key of Object.keys(args)) {
-        console.log(key);
         if (!validArgs.includes(key)) throw new Error(`Key ${key} is not valid for type Patient`);
       }
       Object.assign(this, args);

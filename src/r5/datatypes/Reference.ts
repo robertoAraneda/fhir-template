@@ -1,5 +1,5 @@
 import { Identifier } from './Identifier';
-import { Resource } from '../resources/Resource';
+import { Resource } from './Resource';
 import { Patient } from '../resources/Patient';
 
 export class Reference<T> {
@@ -9,10 +9,11 @@ export class Reference<T> {
   type?: string;
 
   constructor(args?: Reference<T>) {
+    console.log('Reference args', args);
     Object.assign(this, args);
 
     if (args?.reference && typeof args?.reference !== 'string') {
-      const _reference = args?.reference as unknown as Resource;
+      const _reference = args?.reference as any;
 
       if (!_reference.resourceType) throw new Error('Reference must have a resourceType');
       if (!_reference.id) throw new Error('Reference must have an id');

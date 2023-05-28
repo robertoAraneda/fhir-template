@@ -1,15 +1,16 @@
 import { Identifier } from '../datatypes/Identifier';
-import { Resource } from './Resource';
+
+import { DomainResource } from '../datatypes/DomainResource';
 
 export interface OrganizationParams {
-  id?: number;
   identifiers?: Identifier[];
 }
 
-export class Organization extends Resource {
-  identifiers?: Identifier[];
-  constructor(args?: OrganizationParams) {
-    super('Organization');
+export class Organization extends DomainResource {
+  resourceType = 'Organization';
+  identifier?: Identifier[];
+  constructor(args?: Partial<Organization>) {
+    super();
     Object.assign(this, args);
   }
 }

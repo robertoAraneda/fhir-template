@@ -6,31 +6,29 @@ import { AdministrativeGender } from '../enumerators/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { CodeableConcept } from '../datatypes/CodeableConcept';
 import { Attachment } from '../datatypes/Attachment';
-import { Reference } from '../datatypes/Reference';
-import { Organization } from './Organization';
 import { PersonCommunication } from '../datatypes/PersonCommunication';
-import { PersonLink } from '../datatypes/PersonLink';
+import { Reference } from '../datatypes/Reference';
+import { Patient } from './Patient';
+import { Period } from '../datatypes/Period';
 import { resourceValidArgs } from '../datatypes/Resource';
 import { Address } from '../datatypes/Address';
 
-export class Person extends DomainResource {
-  resourceType = 'Person';
+export class RelatedPerson extends DomainResource {
+  resourceType = 'RelatedPerson';
   identifier?: Identifier[];
   active?: boolean;
   name?: HumanName[];
+  patient?: Reference<string | Patient>;
+  relationship?: CodeableConcept[];
   telecom?: ContactPoint[];
   gender: AdministrativeGender | AdministrativeGenderType;
   birthDate?: string;
-  multipleBirthBoolean?: boolean;
-  multipleBirthInteger?: number;
   address?: Address[];
-  maritalStatus?: CodeableConcept;
   photo?: Attachment[];
+  period?: Period;
   communication?: PersonCommunication[];
-  managingOrganization?: Reference<Organization | string>;
-  link?: PersonLink[];
 
-  constructor(args?: Partial<Person>) {
+  constructor(args?: Partial<RelatedPerson>) {
     super();
 
     const validArgs = [
@@ -39,24 +37,21 @@ export class Person extends DomainResource {
       'resourceType',
       'identifier',
       'active',
+      'patient',
+      'relationship',
       'name',
       'telecom',
       'gender',
-      'contact',
       'birthDate',
       'address',
-      'maritalStatus',
-      'multipleBirthBoolean',
-      'multipleBirthInteger',
-      'communication',
       'photo',
-      'managingOrganization',
-      'link',
+      'period',
+      'communication',
     ];
 
     if (args) {
       for (const key of Object.keys(args)) {
-        if (!validArgs.includes(key)) throw new Error(`Key ${key} is not valid for type Person`);
+        if (!validArgs.includes(key)) throw new Error(`Key ${key} is not valid for type RelatedPerson`);
       }
       Object.assign(this, args);
     }

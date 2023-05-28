@@ -1,3 +1,5 @@
+import { Element } from './Element';
+
 export class Extension extends Element {
   url: string;
   value?: any;

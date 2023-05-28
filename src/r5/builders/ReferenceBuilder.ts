@@ -1,7 +1,7 @@
 import { Identifier } from '../datatypes/Identifier';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
-import { Resource } from '../resources/Resource';
+import { Resource } from '../datatypes/Resource';
 
 export class ReferenceBuilder<T> {
   private _reference: string | T;
@@ -16,10 +16,9 @@ export class ReferenceBuilder<T> {
   setReference(value: string | T): ReferenceBuilder<T> {
     if (typeof value === 'string') {
       this._reference = value;
-    }
-
-    if (value instanceof Resource) {
-      this._reference = `${value.resourceType}/${value.id}`;
+    } else {
+      const val = value as any;
+      this._reference = `${val.resourceType}/${val.id}`;
     }
 
     return this;

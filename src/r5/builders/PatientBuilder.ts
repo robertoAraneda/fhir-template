@@ -171,17 +171,13 @@ export class PatientBuilder {
   }
 
   addLink(link: PatientLink): PatientBuilder {
-    console.log(link);
     if (typeof link.other.reference === 'string') {
       if (!link.other.reference?.startsWith('Patient/'))
         throw new Error('Link.other.reference must start with Patient/');
     }
 
     if (link.other.reference) {
-      console.log('link.other.reference', link.other.reference);
       link.other = new Reference<Patient | string>(link.other);
-
-      console.log('link.other', link.other);
     }
 
     if (!this._link) this._link = [];
@@ -221,7 +217,6 @@ export class PatientBuilder {
   }
 
   setManagingOrganization(args: Reference<Organization | string>): PatientBuilder {
-    console.log('args', args);
     if (!args) throw new Error('Managing organization reference is required');
 
     if (!(args.reference instanceof Organization) && typeof args.reference !== 'string') {
@@ -247,7 +242,6 @@ export class PatientBuilder {
   }
 
   addCommunication(communication: PatientCommunication): PatientBuilder {
-    console.log('communication', communication);
     if (!this._communication) this._communication = [];
     this._communication.push(communication);
 

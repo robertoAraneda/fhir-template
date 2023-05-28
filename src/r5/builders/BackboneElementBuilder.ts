@@ -15,12 +15,6 @@ export class BackboneElementBuilder<T> {
   }
 
   setContent(content?: T): BackboneElementBuilder<T> {
-    for (const key in content) {
-      console.log(key);
-      if (content[key] instanceof Reference) {
-        console.log('reference');
-      }
-    }
     this._content = content;
     return this;
   }
@@ -36,11 +30,11 @@ export class BackboneElementBuilder<T> {
   constructor(ctor: new () => T) {
 
     const instance = new ctor();
-    console.log(instance);
+
     //add attribute from content into this
 
     const methods = Object.keys(instance as Object);
-    console.log(methods);
+
     methods.forEach((method) => {
       if (method) {
         const camelSetName = method.charAt(0).toUpperCase() + method.slice(1);
@@ -56,7 +50,6 @@ export class BackboneElementBuilder<T> {
       }
     });
 
-    console.log(this);
   }
 
    */

@@ -26,14 +26,31 @@ export class Patient extends Resource {
   managingOrganization?: Reference<Organization | string>;
   link?: PatientLink[];
 
-  constructor(args?: Partial<Patient>) {
+  constructor(args?: Patient) {
     super('Patient');
 
-    if (args) {
-      const thisArgs = Object.keys(this);
+    const validArgs = [
+      'id',
+      'resourceType',
+      'identifier',
+      'active',
+      'name',
+      'telecom',
+      'gender',
+      'birthDate',
+      'maritalStatus',
+      'multipleBirthBoolean',
+      'multipleBirthInteger',
+      'communication',
+      'generalPractitioner',
+      'managingOrganization',
+      'link',
+    ];
 
+    if (args) {
       for (const key of Object.keys(args)) {
-        if (!thisArgs.includes(key)) throw new Error(`Key ${key} is not valid for type Patient`);
+        console.log(key);
+        if (!validArgs.includes(key)) throw new Error(`Key ${key} is not valid for type Patient`);
       }
       Object.assign(this, args);
     }

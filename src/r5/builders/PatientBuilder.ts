@@ -269,27 +269,26 @@ export class PatientBuilder {
   }
 
   build() {
-    const patient = new Patient();
-
-    patient.id = this._id;
-    patient.name = this._name;
-    patient.active = this._active;
-    patient.identifier = this._identifier;
-    patient.telecom = this._telecom;
-    patient.birthDate = this._birthDate;
-    patient.gender = this._gender;
-    patient.maritalStatus = this._maritalStatus;
-    patient.link = this._link;
-
     if (typeof this._multipleBirth === 'number') {
-      patient.multipleBirthInteger = this._multipleBirth;
+      this._multipleBirthInteger = this._multipleBirth;
     } else {
-      patient.multipleBirthBoolean = this._multipleBirth;
+      this._multipleBirthBoolean = this._multipleBirth;
     }
-
-    patient.managingOrganization = this._managingOrganization;
-    patient.communication = this._communication;
-
-    return patient;
+    return new Patient({
+      id: this._id,
+      resourceType: 'Patient',
+      name: this._name,
+      active: this._active,
+      identifier: this._identifier,
+      telecom: this._telecom,
+      birthDate: this._birthDate,
+      link: this._link,
+      gender: this._gender,
+      maritalStatus: this._maritalStatus,
+      communication: this._communication,
+      managingOrganization: this._managingOrganization,
+      multipleBirthBoolean: this._multipleBirthBoolean,
+      multipleBirthInteger: this._multipleBirthInteger,
+    });
   }
 }

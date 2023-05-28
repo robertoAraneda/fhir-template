@@ -28,6 +28,14 @@ export class Patient extends Resource {
 
   constructor(args?: Partial<Patient>) {
     super('Patient');
-    Object.assign(this, args);
+
+    if (args) {
+      const thisArgs = Object.keys(this);
+
+      for (const key of Object.keys(args)) {
+        if (!thisArgs.includes(key)) throw new Error(`Key ${key} is not valid for type Patient`);
+      }
+      Object.assign(this, args);
+    }
   }
 }

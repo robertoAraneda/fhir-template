@@ -1,6 +1,6 @@
 {
   "name": "fhir-template-generator",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

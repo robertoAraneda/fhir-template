@@ -22,7 +22,6 @@ import { RelatedPersonBuilder } from './src/r5/builders/RelatedPersonBuilder';
 import { RelatedPerson } from './src/r5/resources/RelatedPerson';
 import { AddressBuilder } from './src/r5/builders/AddressBuilder';
 import { Address } from './src/r5/datatypes/Address';
-import {} from 'fhr';
 
 const patientBuilder = new PatientBuilder();
 

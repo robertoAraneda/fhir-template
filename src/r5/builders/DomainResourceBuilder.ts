@@ -24,7 +24,7 @@ export class DomainResourceBuilder<T extends DomainResourceBuilder<T, U>, U exte
     return this.id;
   }
 
-  setMeta(meta: any): T {
+  setMeta(meta: Meta): T {
     this.meta = meta;
 
     return this as unknown as T;

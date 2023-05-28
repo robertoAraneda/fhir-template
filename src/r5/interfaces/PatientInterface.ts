@@ -9,6 +9,7 @@ import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 import { BackboneElement } from '../datatypes/BackboneElement';
 import { LinkPatient } from './LinkPatient';
+import { PatientLink } from '../datatypes/PatientLink';
 
 export interface PatientInterface {
   id?: number;
@@ -22,5 +23,5 @@ export interface PatientInterface {
   multipleBirthBoolean?: boolean;
   multipleBirthInteger?: number;
   managingOrganization?: Reference<Organization>;
-  link?: BackboneElement<LinkPatient>[];
+  link?: PatientLink[];
 }

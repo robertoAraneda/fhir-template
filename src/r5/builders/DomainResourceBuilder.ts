@@ -10,7 +10,7 @@ export class DomainResourceBuilder<T extends DomainResourceBuilder<T, U>, U exte
   private implicitRules: string;
   private language: string;
   private _text: Narrative;
-  private _contained: DomainResource[];
+  private _contained: any[];
   private _extension: Extension[];
   private _modifierExtension: Extension[];
 
@@ -70,21 +70,21 @@ export class DomainResourceBuilder<T extends DomainResourceBuilder<T, U>, U exte
     return this._text;
   }
 
-  addContainedResource(contained: DomainResource): T {
+  addContainedResource<R>(contained: R): T {
     if (!this._contained) this._contained = [];
     this._contained.push(contained);
 
     return this as unknown as T;
   }
 
-  setContainedResource(index: number, contained: DomainResource): T {
+  setContainedResource<R>(index: number, contained: R): T {
     if (!this._contained) this._contained = [];
     this._contained[index] = contained;
 
     return this as unknown as T;
   }
 
-  setMultipleContainedResource(containeds: DomainResource[]): T {
+  setMultipleContainedResource(containeds: any[]): T {
     this._contained = containeds;
 
     return this as unknown as T;

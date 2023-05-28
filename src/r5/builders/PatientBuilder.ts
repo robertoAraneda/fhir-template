@@ -6,6 +6,13 @@ import { Patient } from '../resources/Patient';
 import { AdministrativeGender } from '../enumerators/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { CodeableConcept } from '../datatypes/CodeableConcept';
+import { BackboneElement } from '../datatypes/BackboneElement';
+import { LinkPatient } from '../interfaces/LinkPatient';
+import { Organization } from '../resources/Organization';
+import { Reference } from '../datatypes/Reference';
+import { PatientCommunication } from '../datatypes/PatientCommunication';
+import { PatientLink } from '../datatypes/PatientLink';
+import { LinkType } from '../enumerators/LinkType';
 
 export class PatientBuilder {
   private _id: number;
@@ -16,6 +23,12 @@ export class PatientBuilder {
   private _gender: AdministrativeGender | AdministrativeGenderType;
   private _birthDate: string;
   private _maritalStatus: CodeableConcept;
+  private _multipleBirth: boolean | number;
+  private _multipleBirthBoolean: boolean;
+  private _multipleBirthInteger: number;
+  private _communication: PatientCommunication[];
+  private _managingOrganization: Reference<Organization | string>;
+  private _link: PatientLink[];
 
   setId(id: number): PatientBuilder {
     this._id = id;
@@ -147,36 +160,6 @@ export class PatientBuilder {
     return this._birthDate;
   }
 
-  addContactPoint(contactPoint: ContactPoint): PatientBuilder {
-    if (!this._telecom) this._telecom = [];
-    this._telecom.push(contactPoint);
-
-    return this;
-  }
-
-  setContactPoint(index: number, contactPoint: ContactPoint): PatientBuilder {
-    if (!this._telecom) this._telecom = [];
-    this._telecom[index] = contactPoint;
-
-    return this;
-  }
-
-  setContactPoints(contactPoints: ContactPoint[]): PatientBuilder {
-    this._telecom = contactPoints;
-
-    return this;
-  }
-
-  getContactPoint(index: number) {
-    if (!this._telecom) return null;
-    return this._telecom[index];
-  }
-
-  getContactPoints() {
-    if (!this._telecom) return [];
-    return this._telecom;
-  }
-
   setMaritalStatus(maritalStatus: CodeableConcept): PatientBuilder {
     this._maritalStatus = maritalStatus;
 
@@ -185,6 +168,110 @@ export class PatientBuilder {
 
   getMaritalStatus(): CodeableConcept {
     return this._maritalStatus;
+  }
+
+  addLink(link: PatientLink): PatientBuilder {
+    console.log(link);
+    if (typeof link.other.reference === 'string') {
+      if (!link.other.reference?.startsWith('Patient/'))
+        throw new Error('Link.other.reference must start with Patient/');
+    }
+
+    if (link.other.reference) {
+      console.log('link.other.reference', link.other.reference);
+      link.other = new Reference<Patient | string>(link.other);
+
+      console.log('link.other', link.other);
+    }
+
+    if (!this._link) this._link = [];
+    this._link.push(link);
+
+    return this;
+  }
+
+  setLink(index: number, link: PatientLink): PatientBuilder {
+    this._link[index] = link;
+
+    return this;
+  }
+
+  setLinks(links: PatientLink[]): PatientBuilder {
+    this._link = links;
+
+    return this;
+  }
+
+  getLink(index: number): BackboneElement {
+    return this._link[index];
+  }
+
+  getLinks(): BackboneElement[] {
+    return this._link;
+  }
+
+  setMultipleBirth(multipleBirth: boolean | number): PatientBuilder {
+    this._multipleBirth = multipleBirth;
+
+    return this;
+  }
+
+  getMultipleBirth(): boolean | number {
+    return this._multipleBirthBoolean || this._multipleBirthInteger;
+  }
+
+  setManagingOrganization(args: Reference<Organization | string>): PatientBuilder {
+    console.log('args', args);
+    if (!args) throw new Error('Managing organization reference is required');
+
+    if (!(args.reference instanceof Organization) && typeof args.reference !== 'string') {
+      throw new Error('Managing organization reference must be an instance of Organization');
+    }
+
+    if (typeof args.reference === 'string' && !args.reference.startsWith('Organization/')) {
+      throw new Error('Managing organization reference must start with Organization/');
+    }
+
+    if (typeof args.reference !== 'string') {
+      const reference = args.reference as Organization;
+      args.reference = `Organization/${reference.id}`;
+    }
+
+    this._managingOrganization = args;
+
+    return this;
+  }
+
+  getManagingOrganization(): Reference<Organization | string> {
+    return this._managingOrganization;
+  }
+
+  addCommunication(communication: PatientCommunication): PatientBuilder {
+    console.log('communication', communication);
+    if (!this._communication) this._communication = [];
+    this._communication.push(communication);
+
+    return this;
+  }
+
+  setCommunication(index: number, communication: PatientCommunication): PatientBuilder {
+    this._communication[index] = communication;
+
+    return this;
+  }
+
+  setCommunications(communications: PatientCommunication[]): PatientBuilder {
+    this._communication = communications;
+
+    return this;
+  }
+
+  getCommunication(index: number) {
+    return this._communication[index];
+  }
+
+  getCommunications() {
+    return this._communication;
   }
 
   build() {
@@ -198,6 +285,16 @@ export class PatientBuilder {
     patient.birthDate = this._birthDate;
     patient.gender = this._gender;
     patient.maritalStatus = this._maritalStatus;
+    patient.link = this._link;
+
+    if (typeof this._multipleBirth === 'number') {
+      patient.multipleBirthInteger = this._multipleBirth;
+    } else {
+      patient.multipleBirthBoolean = this._multipleBirth;
+    }
+
+    patient.managingOrganization = this._managingOrganization;
+    patient.communication = this._communication;
 
     return patient;
   }

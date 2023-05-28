@@ -1,11 +1,15 @@
 import { Resource } from './Resource';
-import { AdministrativeGenderVS } from '../valuesets/AdministrativeGenderVS';
 import { ContactPoint } from '../datatypes/ContactPoint';
 import { HumanName } from '../datatypes/HumanName';
 import { Identifier } from '../datatypes/Identifier';
 import { AdministrativeGender } from '../enumerators/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { CodeableConcept } from '../datatypes/CodeableConcept';
+import { BackboneElement } from '../datatypes/BackboneElement';
+import { Reference } from '../datatypes/Reference';
+import { Organization } from './Organization';
+import { PatientCommunication } from '../datatypes/PatientCommunication';
+import { PatientLink } from '../datatypes/PatientLink';
 
 export class Patient extends Resource {
   identifiers?: Identifier[];
@@ -15,6 +19,12 @@ export class Patient extends Resource {
   gender?: AdministrativeGender | AdministrativeGenderType;
   birthDate?: string;
   maritalStatus?: CodeableConcept;
+  multipleBirthBoolean?: boolean;
+  multipleBirthInteger?: number;
+  communication?: PatientCommunication[];
+  generalPractitioner?: Reference<Organization>[];
+  managingOrganization?: Reference<Organization | string>;
+  link?: PatientLink[];
 
   constructor(args?: Partial<Patient>) {
     super('Patient');

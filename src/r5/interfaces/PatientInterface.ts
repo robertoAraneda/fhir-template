@@ -13,7 +13,7 @@ import { PatientLink } from '../datatypes/PatientLink';
 
 export interface PatientInterface {
   id?: number;
-  identifiers?: Identifier[];
+  identifier?: Identifier[];
   active?: boolean;
   name?: HumanName[];
   telecom?: ContactPoint[];

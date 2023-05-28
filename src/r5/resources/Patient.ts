@@ -12,7 +12,7 @@ import { PatientCommunication } from '../datatypes/PatientCommunication';
 import { PatientLink } from '../datatypes/PatientLink';
 
 export class Patient extends Resource {
-  identifiers?: Identifier[];
+  identifier?: Identifier[];
   active?: boolean;
   name?: HumanName[];
   telecom?: ContactPoint[];

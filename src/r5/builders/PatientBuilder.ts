@@ -16,7 +16,7 @@ import { LinkType } from '../enumerators/LinkType';
 
 export class PatientBuilder {
   private _id: number;
-  private _identifiers: Identifier[];
+  private _identifier: Identifier[];
   private _active: boolean;
   private _name: HumanName[];
   private _telecom: ContactPoint[];
@@ -81,33 +81,33 @@ export class PatientBuilder {
   }
 
   addIdentifier(identifier: Identifier): PatientBuilder {
-    if (!this._identifiers) this._identifiers = [];
-    this._identifiers.push(identifier);
+    if (!this._identifier) this._identifier = [];
+    this._identifier.push(identifier);
 
     return this;
   }
 
   setIdentifier(index: number, identifier: Identifier): PatientBuilder {
-    if (!this._identifiers) this._identifiers = [];
-    this._identifiers[index] = identifier;
+    if (!this._identifier) this._identifier = [];
+    this._identifier[index] = identifier;
 
     return this;
   }
 
   setIdentifiers(identifiers: Identifier[]): PatientBuilder {
-    this._identifiers = identifiers;
+    this._identifier = identifiers;
 
     return this;
   }
 
   getIdentifier(index: number) {
-    if (!this._identifiers) return null;
-    return this._identifiers[index];
+    if (!this._identifier) return null;
+    return this._identifier[index];
   }
 
   getIdentifiers() {
-    if (!this._identifiers) return [];
-    return this._identifiers;
+    if (!this._identifier) return [];
+    return this._identifier;
   }
 
   addTelecom(telecom: ContactPoint): PatientBuilder {
@@ -274,7 +274,7 @@ export class PatientBuilder {
     patient.id = this._id;
     patient.name = this._name;
     patient.active = this._active;
-    patient.identifiers = this._identifiers;
+    patient.identifier = this._identifier;
     patient.telecom = this._telecom;
     patient.birthDate = this._birthDate;
     patient.gender = this._gender;

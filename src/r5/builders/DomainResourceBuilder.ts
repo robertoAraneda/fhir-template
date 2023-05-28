@@ -84,8 +84,8 @@ export class DomainResourceBuilder<T extends DomainResourceBuilder<T, U>, U exte
     return this as unknown as T;
   }
 
-  setMultipleContainedResource(containeds: any[]): T {
-    this._contained = containeds;
+  setMultipleContainedResource(items: any[]): T {
+    this._contained = items;
 
     return this as unknown as T;
   }

@@ -17,7 +17,7 @@ export class FhirContextR5 {
     // validate identifier
     if (patient.identifier) {
       patient.identifier.forEach((_identifier: Identifier) => {
-        new Identifier(_identifier);
+        const id = new Identifier(_identifier);
       });
     }
 
@@ -44,7 +44,7 @@ export class FhirContextR5 {
 
     if (organization.identifier) {
       organization.identifier.forEach((_identifier: Identifier) => {
-        new Identifier(_identifier);
+        const id = new Identifier(_identifier);
       });
     }
 

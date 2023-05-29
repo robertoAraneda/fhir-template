@@ -11,9 +11,6 @@ import { PractitionerQualification } from '../datatypes/PractitionerQualificatio
 import { PractitionerCommunication } from '../datatypes/PractitionerCommunication';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
-import { PractitionerCommunicationBuilder } from './PractitionerCommunicationBuilder';
-
-type deceased = boolean | string;
 
 export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuilder, Practitioner> {
   private _identifier: Identifier[];

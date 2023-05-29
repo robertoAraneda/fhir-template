@@ -281,6 +281,7 @@ export class OrganizationBuilder extends DomainResourceBuilder<OrganizationBuild
     const domainResource = super.build();
 
     return new Organization({
+      resourceType: 'Organization',
       ...domainResource,
       identifier: this._identifier,
       active: this._active,
@@ -292,7 +293,6 @@ export class OrganizationBuilder extends DomainResourceBuilder<OrganizationBuild
       partOf: this._partOf,
       endpoint: this._endpoint,
       qualification: this._qualification,
-      resourceType: 'Organization',
     });
   }
 

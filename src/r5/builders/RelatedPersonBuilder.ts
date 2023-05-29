@@ -258,6 +258,7 @@ export class RelatedPersonBuilder extends DomainResourceBuilder<RelatedPersonBui
     const domain = super.build();
 
     return new RelatedPerson({
+      resourceType: 'RelatedPerson',
       ...domain,
       identifier: this._identifier,
       active: this._active,

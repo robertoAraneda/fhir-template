@@ -252,6 +252,7 @@ export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuild
     }
 
     return new Practitioner({
+      resourceType: 'Practitioner',
       ...domainResource,
       identifier: this._identifier,
       active: this._active,

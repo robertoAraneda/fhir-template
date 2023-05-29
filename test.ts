@@ -90,6 +90,10 @@ const contact = new PatientContactBuilder()
 
 const patient = patientBuilder
   .setId(1)
+  .setText({
+    status: 'generated',
+    div: '<div xmlns="http://www.w3.org/1999/xhtml">John Smith Doe</div>',
+  })
   .addName(humanName)
   .setBirthDate('1983-12-06')
   .setActive(true)

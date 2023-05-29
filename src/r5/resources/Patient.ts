@@ -13,6 +13,7 @@ import { Attachment } from '../datatypes/Attachment';
 import { DomainResource, domainResourceValidArgs } from '../datatypes/DomainResource';
 import { resourceValidArgs } from '../datatypes/Resource';
 import { Address } from '../datatypes/Address';
+import { Practitioner } from './Practitioner';
 
 export class Patient extends DomainResource {
   resourceType = 'Patient';
@@ -29,7 +30,7 @@ export class Patient extends DomainResource {
   photo?: Attachment[];
   contact?: PatientContact[];
   communication?: PatientCommunication[];
-  generalPractitioner?: Reference<Organization>[];
+  generalPractitioner?: Reference<Organization | Practitioner | string>[];
   managingOrganization?: Reference<Organization | string>;
   link?: PatientLink[];
 

@@ -11,6 +11,7 @@ import { PractitionerCommunication } from '../datatypes/PractitionerCommunicatio
 import { resourceValidArgs } from '../datatypes/Resource';
 
 export class Practitioner extends DomainResource {
+  resourceType = 'Practitioner';
   identifier?: Identifier[];
   active?: boolean;
   name?: HumanName[];
@@ -32,6 +33,7 @@ export class Practitioner extends DomainResource {
       const validArgs = [
         ...domainResourceValidArgs,
         ...resourceValidArgs,
+        'resourceType',
         'identifier',
         'active',
         'name',

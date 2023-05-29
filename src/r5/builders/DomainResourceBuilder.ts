@@ -5,53 +5,53 @@ import { Extension } from '../datatypes/Extension';
 import { Meta } from '../datatypes/Meta';
 
 export class DomainResourceBuilder<T extends DomainResourceBuilder<T, U>, U extends DomainResource> {
-  private id: number | string;
-  private meta: Meta;
-  private implicitRules: string;
-  private language: string;
-  private _text: Narrative;
-  private _contained: any[];
-  private _extension: Extension[];
-  private _modifierExtension: Extension[];
+  protected _id: number | string;
+  protected _meta: Meta;
+  protected _implicitRules: string;
+  protected _language: string;
+  protected _text: Narrative;
+  protected _contained: any[];
+  protected _extension: Extension[];
+  protected _modifierExtension: Extension[];
 
   setId(id: number | string): T {
-    this.id = id;
+    this._id = id;
 
     return this as unknown as T;
   }
 
   getId(): number | string {
-    return this.id;
+    return this._id;
   }
 
   setMeta(meta: Meta): T {
-    this.meta = meta;
+    this._meta = meta;
 
     return this as unknown as T;
   }
 
   getMeta() {
-    return this.meta;
+    return this._meta;
   }
 
   setImplicitRules(implicitRules: string): T {
-    this.implicitRules = implicitRules;
+    this._implicitRules = implicitRules;
 
     return this as unknown as T;
   }
 
   getImplicitRules(): string {
-    return this.implicitRules;
+    return this._implicitRules;
   }
 
   setLanguage(language: string): T {
-    this.language = language;
+    this._language = language;
 
     return this as unknown as T;
   }
 
   getLanguage(): string {
-    return this.language;
+    return this._language;
   }
 
   setText(text: Narrative): T {
@@ -157,16 +157,18 @@ export class DomainResourceBuilder<T extends DomainResourceBuilder<T, U>, U exte
     return this._modifierExtension;
   }
 
-  build(): DomainResource {
-    return {
-      id: this.id,
-      meta: this.meta,
-      implicitRules: this.implicitRules,
-      language: this.language,
+  build() {
+    const domainResource = {
+      id: this._id,
+      meta: this._meta,
+      implicitRules: this._implicitRules,
+      language: this._language,
       text: this._text,
       contained: this._contained,
       extension: this._extension,
       modifierExtension: this._modifierExtension,
-    };
+    } as DomainResource;
+
+    return domainResource;
   }
 }

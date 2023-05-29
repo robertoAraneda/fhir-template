@@ -13,33 +13,59 @@ import { PatientCommunication } from '../datatypes/PatientCommunication';
 import { PatientLink } from '../datatypes/PatientLink';
 import { PatientContact } from '../datatypes/PatientContact';
 import { Attachment } from '../datatypes/Attachment';
+import { DomainResourceBuilder } from './DomainResourceBuilder';
+import { Address } from '../datatypes/Address';
+import { Practitioner } from '../resources/Practitioner';
+import { DomainResource } from '../datatypes/DomainResource';
 
-export class PatientBuilder {
-  private _id: number;
+type GeneralPractitionerType = Organization | Practitioner | string;
+type ManagingOrganizationType = Organization | string;
+
+export class PatientBuilder extends DomainResourceBuilder<PatientBuilder, Patient> {
   private _identifier: Identifier[];
   private _active: boolean;
   private _name: HumanName[];
   private _telecom: ContactPoint[];
   private _gender: AdministrativeGender | AdministrativeGenderType;
   private _birthDate: string;
+  private _address: Address[];
+  private _generalPractitioner?: Reference<GeneralPractitionerType>[];
   private _maritalStatus: CodeableConcept;
-  private _multipleBirth: boolean | number;
   private _multipleBirthBoolean: boolean;
   private _multipleBirthInteger: number;
   private _photo: Attachment[];
   private _contact: PatientContact[];
   private _communication: PatientCommunication[];
-  private _managingOrganization: Reference<Organization | string>;
+  private _managingOrganization: Reference<ManagingOrganizationType>;
   private _link: PatientLink[];
 
-  setId(id: number): PatientBuilder {
-    this._id = id;
+  createFrom(patient: Patient): PatientBuilder {
+    this._id = patient.id!;
+    this._meta = patient.meta!;
+    this._implicitRules = patient.implicitRules!;
+    this._language = patient.language!;
+    this._text = patient.text!;
+    this._contained = patient.contained!;
+    this._extension = patient.extension!;
+    this._modifierExtension = patient.modifierExtension!;
+    this._identifier = patient.identifier!;
+    this._active = patient.active!;
+    this._name = patient.name!;
+    this._telecom = patient.telecom!;
+    this._gender = patient.gender!;
+    this._birthDate = patient.birthDate!;
+    this._address = patient.address!;
+    this._generalPractitioner = patient.generalPractitioner!;
+    this._maritalStatus = patient.maritalStatus!;
+    this._multipleBirthBoolean = patient.multipleBirthBoolean!;
+    this._multipleBirthInteger = patient.multipleBirthInteger!;
+    this._photo = patient.photo!;
+    this._contact = patient.contact!;
+    this._communication = patient.communication!;
+    this._managingOrganization = patient.managingOrganization!;
+    this._link = patient.link!;
 
     return this;
-  }
-
-  getId(): number | undefined {
-    return this._id;
   }
 
   addName(name: HumanName): PatientBuilder {
@@ -208,8 +234,9 @@ export class PatientBuilder {
     return this._link;
   }
 
-  setMultipleBirth(multipleBirth: boolean | number): PatientBuilder {
-    this._multipleBirth = multipleBirth;
+  setMultipleBirth<R extends boolean | number>(multipleBirth: R): PatientBuilder {
+    if (typeof multipleBirth === 'boolean') this._multipleBirthBoolean = multipleBirth;
+    else if (typeof multipleBirth === 'number') this._multipleBirthInteger = multipleBirth;
 
     return this;
   }
@@ -218,7 +245,7 @@ export class PatientBuilder {
     return this._multipleBirthBoolean || this._multipleBirthInteger;
   }
 
-  setManagingOrganization(args: Reference<Organization | string>): PatientBuilder {
+  setManagingOrganization<T extends ManagingOrganizationType>(args: Reference<T>): PatientBuilder {
     if (!args) throw new Error('Managing organization reference is required');
 
     if (!(args.reference instanceof Organization) && typeof args.reference !== 'string') {
@@ -239,7 +266,7 @@ export class PatientBuilder {
     return this;
   }
 
-  getManagingOrganization(): Reference<Organization | string> {
+  getManagingOrganization(): Reference<ManagingOrganizationType> {
     return this._managingOrganization;
   }
 
@@ -352,15 +379,87 @@ export class PatientBuilder {
     return this._photo;
   }
 
-  build() {
-    if (typeof this._multipleBirth === 'number') {
-      this._multipleBirthInteger = this._multipleBirth;
-    } else {
-      this._multipleBirthBoolean = this._multipleBirth;
-    }
-    return new Patient({
-      id: this._id,
-      resourceType: 'Person',
+  addAddress(address: Address): PatientBuilder {
+    this._address = this._address || [];
+    this._address.push(address);
+
+    return this;
+  }
+
+  setMultipleAddress(addresses: Address[]): PatientBuilder {
+    this._address = addresses;
+
+    return this;
+  }
+
+  setAddress(index: number, address: Address): PatientBuilder {
+    this._address = this._address || [];
+    this._address[index] = address;
+
+    return this;
+  }
+
+  private getAddressByIndex(index: number): Address {
+    this._address = this._address || [];
+    return this._address[index];
+  }
+
+  findAddressByIndex(index: number) {
+    return {
+      get: (): Address => this.getAddressByIndex(index),
+      set: (address: Address) => this.setAddress(index, address),
+    };
+  }
+
+  addGeneralPractitioner<T extends GeneralPractitionerType>(generalPractitioner: Reference<T>): PatientBuilder {
+    this._generalPractitioner = this._generalPractitioner || [];
+    this._generalPractitioner.push(generalPractitioner);
+
+    return this;
+  }
+
+  setMultipleGeneralPractitioner<T extends GeneralPractitionerType>(
+    generalPractitioners: Reference<T>[],
+  ): PatientBuilder {
+    this._generalPractitioner = generalPractitioners;
+
+    return this;
+  }
+
+  getGeneralPractitioner<T extends GeneralPractitionerType>(index: number): Reference<GeneralPractitionerType> {
+    this._generalPractitioner = this._generalPractitioner || [];
+    return this._generalPractitioner[index];
+  }
+
+  findGeneralPractitionerByIndex<T extends GeneralPractitionerType>(
+    index: number,
+  ): {
+    get: () => Reference<GeneralPractitionerType>;
+    set: (generalPractitioner: Reference<T>) => PatientBuilder;
+  } {
+    return {
+      get: (): Reference<GeneralPractitionerType> => this.getGeneralPractitioner<GeneralPractitionerType>(index),
+      set: (generalPractitioner: Reference<T>) => this.setGeneralPractitioner<T>(index, generalPractitioner),
+    };
+  }
+
+  setGeneralPractitioner<T extends GeneralPractitionerType>(
+    index: number,
+    generalPractitioner: Reference<T>,
+  ): PatientBuilder {
+    this._generalPractitioner = this._generalPractitioner || [];
+    this._generalPractitioner[index] = generalPractitioner;
+
+    return this;
+  }
+
+  build(): Patient {
+    const domainBuilder = super.build();
+    const patient = new Patient({
+      resourceType: 'Patient',
+      ...domainBuilder,
+      generalPractitioner: this._generalPractitioner,
+      address: this._address,
       name: this._name,
       active: this._active,
       identifier: this._identifier,
@@ -376,5 +475,7 @@ export class PatientBuilder {
       multipleBirthBoolean: this._multipleBirthBoolean,
       multipleBirthInteger: this._multipleBirthInteger,
     });
+
+    return patient;
   }
 }

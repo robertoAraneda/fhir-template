@@ -62,7 +62,6 @@ export class IdentifierBuilder {
   }
 
   setAssigner(value: Reference<Organization | string>): IdentifierBuilder {
-    console.log('value', value);
     if (value instanceof Reference<Organization>) {
       if (value.reference && typeof value.reference !== 'string') {
         throw new Error(`Invalid assigner passed to Identifier. Must be of type Organization.`);

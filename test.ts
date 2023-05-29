@@ -293,12 +293,16 @@ const practitioner = new PractitionerBuilder()
     text: 'John Smith Doe',
   })
   .addName(hn)
+
   .addQualification({
     identifier: [
       {
         system: 'http://terminology.hl7.org/CodeSystem/v2-0360/2.7',
         use: 'usual',
         value: '12345',
+        assigner: new Reference<Organization | string>({
+          reference: new Organization({ id: 1 }),
+        }),
       },
     ],
     code: {
@@ -310,9 +314,9 @@ const practitioner = new PractitionerBuilder()
         },
       ],
     },
-    issuer: {
-      reference: new Organization({ id: 1 }),
-    },
+    issuer: new Reference<Organization | string>({
+      reference: 'Organization/1',
+    }),
   })
   .build();
 

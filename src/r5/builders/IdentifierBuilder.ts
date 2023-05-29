@@ -3,20 +3,21 @@ import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 import { Identifier } from '../datatypes/Identifier';
 import { PeriodInterface } from '../interfaces/PeriodInterface';
-import { ReferenceInterface } from '../interfaces/ReferenceInterface';
+import { IdentifierUse } from '../enumerators/IdentifierUse';
+import { IdentifierUseType } from '../types/IdentifierUseType';
 
 export class IdentifierBuilder {
-  private _use: string;
+  private _use: IdentifierUse | IdentifierUseType;
   private _system: string;
   private _value: string;
   private _period: Period;
-  private _assigner: Reference<Organization> | ReferenceInterface<Organization>;
+  private _assigner: Reference<Organization | string>;
 
   getUse(): string {
     return this._use;
   }
 
-  setUse(value: string): IdentifierBuilder {
+  setUse(value: IdentifierUse | IdentifierUseType): IdentifierBuilder {
     this._use = value;
 
     return this;
@@ -56,32 +57,19 @@ export class IdentifierBuilder {
     return this;
   }
 
-  getAssigner(): Reference<Organization> {
+  getAssigner(): Reference<Organization | string> {
     return this._assigner;
   }
 
-  setAssigner(value: Reference<Organization> | ReferenceInterface<Organization>): IdentifierBuilder {
-    if (value instanceof Reference) {
-      this._assigner = value;
-    } else {
-      this._assigner = new Reference<Organization>(value);
+  setAssigner(value: Reference<Organization | string>): IdentifierBuilder {
+    console.log('value', value);
+    if (value instanceof Reference<Organization>) {
+      if (value.reference && typeof value.reference !== 'string') {
+        throw new Error(`Invalid assigner passed to Identifier. Must be of type Organization.`);
+      }
     }
 
     return this;
-  }
-
-  toString() {
-    return JSON.stringify({
-      use: this._use,
-      system: this._system,
-      value: this._value,
-      period: this._period,
-      assigner: this._assigner,
-    });
-  }
-
-  toJson() {
-    return JSON.parse(this.toString());
   }
 
   build(): Identifier {

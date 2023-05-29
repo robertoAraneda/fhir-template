@@ -4,15 +4,15 @@ import { Organization } from '../resources/Organization';
 import { ReferenceInterface } from '../interfaces/ReferenceInterface';
 import { PeriodInterface } from '../interfaces/PeriodInterface';
 import { IdentifierUse } from '../enumerators/IdentifierUse';
-import { IdentifierUserType } from '../types/IdentifierUserType';
+import { IdentifierUseType } from '../types/IdentifierUseType';
 import { validateIdentifier } from '../validators/ValidateIdentifier';
 
 export class Identifier {
-  use?: IdentifierUse | IdentifierUserType;
+  use?: IdentifierUse | IdentifierUseType;
   system?: string;
   value?: string;
-  period?: Period | PeriodInterface;
-  assigner?: Reference<Organization> | ReferenceInterface<Organization>;
+  period?: Period;
+  assigner?: Reference<Organization | string>;
 
   constructor(args?: Partial<Identifier>) {
     Object.assign(this, args);

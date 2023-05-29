@@ -22,6 +22,11 @@ import { RelatedPersonBuilder } from './src/r5/builders/RelatedPersonBuilder';
 import { RelatedPerson } from './src/r5/resources/RelatedPerson';
 import { AddressBuilder } from './src/r5/builders/AddressBuilder';
 import { Address } from './src/r5/datatypes/Address';
+import { OrganizationBuilder } from './src/r5/builders/OrganizationBuilder';
+import { createContext } from './src/index';
+import { FhirContextR5 } from './src/r5';
+import { PractitionerBuilder } from './src/r5/builders/PractitionerBuilder';
+import { HumanName } from './lib/r5/datatypes/HumanName';
 
 const patientBuilder = new PatientBuilder();
 
@@ -187,3 +192,128 @@ console.log(JSON.stringify(ad, null, 2));
 console.log(JSON.stringify(address, null, 2));
 
 console.log(JSON.stringify(relatedPerson, null, 2));
+
+const org = new OrganizationBuilder()
+  .addIdentifier({
+    use: 'usual',
+    system: 'urn:oid:2.16.840.1.113883.4.1',
+    value: '12345',
+  })
+  .setDescription('A great organization')
+  .setName('Great Organization')
+  .addAlias('Great Org')
+  .addQualification({
+    identifier: [
+      {
+        use: 'usual',
+        system: 'urn:oid:2.16.840.1.113883.4.1',
+        value: '12345',
+      },
+    ],
+    code: {
+      coding: [
+        {
+          code: 'MD',
+          system: 'http://terminology.hl7.org/CodeSystem/v2-0360/2.7',
+          display: 'Medical Doctor',
+        },
+      ],
+    },
+  })
+  .addContact({
+    address: {
+      line: ['123 Main St.'],
+    },
+    telecom: [
+      {
+        value: '555-555-5555',
+        system: ContactPointSystem.EMAIL,
+        use: ContactPointUse.MOBILE,
+      },
+    ],
+  })
+  .setActive(true)
+  .build();
+
+console.log(JSON.stringify(org, null, 2));
+
+const context = createContext('R5') as FhirContextR5;
+
+const pat = {
+  resourceType: 'Patient',
+  id: '1',
+  name: 'string',
+  identifier: [
+    {
+      use: 'usual',
+      assigner: { reference: 'Organization/1' },
+    },
+  ],
+};
+
+const validatePat = context.validate('Patient', pat);
+
+const organ = {
+  resourceType: 'Organization',
+  id: '1',
+  name: 'Great Organization',
+  contact: [
+    {
+      telecom: [
+        {
+          system: 'email',
+          value: '555-555-5555',
+          use: 'mobile',
+        },
+      ],
+    },
+  ],
+};
+const validateOrg = context.validate('Organization', organ);
+
+console.log(JSON.stringify(validatePat, null, 2));
+
+const hn = new HumanName({
+  use: 'official',
+  family: 'Doe',
+  given: ['John', 'Smith'],
+  text: 'John Smith Doe',
+});
+
+const practitioner = new PractitionerBuilder()
+  .addIdentifier({
+    use: 'usual',
+    system: 'urn:oid:2.16.840.1.113883.4.1',
+    value: '12345',
+  })
+  .addName({
+    use: 'official',
+    family: 'Doe',
+    given: ['John', 'Smith'],
+    text: 'John Smith Doe',
+  })
+  .addName(hn)
+  .addQualification({
+    identifier: [
+      {
+        system: 'http://terminology.hl7.org/CodeSystem/v2-0360/2.7',
+        use: 'usual',
+        value: '12345',
+      },
+    ],
+    code: {
+      coding: [
+        {
+          code: 'MD',
+          system: 'http://terminology.hl7.org/CodeSystem/v2-0360/2.7',
+          display: 'Medical Doctor',
+        },
+      ],
+    },
+    issuer: {
+      reference: new Organization({ id: 1 }),
+    },
+  })
+  .build();
+
+console.log(JSON.stringify(practitioner, null, 2));

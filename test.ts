@@ -27,6 +27,8 @@ import { createContext } from './src/index';
 import { FhirContextR5 } from './src/r5';
 import { PractitionerBuilder } from './src/r5/builders/PractitionerBuilder';
 import { HumanName } from './lib/r5/datatypes/HumanName';
+import { PractitionerQualificationBuilder } from './src/r5/builders/PractitionerQualificationBuilder';
+import { PractitionerQualification } from './lib/r5/datatypes/PractitionerQualification';
 
 const patientBuilder = new PatientBuilder();
 
@@ -280,6 +282,26 @@ const hn = new HumanName({
   text: 'John Smith Doe',
 });
 
+const prQualification: PractitionerQualification = new PractitionerQualificationBuilder()
+  .getIdentifier(0)
+  .set({
+    use: 'usual',
+    system: 'urn:oid:2.16.840.1.113883.4.1',
+    value: '12345',
+  })
+  .addIdentifier({
+    use: 'usual',
+    system: 'urn:oid:2.16.840.1.113883.4.1',
+    value: '123456',
+    period: {
+      end: '2020-01-01',
+      start: '2019-01-01',
+    },
+    assigner: new Reference<Organization | string>({ reference: new Organization({ id: 1 }) }),
+  });
+
+console.log(JSON.stringify(prQualification, null, 2));
+
 const practitioner = new PractitionerBuilder()
   .addIdentifier({
     use: 'usual',
@@ -293,7 +315,19 @@ const practitioner = new PractitionerBuilder()
     text: 'John Smith Doe',
   })
   .addName(hn)
-
+  .setActive(true)
+  .setDeceased<string>('2020-01-01')
+  .getCommunication(0)
+  .set({
+    preferred: true,
+    language: {
+      coding: [
+        {
+          code: 'en-US',
+        },
+      ],
+    },
+  })
   .addQualification({
     identifier: [
       {

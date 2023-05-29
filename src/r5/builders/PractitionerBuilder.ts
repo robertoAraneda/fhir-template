@@ -11,6 +11,9 @@ import { PractitionerQualification } from '../datatypes/PractitionerQualificatio
 import { PractitionerCommunication } from '../datatypes/PractitionerCommunication';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
+import { PractitionerCommunicationBuilder } from './PractitionerCommunicationBuilder';
+
+type deceased = boolean | string;
 
 export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuilder, Practitioner> {
   private _identifier: Identifier[];
@@ -212,6 +215,32 @@ export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuild
       get: () => this._communication[index],
       set: (value: PractitionerCommunication) => this.setCommunication(index, value),
     };
+  }
+
+  setDeceased<R extends boolean | string>(deceased: R): PractitionerBuilder {
+    if (typeof deceased === 'string') {
+      this._deceasedDateTime = deceased;
+    } else if (typeof deceased === 'boolean') {
+      this._deceasedBoolean = deceased;
+    }
+
+    return this;
+  }
+
+  setActive(active: boolean): PractitionerBuilder {
+    this._active = active;
+    return this;
+  }
+
+  setBirthDate(birthDate: string): PractitionerBuilder {
+    this._birthDate = birthDate;
+    return this;
+  }
+
+  setGender(gender: AdministrativeGender | AdministrativeGenderType): PractitionerBuilder {
+    this._gender = gender;
+
+    return this;
   }
 
   build(): Practitioner {

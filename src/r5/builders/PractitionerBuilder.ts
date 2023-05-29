@@ -69,17 +69,14 @@ export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuild
     }
 
     if (qualification.identifier) {
-      for (let i = 0; i < qualification.identifier.length; i++) {
-        const identifier = qualification.identifier[i];
+      qualification.identifier.forEach((identifier) => {
         if (typeof identifier.assigner?.reference === 'string') {
-          qualification.identifier[i].assigner = { reference: identifier.assigner.reference };
+          identifier.assigner = { reference: identifier.assigner.reference };
         }
         if (typeof identifier.assigner?.reference !== 'string') {
-          qualification.identifier[i].assigner = new Reference<Organization>(
-            identifier.assigner as Reference<Organization>,
-          );
+          identifier.assigner = new Reference<Organization>(identifier.assigner as Reference<Organization>);
         }
-      }
+      });
     }
     this._qualification.push(qualification);
     return this;

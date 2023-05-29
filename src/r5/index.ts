@@ -14,16 +14,14 @@ export class FhirContextR5 {
   }
 
   private validatePatient(patient: Patient): boolean {
-    console.log('patient', patient);
-
-    //validate identifier
+    // validate identifier
     if (patient.identifier) {
       patient.identifier.forEach((_identifier: Identifier) => {
         new Identifier(_identifier);
       });
     }
 
-    //validate contact
+    // validate contact
     if (patient.contact) {
       patient.contact.forEach((_contact: any) => {
         if (!_contact.name && !_contact.telecom && !_contact.address && !_contact.organization) {
@@ -38,8 +36,6 @@ export class FhirContextR5 {
   }
 
   private validateOrganization(organization: Organization): boolean {
-    console.log('organization', organization);
-
     if (!organization.identifier && !organization.name) {
       throw new Error(
         `[Constraints: (base)] The organization SHALL at least have a name or an identifier, and possibly more than one.`,

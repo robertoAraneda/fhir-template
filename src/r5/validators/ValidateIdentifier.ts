@@ -6,14 +6,13 @@ import { Organization } from '../resources/Organization';
 
 export const validateIdentifier = (identifier: Identifier): boolean => {
   const validUses = Object.values(IdentifierUse).map((key) => key) as string[];
-  console.log('validUses', validUses);
 
-  //validate use
+  // validate use
   if (identifier.use && !validUses.includes(identifier.use)) {
     throw new Error(`Invalid use '${identifier.use}' passed to Identifier.`);
   }
 
-  //validate period
+  // validate period
   if (identifier.period) {
     const period = new Period(identifier.period);
     identifier.period = period;
@@ -23,9 +22,9 @@ export const validateIdentifier = (identifier: Identifier): boolean => {
     }
   }
 
-  //validate assigner
+  // validate assigner
   if (identifier.assigner) {
-    //check if string starts with Organization/
+    // check if string starts with Organization/
 
     let assignerReference = '';
 

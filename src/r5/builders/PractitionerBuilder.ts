@@ -3,12 +3,12 @@ import { Practitioner } from '../resources/Practitioner';
 import { Identifier } from '../datatypes/Identifier';
 import { HumanName } from '../datatypes/HumanName';
 import { ContactPoint } from '../datatypes/ContactPoint';
-import { AdministrativeGender } from '../enumerators/AdministrativeGender';
+import { AdministrativeGender } from '../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { Address } from '../datatypes/Address';
 import { Attachment } from '../datatypes/Attachment';
-import { PractitionerQualification } from '../datatypes/PractitionerQualification';
-import { PractitionerCommunication } from '../datatypes/PractitionerCommunication';
+import { PractitionerQualification } from '../backbones/PractitionerQualification';
+import { PractitionerCommunication } from '../backbones/PractitionerCommunication';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 

@@ -1,6 +1,6 @@
 import { Period } from './Period';
-import { ContactPointSystem } from '../enumerators/ContactPointSystem';
-import { ContactPointUse } from '../enumerators/ContactPointUse';
+import { ContactPointSystem } from '../enums/ContactPointSystem';
+import { ContactPointUse } from '../enums/ContactPointUse';
 import { ContactPointSystemType } from '../types/ContactPointSystemType';
 import { ContactPointUseType } from '../types/ContactPointUseType';
 

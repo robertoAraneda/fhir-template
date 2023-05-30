@@ -1,5 +1,5 @@
 import { CodeableConcept } from '../datatypes/CodeableConcept';
-import { PractitionerCommunication } from '../datatypes/PractitionerCommunication';
+import { PractitionerCommunication } from '../backbones/PractitionerCommunication';
 
 export class PractitionerCommunicationBuilder {
   private _language: CodeableConcept;

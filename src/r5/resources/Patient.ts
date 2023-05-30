@@ -1,14 +1,14 @@
 import { ContactPoint } from '../datatypes/ContactPoint';
 import { HumanName } from '../datatypes/HumanName';
 import { Identifier } from '../datatypes/Identifier';
-import { AdministrativeGender } from '../enumerators/AdministrativeGender';
+import { AdministrativeGender } from '../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { CodeableConcept } from '../datatypes/CodeableConcept';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from './Organization';
-import { PatientCommunication } from '../datatypes/PatientCommunication';
-import { PatientLink } from '../datatypes/PatientLink';
-import { PatientContact } from '../datatypes/PatientContact';
+import { PatientCommunication } from '../backbones/PatientCommunication';
+import { PatientLink } from '../backbones/PatientLink';
+import { PatientContact } from '../backbones/PatientContact';
 import { Attachment } from '../datatypes/Attachment';
 import { DomainResource, domainResourceValidArgs } from '../datatypes/DomainResource';
 import { resourceValidArgs } from '../datatypes/Resource';

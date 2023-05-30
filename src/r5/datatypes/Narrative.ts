@@ -1,5 +1,5 @@
 import { Element } from './Element';
-import { NarrativeStatus } from '../enumerators/NarrativeStatus';
+import { NarrativeStatus } from '../enums/NarrativeStatus';
 import { NarrativeStatusType } from '../types/NarrativeStatusType';
 
 /**

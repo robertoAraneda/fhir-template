@@ -1,9 +1,9 @@
-import { CodeableConcept } from './CodeableConcept';
-import { Identifier } from './Identifier';
-import { Reference } from './Reference';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
+import { Identifier } from '../datatypes/Identifier';
+import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
-import { Period } from './Period';
-import { BackboneElement } from './BackboneElement';
+import { Period } from '../datatypes/Period';
+import { BackboneElement } from '../datatypes/BackboneElement';
 
 export class PractitionerQualification extends BackboneElement {
   /**

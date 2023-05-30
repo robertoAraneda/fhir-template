@@ -1,5 +1,5 @@
 import { Identifier } from '../datatypes/Identifier';
-import { IdentifierUse } from '../enumerators/IdentifierUse';
+import { IdentifierUse } from '../enums/IdentifierUse';
 import { Period } from '../datatypes/Period';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
@@ -24,6 +24,7 @@ export const validateIdentifier = (identifier: Identifier): boolean => {
 
   // validate assigner
   if (identifier.assigner) {
+    console.log(identifier.assigner);
     // check if string starts with Organization/
 
     let assignerReference = '';
@@ -37,7 +38,7 @@ export const validateIdentifier = (identifier: Identifier): boolean => {
         reference: identifier.assigner.reference,
       });
 
-      assignerReference = ref.reference as string;
+      assignerReference = ref.reference as unknown as string;
     }
 
     if (!assignerReference.startsWith('Organization/')) {

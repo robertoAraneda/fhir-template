@@ -1,9 +1,9 @@
-import { BackboneElement } from './BackboneElement';
-import { CodeableConcept } from './CodeableConcept';
-import { Identifier } from './Identifier';
+import { BackboneElement } from '../datatypes/BackboneElement';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
+import { Identifier } from '../datatypes/Identifier';
 import { Organization } from '../resources/Organization';
-import { Reference } from './Reference';
-import { Period } from './Period';
+import { Reference } from '../datatypes/Reference';
+import { Period } from '../datatypes/Period';
 
 /**
  * A qualification for the organization

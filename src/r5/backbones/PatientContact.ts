@@ -1,11 +1,11 @@
-import { BackboneElement } from './BackboneElement';
-import { CodeableConcept } from './CodeableConcept';
-import { HumanName } from './HumanName';
-import { ContactPoint } from './ContactPoint';
-import { AdministrativeGender } from '../enumerators/AdministrativeGender';
-import { Reference } from './Reference';
+import { BackboneElement } from '../datatypes/BackboneElement';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
+import { HumanName } from '../datatypes/HumanName';
+import { ContactPoint } from '../datatypes/ContactPoint';
+import { AdministrativeGender } from '../enums/AdministrativeGender';
+import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
-import { Period } from './Period';
+import { Period } from '../datatypes/Period';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 
 export class PatientContact extends BackboneElement {

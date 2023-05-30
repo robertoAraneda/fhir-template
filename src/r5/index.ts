@@ -1,8 +1,10 @@
 import { Patient } from './resources/Patient';
 import { Identifier } from './datatypes/Identifier';
 import { Organization } from './resources/Organization';
+import { ResourceType } from './interfaces/ResourceType';
+import { ResourceTypeType } from './types/ResourceTypeType';
 export class FhirContextR5 {
-  public validate(resourceType: string, payload: any): boolean {
+  public validate(resourceType: ResourceType | ResourceTypeType, payload: any): boolean {
     switch (resourceType) {
       case 'Patient':
         return this.validatePatient(payload);

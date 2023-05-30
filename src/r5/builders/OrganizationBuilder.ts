@@ -5,7 +5,7 @@ import { CodeableConcept } from '../datatypes/CodeableConcept';
 import { ExtendedContactDetail } from '../datatypes/ExtendedContactDetail';
 import { Reference } from '../datatypes/Reference';
 import { Endpoint } from '../datatypes/Endpoint';
-import { OrganizationQualification } from '../datatypes/OrganizationCualification';
+import { OrganizationQualification } from '../backbones/OrganizationCualification';
 
 export class OrganizationBuilder extends DomainResourceBuilder<OrganizationBuilder, Organization> {
   private _identifier: Identifier[];

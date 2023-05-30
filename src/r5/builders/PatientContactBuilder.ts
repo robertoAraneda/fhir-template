@@ -1,12 +1,12 @@
 import { CodeableConcept } from '../datatypes/CodeableConcept';
 import { HumanName } from '../datatypes/HumanName';
 import { ContactPoint } from '../datatypes/ContactPoint';
-import { AdministrativeGender } from '../enumerators/AdministrativeGender';
+import { AdministrativeGender } from '../enums/AdministrativeGender';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 import { Period } from '../datatypes/Period';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
-import { PatientContact } from '../datatypes/PatientContact';
+import { PatientContact } from '../backbones/PatientContact';
 
 export class PatientContactBuilder {
   private _relationship: CodeableConcept[];

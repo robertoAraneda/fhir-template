@@ -1,21 +1,21 @@
 import { Identifier } from '../datatypes/Identifier';
 import { HumanName } from '../datatypes/HumanName';
 import { ContactPoint } from '../datatypes/ContactPoint';
-import { AdministrativeGender } from '../enumerators/AdministrativeGender';
+import { AdministrativeGender } from '../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { CodeableConcept } from '../datatypes/CodeableConcept';
 import { Attachment } from '../datatypes/Attachment';
-import { PatientContact } from '../datatypes/PatientContact';
-import { PatientCommunication } from '../datatypes/PatientCommunication';
+import { PatientContact } from '../backbones/PatientContact';
+import { PatientCommunication } from '../backbones/PatientCommunication';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
-import { PatientLink } from '../datatypes/PatientLink';
+import { PatientLink } from '../backbones/PatientLink';
 import { AdministrativeGenderVS } from '../valuesets/AdministrativeGenderVS';
 import { Patient } from '../resources/Patient';
 import { BackboneElement } from '../datatypes/BackboneElement';
 import { Person } from '../resources/Person';
-import { PersonLink } from '../datatypes/PersonLink';
-import { PersonCommunication } from '../datatypes/PersonCommunication';
+import { PersonLink } from '../backbones/PersonLink';
+import { PersonCommunication } from '../backbones/PersonCommunication';
 
 export class PersonBuilder {
   private _id: number;

@@ -2,16 +2,18 @@ import { DomainResource, domainResourceValidArgs } from '../datatypes/DomainReso
 import { Identifier } from '../datatypes/Identifier';
 import { HumanName } from '../datatypes/HumanName';
 import { ContactPoint } from '../datatypes/ContactPoint';
-import { AdministrativeGender } from '../enumerators/AdministrativeGender';
+import { AdministrativeGender } from '../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { CodeableConcept } from '../datatypes/CodeableConcept';
 import { Attachment } from '../datatypes/Attachment';
-import { PersonCommunication } from '../datatypes/PersonCommunication';
+import { PersonCommunication } from '../backbones/PersonCommunication';
 import { Reference } from '../datatypes/Reference';
 import { Patient } from './Patient';
 import { Period } from '../datatypes/Period';
 import { resourceValidArgs } from '../datatypes/Resource';
 import { Address } from '../datatypes/Address';
+import { validateRelatedPerson } from '../validators/ValidateRelatedPerson';
+import { RelatedPersonCommunication } from '../backbones/RelatedPersonCommunication';
 
 export class RelatedPerson extends DomainResource {
   resourceType = 'RelatedPerson';
@@ -26,34 +28,13 @@ export class RelatedPerson extends DomainResource {
   address?: Address[];
   photo?: Attachment[];
   period?: Period;
-  communication?: PersonCommunication[];
+  communication?: RelatedPersonCommunication[];
 
   constructor(args?: Partial<RelatedPerson>) {
     super();
 
-    const validArgs = [
-      ...domainResourceValidArgs,
-      ...resourceValidArgs,
-      'resourceType',
-      'identifier',
-      'active',
-      'patient',
-      'relationship',
-      'name',
-      'telecom',
-      'gender',
-      'birthDate',
-      'address',
-      'photo',
-      'period',
-      'communication',
-    ];
+    args && validateRelatedPerson(args);
 
-    if (args) {
-      for (const key of Object.keys(args)) {
-        if (!validArgs.includes(key)) throw new Error(`Key ${key} is not valid for type RelatedPerson`);
-      }
-      Object.assign(this, args);
-    }
+    Object.assign(this, args);
   }
 }

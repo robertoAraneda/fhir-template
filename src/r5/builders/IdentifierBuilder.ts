@@ -3,8 +3,10 @@ import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 import { Identifier } from '../datatypes/Identifier';
 import { PeriodInterface } from '../interfaces/PeriodInterface';
-import { IdentifierUse } from '../enumerators/IdentifierUse';
+import { IdentifierUse } from '../enums/IdentifierUse';
 import { IdentifierUseType } from '../types/IdentifierUseType';
+import { DomainResource } from '../datatypes/DomainResource';
+import { transformReference } from '../helpers/transformReference';
 
 export class IdentifierBuilder {
   private _use: IdentifierUse | IdentifierUseType;
@@ -13,18 +15,10 @@ export class IdentifierBuilder {
   private _period: Period;
   private _assigner: Reference<Organization | string>;
 
-  getUse(): string {
-    return this._use;
-  }
-
   setUse(value: IdentifierUse | IdentifierUseType): IdentifierBuilder {
     this._use = value;
 
     return this;
-  }
-
-  getSystem(): string {
-    return this._system;
   }
 
   setSystem(value: string): IdentifierBuilder {
@@ -33,40 +27,20 @@ export class IdentifierBuilder {
     return this;
   }
 
-  getValue(): string {
-    return this._value;
-  }
-
   setValue(value: string): IdentifierBuilder {
     this._value = value;
 
     return this;
   }
 
-  getPeriod(): Period {
-    return this._period;
-  }
-
-  setPeriod(value: Period | PeriodInterface): IdentifierBuilder {
-    if (value instanceof Period) {
-      this._period = value;
-    } else {
-      this._period = new Period(value);
-    }
+  setPeriod(value: Period): IdentifierBuilder {
+    this._period = value;
 
     return this;
   }
 
-  getAssigner(): Reference<Organization | string> {
-    return this._assigner;
-  }
-
-  setAssigner(value: Reference<Organization | string>): IdentifierBuilder {
-    if (value instanceof Reference<Organization>) {
-      if (value.reference && typeof value.reference !== 'string') {
-        throw new Error(`Invalid assigner passed to Identifier. Must be of type Organization.`);
-      }
-    }
+  setAssigner<T extends DomainResource | string>(value: Reference<T>): IdentifierBuilder {
+    this._assigner = transformReference(value, 'Organization', ['Organization']);
 
     return this;
   }

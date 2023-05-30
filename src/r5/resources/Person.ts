@@ -2,14 +2,14 @@ import { DomainResource, domainResourceValidArgs } from '../datatypes/DomainReso
 import { Identifier } from '../datatypes/Identifier';
 import { HumanName } from '../datatypes/HumanName';
 import { ContactPoint } from '../datatypes/ContactPoint';
-import { AdministrativeGender } from '../enumerators/AdministrativeGender';
+import { AdministrativeGender } from '../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../types/AdministrativeGenderType';
 import { CodeableConcept } from '../datatypes/CodeableConcept';
 import { Attachment } from '../datatypes/Attachment';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from './Organization';
-import { PersonCommunication } from '../datatypes/PersonCommunication';
-import { PersonLink } from '../datatypes/PersonLink';
+import { PersonCommunication } from '../backbones/PersonCommunication';
+import { PersonLink } from '../backbones/PersonLink';
 import { resourceValidArgs } from '../datatypes/Resource';
 import { Address } from '../datatypes/Address';
 

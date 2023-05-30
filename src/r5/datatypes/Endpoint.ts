@@ -5,7 +5,7 @@ import { Reference } from './Reference';
 import { Organization } from '../resources/Organization';
 import { ContactPoint } from './ContactPoint';
 import { Period } from './Period';
-import { EndpointPayload } from './EndpointPayload';
+import { EndpointPayload } from '../backbones/EndpointPayload';
 
 export class Endpoint extends Element {
   /**

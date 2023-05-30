@@ -8,4 +8,17 @@ export class DomainResource extends Resource {
   contained?: Resource[];
   extension?: Extension[];
   modifierExtension?: Extension[];
+
+  constructor(args?: Partial<DomainResource>) {
+    super();
+    Object.assign(this, args);
+
+    const validArgs = [...domainResourceValidArgs, 'text', 'contained', 'extension', 'modifierExtension'];
+
+    if (args) {
+      for (const key of Object.keys(args)) {
+        if (!validArgs.includes(key)) throw new Error(`Key ${key} is not valid for type DomainResource`);
+      }
+    }
+  }
 }

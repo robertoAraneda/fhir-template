@@ -1,5 +1,5 @@
 import { Period } from '../datatypes/Period';
-import { PractitionerQualification } from '../datatypes/PractitionerQualification';
+import { PractitionerQualification } from '../backbones/PractitionerQualification';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 import { Identifier } from '../datatypes/Identifier';

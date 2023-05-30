@@ -5,7 +5,7 @@ import { ContactPoint } from '../datatypes/ContactPoint';
 import { Reference } from '../datatypes/Reference';
 import { ExtendedContactDetail } from '../datatypes/ExtendedContactDetail';
 import { Endpoint } from '../datatypes/Endpoint';
-import { OrganizationQualification } from '../datatypes/OrganizationCualification';
+import { OrganizationQualification } from '../backbones/OrganizationCualification';
 
 /**
  * @description A grouping of people or organizations with a common purpose

@@ -3,7 +3,7 @@ import { Reference } from './Reference';
 import { Organization } from '../resources/Organization';
 import { ReferenceInterface } from '../interfaces/ReferenceInterface';
 import { PeriodInterface } from '../interfaces/PeriodInterface';
-import { IdentifierUse } from '../enumerators/IdentifierUse';
+import { IdentifierUse } from '../enums/IdentifierUse';
 import { IdentifierUseType } from '../types/IdentifierUseType';
 import { validateIdentifier } from '../validators/ValidateIdentifier';
 

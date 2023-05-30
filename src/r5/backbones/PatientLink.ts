@@ -1,8 +1,8 @@
-import { Reference } from './Reference';
+import { Reference } from '../datatypes/Reference';
 import { Patient } from '../resources/Patient';
-import { LinkType } from '../enumerators/LinkType';
+import { LinkType } from '../enums/LinkType';
 import { LinkTypeType } from '../types/LinkTypeType';
-import { BackboneElement } from './BackboneElement';
+import { BackboneElement } from '../datatypes/BackboneElement';
 import { Organization } from '../resources/Organization';
 
 export class PatientLink extends BackboneElement {

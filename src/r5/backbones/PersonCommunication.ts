@@ -1,5 +1,5 @@
-import { CodeableConcept } from './CodeableConcept';
-import { BackboneElement } from './BackboneElement';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
+import { BackboneElement } from '../datatypes/BackboneElement';
 
 export class PersonCommunication extends BackboneElement {
   language: CodeableConcept;

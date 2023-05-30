@@ -1,8 +1,10 @@
 import { Period } from '../datatypes/Period';
 import { HumanName } from '../datatypes/HumanName';
+import { NameUse } from '../enums/NameUse';
+import { NameUseType } from '../types/NameUseType';
 
 export class HumanNameBuilder {
-  private use: string;
+  private use: NameUse | NameUseType;
   private text: string;
   private family: string;
   private given: string[];
@@ -14,7 +16,7 @@ export class HumanNameBuilder {
     return this.use;
   }
 
-  setUse(value: string): HumanNameBuilder {
+  setUse(value: NameUse | NameUseType): HumanNameBuilder {
     this.use = value;
 
     return this;

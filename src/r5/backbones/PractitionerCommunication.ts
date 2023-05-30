@@ -1,5 +1,5 @@
-import { BackboneElement } from './BackboneElement';
-import { CodeableConcept } from './CodeableConcept';
+import { BackboneElement } from '../datatypes/BackboneElement';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
 
 /**
  * @description A language the practitioner can use in patient communication.

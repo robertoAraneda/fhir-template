@@ -1,8 +1,8 @@
-import { BackboneElement } from './BackboneElement';
-import { Reference } from './Reference';
+import { BackboneElement } from '../datatypes/BackboneElement';
+import { Reference } from '../datatypes/Reference';
 import { Patient } from '../resources/Patient';
 import { Person } from '../resources/Person';
-import { IdentityAssuranceLevel } from '../enumerators/IdentityAssuranceLevel';
+import { IdentityAssuranceLevel } from '../enums/IdentityAssuranceLevel';
 import { IdentityAssuranceLevelType } from '../types/IdentityAssuranceLevelType';
 
 export class PersonLink extends BackboneElement {

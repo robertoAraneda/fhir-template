@@ -24,7 +24,6 @@ export const validateIdentifier = (identifier: Identifier): boolean => {
 
   // validate assigner
   if (identifier.assigner) {
-    console.log(identifier.assigner);
     // check if string starts with Organization/
 
     let assignerReference = '';

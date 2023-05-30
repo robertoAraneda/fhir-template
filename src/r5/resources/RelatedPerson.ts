@@ -32,9 +32,10 @@ export class RelatedPerson extends DomainResource {
 
   constructor(args?: Partial<RelatedPerson>) {
     super();
-
-    args && validateRelatedPerson(args);
-
     Object.assign(this, args);
+
+    if (args) {
+      validateRelatedPerson(args);
+    }
   }
 }

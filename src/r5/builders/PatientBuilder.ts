@@ -17,6 +17,7 @@ import { DomainResourceBuilder } from './DomainResourceBuilder';
 import { Address } from '../datatypes/Address';
 import { Practitioner } from '../resources/Practitioner';
 import { DomainResource } from '../datatypes/DomainResource';
+import { transformReference } from '../helpers/transformReference';
 
 type GeneralPractitionerType = Organization | Practitioner | string;
 type ManagingOrganizationType = Organization | string;
@@ -246,22 +247,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder, Patien
   }
 
   setManagingOrganization<T extends ManagingOrganizationType>(args: Reference<T>): PatientBuilder {
-    if (!args) throw new Error('Managing organization reference is required');
-
-    if (!(args.reference instanceof Organization) && typeof args.reference !== 'string') {
-      throw new Error('Managing organization reference must be an instance of Organization');
-    }
-
-    if (typeof args.reference === 'string' && !args.reference.startsWith('Organization/')) {
-      throw new Error('Managing organization reference must start with Organization/');
-    }
-
-    if (typeof args.reference !== 'string') {
-      const reference = args.reference as Organization;
-      args.reference = `Organization/${reference.id}`;
-    }
-
-    this._managingOrganization = args;
+    this._managingOrganization = transformReference(args, 'Organization', ['Organization']);
 
     return this;
   }

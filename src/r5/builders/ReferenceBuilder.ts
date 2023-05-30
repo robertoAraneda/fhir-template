@@ -2,30 +2,18 @@ import { Identifier } from '../datatypes/Identifier';
 import { Reference } from '../datatypes/Reference';
 import { Organization } from '../resources/Organization';
 import { Resource } from '../datatypes/Resource';
+import { DomainResource } from '../datatypes/DomainResource';
 
-export class ReferenceBuilder<T> {
-  private _reference: string | T;
+export class ReferenceBuilder<T extends DomainResource | string> {
+  private _reference: T;
   private _display: string;
   private _identifier: Identifier;
   private _type: string;
 
-  getReference(): string | T {
-    return this._reference;
-  }
-
-  setReference(value: string | T): ReferenceBuilder<T> {
-    if (typeof value === 'string') {
-      this._reference = value;
-    } else {
-      const val = value as any;
-      this._reference = `${val.resourceType}/${val.id}`;
-    }
+  setReference(value: T): ReferenceBuilder<T> {
+    this._reference = value;
 
     return this;
-  }
-
-  getDisplay(): string {
-    return this._display;
   }
 
   setDisplay(value: string): ReferenceBuilder<T> {
@@ -33,39 +21,15 @@ export class ReferenceBuilder<T> {
     return this;
   }
 
-  getIdentifier(): Identifier {
-    return this._identifier;
-  }
+  setIdentifier(value: Identifier): ReferenceBuilder<T> {
+    this._identifier = value;
 
-  setIdentifier(value: Identifier | any): ReferenceBuilder<T> {
-    if (value instanceof Identifier) {
-      this._identifier = value;
-    } else {
-      this._identifier = new Identifier(value);
-    }
     return this;
-  }
-
-  getType(): string {
-    return this._type;
   }
 
   setType(value: string): ReferenceBuilder<T> {
     this._type = value;
     return this;
-  }
-
-  toString(): string {
-    return JSON.stringify({
-      reference: this._reference,
-      display: this._display,
-      identifier: this._identifier,
-      type: this._type,
-    });
-  }
-
-  toJson() {
-    return JSON.parse(this.toString());
   }
 
   build(): Reference<T> {

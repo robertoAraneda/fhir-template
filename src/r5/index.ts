@@ -1,20 +1,13 @@
-import BackboneElementBuilder from './BackboneElementBuilder';
-import BackboneElementValidator from './BackboneElementValidator';
-import ElementBuilder from './ElementBuilder';
-import ElementValidator from './ElementValidator';
-import ResourceBuilder from './ResourceBuilder';
-import ResourceValidator from './ResourceValidator';
+import { Builder } from './Builder';
+import { Validator } from './Validator';
 
 const FhirContextR5 = {
-  BackboneElementBuilder,
-  BackboneElementValidator,
-  ElementBuilder,
-  ElementValidator,
-  ResourceBuilder,
-  ResourceValidator,
+  Builder,
+  Validator,
 };
 
 export default FhirContextR5;
+export { Builder, Validator };
 
 /*
 export class FhirContextR5 {

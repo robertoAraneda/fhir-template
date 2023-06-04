@@ -1,18 +1,9 @@
-import { Person } from '../../interfaces/resources/Person';
-import { PersonCommunication } from '../../interfaces/backbones/PersonCommunication';
+import { Person } from '../../interfaces/resources';
+import { PersonCommunication, PersonLink, PatientCommunication } from '../../interfaces/backbones';
 import { AdministrativeGender } from '../../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
-import { PersonLink } from '../../interfaces/backbones/PersonLink';
-import { Reference } from '../../interfaces/base/Reference';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { HumanName } from '../../interfaces/datatypes/HumanName';
-import { Attachment } from '../../interfaces/datatypes/Attachment';
-import { ContactPoint } from '../../interfaces/datatypes/ContactPoint';
-import { Element } from '../../interfaces/base/Element';
-import { PatientCommunication } from '../../interfaces/backbones/PatientCommunication';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
+import { Identifier, CodeableConcept, HumanName, Attachment, ContactPoint } from '../../interfaces/datatypes';
+import { Reference, Element, Buildable, Serializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 
 type ParamType =
@@ -24,7 +15,7 @@ type ParamType =
   | 'deceasedBoolean'
   | 'deceasedDateTime';
 
-export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements Build<Person>, Serialize {
+export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements Buildable<Person>, Serializable {
   private readonly person: Person;
   constructor() {
     super();

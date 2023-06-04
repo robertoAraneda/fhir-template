@@ -1,15 +1,12 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { PersonLink } from '../../interfaces/backbones/PersonLink';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Reference } from '../../interfaces/base/Reference';
+import { Buildable, Serializable, Element, Reference } from '../../interfaces/base';
+import { PersonLink } from '../../interfaces/backbones';
 import { IdentityAssuranceLevel } from '../../enums/IdentityAssuranceLevel';
 import { IdentityAssuranceLevelType } from '../../types/IdentityAssuranceLevelType';
-import { Element } from '../../interfaces/base/Element';
 
 export class PersonLinkBuilder
   extends BackboneElementBuilder<PersonLinkBuilder>
-  implements Build<PersonLink>, Serialize
+  implements Buildable<PersonLink>, Serializable
 {
   private readonly personLink: PersonLink;
 

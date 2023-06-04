@@ -1,6 +1,6 @@
 import { ElementBuilder } from './ElementBuilder';
-import { BackboneElement } from '../../interfaces/base/BackboneElement';
-import { Extension } from '../../interfaces/datatypes/Extension';
+import { BackboneElement } from '../../interfaces/base';
+import { Extension } from '../../interfaces/datatypes';
 
 export class BackboneElementBuilder<
   BuilderClass extends BackboneElementBuilder<BuilderClass>,

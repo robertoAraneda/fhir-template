@@ -1,0 +1,10 @@
+export { EndpointPayload } from './EndpointPayload';
+export { OrganizationQualification } from './OrganizationQualification';
+export { PatientCommunication } from './PatientCommunication';
+export { PatientContact } from './PatientContact';
+export { PatientLink } from './PatientLink';
+export { PersonCommunication } from './PersonCommunication';
+export { PersonLink } from './PersonLink';
+export { PractitionerQualification } from './PractitionerQualification';
+export { PractitionerCommunication } from './PractitionerCommunication';
+export { RelatedPersonCommunication } from './RelatedPersonCommunication';

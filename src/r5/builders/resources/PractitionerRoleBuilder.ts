@@ -1,19 +1,12 @@
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { PractitionerRole } from '../../interfaces/resources/PractitionerRole';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Element } from '../../interfaces/base/Element';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
+import { Buildable, Serializable, Element, Reference } from '../../interfaces/base';
+import { PractitionerRole } from '../../interfaces/resources';
+import { Identifier, Period, CodeableConcept, ExtendedContactDetail, Availability } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
-import { Period } from '../../interfaces/datatypes/Period';
-import { Reference } from '../../interfaces/base/Reference';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { ExtendedContactDetail } from '../../interfaces/datatypes/ExtendedContactDetail';
-import { Availability } from '../../interfaces/datatypes/Availability';
 
 export class PractitionerRoleBuilder
   extends DomainResourceBuilder<PractitionerRoleBuilder>
-  implements Build<PractitionerRole>, Serialize
+  implements Buildable<PractitionerRole>, Serializable
 {
   private readonly practitionerRole: PractitionerRole;
 

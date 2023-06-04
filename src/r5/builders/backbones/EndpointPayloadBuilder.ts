@@ -1,13 +1,11 @@
-import { EndpointPayload } from '../../interfaces/backbones/EndpointPayload';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Element } from '../../interfaces/base/Element';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
+import { EndpointPayload } from '../../interfaces/backbones';
+import { CodeableConcept } from '../../interfaces/datatypes';
+import { Element, Buildable, Serializable } from '../../interfaces/base';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 
 export class EndpointPayloadBuilder
   extends BackboneElementBuilder<EndpointPayloadBuilder>
-  implements Build<EndpointPayload>, Serialize
+  implements Buildable<EndpointPayload>, Serializable
 {
   private readonly endpointPayload: EndpointPayload;
 

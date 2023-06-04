@@ -1,13 +1,10 @@
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Element } from '../../interfaces/base/Element';
-import { Coding } from '../../interfaces/datatypes/Coding';
+import { CodeableConcept, Coding } from '../../interfaces/datatypes';
+import { Element, Buildable, Serializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
 
 export class CodeableConceptBuilder
   extends ElementBuilder<CodeableConceptBuilder>
-  implements Build<CodeableConcept>, Serialize
+  implements Buildable<CodeableConcept>, Serializable
 {
   private readonly codeableConcept: CodeableConcept;
 

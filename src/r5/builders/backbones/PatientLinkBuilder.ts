@@ -1,15 +1,12 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { PatientLink } from '../../interfaces/backbones/PatientLink';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Reference } from '../../interfaces/base/Reference';
+import { Buildable, Serializable, Element, Reference } from '../../interfaces/base';
+import { PatientLink } from '../../interfaces/backbones';
 import { LinkType } from '../../enums/LinkType';
 import { LinkTypeType } from '../../types/LinkTypeType';
-import { Element } from '../../interfaces/base/Element';
 
 export class PatientLinkBuilder
   extends BackboneElementBuilder<PatientLinkBuilder>
-  implements Build<PatientLink>, Serialize
+  implements Buildable<PatientLink>, Serializable
 {
   private readonly patientLink: PatientLink;
 

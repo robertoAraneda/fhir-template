@@ -1,24 +1,23 @@
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { RelatedPerson } from '../../interfaces/resources/RelatedPerson';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
+import { Buildable, Serializable, Reference, Element } from '../../interfaces/base';
+import { RelatedPerson } from '../../interfaces/resources';
+import {
+  Identifier,
+  HumanName,
+  ContactPoint,
+  Address,
+  Attachment,
+  Period,
+  CodeableConcept,
+} from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
-import { HumanName } from '../../interfaces/datatypes/HumanName';
-import { Reference } from '../../interfaces/base/Reference';
-import { ContactPoint } from '../../interfaces/datatypes/ContactPoint';
 import { AdministrativeGender } from '../../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
-import { Address } from '../../interfaces/datatypes/Address';
-import { Attachment } from '../../interfaces/datatypes/Attachment';
-import { Period } from '../../interfaces/datatypes/Period';
-import { RelatedPersonCommunication } from '../../interfaces/backbones/RelatedPersonCommunication';
-import { Element } from '../../interfaces/base/Element';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
+import { RelatedPersonCommunication } from '../../interfaces/backbones';
 
 export class RelatedPersonBuilder
   extends DomainResourceBuilder<RelatedPersonBuilder>
-  implements Build<RelatedPerson>, Serialize
+  implements Buildable<RelatedPerson>, Serializable
 {
   private readonly relatedPerson: RelatedPerson;
 

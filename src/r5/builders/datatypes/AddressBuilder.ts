@@ -1,13 +1,10 @@
-import { Address } from '../../interfaces/datatypes/Address';
-import { Element } from '../../interfaces/base/Element';
+import { Address, Period } from '../../interfaces/datatypes';
+import { Element, Serializable, Buildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Period } from '../../interfaces/datatypes/Period';
 
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
-export class AddressBuilder extends ElementBuilder<AddressBuilder> implements Build<Address>, Serialize {
+export class AddressBuilder extends ElementBuilder<AddressBuilder> implements Buildable<Address>, Serializable {
   private readonly address: Address;
 
   constructor() {

@@ -1,8 +1,6 @@
-import { Attachment } from '../../interfaces/datatypes/Attachment';
-import { Element } from '../../interfaces/base/Element';
+import { Attachment } from '../../interfaces/datatypes';
+import { Element, Buildable, Serializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
 
 type ParamType =
   | 'contentType'
@@ -18,7 +16,10 @@ type ParamType =
   | 'title'
   | 'url'
   | 'width';
-export class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> implements Build<Attachment>, Serialize {
+export class AttachmentBuilder
+  extends ElementBuilder<AttachmentBuilder>
+  implements Buildable<Attachment>, Serializable
+{
   private readonly attachment: Attachment;
 
   constructor() {

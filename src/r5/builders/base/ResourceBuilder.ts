@@ -1,6 +1,5 @@
 import { BaseBuilder } from './BaseBuilder';
-import { Resource } from '../../interfaces/base/Resource';
-import { Element } from '../../interfaces/base/Element';
+import { Resource, Element } from '../../interfaces/base';
 
 type ResourceParamExtension = 'language' | 'implicitRules';
 export class ResourceBuilder<ClassBuilder> extends BaseBuilder<ClassBuilder> {

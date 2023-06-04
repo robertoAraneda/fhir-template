@@ -1,10 +1,8 @@
-import { Period } from '../../interfaces/datatypes/Period';
-import { Element } from '../../interfaces/base/Element';
+import { Period } from '../../interfaces/datatypes';
+import { Element, Buildable, Serializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
 
-export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements Build<Period>, Serialize {
+export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements Buildable<Period>, Serializable {
   private readonly period: Period;
 
   constructor() {

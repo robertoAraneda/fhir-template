@@ -1,18 +1,13 @@
-import { OrganizationQualification } from '../../interfaces/backbones/OrganizationQualification';
-import { Organization } from '../../interfaces/resources/Organization';
-import { Element } from '../../interfaces/base/Element';
-import { ExtendedContactDetail } from '../../interfaces/datatypes/ExtendedContactDetail';
-import { Reference } from '../../interfaces/base/Reference';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
+import { OrganizationQualification } from '../../interfaces/backbones';
+import { Organization } from '../../interfaces/resources';
+import { Element, Reference, Buildable, Serializable } from '../../interfaces/base';
+import { ExtendedContactDetail, Identifier, CodeableConcept } from '../../interfaces/datatypes';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 
 type ParamsType = 'active' | 'alias' | 'description' | 'name';
 export class OrganizationBuilder
   extends DomainResourceBuilder<OrganizationBuilder>
-  implements Build<Organization>, Serialize
+  implements Buildable<Organization>, Serializable
 {
   private readonly organization: Organization;
 

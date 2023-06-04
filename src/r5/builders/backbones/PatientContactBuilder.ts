@@ -1,20 +1,14 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { OrganizationQualification } from '../../interfaces/backbones/OrganizationQualification';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { PatientContact } from '../../interfaces/backbones/PatientContact';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { HumanName } from '../../interfaces/datatypes/HumanName';
-import { ContactPoint } from '../../interfaces/datatypes/ContactPoint';
+import { Buildable, Serializable, Element, Reference } from '../../interfaces/base';
+import { OrganizationQualification } from '../../interfaces/backbones';
+import { PatientContact } from '../../interfaces/backbones';
+import { CodeableConcept, HumanName, ContactPoint, Period } from '../../interfaces/datatypes';
 import { AdministrativeGender } from '../../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
-import { Reference } from '../../interfaces/base/Reference';
-import { Period } from '../../interfaces/datatypes/Period';
-import { Element } from '../../interfaces/base/Element';
 
 export class PatientContactBuilder
   extends BackboneElementBuilder<PatientContactBuilder>
-  implements Build<PatientContact>, Serialize
+  implements Buildable<PatientContact>, Serializable
 {
   private readonly patientContact: PatientContact;
 

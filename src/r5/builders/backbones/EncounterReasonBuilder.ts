@@ -1,8 +1,6 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { CodeableReference } from '../../interfaces/datatypes/CodeableReference';
+import { CodeableConcept, CodeableReference } from '../../interfaces/datatypes';
 
-type EncounterReasonValueReference = any | string;
 export class EncounterReasonBuilder extends BackboneElementBuilder<EncounterReasonBuilder> {
   use?: CodeableConcept[];
   value?: CodeableReference[];

@@ -1,16 +1,12 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { PractitionerQualification } from '../../interfaces/backbones/PractitionerQualification';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
+import { Buildable, Serializable, Reference } from '../../interfaces/base';
+import { PractitionerQualification } from '../../interfaces/backbones';
+import { CodeableConcept, Identifier, Period } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
-import { Reference } from '../../interfaces/base/Reference';
-import { Period } from '../../interfaces/datatypes/Period';
 
 export class PractitionerQualificationBuilder
   extends BackboneElementBuilder<PractitionerQualificationBuilder>
-  implements Build<PractitionerQualification>, Serialize
+  implements Buildable<PractitionerQualification>, Serializable
 {
   private readonly practitionerQualification: PractitionerQualification;
 

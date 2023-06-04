@@ -1,13 +1,11 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { PersonCommunication } from '../../interfaces/backbones/PersonCommunication';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Element } from '../../interfaces/base/Element';
+import { Buildable, Serializable, Element } from '../../interfaces/base';
+import { PersonCommunication } from '../../interfaces/backbones';
+import { CodeableConcept } from '../../interfaces/datatypes';
 
 export class PersonCommunicationBuilder
   extends BackboneElementBuilder<PersonCommunicationBuilder>
-  implements Build<PersonCommunication>, Serialize
+  implements Buildable<PersonCommunication>, Serializable
 {
   private readonly personCommunication: PersonCommunication;
 

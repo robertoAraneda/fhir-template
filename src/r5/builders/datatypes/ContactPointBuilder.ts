@@ -2,18 +2,14 @@ import { ContactPointSystem } from '../../enums/ContactPointSystem';
 import { ContactPointSystemType } from '../../types/ContactPointSystemType';
 import { ContactPointUse } from '../../enums/ContactPointUse';
 import { ContactPointUseType } from '../../types/ContactPointUseType';
-import { ContactPoint } from '../../interfaces/datatypes/ContactPoint';
-import { Period } from '../../interfaces/datatypes/Period';
-import { Element } from '../../interfaces/base/Element';
+import { ContactPoint, Period, CodeableConcept } from '../../interfaces/datatypes';
+import { Element, Buildable, Serializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Serialize } from '../../interfaces/base/Serialize';
 
 type ParamType = 'system' | 'value' | 'use' | 'rank';
 export class ContactPointBuilder
   extends ElementBuilder<ContactPointBuilder>
-  implements Build<CodeableConcept>, Serialize
+  implements Buildable<CodeableConcept>, Serializable
 {
   private readonly contactPoint: ContactPoint;
 

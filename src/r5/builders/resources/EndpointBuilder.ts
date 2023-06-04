@@ -1,19 +1,16 @@
-import { Endpoint } from '../../interfaces/resources/Endpoint';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { ContactPoint } from '../../interfaces/datatypes/ContactPoint';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
-import { Reference } from '../../interfaces/base/Reference';
-import { EndpointPayload } from '../../interfaces/backbones/EndpointPayload';
-import { Period } from '../../interfaces/datatypes/Period';
+import { Endpoint } from '../../interfaces/resources';
+import { CodeableConcept, ContactPoint, Period, Identifier } from '../../interfaces/datatypes';
+import { Reference, Element, Buildable, Serializable } from '../../interfaces/base';
+import { EndpointPayload } from '../../interfaces/backbones';
 import { EndpointStatus } from '../../enums/EndpointStatus';
 import { EndpointStatusType } from '../../types/EndpointStatusType';
-import { Element } from '../../interfaces/base/Element';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 
 type ParamType = 'address' | 'description' | 'header' | 'name' | 'status' | 'implicitRules' | 'language';
-export class EndpointBuilder extends DomainResourceBuilder<EndpointBuilder> implements Build<Endpoint>, Serialize {
+export class EndpointBuilder
+  extends DomainResourceBuilder<EndpointBuilder>
+  implements Buildable<Endpoint>, Serializable
+{
   private readonly endpoint: Endpoint;
   constructor() {
     super();

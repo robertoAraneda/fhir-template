@@ -1,7 +1,6 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
-import { Reference } from '../../interfaces/base/Reference';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
+import { Identifier, CodeableConcept } from '../../interfaces/datatypes';
+import { Reference } from '../../interfaces/base';
 
 export class EncounterAdmissionBuilder extends BackboneElementBuilder<EncounterAdmissionBuilder> {
   preAdmissionIdentifier?: Identifier;

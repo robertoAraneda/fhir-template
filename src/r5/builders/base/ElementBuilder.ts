@@ -1,6 +1,6 @@
-import { Extension } from '../../interfaces/datatypes/Extension';
+import { Extension } from '../../interfaces/datatypes';
 import { BaseBuilder } from './BaseBuilder';
-import { Element } from '../../interfaces/base/Element';
+import { Element } from '../../interfaces/base';
 
 export class ElementBuilder<BuilderClass extends ElementBuilder<BuilderClass>> extends BaseBuilder<BuilderClass> {
   private readonly element: Element;

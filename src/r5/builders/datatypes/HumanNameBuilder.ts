@@ -1,15 +1,12 @@
 import { NameUse } from '../../enums/NameUse';
 import { NameUseType } from '../../types/NameUseType';
-import { HumanName } from '../../interfaces/datatypes/HumanName';
-import { Element } from '../../interfaces/base/Element';
+import { HumanName, Period } from '../../interfaces/datatypes';
+import { Element, Buildable, Serializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Period } from '../../interfaces/datatypes/Period';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
 type MultipleParamType = 'given' | 'prefix' | 'suffix';
-export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements Build<HumanName>, Serialize {
+export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements Buildable<HumanName>, Serializable {
   private readonly humanName: HumanName;
 
   constructor() {

@@ -1,7 +1,6 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Period } from '../../interfaces/datatypes/Period';
-import { Reference } from '../../interfaces/base/Reference';
+import { CodeableConcept, Period } from '../../interfaces/datatypes';
+import { Reference } from '../../interfaces/base';
 
 export class EncounterParticipantBuilder extends BackboneElementBuilder<EncounterParticipantBuilder> {
   type?: CodeableConcept[];

@@ -9,17 +9,19 @@ import { PractitionerCommunicationBuild } from './builders/backbones/Practitione
 import { PractitionerQualificationBuilder } from './builders/backbones/PractitionerQualificationBuilder';
 import { RelatedPersonCommunicationBuilder } from './builders/backbones/RelatedPersonCommunicationBuilder';
 
-const BackboneElementBuilder = {
-  EndpointPayload: () => new EndpointPayloadBuilder(),
-  OrganizationQualification: () => new OrganizationQualificationBuilder(),
-  PatientContact: () => new PatientContactBuilder(),
-  PatientCommunication: () => new PatientCommunicationBuilder(),
-  PatientLink: () => new PatientLinkBuilder(),
-  PersonCommunication: () => new PersonCommunicationBuilder(),
-  PersonLink: () => new PersonLinkBuilder(),
-  PractitionerCommunication: () => new PractitionerCommunicationBuild(),
-  PractitionerQualification: () => new PractitionerQualificationBuilder(),
-  RelatedPersonCommunication: () => new RelatedPersonCommunicationBuilder(),
-};
+class BackboneElementBuilder {
+  private constructor() {}
+
+  static EndpointPayload = () => new EndpointPayloadBuilder();
+  static OrganizationQualification = () => new OrganizationQualificationBuilder();
+  static PatientContact = () => new PatientContactBuilder();
+  static PatientCommunication = () => new PatientCommunicationBuilder();
+  static PatientLink = () => new PatientLinkBuilder();
+  static PersonCommunication = () => new PersonCommunicationBuilder();
+  static PersonLink = () => new PersonLinkBuilder();
+  static PractitionerCommunication = () => new PractitionerCommunicationBuild();
+  static PractitionerQualification = () => new PractitionerQualificationBuilder();
+  static RelatedPersonCommunication = () => new RelatedPersonCommunicationBuilder();
+}
 
 export default BackboneElementBuilder;

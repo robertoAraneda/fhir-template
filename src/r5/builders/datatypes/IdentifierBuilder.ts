@@ -1,16 +1,14 @@
 import { IdentifierUse } from '../../enums/IdentifierUse';
 import { IdentifierUseType } from '../../types/IdentifierUseType';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
-import { Reference } from '../../interfaces/base/Reference';
-import { Element } from '../../interfaces/base/Element';
+import { Identifier, CodeableConcept, Period } from '../../interfaces/datatypes';
+import { Element, Serializable, Buildable, Reference } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
 import { validateReference } from '../../helpers/validateReference';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Period } from '../../interfaces/datatypes/Period';
 
-export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements Build<Identifier>, Serialize {
+export class IdentifierBuilder
+  extends ElementBuilder<IdentifierBuilder>
+  implements Buildable<Identifier>, Serializable
+{
   private readonly identifier: Identifier;
 
   constructor() {

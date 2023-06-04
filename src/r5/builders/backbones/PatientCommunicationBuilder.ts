@@ -1,13 +1,11 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { PatientCommunication } from '../../interfaces/backbones/PatientCommunication';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Element } from '../../interfaces/base/Element';
+import { Buildable, Serializable, Element } from '../../interfaces/base';
+import { PatientCommunication } from '../../interfaces/backbones';
+import { CodeableConcept } from '../../interfaces/datatypes';
 
 export class PatientCommunicationBuilder
   extends BackboneElementBuilder<PatientCommunicationBuilder>
-  implements Build<PatientCommunication>, Serialize
+  implements Buildable<PatientCommunication>, Serializable
 {
   private readonly patientCommunication: PatientCommunication;
 

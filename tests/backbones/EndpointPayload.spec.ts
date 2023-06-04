@@ -1,14 +1,15 @@
 import { EndpointPayloadBuilder } from '../../src/r5/builders/backbones/EndpointPayloadBuilder';
 import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import { EndpointPayload } from '../../src/r5/interfaces/backbones/EndpointPayload';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
+import { EndpointPayload } from '../../src/r5/interfaces/backbones';
+import { Builder, Validator } from '../../src/r5';
 
 describe('EndpointPayload', () => {
   let builder: EndpointPayloadBuilder;
+  let validator = Validator.BackboneElement;
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.EndpointPayload()
+    builder = Builder.BackboneElement.EndpointPayload()
       .setId('123')
       .addType({
         coding: [
@@ -37,7 +38,7 @@ describe('EndpointPayload', () => {
       ],
     };
 
-    const validate = await BackboneElementValidator.EndpointPayload(dataType);
+    const validate = await validator.EndpointPayload(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -60,7 +61,7 @@ describe('EndpointPayload', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.EndpointPayload(dataType);
+    const validate = await validator.EndpointPayload(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

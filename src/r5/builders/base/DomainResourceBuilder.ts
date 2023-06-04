@@ -1,8 +1,6 @@
 import { ResourceBuilder } from './ResourceBuilder';
-import { Narrative } from '../../interfaces/base/Narrative';
-import { Resource } from '../../interfaces/base/Resource';
-import { Extension } from '../../interfaces/datatypes/Extension';
-import { DomainResource } from '../../interfaces/base/DomainResource';
+import { Narrative, Resource, DomainResource } from '../../interfaces/base';
+import { Extension } from '../../interfaces/datatypes';
 
 export class DomainResourceBuilder<BuilderClass> extends ResourceBuilder<BuilderClass> {
   private readonly domainResource: DomainResource;

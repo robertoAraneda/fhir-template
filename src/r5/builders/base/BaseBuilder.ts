@@ -1,4 +1,4 @@
-import { Base } from '../../interfaces/base/Base';
+import { Base } from '../../interfaces/base';
 
 export class BaseBuilder<ClassBuilder> {
   private readonly base: Base;

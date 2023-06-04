@@ -1,16 +1,9 @@
-import { Practitioner } from '../../interfaces/resources/Practitioner';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Element } from '../../interfaces/base/Element';
-import { ContactPoint } from '../../interfaces/datatypes/ContactPoint';
-import { PractitionerQualification } from '../../interfaces/backbones/PractitionerQualification';
-import { Attachment } from '../../interfaces/datatypes/Attachment';
-import { HumanName } from '../../interfaces/datatypes/HumanName';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
+import { Practitioner } from '../../interfaces/resources';
+import { Buildable, Serializable, Element } from '../../interfaces/base';
+import { ContactPoint, Attachment, HumanName, Identifier, Address } from '../../interfaces/datatypes';
+import { PractitionerQualification, PractitionerCommunication } from '../../interfaces/backbones';
 import { AdministrativeGender } from '../../enums/AdministrativeGender';
 import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
-import { PractitionerCommunication } from '../../interfaces/backbones/PractitionerCommunication';
-import { Address } from '../../interfaces/datatypes/Address';
 import { validateReference } from '../../helpers/validateReference';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 
@@ -18,7 +11,7 @@ type ParamType = 'active' | 'birthDate' | 'deceasedBoolean' | 'deceasedDateTime'
 
 export class PractitionerBuilder
   extends DomainResourceBuilder<PractitionerBuilder>
-  implements Build<Practitioner>, Serialize
+  implements Buildable<Practitioner>, Serializable
 {
   private readonly practitioner: Practitioner;
 

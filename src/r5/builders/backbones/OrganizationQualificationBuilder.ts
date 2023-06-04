@@ -1,16 +1,12 @@
-import { OrganizationQualification } from '../../interfaces/backbones/OrganizationQualification';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
-import { Reference } from '../../interfaces/base/Reference';
-import { Period } from '../../interfaces/datatypes/Period';
+import { OrganizationQualification } from '../../interfaces/backbones';
+import { Buildable, Serializable, Reference } from '../../interfaces/base';
+import { CodeableConcept, Identifier, Period } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 
 export class OrganizationQualificationBuilder
   extends BackboneElementBuilder<OrganizationQualificationBuilder>
-  implements Build<OrganizationQualification>, Serialize
+  implements Buildable<OrganizationQualification>, Serializable
 {
   private readonly organizationQualification: OrganizationQualification;
 

@@ -1,14 +1,11 @@
-import { Extension } from '../../interfaces/datatypes/Extension';
-import { Coding } from '../../interfaces/datatypes/Coding';
-import { Element } from '../../interfaces/base/Element';
+import { Extension } from '../../interfaces/datatypes';
+import { Coding, CodeableConcept } from '../../interfaces/datatypes';
+import { Element, Buildable, Serializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { CodeableConcept } from '../../interfaces/datatypes/CodeableConcept';
-import { Serialize } from '../../interfaces/base/Serialize';
 
 type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
 
-export class CodingBuilder extends ElementBuilder<CodingBuilder> implements Build<CodeableConcept>, Serialize {
+export class CodingBuilder extends ElementBuilder<CodingBuilder> implements Buildable<CodeableConcept>, Serializable {
   private readonly coding: Coding;
 
   constructor() {

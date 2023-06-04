@@ -1,12 +1,9 @@
-import { Coding } from '../../interfaces/datatypes/Coding';
-import { Element } from '../../interfaces/base/Element';
-import { Meta } from '../../interfaces/datatypes/Meta';
+import { Coding, Meta } from '../../interfaces/datatypes';
+import { Element, Serializable, Buildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Serialize } from '../../interfaces/base/Serialize';
-import { Build } from '../../interfaces/base/Build';
 
 type ParamsType = 'lastUpdated' | 'profile' | 'source' | 'versionId';
-export class MetaBuilder extends ElementBuilder<MetaBuilder> implements Build<Meta>, Serialize {
+export class MetaBuilder extends ElementBuilder<MetaBuilder> implements Buildable<Meta>, Serializable {
   private readonly meta: Meta;
 
   constructor() {

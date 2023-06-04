@@ -1,5 +1,5 @@
 import { OrganizationQualificationBuilder } from '../../src/r5/builders/backbones/OrganizationQualificationBuilder';
-import { OrganizationQualification } from '../../src/r5/interfaces/backbones/OrganizationQualification';
+import { OrganizationQualification } from '../../src/r5/interfaces/backbones';
 import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
 import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
 

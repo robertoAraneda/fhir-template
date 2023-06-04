@@ -1,13 +1,9 @@
-import { DomainResource } from '../../interfaces/base/DomainResource';
-import { Identifier } from '../../interfaces/datatypes/Identifier';
-import { Reference } from '../../interfaces/base/Reference';
-import { Element } from '../../interfaces/base/Element';
+import { DomainResource, Reference, Serializable, Buildable, Element } from '../../interfaces/base';
+import { Identifier } from '../../interfaces/datatypes';
 import { transformReference } from '../../helpers/transformReference';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Build } from '../../interfaces/base/Build';
-import { Serialize } from '../../interfaces/base/Serialize';
 
-export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements Build<Reference>, Serialize {
+export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements Buildable<Reference>, Serializable {
   private readonly reference: Reference;
 
   constructor() {

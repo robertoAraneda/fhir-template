@@ -1,0 +1,68 @@
+import { Element } from '../base/Element';
+import { Address } from './Address';
+import { CodeableConcept } from './CodeableConcept';
+import { Period } from './Period';
+import { Reference } from '../base/Reference';
+import { CodeableReference } from './CodeableReference';
+import { Coding } from './Coding';
+import { Attachment } from './Attachment';
+import { ContactPoint } from './ContactPoint';
+import { Identifier } from './Identifier';
+import { Quantity } from './Quantity';
+
+export interface Extension extends Element {
+  url: string;
+  _url?: Element;
+  valueBase64Binary?: string;
+  _valueBase64Binary?: Element;
+  valueBoolean?: boolean;
+  _valueBoolean?: Element;
+  valueCanonical?: string;
+  _valueCanonical?: Element;
+  valueCode?: string;
+  _valueCode?: Element;
+  valueDate?: string;
+  _valueDate?: Element;
+  valueDateTime?: string;
+  _valueDateTime?: Element;
+  valueDecimal?: number;
+  _valueDecimal?: Element;
+  valueId?: string;
+  _valueId?: Element;
+  valueInstant?: string;
+  _valueInstant?: Element;
+  valueInteger?: number;
+  _valueInteger?: Element;
+  valueInteger64?: string;
+  _valueInteger64?: Element;
+  valueMarkdown?: string;
+  _valueMarkdown?: Element;
+  valueOid?: string;
+  _valueOid?: Element;
+  valuePositiveInt?: number;
+  _valuePositiveInt?: Element;
+  valueString?: string;
+  _valueString?: Element;
+  valueTime?: string;
+  _valueTime?: Element;
+  valueUnsignedInt?: number;
+  _valueUnsignedInt?: Element;
+  valueUri?: string;
+  _valueUri?: Element;
+  valueUrl?: string;
+  _valueUrl?: Element;
+  valueUuid?: string;
+  _valueUuid?: Element;
+  valueAddress?: Address;
+  valueCodeableConcept?: CodeableConcept;
+  valueAttachment?: Attachment;
+
+  valueReference?: Reference;
+  valueCodeableReference?: CodeableReference;
+  valueCoding?: Coding;
+  valueContactPoint?: ContactPoint;
+  valueIdentifier?: Identifier;
+
+  valuePeriod?: Period;
+  valueQuantity?: Quantity;
+}

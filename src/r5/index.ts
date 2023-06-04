@@ -1,8 +1,22 @@
-import { Patient } from './resources/Patient';
-import { Identifier } from './datatypes/Identifier';
-import { Organization } from './resources/Organization';
-import { ResourceType } from './interfaces/ResourceType';
-import { ResourceTypeType } from './types/ResourceTypeType';
+import BackboneElementBuilder from './BackboneElementBuilder';
+import BackboneElementValidator from './BackboneElementValidator';
+import ElementBuilder from './ElementBuilder';
+import ElementValidator from './ElementValidator';
+import ResourceBuilder from './ResourceBuilder';
+import ResourceValidator from './ResourceValidator';
+
+const FhirContextR5 = {
+  BackboneElementBuilder: BackboneElementBuilder,
+  BackboneElementValidator: BackboneElementValidator,
+  ElementBuilder: ElementBuilder,
+  ElementValidator: ElementValidator,
+  ResourceBuilder: ResourceBuilder,
+  ResourceValidator: ResourceValidator,
+};
+
+export default FhirContextR5;
+
+/*
 export class FhirContextR5 {
   public validate(resourceType: ResourceType | ResourceTypeType, payload: any): boolean {
     switch (resourceType) {
@@ -77,3 +91,5 @@ export class FhirContextR5 {
     return true;
   }
 }
+
+ */

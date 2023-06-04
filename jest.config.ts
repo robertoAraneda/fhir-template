@@ -14,5 +14,5 @@ export default {
   rootDir: '.',
   testEnvironment: 'node',
   testRegex: '.*\\.spec\\.ts$',
-  //verbose: true,
+  verbose: true,
 };

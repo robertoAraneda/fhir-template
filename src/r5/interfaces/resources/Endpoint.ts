@@ -54,7 +54,6 @@ export interface Endpoint extends DomainResource {
    * Organization that manages this endpoint (might not be the organization that exposes the endpoint).
    * @see http://hl7.org/fhir/endpoint-definitions.html#Endpoint.managingOrganization
    */
-  //TODO: Fix this type
   managingOrganization?: Reference;
   /**
    * Contact details for source (e.g. troubleshooting).

@@ -6,12 +6,12 @@ import ResourceBuilder from './ResourceBuilder';
 import ResourceValidator from './ResourceValidator';
 
 const FhirContextR5 = {
-  BackboneElementBuilder: BackboneElementBuilder,
-  BackboneElementValidator: BackboneElementValidator,
-  ElementBuilder: ElementBuilder,
-  ElementValidator: ElementValidator,
-  ResourceBuilder: ResourceBuilder,
-  ResourceValidator: ResourceValidator,
+  BackboneElementBuilder,
+  BackboneElementValidator,
+  ElementBuilder,
+  ElementValidator,
+  ResourceBuilder,
+  ResourceValidator,
 };
 
 export default FhirContextR5;

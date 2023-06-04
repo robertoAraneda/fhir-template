@@ -1,5 +1,4 @@
 import { PatientContactBuilder } from '../../src/r5/builders/backbones/PatientContactBuilder';
-import { OrganizationQualification } from '../../lib/r5/backbones/OrganizationCualification';
 import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
 import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
 import { PatientContact } from '../../src/r5/interfaces/backbones/PatientContact';

@@ -1,6 +1,6 @@
 import { BackboneElement } from '../base/BackboneElement';
-import { CodeableConcept } from '../../datatypes/CodeableConcept';
 import { Element } from '../base/Element';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
 
 /**
  * @description A language which may be used to communicate with the patient about his or her health.

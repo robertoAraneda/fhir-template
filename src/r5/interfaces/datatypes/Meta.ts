@@ -1,5 +1,5 @@
 import { Element } from '../base/Element';
-import { Coding } from '../../datatypes/Coding';
+import { Coding } from './Coding';
 
 export interface Meta extends Element {
   versionId?: string | number;

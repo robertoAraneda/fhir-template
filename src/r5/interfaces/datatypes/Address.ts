@@ -3,7 +3,7 @@ import { AddressUse } from '../../enums/AddressUse';
 import { AddressUseType } from '../../types/AddressUseType';
 import { AddressType } from '../../enums/AddressType';
 import { AddressTypeType } from '../../types/AddressTypeType';
-import { Period } from '../../datatypes/Period';
+import { Period } from './Period';
 
 export interface Address extends Element {
   use?: AddressUse | AddressUseType;

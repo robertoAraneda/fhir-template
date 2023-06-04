@@ -1,7 +1,5 @@
 import { IdentifierUse } from '../../enums/IdentifierUse';
 import { IdentifierUseType } from '../../types/IdentifierUseType';
-
-import { Organization } from '../../resources/Organization';
 import { Element } from '../base/Element';
 import { Period } from './Period';
 import { Reference } from '../base/Reference';

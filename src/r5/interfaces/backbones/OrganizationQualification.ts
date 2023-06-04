@@ -1,9 +1,8 @@
-import { CodeableConcept } from '../../datatypes/CodeableConcept';
-import { Identifier } from '../../datatypes/Identifier';
-import { Reference } from '../../datatypes/Reference';
-import { Organization } from '../../resources/Organization';
-import { Period } from '../../datatypes/Period';
 import { BackboneElement } from '../base/BackboneElement';
+import { CodeableConcept } from '../datatypes/CodeableConcept';
+import { Identifier } from '../datatypes/Identifier';
+import { Reference } from '../base/Reference';
+import { Period } from '../datatypes/Period';
 
 /**
  * A qualification for the organization
@@ -32,7 +31,7 @@ export interface OrganizationQualification extends BackboneElement {
    * @memberof OrganizationQualificationBuilder
    * @see https://hl7.org/fhir/organization-definitions.html#Organization.qualification.issuer
    */
-  issuer?: Reference<Organization | string>;
+  issuer?: Reference;
 
   /**
    * Period during which the qualification is valid

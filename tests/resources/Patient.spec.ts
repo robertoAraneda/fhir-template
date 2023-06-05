@@ -942,6 +942,7 @@ describe('Patient', () => {
         status: 'generated',
         div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
       },
+      birthDate: '2012-01-01 HH:MM:SS',
       identifier: [
         {
           use: 'usual',

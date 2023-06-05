@@ -6,5 +6,7 @@ class FHIRContext {
   }
 }
 
+module.exports = exports = FHIRContext;
+Object.defineProperty(exports, '__esModule', { value: true });
+
 export default FHIRContext;
-module.exports = FHIRContext;

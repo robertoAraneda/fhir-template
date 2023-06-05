@@ -1,6 +1,3 @@
-import { BackboneElementBuilder } from './BackboneElementBuilder';
-import { ElementBuilder } from './ElementBuilder';
-import { ResourceBuilder } from './ResourceBuilder';
 import { BackboneElementValidator } from './validators/BackboneElementValidator';
 import { DataTypesValidator } from './validators/ElementValidator';
 import { ResourceValidator } from './validators/ResourceValidator';
@@ -11,7 +8,33 @@ export interface IFHIRContextR5 {
 }
 
 export interface IValidatorContext {
-  [key: string]: (data: unknown) => Promise<IValidateProperties>;
+  EndpointPayload: (data: unknown) => Promise<IValidateProperties>;
+  OrganizationQualification: (data: unknown) => Promise<IValidateProperties>;
+  PatientContact: (data: unknown) => Promise<IValidateProperties>;
+  PatientCommunication: (data: unknown) => Promise<IValidateProperties>;
+  PatientLink: (data: unknown) => Promise<IValidateProperties>;
+  PersonCommunication: (data: unknown) => Promise<IValidateProperties>;
+  PersonLink: (data: unknown) => Promise<IValidateProperties>;
+  PractitionerCommunication: (data: unknown) => Promise<IValidateProperties>;
+  PractitionerQualification: (data: unknown) => Promise<IValidateProperties>;
+  RelatedPersonCommunication: (data: unknown) => Promise<IValidateProperties>;
+  Address: (data: unknown) => Promise<IValidateProperties>;
+  Attachment: (data: unknown) => Promise<IValidateProperties>;
+  CodeableConcept: (data: unknown) => Promise<IValidateProperties>;
+  Coding: (data: unknown) => Promise<IValidateProperties>;
+  ContactPoint: (data: unknown) => Promise<IValidateProperties>;
+  HumanName: (data: unknown) => Promise<IValidateProperties>;
+  Identifier: (data: unknown) => Promise<IValidateProperties>;
+  Meta: (data: unknown) => Promise<IValidateProperties>;
+  Period: (data: unknown) => Promise<IValidateProperties>;
+  Reference: (data: unknown) => Promise<IValidateProperties>;
+  Patient: (data: unknown) => Promise<IValidateProperties>;
+  Organization: (data: unknown) => Promise<IValidateProperties>;
+  Endpoint: (data: unknown) => Promise<IValidateProperties>;
+  Person: (data: unknown) => Promise<IValidateProperties>;
+  Practitioner: (data: unknown) => Promise<IValidateProperties>;
+  PractitionerRole: (data: unknown) => Promise<IValidateProperties>;
+  RelatedPerson: (data: unknown) => Promise<IValidateProperties>;
 }
 
 export const FhirContextR5: IFHIRContextR5 = {

@@ -70,18 +70,30 @@ const _validate = async (schema: any, data: any) => {
 };
 
 export const _validateBaseResource = async (data: any, entity: string): Promise<IValidateProperties> => {
+  if (typeof data !== 'object') {
+    throw new Error('Data must be a JSON object');
+  }
+
   const schema = extractSchemaFromDefinition(entity, 'BaseResource');
 
   return _validate(schema, data);
 };
 
 export const _validateDataType = async (data: any, entity: string): Promise<IValidateProperties> => {
+  if (typeof data !== 'object') {
+    throw new Error('Data must be a JSON object');
+  }
+
   const schema = extractSchemaFromDefinition(entity, 'DataType');
 
   return _validate(schema, data);
 };
 
 export const _validateBackbone = async (data: any, entity: string): Promise<IValidateProperties> => {
+  if (typeof data !== 'object') {
+    throw new Error('Data must be a JSON object');
+  }
+
   const schema = extractSchemaFromDefinition(entity, 'BackboneElement');
 
   return _validate(schema, data);

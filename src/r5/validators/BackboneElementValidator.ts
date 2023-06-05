@@ -1,7 +1,7 @@
 import { _validateBackbone } from './BaseValidator';
 import { IValidateProperties } from '../interfaces/IValidateProperties';
 
-type Wait = Promise<IValidateProperties>;
+export type Wait = Promise<IValidateProperties>;
 
 const EndpointPayload = (data: unknown): Wait => _validateBackbone(data, 'Endpoint_Payload');
 const OrganizationQualification = (data: unknown): Wait => _validateBackbone(data, 'Organization_Qualification');

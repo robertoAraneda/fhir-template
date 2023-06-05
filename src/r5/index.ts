@@ -1,53 +1,50 @@
-import { BackboneElementValidator } from './validators/BackboneElementValidator';
-import { DataTypesValidator } from './validators/ElementValidator';
-import { ResourceValidator } from './validators/ResourceValidator';
-import { IValidateProperties } from './interfaces/IValidateProperties';
+import { Wait } from './validators/BackboneElementValidator';
 
-export interface IFHIRContextR5 {
-  validators: IValidatorContext;
+export interface IBackboneValidatorProperties {
+  EndpointPayload: (data: unknown) => Wait;
+  OrganizationQualification: (data: unknown) => Wait;
+  PatientContact: (data: unknown) => Wait;
+  PatientCommunication: (data: unknown) => Wait;
+  PatientLink: (data: unknown) => Wait;
+  PersonCommunication: (data: unknown) => Wait;
+  PersonLink: (data: unknown) => Wait;
+  PractitionerCommunication: (data: unknown) => Wait;
+  PractitionerQualification: (data: unknown) => Wait;
+  RelatedPersonCommunication: (data: unknown) => Wait;
+}
+
+export interface IResourceValidatorProperties {
+  Patient: (data: unknown) => Wait;
+  Organization: (data: unknown) => Wait;
+  Endpoint: (data: unknown) => Wait;
+  Person: (data: unknown) => Wait;
+  Practitioner: (data: unknown) => Wait;
+  PractitionerRole: (data: unknown) => Wait;
+  RelatedPerson: (data: unknown) => Wait;
+}
+
+export interface IDatatypeValidatorProperties {
+  Address: (data: unknown) => Wait;
+  Attachment: (data: unknown) => Wait;
+  CodeableConcept: (data: unknown) => Wait;
+  Coding: (data: unknown) => Wait;
+  ContactPoint: (data: unknown) => Wait;
+  HumanName: (data: unknown) => Wait;
+  Identifier: (data: unknown) => Wait;
+  Meta: (data: unknown) => Wait;
+  Period: (data: unknown) => Wait;
+  Reference: (data: unknown) => Wait;
 }
 
 export interface IValidatorContext {
-  EndpointPayload: (data: unknown) => Promise<IValidateProperties>;
-  OrganizationQualification: (data: unknown) => Promise<IValidateProperties>;
-  PatientContact: (data: unknown) => Promise<IValidateProperties>;
-  PatientCommunication: (data: unknown) => Promise<IValidateProperties>;
-  PatientLink: (data: unknown) => Promise<IValidateProperties>;
-  PersonCommunication: (data: unknown) => Promise<IValidateProperties>;
-  PersonLink: (data: unknown) => Promise<IValidateProperties>;
-  PractitionerCommunication: (data: unknown) => Promise<IValidateProperties>;
-  PractitionerQualification: (data: unknown) => Promise<IValidateProperties>;
-  RelatedPersonCommunication: (data: unknown) => Promise<IValidateProperties>;
-  Address: (data: unknown) => Promise<IValidateProperties>;
-  Attachment: (data: unknown) => Promise<IValidateProperties>;
-  CodeableConcept: (data: unknown) => Promise<IValidateProperties>;
-  Coding: (data: unknown) => Promise<IValidateProperties>;
-  ContactPoint: (data: unknown) => Promise<IValidateProperties>;
-  HumanName: (data: unknown) => Promise<IValidateProperties>;
-  Identifier: (data: unknown) => Promise<IValidateProperties>;
-  Meta: (data: unknown) => Promise<IValidateProperties>;
-  Period: (data: unknown) => Promise<IValidateProperties>;
-  Reference: (data: unknown) => Promise<IValidateProperties>;
-  Patient: (data: unknown) => Promise<IValidateProperties>;
-  Organization: (data: unknown) => Promise<IValidateProperties>;
-  Endpoint: (data: unknown) => Promise<IValidateProperties>;
-  Person: (data: unknown) => Promise<IValidateProperties>;
-  Practitioner: (data: unknown) => Promise<IValidateProperties>;
-  PractitionerRole: (data: unknown) => Promise<IValidateProperties>;
-  RelatedPerson: (data: unknown) => Promise<IValidateProperties>;
+  backboneElements: IBackboneValidatorProperties;
+  dataTypes: IDatatypeValidatorProperties;
+  resources: IResourceValidatorProperties;
 }
-
-export const FhirContextR5: IFHIRContextR5 = {
-  validators: {
-    ...BackboneElementValidator,
-    ...DataTypesValidator,
-    ...ResourceValidator,
-  },
-};
 
 /*
 export class FhirContextR5 {
-  public validate(resourceType: ResourceType | ResourceTypeType, payload: any): boolean {
+  public validate(resourceType: ResourceEnum | ResourceTypeType, payload: any): boolean {
     switch (resourceType) {
       case 'Patient':
         return this.validatePatient(payload);

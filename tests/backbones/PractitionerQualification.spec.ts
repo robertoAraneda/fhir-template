@@ -33,7 +33,7 @@ describe('PractitionerQualification', () => {
       },
     };
 
-    const validate = await validator.PractitionerQualification(dataType);
+    const validate = await validator.backboneElements.PractitionerQualification(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -60,7 +60,7 @@ describe('PractitionerQualification', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.PractitionerQualification(dataType);
+    const validate = await validator.backboneElements.PractitionerQualification(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

@@ -26,7 +26,7 @@ describe('Coding', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     };
 
-    const validate = await validator.Coding(dataType);
+    const validate = await validator.dataTypes.Coding(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -41,7 +41,7 @@ describe('Coding', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.Coding(dataType);
+    const validate = await validator.dataTypes.Coding(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

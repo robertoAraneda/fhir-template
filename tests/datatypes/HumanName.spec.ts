@@ -36,7 +36,7 @@ describe('HumanName', () => {
       },
     };
 
-    const validate = await validator.HumanName(dataType);
+    const validate = await validator.dataTypes.HumanName(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -61,7 +61,7 @@ describe('HumanName', () => {
       },
     };
 
-    const validate = await validator.HumanName(dataType);
+    const validate = await validator.dataTypes.HumanName(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

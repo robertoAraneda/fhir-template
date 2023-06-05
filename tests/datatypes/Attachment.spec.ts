@@ -43,7 +43,7 @@ describe('Attachment', () => {
       },
     };
 
-    const validate = await validator.Attachment(dataType);
+    const validate = await validator.dataTypes.Attachment(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -64,7 +64,7 @@ describe('Attachment', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.Attachment(dataType);
+    const validate = await validator.dataTypes.Attachment(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

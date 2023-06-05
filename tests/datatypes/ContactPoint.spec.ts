@@ -26,7 +26,7 @@ describe('ContactPoint', () => {
       use: 'home',
     };
 
-    const validate = await validator.ContactPoint(dataType);
+    const validate = await validator.dataTypes.ContactPoint(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -42,7 +42,7 @@ describe('ContactPoint', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.ContactPoint(dataType);
+    const validate = await validator.dataTypes.ContactPoint(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

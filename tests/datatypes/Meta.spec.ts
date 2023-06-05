@@ -32,7 +32,7 @@ describe('Meta', () => {
       versionId: 'test',
     };
 
-    const validate = await validator.Meta(dataType);
+    const validate = await validator.dataTypes.Meta(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -53,7 +53,7 @@ describe('Meta', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.Meta(dataType);
+    const validate = await validator.dataTypes.Meta(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

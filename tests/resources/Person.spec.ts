@@ -1,16 +1,12 @@
 import { IPerson } from '../../src/r5/interfaces/resources';
 import { IValidatorContext } from '../../src/r5';
-import { PersonBuilder } from '../../src/r5/builders/resources';
+import { PatientBuilder, PersonBuilder } from '../../src/r5/builders/resources';
 import FHIRContext from '../../src';
 
 describe('Person', () => {
-  let validator: IValidatorContext;
   let builder: PersonBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  const context = new FHIRContext();
+  let validator = context.forR5().validators.resources;
 
   // create global
   beforeEach(() => {

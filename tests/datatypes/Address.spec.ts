@@ -4,17 +4,13 @@ import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
 
 describe('Address', () => {
-  let validator: IValidatorContext;
+  const { validators: val, createDataTypeWithBuilder } = new FHIRContext().forR5();
+  const validator: IValidatorContext = val;
   let builder: AddressBuilder;
 
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
-
   // create global
-  beforeEach(() => {
-    builder = new AddressBuilder();
+  beforeEach(async () => {
+    builder = await createDataTypeWithBuilder('Address');
   });
 
   it('should be able to validate a new address', async () => {
@@ -35,7 +31,7 @@ describe('Address', () => {
       state: 'AnyState',
     };
 
-    const validateAddress = await validator.Address(address);
+    const validateAddress = await validator.dataTypes.Address(address);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -158,7 +154,7 @@ describe('Address', () => {
       ],
     };
 
-    const validateAddress = await validator.Address(address);
+    const validateAddress = await validator.dataTypes.Address(address);
     expect(validateAddress.isValid).toBeFalsy();
     expect(validateAddress.errors).toBeDefined();
     expect(validateAddress.errors?.length).toBe(2);

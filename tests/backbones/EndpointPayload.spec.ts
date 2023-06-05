@@ -4,17 +4,13 @@ import { EndpointPayloadBuilder } from '../../src/r5/builders/backbones';
 import { IEndpointPayload } from '../../src/r5/interfaces/backbones';
 
 describe('EndpointPayload', () => {
-  let validator: IValidatorContext;
+  const { validators: val, createBackboneElementWithBuilder } = new FHIRContext().forR5();
+  const validator: IValidatorContext = val;
   let builder: EndpointPayloadBuilder;
 
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
-
   // create global
-  beforeEach(() => {
-    builder = new EndpointPayloadBuilder();
+  beforeEach(async () => {
+    builder = await createBackboneElementWithBuilder('EndpointPayload');
   });
 
   it('should be able to create a new endpoint payload and validate with correct data', async () => {
@@ -33,7 +29,7 @@ describe('EndpointPayload', () => {
       ],
     };
 
-    const validate = await validator.EndpointPayload(dataType);
+    const validate = await validator.backboneElements.EndpointPayload(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -56,7 +52,7 @@ describe('EndpointPayload', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.EndpointPayload(dataType);
+    const validate = await validator.backboneElements.EndpointPayload(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

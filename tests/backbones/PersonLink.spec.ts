@@ -32,7 +32,7 @@ describe('PersonLink', () => {
       ],
     };
 
-    const validate = await validator.PersonLink(dataType);
+    const validate = await validator.backboneElements.PersonLink(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -50,7 +50,7 @@ describe('PersonLink', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.PersonLink(dataType);
+    const validate = await validator.backboneElements.PersonLink(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

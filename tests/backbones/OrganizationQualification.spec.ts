@@ -33,7 +33,7 @@ describe('OrganizationQualification', () => {
       },
     };
 
-    const validate = await validator.OrganizationQualification(dataType);
+    const validate = await validator.backboneElements.OrganizationQualification(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -60,7 +60,7 @@ describe('OrganizationQualification', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.OrganizationQualification(dataType);
+    const validate = await validator.backboneElements.OrganizationQualification(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

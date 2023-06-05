@@ -32,7 +32,7 @@ describe('Identifier', () => {
       },
     };
 
-    const validate = await validator.Identifier(dataType);
+    const validate = await validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -53,7 +53,7 @@ describe('Identifier', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.Identifier(dataType);
+    const validate = await validator.dataTypes.Identifier(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -127,7 +127,7 @@ describe('Identifier', () => {
       value: '1234567890',
     });
 
-    const validate = await validator.Identifier(dataType);
+    const validate = await validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors).toHaveLength(1);

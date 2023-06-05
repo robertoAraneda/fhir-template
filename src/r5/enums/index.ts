@@ -13,3 +13,6 @@ export { NameUseEnum } from './NameUseEnum';
 export { NarrativeStatusEnum } from './NarrativeStatusEnum';
 export { QuantityComparatorEnum } from './QuantityComparatorEnum';
 export { EndpointStatusEnum } from './EndpointStatusEnum';
+export { ResourceEnum } from './ResourceEnum';
+export { DatatypeEnum } from './DatatypeEnum';
+export { BackboneElementEnum } from './BackboneElementEnum';

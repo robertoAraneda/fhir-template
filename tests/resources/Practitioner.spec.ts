@@ -4,13 +4,9 @@ import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
 
 describe('Practitioner', () => {
-  let validator: IValidatorContext;
   let builder: PractitionerBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  const context = new FHIRContext();
+  let validator = context.forR5().validators.resources;
 
   // create global
   beforeEach(() => {

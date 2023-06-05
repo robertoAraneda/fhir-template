@@ -1,4 +1,4 @@
-export enum ResourceType {
+export enum ResourceEnum {
   ACCOUNT = 'Account',
   ACTIVITY_DEFINITION = 'ActivityDefinition',
   ACTOR_DEFINITION = 'ActorDefinition',

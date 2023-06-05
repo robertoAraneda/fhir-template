@@ -32,7 +32,7 @@ describe('RelatedPersonCommunication', () => {
       },
     };
 
-    const validate = await validator.RelatedPersonCommunication(dataType);
+    const validate = await validator.backboneElements.RelatedPersonCommunication(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -54,7 +54,7 @@ describe('RelatedPersonCommunication', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.RelatedPersonCommunication(dataType);
+    const validate = await validator.backboneElements.RelatedPersonCommunication(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

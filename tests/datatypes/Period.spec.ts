@@ -63,7 +63,7 @@ describe('Period', () => {
       },
     });
 
-    const validate = await validator.Period(dataType);
+    const validate = await validator.dataTypes.Period(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -76,7 +76,7 @@ describe('Period', () => {
       notExist: 'not exist',
     } as any;
 
-    const validate = await validator.Period(dataType);
+    const validate = await validator.dataTypes.Period(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toHaveLength(1);

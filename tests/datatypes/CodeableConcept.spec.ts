@@ -30,7 +30,7 @@ describe('CodeableConcept', () => {
       text: 'test',
     };
 
-    const validate = await validator.CodeableConcept(dataType);
+    const validate = await validator.dataTypes.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -50,7 +50,7 @@ describe('CodeableConcept', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.CodeableConcept(dataType);
+    const validate = await validator.dataTypes.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

@@ -25,7 +25,7 @@ describe('Reference', () => {
       display: 'Organization display',
     };
 
-    const validate = await validator.Reference(dataType);
+    const validate = await validator.dataTypes.Reference(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -38,7 +38,7 @@ describe('Reference', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.Reference(dataType);
+    const validate = await validator.dataTypes.Reference(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -92,7 +92,7 @@ describe('Reference', () => {
       },
     });
 
-    const validate = await validator.Reference(dataType);
+    const validate = await validator.dataTypes.Reference(dataType);
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors).toHaveLength(1);

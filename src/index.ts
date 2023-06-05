@@ -1,8 +1,6 @@
 import { FhirContextR5 } from './r5';
 
 class FHIRContext {
-  constructor() {}
-
   forR5() {
     return FhirContextR5;
   }

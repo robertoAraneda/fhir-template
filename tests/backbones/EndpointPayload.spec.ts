@@ -4,13 +4,13 @@ import { EndpointPayloadBuilder } from '../../src/r5/builders/backbones';
 import { IEndpointPayload } from '../../src/r5/interfaces/backbones';
 
 describe('EndpointPayload', () => {
-  const { validators: val, createBackboneElementWithBuilder } = new FHIRContext().forR5();
+  const { validators: val, builders } = new FHIRContext().forR5();
   const validator: IValidatorContext = val;
   let builder: EndpointPayloadBuilder;
 
   // create global
   beforeEach(async () => {
-    builder = await createBackboneElementWithBuilder('EndpointPayload');
+    builder = await builders.backboneElements.EndpointPayloadBuilder();
   });
 
   it('should be able to create a new endpoint payload and validate with correct data', async () => {

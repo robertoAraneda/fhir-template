@@ -5,7 +5,7 @@ import { OrganizationBuilder } from '../../src/r5/builders/resources';
 
 describe('Organization', () => {
   const context = new FHIRContext();
-  const { validators: val, createResource, createResourceWithBuilder } = context.forR5();
+  const { validators: val } = context.forR5();
   let validators = val.resources;
   let builder: OrganizationBuilder;
 

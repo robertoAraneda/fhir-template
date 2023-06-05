@@ -5,7 +5,7 @@ import { Endpoint } from '../../src/r5/resources';
 import { IValidatorContext } from '../../src/r5';
 
 describe('Endpoint', () => {
-  let builder;
+  let builder: EndpointBuilder;
   const context = new FHIRContext();
   const { validators: val, builders } = context.forR5();
 

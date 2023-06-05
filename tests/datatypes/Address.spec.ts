@@ -4,13 +4,13 @@ import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
 
 describe('Address', () => {
-  const { validators: val, createDataTypeWithBuilder } = new FHIRContext().forR5();
+  const { validators: val, builders } = new FHIRContext().forR5();
   const validator: IValidatorContext = val;
   let builder: AddressBuilder;
 
   // create global
   beforeEach(async () => {
-    builder = await createDataTypeWithBuilder('Address');
+    builder = await builders.dataTypes.AddressBuilder();
   });
 
   it('should be able to validate a new address', async () => {

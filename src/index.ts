@@ -8,11 +8,3 @@ class FHIRContext {
 
 export default FHIRContext;
 module.exports = FHIRContext;
-
-export * from '../src/r5/resources';
-export * from '../src/r5/interfaces/datatypes';
-export * from '../src/r5/interfaces/resources';
-export * from '../src/r5/interfaces/backbones';
-export * from '../src/r5/builders/resources';
-export * from '../src/r5/builders/datatypes';
-export * from '../src/r5/builders/backbones';

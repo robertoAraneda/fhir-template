@@ -1,63 +1,63 @@
-import { Practitioner } from '../../interfaces/resources';
-import { Buildable, Serializable, Element } from '../../interfaces/base';
-import { ContactPoint, Attachment, HumanName, Identifier, Address } from '../../interfaces/datatypes';
-import { PractitionerQualification, PractitionerCommunication } from '../../interfaces/backbones';
-import { AdministrativeGender } from '../../enums/AdministrativeGender';
-import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
+import { IPractitioner } from '../../interfaces/resources';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
+import { IContactPoint, IAttachment, IHumanName, IIdentifier, IAddress } from '../../interfaces/datatypes';
+import { IPractitionerQualification, IPractitionerCommunication } from '../../interfaces/backbones';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { validateReference } from '../../helpers/validateReference';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
+import { Practitioner } from '../../resources/Practitioner';
 
 type ParamType = 'active' | 'birthDate' | 'deceasedBoolean' | 'deceasedDateTime';
 
 export class PractitionerBuilder
   extends DomainResourceBuilder<PractitionerBuilder>
-  implements Buildable<Practitioner>, Serializable
+  implements IBuildable<Practitioner>, ISerializable
 {
-  private readonly practitioner: Practitioner;
+  private readonly practitioner: IPractitioner;
 
   constructor() {
     super();
 
-    this.practitioner = {} as Practitioner;
-    this.practitioner.resourceType = 'Practitioner';
+    this.practitioner = new Practitioner();
   }
 
-  addPractitionerParamExtension(param: ParamType, extension: Element): PractitionerBuilder {
+  addPractitionerParamExtension(param: ParamType, extension: IElement): PractitionerBuilder {
     this.practitioner[`_${param}`] = extension;
     return this;
   }
 
-  addIdentifier(identifier: Identifier): PractitionerBuilder {
+  addIdentifier(identifier: IIdentifier): PractitionerBuilder {
     this.practitioner.identifier = this.practitioner.identifier || [];
     this.practitioner.identifier.push(identifier);
     return this;
   }
 
-  addName(name: HumanName): PractitionerBuilder {
+  addName(name: IHumanName): PractitionerBuilder {
     this.practitioner.name = this.practitioner.name || [];
     this.practitioner.name.push(name);
     return this;
   }
 
-  addTelecom(telecom: ContactPoint): PractitionerBuilder {
+  addTelecom(telecom: IContactPoint): PractitionerBuilder {
     this.practitioner.telecom = this.practitioner.telecom || [];
     this.practitioner.telecom.push(telecom);
     return this;
   }
 
-  addAddress(address: Address): PractitionerBuilder {
+  addAddress(address: IAddress): PractitionerBuilder {
     this.practitioner.address = this.practitioner.address || [];
     this.practitioner.address.push(address);
     return this;
   }
 
-  addPhoto(photo: Attachment): PractitionerBuilder {
+  addPhoto(photo: IAttachment): PractitionerBuilder {
     this.practitioner.photo = this.practitioner.photo || [];
     this.practitioner.photo.push(photo);
     return this;
   }
 
-  addQualification(qualification: PractitionerQualification): PractitionerBuilder {
+  addQualification(qualification: IPractitionerQualification): PractitionerBuilder {
     if (qualification.issuer?.reference) {
       validateReference(qualification.issuer.reference, ['Organization']);
     }
@@ -75,43 +75,43 @@ export class PractitionerBuilder
     return this;
   }
 
-  addCommunication(communication: PractitionerCommunication): PractitionerBuilder {
+  addCommunication(communication: IPractitionerCommunication): PractitionerBuilder {
     this.practitioner.communication = this.practitioner.communication || [];
     this.practitioner.communication.push(communication);
     return this;
   }
 
-  setMultipleIdentifier(identifier: Identifier[]): PractitionerBuilder {
+  setMultipleIdentifier(identifier: IIdentifier[]): PractitionerBuilder {
     this.practitioner.identifier = identifier;
     return this;
   }
 
-  setMultipleName(name: HumanName[]): PractitionerBuilder {
+  setMultipleName(name: IHumanName[]): PractitionerBuilder {
     this.practitioner.name = name;
     return this;
   }
 
-  setMultipleTelecom(telecom: ContactPoint[]): PractitionerBuilder {
+  setMultipleTelecom(telecom: IContactPoint[]): PractitionerBuilder {
     this.practitioner.telecom = telecom;
     return this;
   }
 
-  setMultipleAddress(address: Address[]): PractitionerBuilder {
+  setMultipleAddress(address: IAddress[]): PractitionerBuilder {
     this.practitioner.address = address;
     return this;
   }
 
-  setMultiplePhoto(photo: Attachment[]): PractitionerBuilder {
+  setMultiplePhoto(photo: IAttachment[]): PractitionerBuilder {
     this.practitioner.photo = photo;
     return this;
   }
 
-  setMultipleQualification(qualification: PractitionerQualification[]): PractitionerBuilder {
+  setMultipleQualification(qualification: IPractitionerQualification[]): PractitionerBuilder {
     this.practitioner.qualification = qualification;
     return this;
   }
 
-  setMultipleCommunication(communication: PractitionerCommunication[]): PractitionerBuilder {
+  setMultipleCommunication(communication: IPractitionerCommunication[]): PractitionerBuilder {
     this.practitioner.communication = communication;
     return this;
   }
@@ -138,7 +138,7 @@ export class PractitionerBuilder
     return this;
   }
 
-  setGender(gender: AdministrativeGender | AdministrativeGenderType): PractitionerBuilder {
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PractitionerBuilder {
     this.practitioner.gender = gender;
 
     return this;

@@ -1,10 +1,18 @@
-import { Patient } from '../../interfaces/resources';
-import { Address, Identifier, CodeableConcept, HumanName, Attachment, ContactPoint } from '../../interfaces/datatypes';
-import { PatientCommunication, PatientContact, PatientLink } from '../../interfaces/backbones';
-import { AdministrativeGender } from '../../enums/AdministrativeGender';
-import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
-import { Reference, Element, Buildable, Serializable } from '../../interfaces/base';
+import {
+  IAddress,
+  IIdentifier,
+  ICodeableConcept,
+  IHumanName,
+  IAttachment,
+  IContactPoint,
+} from '../../interfaces/datatypes';
+import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
+import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
+import { Patient } from '../../resources';
+import { IPatient } from '../../interfaces/resources';
 
 type ParamType =
   | 'active'
@@ -14,22 +22,24 @@ type ParamType =
   | 'multipleBirthInteger'
   | 'deceasedBoolean'
   | 'deceasedDateTime';
-export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implements Buildable<Patient>, Serializable {
-  private readonly patient: Patient;
+export class PatientBuilder
+  extends DomainResourceBuilder<PatientBuilder>
+  implements IBuildable<Patient>, ISerializable
+{
+  private readonly patient: IPatient;
 
   constructor() {
     super();
-    this.patient = {} as Patient;
-    this.patient.resourceType = 'Patient';
+    this.patient = new Patient();
   }
 
-  addParamExtension(param: ParamType, extension: Element): PatientBuilder {
+  addParamExtension(param: ParamType, extension: IElement): PatientBuilder {
     this.patient[`_${param}`] = extension;
 
     return this;
   }
 
-  addName(name: HumanName): PatientBuilder {
+  addName(name: IHumanName): PatientBuilder {
     this.patient.name = this.patient.name || [];
     this.patient.name.push(name);
     return this;
@@ -40,19 +50,19 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  addIdentifier(identifier: Identifier): PatientBuilder {
+  addIdentifier(identifier: IIdentifier): PatientBuilder {
     this.patient.identifier = this.patient.identifier || [];
     this.patient.identifier.push(identifier);
     return this;
   }
 
-  addTelecom(telecom: ContactPoint): PatientBuilder {
+  addTelecom(telecom: IContactPoint): PatientBuilder {
     this.patient.telecom = this.patient.telecom || [];
     this.patient.telecom.push(telecom);
     return this;
   }
 
-  setGender(gender: AdministrativeGender | AdministrativeGenderType): PatientBuilder {
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PatientBuilder {
     this.patient.gender = gender;
     return this;
   }
@@ -62,13 +72,13 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMaritalStatus(maritalStatus: CodeableConcept): PatientBuilder {
+  setMaritalStatus(maritalStatus: ICodeableConcept): PatientBuilder {
     this.patient.maritalStatus = maritalStatus;
 
     return this;
   }
 
-  addLink(link: PatientLink): PatientBuilder {
+  addLink(link: IPatientLink): PatientBuilder {
     /*
     if (typeof link.other.reference === 'string') {
       if (!link.other.reference?.startsWith('Patient/'))
@@ -86,7 +96,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMultipleLinks(links: PatientLink[]): PatientBuilder {
+  setMultipleLinks(links: IPatientLink[]): PatientBuilder {
     this.patient.link = links;
     return this;
   }
@@ -105,24 +115,24 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setManagingOrganization(args: Reference): PatientBuilder {
+  setManagingOrganization(args: IReference): PatientBuilder {
     this.patient.managingOrganization = args;
 
     return this;
   }
 
-  addCommunication(communication: PatientCommunication): PatientBuilder {
+  addCommunication(communication: IPatientCommunication): PatientBuilder {
     this.patient.communication = this.patient.communication || [];
     this.patient.communication.push(communication);
     return this;
   }
 
-  setMultipleCommunication(communications: PatientCommunication[]): PatientBuilder {
+  setMultipleCommunication(communications: IPatientCommunication[]): PatientBuilder {
     this.patient.communication = communications;
     return this;
   }
 
-  addContact(contact: PatientContact): PatientBuilder {
+  addContact(contact: IPatientContact): PatientBuilder {
     this.patient.contact = this.patient.contact || [];
 
     /*
@@ -140,7 +150,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMultipleContact(contacts: PatientContact[]): PatientBuilder {
+  setMultipleContact(contacts: IPatientContact[]): PatientBuilder {
     /*
     for (const contact of contacts) {
       if (contact.organization) {
@@ -158,35 +168,35 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  addPhoto(attachment: Attachment): PatientBuilder {
+  addPhoto(attachment: IAttachment): PatientBuilder {
     this.patient.photo = this.patient.photo || [];
     this.patient.photo.push(attachment);
     return this;
   }
 
-  setMultiplePhoto(attachments: Attachment[]): PatientBuilder {
+  setMultiplePhoto(attachments: IAttachment[]): PatientBuilder {
     this.patient.photo = attachments;
     return this;
   }
 
-  addAddress(address: Address): PatientBuilder {
+  addAddress(address: IAddress): PatientBuilder {
     this.patient.address = this.patient.address || [];
     this.patient.address.push(address);
     return this;
   }
 
-  setMultipleAddress(addresses: Address[]): PatientBuilder {
+  setMultipleAddress(addresses: IAddress[]): PatientBuilder {
     this.patient.address = addresses;
     return this;
   }
 
-  addGeneralPractitioner(generalPractitioner: Reference): PatientBuilder {
+  addGeneralPractitioner(generalPractitioner: IReference): PatientBuilder {
     this.patient.generalPractitioner = this.patient.generalPractitioner || [];
     this.patient.generalPractitioner.push(generalPractitioner);
     return this;
   }
 
-  setMultipleGeneralPractitioner(generalPractitioners: Reference[]): PatientBuilder {
+  setMultipleGeneralPractitioner(generalPractitioners: IReference[]): PatientBuilder {
     this.patient.generalPractitioner = generalPractitioners;
     return this;
   }

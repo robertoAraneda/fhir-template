@@ -1,18 +1,24 @@
-import { CodeableConcept } from '../../src/r5/interfaces/datatypes/CodeableConcept';
-import { CodeableConceptBuilder } from '../../src/r5/builders/datatypes/CodeableConceptBuilder';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { ICodeableConcept } from '../../src/r5/interfaces/datatypes';
+import { CodeableConceptBuilder } from '../../src/r5/builders/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('CodeableConcept', () => {
+  let validator: IValidatorContext;
   let builder: CodeableConceptBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ElementBuilder.CodeableConcept().setText('test').setId('123');
+    builder = new CodeableConceptBuilder();
   });
 
   it('should be able to create a new codeableconcept and validate with correct data', async () => {
-    const dataType: CodeableConcept = {
+    const dataType: ICodeableConcept = {
       id: '123',
       coding: [
         {
@@ -24,7 +30,7 @@ describe('CodeableConcept', () => {
       text: 'test',
     };
 
-    const validate = await ElementValidator.CodeableConcept(dataType);
+    const validate = await validator.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -44,7 +50,7 @@ describe('CodeableConcept', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await ElementValidator.CodeableConcept(dataType);
+    const validate = await validator.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -63,6 +69,8 @@ describe('CodeableConcept', () => {
   it('should be able to create a new codeableconcept using builder methods', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .setText('test')
       .addCodeableConceptParamExtension('text', {
         extension: [
           {

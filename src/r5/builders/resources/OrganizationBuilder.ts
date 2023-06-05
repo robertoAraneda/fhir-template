@@ -1,32 +1,32 @@
-import { OrganizationQualification } from '../../interfaces/backbones';
-import { Organization } from '../../interfaces/resources';
-import { Element, Reference, Buildable, Serializable } from '../../interfaces/base';
-import { ExtendedContactDetail, Identifier, CodeableConcept } from '../../interfaces/datatypes';
+import { IOrganizationQualification } from '../../interfaces/backbones';
+import { Organization } from '../../resources';
+import { IElement, IReference, IBuildable, ISerializable } from '../../interfaces/base';
+import { IExtendedContactDetail, IIdentifier, ICodeableConcept } from '../../interfaces/datatypes';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
+import { IOrganization } from '../../interfaces/resources';
 
 type ParamsType = 'active' | 'alias' | 'description' | 'name';
 export class OrganizationBuilder
   extends DomainResourceBuilder<OrganizationBuilder>
-  implements Buildable<Organization>, Serializable
+  implements IBuildable<Organization>, ISerializable
 {
-  private readonly organization: Organization;
+  private readonly organization: IOrganization;
 
   constructor() {
     super();
-    this.organization = {} as Organization;
-    this.organization.resourceType = 'Organization';
+    this.organization = new Organization();
   }
 
   addOrganizationParamExtension<T extends ParamsType>(
     param: T,
-    extension: T extends 'alias' ? Element[] : Element,
+    extension: T extends 'alias' ? IElement[] : IElement,
   ): OrganizationBuilder {
     if (param === 'alias') {
-      this.organization._alias = extension as Element[];
+      this.organization._alias = extension as IElement[];
     } else {
       const localParam = param as Exclude<ParamsType, 'alias'>;
 
-      this.organization[`_${localParam}`] = extension as Element;
+      this.organization[`_${localParam}`] = extension as IElement;
     }
 
     return this;
@@ -37,7 +37,7 @@ export class OrganizationBuilder
    * @param identifier
    * @returns {OrganizationBuilder}
    */
-  addIdentifier(identifier: Identifier): OrganizationBuilder {
+  addIdentifier(identifier: IIdentifier): OrganizationBuilder {
     this.organization.identifier = this.organization.identifier || [];
     this.organization.identifier.push(identifier);
 
@@ -49,7 +49,7 @@ export class OrganizationBuilder
    * @param identifiers Array of Identifiers
    * @returns {OrganizationBuilder} OrganizationBuilder
    */
-  setMultipleIdentifier(identifiers: Identifier[]): OrganizationBuilder {
+  setMultipleIdentifier(identifiers: IIdentifier[]): OrganizationBuilder {
     this.organization.identifier = identifiers;
 
     return this;
@@ -66,14 +66,14 @@ export class OrganizationBuilder
     return this;
   }
 
-  addType(type: CodeableConcept): OrganizationBuilder {
+  addType(type: ICodeableConcept): OrganizationBuilder {
     this.organization.type = this.organization.type || [];
     this.organization.type.push(type);
 
     return this;
   }
 
-  setMultipleType(types: CodeableConcept[]): OrganizationBuilder {
+  setMultipleType(types: ICodeableConcept[]): OrganizationBuilder {
     this.organization.type = types;
 
     return this;
@@ -104,46 +104,46 @@ export class OrganizationBuilder
     return this;
   }
 
-  addContact(contact: ExtendedContactDetail): OrganizationBuilder {
+  addContact(contact: IExtendedContactDetail): OrganizationBuilder {
     this.organization.contact = this.organization.contact || [];
     this.organization.contact.push(contact);
 
     return this;
   }
 
-  setMultipleContact(contacts: ExtendedContactDetail[]): OrganizationBuilder {
+  setMultipleContact(contacts: IExtendedContactDetail[]): OrganizationBuilder {
     this.organization.contact = contacts;
 
     return this;
   }
 
-  setPartOf(partOf: Reference): OrganizationBuilder {
+  setPartOf(partOf: IReference): OrganizationBuilder {
     this.organization.partOf = partOf;
 
     return this;
   }
 
-  addEndpoint(endpoint: Reference): OrganizationBuilder {
+  addEndpoint(endpoint: IReference): OrganizationBuilder {
     this.organization.endpoint = this.organization.endpoint || [];
     this.organization.endpoint.push(endpoint);
 
     return this;
   }
 
-  setMultipleEndpoint(endpoints: Reference[]): OrganizationBuilder {
+  setMultipleEndpoint(endpoints: IReference[]): OrganizationBuilder {
     this.organization.endpoint = endpoints;
 
     return this;
   }
 
-  addQualification(qualification: OrganizationQualification): OrganizationBuilder {
+  addQualification(qualification: IOrganizationQualification): OrganizationBuilder {
     this.organization.qualification = this.organization.qualification || [];
     this.organization.qualification.push(qualification);
 
     return this;
   }
 
-  setMultipleQualification(qualifications: OrganizationQualification[]): OrganizationBuilder {
+  setMultipleQualification(qualifications: IOrganizationQualification[]): OrganizationBuilder {
     this.organization.qualification = qualifications;
 
     return this;

@@ -1,27 +1,27 @@
-import { OrganizationQualification } from '../../interfaces/backbones';
-import { Buildable, Serializable, Reference } from '../../interfaces/base';
-import { CodeableConcept, Identifier, Period } from '../../interfaces/datatypes';
+import { IOrganizationQualification } from '../../interfaces/backbones';
+import { IBuildable, ISerializable, IReference } from '../../interfaces/base';
+import { ICodeableConcept, IIdentifier, IPeriod } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 
 export class OrganizationQualificationBuilder
   extends BackboneElementBuilder<OrganizationQualificationBuilder>
-  implements Buildable<OrganizationQualification>, Serializable
+  implements IBuildable<IOrganizationQualification>, ISerializable
 {
-  private readonly organizationQualification: OrganizationQualification;
+  private readonly organizationQualification: IOrganizationQualification;
 
   constructor() {
     super();
 
-    this.organizationQualification = {} as OrganizationQualification;
+    this.organizationQualification = {} as IOrganizationQualification;
   }
 
-  setCode(code: CodeableConcept): OrganizationQualificationBuilder {
+  setCode(code: ICodeableConcept): OrganizationQualificationBuilder {
     this.organizationQualification.code = code;
     return this;
   }
 
-  setMultipleIdentifier(identifier: Identifier[]): OrganizationQualificationBuilder {
+  setMultipleIdentifier(identifier: IIdentifier[]): OrganizationQualificationBuilder {
     for (const id of identifier) {
       if (id.assigner?.reference) {
         validateReference(id.assigner?.reference, ['Organization']);
@@ -32,7 +32,7 @@ export class OrganizationQualificationBuilder
     return this;
   }
 
-  setIssuer(issuer: Reference): OrganizationQualificationBuilder {
+  setIssuer(issuer: IReference): OrganizationQualificationBuilder {
     if (issuer.reference) {
       validateReference(issuer.reference, ['Organization']);
     }
@@ -41,12 +41,12 @@ export class OrganizationQualificationBuilder
     return this;
   }
 
-  setPeriod(period: Period): OrganizationQualificationBuilder {
+  setPeriod(period: IPeriod): OrganizationQualificationBuilder {
     this.organizationQualification.period = period;
     return this;
   }
 
-  addIdentifier(identifier: Identifier): OrganizationQualificationBuilder {
+  addIdentifier(identifier: IIdentifier): OrganizationQualificationBuilder {
     if (identifier.assigner?.reference) {
       validateReference(identifier.assigner?.reference, ['Organization']);
     }
@@ -60,11 +60,11 @@ export class OrganizationQualificationBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): OrganizationQualification {
+  build(): IOrganizationQualification {
     return JSON.parse(JSON.stringify(this.raw()));
   }
 
-  raw(): OrganizationQualification {
+  raw(): IOrganizationQualification {
     return {
       ...this.organizationQualification,
       ...super.entity(),

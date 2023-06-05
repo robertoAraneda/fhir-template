@@ -1,15 +1,18 @@
-import { DomainResource, Reference, Serializable, Buildable, Element } from '../../interfaces/base';
-import { Identifier } from '../../interfaces/datatypes';
+import { IDomainResource, IReference, ISerializable, IBuildable, IElement } from '../../interfaces/base';
+import { IIdentifier } from '../../interfaces/datatypes';
 import { transformReference } from '../../helpers/transformReference';
 import { ElementBuilder } from '../base/ElementBuilder';
 
-export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements Buildable<Reference>, Serializable {
-  private readonly reference: Reference;
+export class ReferenceBuilder
+  extends ElementBuilder<ReferenceBuilder>
+  implements IBuildable<IReference>, ISerializable
+{
+  private readonly reference: IReference;
 
   constructor() {
     super();
 
-    this.reference = {} as Reference;
+    this.reference = {} as IReference;
   }
 
   addReferenceParamExtension(param: 'display' | 'type' | 'reference', extension: Element): ReferenceBuilder {
@@ -18,7 +21,7 @@ export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implement
     return this;
   }
 
-  setReference<T extends DomainResource | string>(value: T): ReferenceBuilder {
+  setReference<T extends IDomainResource | string>(value: T): ReferenceBuilder {
     if (typeof value === 'string') {
       this.reference.reference = value;
     } else {
@@ -32,7 +35,7 @@ export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implement
     return this;
   }
 
-  setIdentifier(value: Identifier): ReferenceBuilder {
+  setIdentifier(value: IIdentifier): ReferenceBuilder {
     this.reference.identifier = value;
     return this;
   }
@@ -46,14 +49,14 @@ export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implement
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  raw(): Reference {
+  raw(): IReference {
     return {
       ...this.reference,
       ...super.entity(),
     };
   }
 
-  build(): Reference {
+  build(): IReference {
     return JSON.parse(this.serialize());
   }
 }

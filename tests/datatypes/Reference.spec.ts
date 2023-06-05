@@ -1,25 +1,31 @@
-import { ReferenceBuilder } from '../../src/r5/builders/datatypes/ReferenceBuilder';
-import { Reference } from '../../src/r5/interfaces/base/Reference';
-import { Organization } from '../../src/r5/interfaces/resources/Organization';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { ReferenceBuilder } from '../../src/r5/builders/datatypes';
+import { IReference } from '../../src/r5/interfaces/base';
+import { IOrganization } from '../../src/r5/interfaces/resources';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('Reference', () => {
+  let validator: IValidatorContext;
   let builder: ReferenceBuilder;
 
-  // create global identifierBuilder
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
+
+  // create global
   beforeEach(() => {
-    builder = ElementBuilder.Reference().setType('official').setDisplay('2020-01-01');
+    builder = new ReferenceBuilder();
   });
 
   it('should be able to create a new reference and validate with correct data', async () => {
-    const dataType: Reference = {
+    const dataType: IReference = {
       type: 'official',
       reference: 'Organization/123',
       display: 'Organization display',
     };
 
-    const validate = await ElementValidator.Reference(dataType);
+    const validate = await validator.Reference(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -32,7 +38,7 @@ describe('Reference', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await ElementValidator.Reference(dataType);
+    const validate = await validator.Reference(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -50,7 +56,11 @@ describe('Reference', () => {
 
   it('should be able to create a new address using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder.setReference('Organization/123').setDisplay('Organization display').build();
+    const dataType = builder
+      .setType('official')
+      .setReference('Organization/123')
+      .setDisplay('Organization display')
+      .build();
 
     expect(dataType).toBeDefined();
     expect(dataType).toEqual({ type: 'official', display: 'Organization display', reference: 'Organization/123' });
@@ -58,6 +68,7 @@ describe('Reference', () => {
 
   it('should return errors if identifiers has wrong data', async () => {
     const dataType = builder
+      .setType('official')
       .setReference('Organization/123')
       .setIdentifier({
         period: {
@@ -81,7 +92,7 @@ describe('Reference', () => {
       },
     });
 
-    const validate = await ElementValidator.Reference(dataType);
+    const validate = await validator.Reference(dataType);
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors).toHaveLength(1);
@@ -99,7 +110,7 @@ describe('Reference', () => {
   });
 
   it('should be able to create a new reference as resource with builder methods', async () => {
-    const organization: Organization = {
+    const organization: IOrganization = {
       resourceType: 'Organization',
       id: '123',
     };

@@ -1,25 +1,25 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Buildable, Serializable, Element } from '../../interfaces/base';
-import { PatientCommunication } from '../../interfaces/backbones';
-import { CodeableConcept } from '../../interfaces/datatypes';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
+import { IPatientCommunication } from '../../interfaces/backbones';
+import { ICodeableConcept } from '../../interfaces/datatypes';
 
 export class PatientCommunicationBuilder
   extends BackboneElementBuilder<PatientCommunicationBuilder>
-  implements Buildable<PatientCommunication>, Serializable
+  implements IBuildable<IPatientCommunication>, ISerializable
 {
-  private readonly patientCommunication: PatientCommunication;
+  private readonly patientCommunication: IPatientCommunication;
 
   constructor() {
     super();
-    this.patientCommunication = {} as PatientCommunication;
+    this.patientCommunication = {} as IPatientCommunication;
   }
 
-  addPatientCommunicationParamExtension(param: 'preferred', extension: Element): PatientCommunicationBuilder {
+  addPatientCommunicationParamExtension(param: 'preferred', extension: IElement): PatientCommunicationBuilder {
     this.patientCommunication[`_${param}`] = extension;
     return this;
   }
 
-  setLanguage(language: CodeableConcept): PatientCommunicationBuilder {
+  setLanguage(language: ICodeableConcept): PatientCommunicationBuilder {
     this.patientCommunication.language = language;
     return this;
   }
@@ -29,7 +29,7 @@ export class PatientCommunicationBuilder
     return this;
   }
 
-  build(): PatientCommunication {
+  build(): IPatientCommunication {
     return JSON.parse(JSON.stringify(this.raw()));
   }
 
@@ -37,7 +37,7 @@ export class PatientCommunicationBuilder
     return JSON.stringify(this.raw());
   }
 
-  raw(): PatientCommunication {
+  raw(): IPatientCommunication {
     return {
       ...this.patientCommunication,
       ...super.entity(),

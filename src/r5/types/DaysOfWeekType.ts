@@ -1,6 +1,6 @@
-import { DaysOfWeek } from '../enums/DaysOfWeek';
+import { DaysOfWeekEnum } from '../enums/DaysOfWeekEnum';
 
-const typesArray = Object.values(DaysOfWeek).map((value: any) => {
+const typesArray = Object.values(DaysOfWeekEnum).map((value: any) => {
   return value;
 }) as string[];
 

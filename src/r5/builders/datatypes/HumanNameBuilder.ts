@@ -1,37 +1,40 @@
-import { NameUse } from '../../enums/NameUse';
-import { NameUseType } from '../../types/NameUseType';
-import { HumanName, Period } from '../../interfaces/datatypes';
-import { Element, Buildable, Serializable } from '../../interfaces/base';
+import { NameUseEnum } from '../../enums';
+import { NameUseType } from '../../types';
+import { IHumanName, IPeriod } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
 type MultipleParamType = 'given' | 'prefix' | 'suffix';
-export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements Buildable<HumanName>, Serializable {
-  private readonly humanName: HumanName;
+export class HumanNameBuilder
+  extends ElementBuilder<HumanNameBuilder>
+  implements IBuildable<IHumanName>, ISerializable
+{
+  private readonly humanName: IHumanName;
 
   constructor() {
     super();
 
-    this.humanName = {} as HumanName;
+    this.humanName = {} as IHumanName;
   }
 
   addHumanNameParamExtension<T extends ParamType>(
     param: T,
-    extension: T extends 'given' | 'prefix' | 'suffix' ? Element[] : Element,
+    extension: T extends 'given' | 'prefix' | 'suffix' ? IElement[] : IElement,
   ): HumanNameBuilder {
     const includes = ['given', 'prefix', 'suffix'];
     if (includes.includes(param)) {
       const localMultipleParam = param as MultipleParamType;
-      this.humanName[`_${localMultipleParam}`] = extension as Element[];
+      this.humanName[`_${localMultipleParam}`] = extension as IElement[];
     } else {
       const localParam = param as Exclude<ParamType, 'given' | 'prefix' | 'suffix'>;
-      this.humanName[`_${localParam}`] = extension as Element;
+      this.humanName[`_${localParam}`] = extension as IElement;
     }
 
     return this;
   }
 
-  setUse(value: NameUse | NameUseType): HumanNameBuilder {
+  setUse(value: NameUseEnum | NameUseType): HumanNameBuilder {
     this.humanName.use = value;
     return this;
   }
@@ -79,7 +82,7 @@ export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implement
     return this;
   }
 
-  setPeriod(value: Period): HumanNameBuilder {
+  setPeriod(value: IPeriod): HumanNameBuilder {
     this.humanName.period = value;
     return this;
   }
@@ -88,14 +91,14 @@ export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implement
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  raw(): HumanName {
+  raw(): IHumanName {
     return {
       ...this.humanName,
       ...super.entity(),
     };
   }
 
-  build(): HumanName {
+  build(): IHumanName {
     return JSON.parse(this.serialize());
   }
 }

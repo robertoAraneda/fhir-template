@@ -1,18 +1,24 @@
-import { HumanNameBuilder } from '../../src/r5/builders/datatypes/HumanNameBuilder';
-import { HumanName } from '../../src/r5/interfaces/datatypes/HumanName';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { HumanNameBuilder } from '../../src/r5/builders/datatypes';
+import { IHumanName } from '../../src/r5/interfaces/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('HumanName', () => {
+  let validator: IValidatorContext;
   let builder: HumanNameBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ElementBuilder.HumanName();
+    builder = new HumanNameBuilder();
   });
 
   it('should be able to create a new humanname and validate with correct data', async () => {
-    const dataType: HumanName = {
+    const dataType: IHumanName = {
       use: 'maiden',
       family: 'Windsor',
       given: ['Peter', 'James'],
@@ -30,7 +36,7 @@ describe('HumanName', () => {
       },
     };
 
-    const validate = await ElementValidator.HumanName(dataType);
+    const validate = await validator.HumanName(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -55,7 +61,7 @@ describe('HumanName', () => {
       },
     };
 
-    const validate = await ElementValidator.HumanName(dataType);
+    const validate = await validator.HumanName(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

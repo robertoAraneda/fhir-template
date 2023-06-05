@@ -1,12 +1,12 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Identifier, CodeableConcept } from '../../interfaces/datatypes';
-import { Reference } from '../../interfaces/base';
+import { IIdentifier, ICodeableConcept } from '../../interfaces/datatypes';
+import { IReference } from '../../interfaces/base';
 
 export class EncounterAdmissionBuilder extends BackboneElementBuilder<EncounterAdmissionBuilder> {
-  preAdmissionIdentifier?: Identifier;
-  origin: Reference;
-  admitSource?: CodeableConcept;
-  reAdmission?: CodeableConcept;
-  destination?: Reference;
-  dischargeDisposition?: CodeableConcept;
+  preAdmissionIdentifier?: IIdentifier;
+  origin: IReference;
+  admitSource?: ICodeableConcept;
+  reAdmission?: ICodeableConcept;
+  destination?: IReference;
+  dischargeDisposition?: ICodeableConcept;
 }

@@ -1,18 +1,24 @@
-import { RelatedPersonBuilder } from '../../src/r5/builders/resources/RelatedPersonBuilder';
-import ResourceBuilder from '../../src/r5/ResourceBuilder';
-import { RelatedPerson } from '../../src/r5/interfaces/resources/RelatedPerson';
-import ResourceValidator from '../../src/r5/ResourceValidator';
+import { RelatedPersonBuilder } from '../../src/r5/builders/resources';
+import { IRelatedPerson } from '../../src/r5/interfaces/resources';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('RelatedPerson', () => {
+  let validator: IValidatorContext;
   let builder: RelatedPersonBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ResourceBuilder.RelatedPerson();
+    builder = new RelatedPersonBuilder();
   });
 
   it('should be able to create a new coding and validate with correct data [Example RelatedPerson/benedicte]', async () => {
-    const dataType: RelatedPerson = {
+    const dataType: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'benedicte',
       text: {
@@ -84,13 +90,13 @@ describe('RelatedPerson', () => {
       ],
     };
 
-    const validate = await ResourceValidator.RelatedPerson(dataType);
+    const validate = await validator.RelatedPerson(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/peter]', async () => {
-    const dataType: RelatedPerson = {
+    const dataType: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'peter',
       text: {
@@ -145,14 +151,14 @@ describe('RelatedPerson', () => {
       },
     };
 
-    const validate = await ResourceValidator.RelatedPerson(dataType);
+    const validate = await validator.RelatedPerson(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/f001]', async () => {
-    const dataType: RelatedPerson = {
+    const dataType: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'f001',
       text: {
@@ -203,14 +209,14 @@ describe('RelatedPerson', () => {
       gender: 'female',
     };
 
-    const validate = await ResourceValidator.RelatedPerson(dataType);
+    const validate = await validator.RelatedPerson(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/newborn-mom]', async () => {
-    const dataType: RelatedPerson = {
+    const dataType: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'newborn-mom',
       text: {
@@ -271,7 +277,7 @@ describe('RelatedPerson', () => {
       ],
     };
 
-    const validate = await ResourceValidator.RelatedPerson(dataType);
+    const validate = await validator.RelatedPerson(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();

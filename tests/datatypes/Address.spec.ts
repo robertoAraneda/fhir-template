@@ -1,16 +1,24 @@
-import { AddressBuilder } from '../../src/r5/builders/datatypes/AddressBuilder';
-import { Address } from '../../src/r5/interfaces/datatypes/Address';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { AddressBuilder } from '../../src/r5/builders/datatypes';
+import { IAddress } from '../../src/r5/interfaces/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('Address', () => {
+  let validator: IValidatorContext;
   let builder: AddressBuilder;
 
-  beforeEach(() => {
-    builder = ElementBuilder.Address();
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
   });
+
+  // create global
+  beforeEach(() => {
+    builder = new AddressBuilder();
+  });
+
   it('should be able to validate a new address', async () => {
-    const address: Address = {
+    const address: IAddress = {
       id: '123',
       type: 'postal',
       period: {
@@ -27,13 +35,13 @@ describe('Address', () => {
       state: 'AnyState',
     };
 
-    const validateAddress = await ElementValidator.Address(address);
+    const validateAddress = await validator.Address(address);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
 
   it('should be able to create a new address using builder methods', async () => {
-    const address: Address = new AddressBuilder()
+    const address: IAddress = new AddressBuilder()
       .setCity('Anytown')
       .setCountry('USA')
       .setDistrict('Anycounty')
@@ -103,7 +111,7 @@ describe('Address', () => {
   });
 
   it('should be get errors validators if new address has wrong period', async () => {
-    const address: Address = {
+    const address: IAddress = {
       id: '123',
       type: 'both',
       period: {
@@ -150,7 +158,7 @@ describe('Address', () => {
       ],
     };
 
-    const validateAddress = await ElementValidator.Address(address);
+    const validateAddress = await validator.Address(address);
     expect(validateAddress.isValid).toBeFalsy();
     expect(validateAddress.errors).toBeDefined();
     expect(validateAddress.errors?.length).toBe(2);

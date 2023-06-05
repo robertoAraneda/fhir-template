@@ -1,0 +1,68 @@
+import { IElement } from '../base/IElement';
+import { IAddress } from './IAddress';
+import { ICodeableConcept } from './ICodeableConcept';
+import { IPeriod } from './IPeriod';
+import { IReference } from '../base/IReference';
+import { ICodeableReference } from './ICodeableReference';
+import { ICoding } from './ICoding';
+import { IAttachment } from './IAttachment';
+import { IContactPoint } from './IContactPoint';
+import { IIdentifier } from './IIdentifier';
+import { IQuantity } from './IQuantity';
+
+export interface IExtension extends IElement {
+  url: string;
+  _url?: IElement;
+  valueBase64Binary?: string;
+  _valueBase64Binary?: IElement;
+  valueBoolean?: boolean;
+  _valueBoolean?: IElement;
+  valueCanonical?: string;
+  _valueCanonical?: IElement;
+  valueCode?: string;
+  _valueCode?: IElement;
+  valueDate?: string;
+  _valueDate?: IElement;
+  valueDateTime?: string;
+  _valueDateTime?: IElement;
+  valueDecimal?: number;
+  _valueDecimal?: IElement;
+  valueId?: string;
+  _valueId?: IElement;
+  valueInstant?: string;
+  _valueInstant?: IElement;
+  valueInteger?: number;
+  _valueInteger?: IElement;
+  valueInteger64?: string;
+  _valueInteger64?: IElement;
+  valueMarkdown?: string;
+  _valueMarkdown?: IElement;
+  valueOid?: string;
+  _valueOid?: IElement;
+  valuePositiveInt?: number;
+  _valuePositiveInt?: IElement;
+  valueString?: string;
+  _valueString?: IElement;
+  valueTime?: string;
+  _valueTime?: IElement;
+  valueUnsignedInt?: number;
+  _valueUnsignedInt?: IElement;
+  valueUri?: string;
+  _valueUri?: IElement;
+  valueUrl?: string;
+  _valueUrl?: IElement;
+  valueUuid?: string;
+  _valueUuid?: IElement;
+  valueAddress?: IAddress;
+  valueCodeableConcept?: ICodeableConcept;
+  valueAttachment?: IAttachment;
+
+  valueReference?: IReference;
+  valueCodeableReference?: ICodeableReference;
+  valueCoding?: ICoding;
+  valueContactPoint?: IContactPoint;
+  valueIdentifier?: IIdentifier;
+
+  valuePeriod?: IPeriod;
+  valueQuantity?: IQuantity;
+}

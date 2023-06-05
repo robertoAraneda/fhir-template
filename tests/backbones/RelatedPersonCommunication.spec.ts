@@ -1,18 +1,24 @@
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
-import { RelatedPersonCommunicationBuilder } from '../../src/r5/builders/backbones/RelatedPersonCommunicationBuilder';
-import { RelatedPersonCommunication } from '../../src/r5/interfaces/backbones/RelatedPersonCommunication';
+import { RelatedPersonCommunicationBuilder } from '../../src/r5/builders/backbones';
+import { IRelatedPersonCommunication } from '../../src/r5/interfaces/backbones';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('RelatedPersonCommunication', () => {
+  let validator: IValidatorContext;
   let builder: RelatedPersonCommunicationBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.RelatedPersonCommunication();
+    builder = new RelatedPersonCommunicationBuilder();
   });
 
   it('should be able to create a new related_person_communication payload and validate with correct data', async () => {
-    const dataType: RelatedPersonCommunication = {
+    const dataType: IRelatedPersonCommunication = {
       id: '123',
       preferred: true,
       language: {
@@ -26,7 +32,7 @@ describe('RelatedPersonCommunication', () => {
       },
     };
 
-    const validate = await BackboneElementValidator.RelatedPersonCommunication(dataType);
+    const validate = await validator.RelatedPersonCommunication(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -48,7 +54,7 @@ describe('RelatedPersonCommunication', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.RelatedPersonCommunication(dataType);
+    const validate = await validator.RelatedPersonCommunication(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

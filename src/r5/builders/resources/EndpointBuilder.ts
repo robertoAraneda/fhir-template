@@ -1,24 +1,24 @@
-import { Endpoint } from '../../interfaces/resources';
-import { CodeableConcept, ContactPoint, Period, Identifier } from '../../interfaces/datatypes';
-import { Reference, Element, Buildable, Serializable } from '../../interfaces/base';
-import { EndpointPayload } from '../../interfaces/backbones';
-import { EndpointStatus } from '../../enums/EndpointStatus';
-import { EndpointStatusType } from '../../types/EndpointStatusType';
+import { IEndpoint } from '../../interfaces/resources';
+import { ICodeableConcept, IContactPoint, IPeriod, IIdentifier } from '../../interfaces/datatypes';
+import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import { IEndpointPayload } from '../../interfaces/backbones';
+import { EndpointStatusEnum } from '../../enums';
+import { EndpointStatusType } from '../../types';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
+import { Endpoint } from '../../resources';
 
 type ParamType = 'address' | 'description' | 'header' | 'name' | 'status' | 'implicitRules' | 'language';
 export class EndpointBuilder
   extends DomainResourceBuilder<EndpointBuilder>
-  implements Buildable<Endpoint>, Serializable
+  implements IBuildable<Endpoint>, ISerializable
 {
-  private readonly endpoint: Endpoint;
+  private readonly endpoint: IEndpoint;
   constructor() {
     super();
-    this.endpoint = {} as Endpoint;
-    this.endpoint.resourceType = 'Endpoint';
+    this.endpoint = new Endpoint();
   }
 
-  addEndpointParamExtension(param: ParamType, extension: Element): EndpointBuilder {
+  addEndpointParamExtension(param: ParamType, extension: IElement): EndpointBuilder {
     this.endpoint[`_${param}`] = extension;
 
     return this;
@@ -45,13 +45,13 @@ export class EndpointBuilder
     return this;
   }
 
-  setMultipleConnectionType(connectionType: CodeableConcept[]): EndpointBuilder {
+  setMultipleConnectionType(connectionType: ICodeableConcept[]): EndpointBuilder {
     this.endpoint.connectionType = connectionType;
 
     return this;
   }
 
-  setMultipleContact(contact: ContactPoint[]): EndpointBuilder {
+  setMultipleContact(contact: IContactPoint[]): EndpointBuilder {
     this.endpoint.contact = contact;
 
     return this;
@@ -63,7 +63,7 @@ export class EndpointBuilder
     return this;
   }
 
-  setMultipleEnvironmentType(environmentType: CodeableConcept[]): EndpointBuilder {
+  setMultipleEnvironmentType(environmentType: ICodeableConcept[]): EndpointBuilder {
     this.endpoint.environmentType = environmentType;
 
     return this;
@@ -75,13 +75,13 @@ export class EndpointBuilder
     return this;
   }
 
-  setMultipleIdentifier(identifier: Identifier[]): EndpointBuilder {
+  setMultipleIdentifier(identifier: IIdentifier[]): EndpointBuilder {
     this.endpoint.identifier = identifier;
 
     return this;
   }
 
-  setManagingOrganization(managingOrganization: Reference): EndpointBuilder {
+  setManagingOrganization(managingOrganization: IReference): EndpointBuilder {
     this.endpoint.managingOrganization = managingOrganization;
 
     return this;
@@ -93,39 +93,39 @@ export class EndpointBuilder
     return this;
   }
 
-  setMultiplePayload(payload: EndpointPayload[]): EndpointBuilder {
+  setMultiplePayload(payload: IEndpointPayload[]): EndpointBuilder {
     this.endpoint.payload = payload;
 
     return this;
   }
 
-  setPeriod(period: Period): EndpointBuilder {
+  setPeriod(period: IPeriod): EndpointBuilder {
     this.endpoint.period = period;
 
     return this;
   }
 
-  setStatus(status: EndpointStatus | EndpointStatusType): EndpointBuilder {
+  setStatus(status: EndpointStatusEnum | EndpointStatusType): EndpointBuilder {
     this.endpoint.status = status;
 
     return this;
   }
 
-  addConnectionType(connectionType: CodeableConcept): EndpointBuilder {
+  addConnectionType(connectionType: ICodeableConcept): EndpointBuilder {
     this.endpoint.connectionType = this.endpoint.connectionType || [];
     this.endpoint.connectionType.push(connectionType);
 
     return this;
   }
 
-  addContact(contact: ContactPoint): EndpointBuilder {
+  addContact(contact: IContactPoint): EndpointBuilder {
     this.endpoint.contact = this.endpoint.contact || [];
     this.endpoint.contact.push(contact);
 
     return this;
   }
 
-  addEnvironmentType(environmentType: CodeableConcept): EndpointBuilder {
+  addEnvironmentType(environmentType: ICodeableConcept): EndpointBuilder {
     this.endpoint.environmentType = this.endpoint.environmentType || [];
     this.endpoint.environmentType.push(environmentType);
 
@@ -139,14 +139,14 @@ export class EndpointBuilder
     return this;
   }
 
-  addIdentifier(identifier: Identifier): EndpointBuilder {
+  addIdentifier(identifier: IIdentifier): EndpointBuilder {
     this.endpoint.identifier = this.endpoint.identifier || [];
     this.endpoint.identifier.push(identifier);
 
     return this;
   }
 
-  addPayload(payload: EndpointPayload): EndpointBuilder {
+  addPayload(payload: IEndpointPayload): EndpointBuilder {
     this.endpoint.payload = this.endpoint.payload || [];
     this.endpoint.payload.push(payload);
 

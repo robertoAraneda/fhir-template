@@ -1,18 +1,24 @@
-import { PractitionerRoleBuilder } from '../../src/r5/builders/resources/PractitionerRoleBuilder';
-import ResourceBuilder from '../../src/r5/ResourceBuilder';
-import { PractitionerRole } from '../../src/r5/interfaces/resources/PractitionerRole';
-import ResourceValidator from '../../src/r5/ResourceValidator';
+import { PractitionerRoleBuilder } from '../../src/r5/builders/resources';
+import { IPractitionerRole } from '../../src/r5/interfaces/resources';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('PractitionerRole', () => {
+  let validator: IValidatorContext;
   let builder: PractitionerRoleBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ResourceBuilder.PractitionerRole();
+    builder = new PractitionerRoleBuilder();
   });
 
   it('should be able to create a new practitioner role and validate with correct data [Example PractitionerRole/example]', async () => {
-    const dataType: PractitionerRole = {
+    const dataType: IPractitionerRole = {
       resourceType: 'PractitionerRole',
       id: 'example',
       text: {
@@ -154,14 +160,14 @@ describe('PractitionerRole', () => {
       ],
     };
 
-    const validate = await ResourceValidator.PractitionerRole(dataType);
+    const validate = await validator.PractitionerRole(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new contact point and validate with wrong data [Example PractitionerRole/3ad0687e-f477-468c-afd5-fcc2bf897808]', async () => {
-    const dataType: PractitionerRole = {
+    const dataType: IPractitionerRole = {
       resourceType: 'PractitionerRole',
       id: 'f007-0',
       text: {
@@ -200,7 +206,7 @@ describe('PractitionerRole', () => {
       ],
     };
 
-    const validate = await ResourceValidator.PractitionerRole(dataType);
+    const validate = await validator.PractitionerRole(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();

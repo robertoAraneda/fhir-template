@@ -1,20 +1,22 @@
-import { Extension } from '../../interfaces/datatypes';
-import { Coding, CodeableConcept } from '../../interfaces/datatypes';
-import { Element, Buildable, Serializable } from '../../interfaces/base';
+import { ICoding, ICodeableConcept } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
 
-export class CodingBuilder extends ElementBuilder<CodingBuilder> implements Buildable<CodeableConcept>, Serializable {
-  private readonly coding: Coding;
+export class CodingBuilder
+  extends ElementBuilder<CodingBuilder>
+  implements IBuildable<ICodeableConcept>, ISerializable
+{
+  private readonly coding: ICoding;
 
   constructor() {
     super();
 
-    this.coding = {} as Coding;
+    this.coding = {} as ICoding;
   }
 
-  addCodingParamExtension(param: ParamType, extension: Extension): CodingBuilder {
+  addCodingParamExtension(param: ParamType, extension: IElement): CodingBuilder {
     this.coding[`_${param}`] = extension;
     return this;
   }
@@ -48,11 +50,11 @@ export class CodingBuilder extends ElementBuilder<CodingBuilder> implements Buil
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): Coding {
+  build(): ICoding {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Element {
+  raw(): ICoding {
     return {
       ...this.coding,
       ...super.entity(),

@@ -1,18 +1,24 @@
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
-import { PatientLinkBuilder } from '../../src/r5/builders/backbones/PatientLinkBuilder';
-import { PatientLink } from '../../src/r5/interfaces/backbones/PatientLink';
+import { PatientLinkBuilder } from '../../src/r5/builders/backbones';
+import { IPatientLink } from '../../src/r5/interfaces/backbones';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('PatientLink', () => {
+  let validator: IValidatorContext;
   let builder: PatientLinkBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.PatientLink();
+    builder = new PatientLinkBuilder();
   });
 
   it('should be able to create a new patient_link payload and validate with correct data', async () => {
-    const dataType: PatientLink = {
+    const dataType: IPatientLink = {
       id: '123',
       other: {
         reference: 'test',
@@ -26,7 +32,7 @@ describe('PatientLink', () => {
       ],
     };
 
-    const validate = await BackboneElementValidator.PatientLink(dataType);
+    const validate = await validator.PatientLink(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -44,7 +50,7 @@ describe('PatientLink', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.PatientLink(dataType);
+    const validate = await validator.PatientLink(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

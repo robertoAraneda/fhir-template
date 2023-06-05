@@ -1,19 +1,25 @@
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
-import { PatientCommunication } from '../../src/r5/interfaces/backbones/PatientCommunication';
-import { PractitionerCommunicationBuild } from '../../src/r5/builders/backbones/PractitionerCommunicationBuild';
-import { PractitionerCommunication } from '../../src/r5/interfaces/backbones/PractitionerCommunication';
+import { PractitionerCommunicationBuilder } from '../../src/r5/builders/backbones';
+import { IPractitionerCommunication } from '../../src/r5/interfaces/backbones';
+import { IValidatorContext } from '../../src/r5';
+
+import FHIRContext from '../../src';
 
 describe('PractitionerCommunication', () => {
-  let builder: PractitionerCommunicationBuild;
+  let validator: IValidatorContext;
+  let builder: PractitionerCommunicationBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.PractitionerCommunication();
+    builder = new PractitionerCommunicationBuilder();
   });
 
   it('should be able to create a new practitioner_communication payload and validate with correct data', async () => {
-    const dataType: PractitionerCommunication = {
+    const dataType: IPractitionerCommunication = {
       id: '123',
       preferred: true,
       language: {
@@ -27,7 +33,7 @@ describe('PractitionerCommunication', () => {
       },
     };
 
-    const validate = await BackboneElementValidator.PractitionerCommunication(dataType);
+    const validate = await validator.PractitionerCommunication(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -49,7 +55,7 @@ describe('PractitionerCommunication', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.PractitionerCommunication(dataType);
+    const validate = await validator.PractitionerCommunication(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

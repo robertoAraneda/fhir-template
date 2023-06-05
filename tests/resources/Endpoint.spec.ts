@@ -1,18 +1,103 @@
-import { EndpointBuilder } from '../../src/r5/builders/resources/EndpointBuilder';
-import { Endpoint } from '../../src/r5/interfaces/resources/Endpoint';
-import ResourceBuilder from '../../src/r5/ResourceBuilder';
-import ResourceValidator from '../../src/r5/ResourceValidator';
+import { EndpointBuilder } from '../../src/r5/builders/resources';
+import { IEndpoint } from '../../src/r5/interfaces/resources';
+import FHIRContext from '../../src';
+import { Endpoint } from '../../src/r5/resources';
 
 describe('Endpoint', () => {
+  const context = new FHIRContext();
+  const { validators } = context.forR5();
   let builder: EndpointBuilder;
 
   // create global
   beforeEach(() => {
-    builder = ResourceBuilder.Endpoint();
+    builder = new EndpointBuilder();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
-    const resource: Endpoint = {
+    const resource = new Endpoint({
+      resourceType: 'Endpoint',
+      id: 'example',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tHealth Intersections CarePlan Hub<br/>\n\t\t\tCarePlans can be uploaded to/from this loccation\n\t\t</div>',
+      },
+      identifier: [
+        {
+          system: 'http://example.org/enpoint-identifier',
+          value: 'epcp12',
+        },
+      ],
+      status: 'active',
+      connectionType: [
+        {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/endpoint-connection-type',
+              code: 'hl7-fhir-rest',
+            },
+          ],
+        },
+      ],
+      name: 'Health Intersections CarePlan Hub',
+      description: 'The CarePlan hub provides a test/dev environment for testing submissions',
+      environmentType: [
+        {
+          coding: [
+            {
+              system: 'http://hl7.org/fhir/endpoint-environment',
+              code: 'test',
+            },
+          ],
+        },
+        {
+          coding: [
+            {
+              system: 'http://hl7.org/fhir/endpoint-environment',
+              code: 'dev',
+            },
+          ],
+        },
+      ],
+      managingOrganization: {
+        reference: 'Organization/hl7',
+      },
+      contact: [
+        {
+          system: 'email',
+          value: 'endpointmanager@example.org',
+          use: 'work',
+        },
+      ],
+      period: {
+        start: '2014-09-01',
+      },
+      payload: [
+        {
+          type: [
+            {
+              coding: [
+                {
+                  system: 'http://hl7.org/fhir/fhir-types',
+                  code: 'CarePlan',
+                },
+              ],
+            },
+          ],
+          mimeType: ['application/fhir+xml'],
+        },
+      ],
+      address: 'http://fhir3.healthintersections.com.au/open/CarePlan',
+      header: ['bearer-code BASGS534s4'],
+    });
+
+    const validate = await validators.Endpoint(resource);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
+    const resource: IEndpoint = {
       resourceType: 'Endpoint',
       id: 'example',
       text: {
@@ -88,14 +173,14 @@ describe('Endpoint', () => {
       header: ['bearer-code BASGS534s4'],
     };
 
-    const validate = await ResourceValidator.Endpoint(resource);
+    const validate = await validators.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example-wadors]', async () => {
-    const resource: Endpoint = {
+    const resource: IEndpoint = {
       resourceType: 'Endpoint',
       id: 'example-wadors',
       text: {
@@ -127,14 +212,14 @@ describe('Endpoint', () => {
       address: 'https://pacs.hospital.org/wado-rs',
     };
 
-    const validate = await ResourceValidator.Endpoint(resource);
+    const validate = await validators.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/direct-endpoint]', async () => {
-    const resource: Endpoint = {
+    const resource: IEndpoint = {
       resourceType: 'Endpoint',
       id: 'direct-endpoint',
       text: {
@@ -173,7 +258,7 @@ describe('Endpoint', () => {
       address: 'mailto:MARTIN.SMIETANKA@directnppes.com',
     };
 
-    const validate = await ResourceValidator.Endpoint(resource);
+    const validate = await validators.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -213,7 +298,7 @@ describe('Endpoint', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await ResourceValidator.Endpoint(dataType);
+    const validate = await validators.Endpoint(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

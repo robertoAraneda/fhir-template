@@ -1,18 +1,24 @@
-import { PractitionerBuilder } from '../../src/r5/builders/resources/PractitionerBuilder';
-import { Practitioner } from '../../src/r5/interfaces/resources/Practitioner';
-import ResourceBuilder from '../../src/r5/ResourceBuilder';
-import ResourceValidator from '../../src/r5/ResourceValidator';
+import { PractitionerBuilder } from '../../src/r5/builders/resources';
+import { IPractitioner } from '../../src/r5/interfaces/resources';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('Practitioner', () => {
+  let validator: IValidatorContext;
   let builder: PractitionerBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ResourceBuilder.Practitioner();
+    builder = new PractitionerBuilder();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/example]', async () => {
-    const dataType: Practitioner = {
+    const dataType: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'example',
       text: {
@@ -70,13 +76,13 @@ describe('Practitioner', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Practitioner(dataType);
+    const validate = await validator.Practitioner(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f001]', async () => {
-    const dataType: Practitioner = {
+    const dataType: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'f001',
       text: {
@@ -133,13 +139,13 @@ describe('Practitioner', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Practitioner(dataType);
+    const validate = await validator.Practitioner(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/prac4]', async () => {
-    const dataType: Practitioner = {
+    const dataType: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'prac4',
       text: {
@@ -159,14 +165,14 @@ describe('Practitioner', () => {
       deceasedDateTime: '2021-12-12',
     };
 
-    const validate = await ResourceValidator.Practitioner(dataType);
+    const validate = await validator.Practitioner(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f003]', async () => {
-    const dataType: Practitioner = {
+    const dataType: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'f003',
       text: {
@@ -236,14 +242,14 @@ describe('Practitioner', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Practitioner(dataType);
+    const validate = await validator.Practitioner(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f204]', async () => {
-    const dataType: Practitioner = {
+    const dataType: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'f204',
       text: {
@@ -283,7 +289,7 @@ describe('Practitioner', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Practitioner(dataType);
+    const validate = await validator.Practitioner(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -319,7 +325,7 @@ describe('Practitioner', () => {
         },
       ],
     };
-    const validate = await ResourceValidator.Practitioner(dataType);
+    const validate = await validator.Practitioner(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

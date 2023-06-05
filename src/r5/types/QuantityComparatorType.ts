@@ -1,6 +1,6 @@
-import { QuantityComparator } from '../enums/QuantityComparator';
+import { QuantityComparatorEnum } from '../enums/QuantityComparatorEnum';
 
-const typesArray = Object.values(QuantityComparator).map((value: any) => {
+const typesArray = Object.values(QuantityComparatorEnum).map((value: any) => {
   return value;
 }) as string[];
 

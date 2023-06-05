@@ -1,38 +1,38 @@
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Buildable, Serializable, Reference, Element } from '../../interfaces/base';
-import { RelatedPerson } from '../../interfaces/resources';
+import { IBuildable, ISerializable, IReference, IElement } from '../../interfaces/base';
+import { IRelatedPerson } from '../../interfaces/resources';
 import {
-  Identifier,
-  HumanName,
-  ContactPoint,
-  Address,
-  Attachment,
-  Period,
-  CodeableConcept,
+  IIdentifier,
+  IHumanName,
+  IContactPoint,
+  IAddress,
+  IAttachment,
+  IPeriod,
+  ICodeableConcept,
 } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
-import { AdministrativeGender } from '../../enums/AdministrativeGender';
-import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
-import { RelatedPersonCommunication } from '../../interfaces/backbones';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
+import { IRelatedPersonCommunication } from '../../interfaces/backbones';
+import { RelatedPerson } from '../../resources/RelatedPerson';
 
 export class RelatedPersonBuilder
   extends DomainResourceBuilder<RelatedPersonBuilder>
-  implements Buildable<RelatedPerson>, Serializable
+  implements IBuildable<RelatedPerson>, ISerializable
 {
-  private readonly relatedPerson: RelatedPerson;
+  private readonly relatedPerson: IRelatedPerson;
 
   constructor() {
     super();
-    this.relatedPerson = {} as RelatedPerson;
-    this.relatedPerson.resourceType = 'RelatedPerson';
+    this.relatedPerson = new RelatedPerson();
   }
 
-  addRelatedPersonParamExtension(param: 'active' | 'gender' | 'birthDate', extension: Element): RelatedPersonBuilder {
+  addRelatedPersonParamExtension(param: 'active' | 'gender' | 'birthDate', extension: IElement): RelatedPersonBuilder {
     this.relatedPerson[`_${param}`] = extension;
     return this;
   }
 
-  addIdentifier(identifier: Identifier): RelatedPersonBuilder {
+  addIdentifier(identifier: IIdentifier): RelatedPersonBuilder {
     if (identifier.assigner?.reference) {
       validateReference(identifier.assigner?.reference, ['Organization']);
     }
@@ -42,7 +42,7 @@ export class RelatedPersonBuilder
     return this;
   }
 
-  setMultipleIdentifier(identifiers: Identifier[]): RelatedPersonBuilder {
+  setMultipleIdentifier(identifiers: IIdentifier[]): RelatedPersonBuilder {
     identifiers.forEach((identifier) => {
       if (identifier.assigner?.reference) {
         validateReference(identifier.assigner?.reference, ['Organization']);
@@ -58,18 +58,18 @@ export class RelatedPersonBuilder
     return this;
   }
 
-  addName(name: HumanName): RelatedPersonBuilder {
+  addName(name: IHumanName): RelatedPersonBuilder {
     this.relatedPerson.name = this.relatedPerson.name || [];
     this.relatedPerson.name.push(name);
     return this;
   }
 
-  setMultipleName(names: HumanName[]): RelatedPersonBuilder {
+  setMultipleName(names: IHumanName[]): RelatedPersonBuilder {
     this.relatedPerson.name = names;
     return this;
   }
 
-  setPatient(patient: Reference): RelatedPersonBuilder {
+  setPatient(patient: IReference): RelatedPersonBuilder {
     if (patient.reference) {
       validateReference(patient.reference, ['Patient']);
     }
@@ -78,28 +78,28 @@ export class RelatedPersonBuilder
     return this;
   }
 
-  addRelationship(relationship: CodeableConcept): RelatedPersonBuilder {
+  addRelationship(relationship: ICodeableConcept): RelatedPersonBuilder {
     this.relatedPerson.relationship = this.relatedPerson.relationship || [];
     this.relatedPerson.relationship.push(relationship);
     return this;
   }
 
-  setMultipleRelationship(relationships: CodeableConcept[]): RelatedPersonBuilder {
+  setMultipleRelationship(relationships: ICodeableConcept[]): RelatedPersonBuilder {
     this.relatedPerson.relationship = relationships;
     return this;
   }
 
-  addTelecom(telecom: ContactPoint): RelatedPersonBuilder {
+  addTelecom(telecom: IContactPoint): RelatedPersonBuilder {
     this.relatedPerson.telecom = this.relatedPerson.telecom || [];
     this.relatedPerson.telecom.push(telecom);
     return this;
   }
-  setMultipleTelecom(telecoms: ContactPoint[]): RelatedPersonBuilder {
+  setMultipleTelecom(telecoms: IContactPoint[]): RelatedPersonBuilder {
     this.relatedPerson.telecom = telecoms;
     return this;
   }
 
-  setGender(gender: AdministrativeGender | AdministrativeGenderType): RelatedPersonBuilder {
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): RelatedPersonBuilder {
     this.relatedPerson.gender = gender;
     return this;
   }
@@ -109,40 +109,40 @@ export class RelatedPersonBuilder
     return this;
   }
 
-  addAddress(address: Address): RelatedPersonBuilder {
+  addAddress(address: IAddress): RelatedPersonBuilder {
     this.relatedPerson.address = this.relatedPerson.address || [];
     this.relatedPerson.address.push(address);
     return this;
   }
 
-  setMultipleAddress(addresses: Address[]): RelatedPersonBuilder {
+  setMultipleAddress(addresses: IAddress[]): RelatedPersonBuilder {
     this.relatedPerson.address = addresses;
     return this;
   }
 
-  addPhoto(photo: Attachment): RelatedPersonBuilder {
+  addPhoto(photo: IAttachment): RelatedPersonBuilder {
     this.relatedPerson.photo = this.relatedPerson.photo || [];
     this.relatedPerson.photo.push(photo);
     return this;
   }
 
-  setMultiplePhoto(photos: Attachment[]): RelatedPersonBuilder {
+  setMultiplePhoto(photos: IAttachment[]): RelatedPersonBuilder {
     this.relatedPerson.photo = photos;
     return this;
   }
 
-  setPeriod(period: Period): RelatedPersonBuilder {
+  setPeriod(period: IPeriod): RelatedPersonBuilder {
     this.relatedPerson.period = period;
     return this;
   }
 
-  addCommunication(communication: RelatedPersonCommunication): RelatedPersonBuilder {
+  addCommunication(communication: IRelatedPersonCommunication): RelatedPersonBuilder {
     this.relatedPerson.communication = this.relatedPerson.communication || [];
     this.relatedPerson.communication.push(communication);
     return this;
   }
 
-  setMultipleCommunication(communications: RelatedPersonCommunication[]): RelatedPersonBuilder {
+  setMultipleCommunication(communications: IRelatedPersonCommunication[]): RelatedPersonBuilder {
     this.relatedPerson.communication = communications;
     return this;
   }

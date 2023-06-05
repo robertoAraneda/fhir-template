@@ -1,6 +1,6 @@
-import { AddressType } from '../enums/AddressType';
+import { AddressTypeEnum } from '../enums/AddressTypeEnum';
 
-const typesArray = Object.values(AddressType).map((value: any) => {
+const typesArray = Object.values(AddressTypeEnum).map((value: any) => {
   return value;
 }) as string[];
 

@@ -1,26 +1,26 @@
-import { Coding, Meta } from '../../interfaces/datatypes';
-import { Element, Serializable, Buildable } from '../../interfaces/base';
+import { ICoding, IMeta } from '../../interfaces/datatypes';
+import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 type ParamsType = 'lastUpdated' | 'profile' | 'source' | 'versionId';
-export class MetaBuilder extends ElementBuilder<MetaBuilder> implements Buildable<Meta>, Serializable {
-  private readonly meta: Meta;
+export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IBuildable<IMeta>, ISerializable {
+  private readonly meta: IMeta;
 
   constructor() {
     super();
 
-    this.meta = {} as Meta;
+    this.meta = {} as IMeta;
   }
 
   addMetaParamExtension<T extends ParamsType>(
     param: T,
-    extension: T extends 'profile' ? Element[] : Element,
+    extension: T extends 'profile' ? IElement[] : IElement,
   ): MetaBuilder {
     if (param === 'profile') {
-      this.meta._profile = extension as Element[];
+      this.meta._profile = extension as IElement[];
     } else {
       const localParam = param as Exclude<ParamsType, 'profile'>;
-      this.meta[`_${localParam}`] = extension as Element;
+      this.meta[`_${localParam}`] = extension as IElement;
     }
 
     return this;
@@ -31,7 +31,7 @@ export class MetaBuilder extends ElementBuilder<MetaBuilder> implements Buildabl
     return this;
   }
 
-  setMultipleTag(tag: Coding[]): MetaBuilder {
+  setMultipleTag(tag: ICoding[]): MetaBuilder {
     this.meta.tag = tag;
     return this;
   }
@@ -51,12 +51,12 @@ export class MetaBuilder extends ElementBuilder<MetaBuilder> implements Buildabl
     return this;
   }
 
-  setMultipleSecurity(security: Coding[]): MetaBuilder {
+  setMultipleSecurity(security: ICoding[]): MetaBuilder {
     this.meta.security = security;
     return this;
   }
 
-  addTag(tag: Coding): MetaBuilder {
+  addTag(tag: ICoding): MetaBuilder {
     this.meta.tag = this.meta.tag || [];
     this.meta.tag.push(tag);
     return this;
@@ -68,13 +68,13 @@ export class MetaBuilder extends ElementBuilder<MetaBuilder> implements Buildabl
     return this;
   }
 
-  addSecurity(security: Coding): MetaBuilder {
+  addSecurity(security: ICoding): MetaBuilder {
     this.meta.security = this.meta.security || [];
     this.meta.security.push(security);
     return this;
   }
 
-  raw(): Meta {
+  raw(): IMeta {
     return {
       ...this.meta,
       ...super.entity(),
@@ -85,7 +85,7 @@ export class MetaBuilder extends ElementBuilder<MetaBuilder> implements Buildabl
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): Meta {
+  build(): IMeta {
     return JSON.parse(this.serialize());
   }
 }

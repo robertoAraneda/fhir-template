@@ -1,29 +1,29 @@
 import { ElementBuilder } from './ElementBuilder';
-import { BackboneElement } from '../../interfaces/base';
-import { Extension } from '../../interfaces/datatypes';
+import { IBackboneElement } from '../../interfaces/base';
+import { IExtension } from '../../interfaces/datatypes';
 
 export class BackboneElementBuilder<
   BuilderClass extends BackboneElementBuilder<BuilderClass>,
 > extends ElementBuilder<BuilderClass> {
-  private readonly backboneElement: BackboneElement;
+  private readonly backboneElement: IBackboneElement;
 
   constructor() {
     super();
-    this.backboneElement = {} as BackboneElement;
+    this.backboneElement = {} as IBackboneElement;
   }
 
-  setMultipleModifierExtension(modifierExtension: Extension[]): BuilderClass {
+  setMultipleModifierExtension(modifierExtension: IExtension[]): BuilderClass {
     this.backboneElement.modifierExtension = modifierExtension;
     return this as unknown as BuilderClass;
   }
 
-  addModifierExtension(modifierExtension: Extension): BuilderClass {
+  addModifierExtension(modifierExtension: IExtension): BuilderClass {
     this.backboneElement.modifierExtension = this.backboneElement.modifierExtension || [];
     this.backboneElement.modifierExtension.push(modifierExtension);
     return this as unknown as BuilderClass;
   }
 
-  entity(): BackboneElement {
+  entity(): IBackboneElement {
     return {
       ...this.backboneElement,
       ...super.entity(),

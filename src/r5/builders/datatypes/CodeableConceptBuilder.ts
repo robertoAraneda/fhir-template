@@ -1,33 +1,33 @@
-import { CodeableConcept, Coding } from '../../interfaces/datatypes';
-import { Element, Buildable, Serializable } from '../../interfaces/base';
+import { ICodeableConcept, ICoding } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 export class CodeableConceptBuilder
   extends ElementBuilder<CodeableConceptBuilder>
-  implements Buildable<CodeableConcept>, Serializable
+  implements IBuildable<ICodeableConcept>, ISerializable
 {
-  private readonly codeableConcept: CodeableConcept;
+  private readonly codeableConcept: ICodeableConcept;
 
   constructor() {
     super();
 
-    this.codeableConcept = {} as CodeableConcept;
+    this.codeableConcept = {} as ICodeableConcept;
   }
 
-  addCodeableConceptParamExtension(param: 'text', extension: Element): CodeableConceptBuilder {
+  addCodeableConceptParamExtension(param: 'text', extension: IElement): CodeableConceptBuilder {
     this.codeableConcept[`_${param}`] = extension;
 
     return this;
   }
 
-  addCoding(coding: Coding): CodeableConceptBuilder {
+  addCoding(coding: ICoding): CodeableConceptBuilder {
     this.codeableConcept.coding = this.codeableConcept.coding || [];
 
     this.codeableConcept.coding.push(coding);
     return this;
   }
 
-  setMultipleCoding(coding: Coding[]): CodeableConceptBuilder {
+  setMultipleCoding(coding: ICoding[]): CodeableConceptBuilder {
     this.codeableConcept.coding = coding;
     return this;
   }
@@ -41,11 +41,11 @@ export class CodeableConceptBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): CodeableConcept {
+  build(): ICodeableConcept {
     return JSON.parse(this.serialize());
   }
 
-  raw(): CodeableConcept {
+  raw(): ICodeableConcept {
     return {
       ...this.codeableConcept,
       ...super.entity(),

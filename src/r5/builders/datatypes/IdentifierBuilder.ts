@@ -1,20 +1,20 @@
-import { IdentifierUse } from '../../enums/IdentifierUse';
+import { IdentifierUseEnum } from '../../enums/IdentifierUseEnum';
 import { IdentifierUseType } from '../../types/IdentifierUseType';
-import { Identifier, CodeableConcept, Period } from '../../interfaces/datatypes';
-import { Element, Serializable, Buildable, Reference } from '../../interfaces/base';
+import { IIdentifier, ICodeableConcept, IPeriod } from '../../interfaces/datatypes';
+import { IElement, ISerializable, IBuildable, IReference } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { validateReference } from '../../helpers/validateReference';
 
 export class IdentifierBuilder
   extends ElementBuilder<IdentifierBuilder>
-  implements Buildable<Identifier>, Serializable
+  implements IBuildable<IIdentifier>, ISerializable
 {
-  private readonly identifier: Identifier;
+  private readonly identifier: IIdentifier;
 
   constructor() {
     super();
 
-    this.identifier = {} as Identifier;
+    this.identifier = {} as IIdentifier;
   }
 
   addIdentifierParamExtension(param: 'use' | 'system' | 'value', extension: Element): IdentifierBuilder {
@@ -23,13 +23,13 @@ export class IdentifierBuilder
     return this;
   }
 
-  setType(value: CodeableConcept): IdentifierBuilder {
+  setType(value: ICodeableConcept): IdentifierBuilder {
     this.identifier.type = value;
 
     return this;
   }
 
-  setUse(value: IdentifierUse | IdentifierUseType): IdentifierBuilder {
+  setUse(value: IdentifierUseEnum | IdentifierUseType): IdentifierBuilder {
     this.identifier.use = value;
 
     return this;
@@ -47,13 +47,13 @@ export class IdentifierBuilder
     return this;
   }
 
-  setPeriod(value: Period): IdentifierBuilder {
+  setPeriod(value: IPeriod): IdentifierBuilder {
     this.identifier.period = value;
 
     return this;
   }
 
-  setAssigner(value: Reference): IdentifierBuilder {
+  setAssigner(value: IReference): IdentifierBuilder {
     if (value.reference) {
       validateReference(value.reference, ['Organization']);
     }
@@ -67,11 +67,11 @@ export class IdentifierBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): Identifier {
+  build(): IIdentifier {
     return JSON.parse(JSON.stringify(this.raw()));
   }
 
-  raw(): Identifier {
+  raw(): IIdentifier {
     return {
       ...this.identifier,
       ...super.entity(),

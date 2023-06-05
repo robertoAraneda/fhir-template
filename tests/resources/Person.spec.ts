@@ -1,18 +1,24 @@
-import { PersonBuilder } from '../../src/r5/builders/resources/PersonBuilder';
-import { Person } from '../../src/r5/interfaces/resources/Person';
-import ResourceBuilder from '../../src/r5/ResourceBuilder';
-import ResourceValidator from '../../src/r5/ResourceValidator';
+import { IPerson } from '../../src/r5/interfaces/resources';
+import { IValidatorContext } from '../../src/r5';
+import { PersonBuilder } from '../../src/r5/builders/resources';
+import FHIRContext from '../../src';
 
 describe('Person', () => {
+  let validator: IValidatorContext;
   let builder: PersonBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ResourceBuilder.Person();
+    builder = new PersonBuilder();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/example]', async () => {
-    const dataType: Person = {
+    const dataType: IPerson = {
       resourceType: 'Person',
       id: 'example',
       text: {
@@ -88,7 +94,7 @@ describe('Person', () => {
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/grahame]', async () => {
-    const dataType: Person = {
+    const dataType: IPerson = {
       resourceType: 'Person',
       id: 'grahame',
       text: {
@@ -146,13 +152,13 @@ describe('Person', () => {
       },
     };
 
-    const validate = await ResourceValidator.Person(dataType);
+    const validate = await validator.Person(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/pp]', async () => {
-    const dataType: Person = {
+    const dataType: IPerson = {
       resourceType: 'Person',
       id: 'pp',
       text: {
@@ -221,13 +227,13 @@ describe('Person', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Person(dataType);
+    const validate = await validator.Person(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/per4]', async () => {
-    const dataType: Person = {
+    const dataType: IPerson = {
       resourceType: 'Person',
       id: 'per4',
       text: {
@@ -266,7 +272,7 @@ describe('Person', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Person(dataType);
+    const validate = await validator.Person(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -312,7 +318,7 @@ describe('Person', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await ResourceValidator.Person(dataType);
+    const validate = await validator.Person(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

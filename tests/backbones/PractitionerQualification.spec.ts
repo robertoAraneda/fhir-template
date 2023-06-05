@@ -1,28 +1,24 @@
-import { PractitionerQualificationBuilder } from '../../src/r5/builders/backbones/PractitionerQualificationBuilder';
-import { PractitionerQualification } from '../../src/r5/interfaces/backbones/PractitionerQualification';
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
+import { PractitionerQualificationBuilder } from '../../src/r5/builders/backbones';
+import { IPractitionerQualification } from '../../src/r5/interfaces/backbones';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('PractitionerQualification', () => {
+  let validator: IValidatorContext;
   let builder: PractitionerQualificationBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.PractitionerQualification()
-      .setId('123')
-      .setCode({
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/organization-qualification',
-            code: 'any',
-          },
-        ],
-        text: 'test',
-      });
+    builder = new PractitionerQualificationBuilder();
   });
 
   it('should be able to create a new practitioner_qualification payload and validate with correct data', async () => {
-    const dataType: PractitionerQualification = {
+    const dataType: IPractitionerQualification = {
       id: '123',
       issuer: {
         reference: 'test',
@@ -37,7 +33,7 @@ describe('PractitionerQualification', () => {
       },
     };
 
-    const validate = await BackboneElementValidator.PractitionerQualification(dataType);
+    const validate = await validator.PractitionerQualification(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -64,7 +60,7 @@ describe('PractitionerQualification', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.PractitionerQualification(dataType);
+    const validate = await validator.PractitionerQualification(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -90,6 +86,16 @@ describe('PractitionerQualification', () => {
   it('should be able to create a new practitioner_qualification payload using builder methods', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .setCode({
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+        text: 'test',
+      })
       .setIssuer({
         reference: 'Organization/1',
       })

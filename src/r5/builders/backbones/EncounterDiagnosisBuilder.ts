@@ -1,7 +1,7 @@
-import { CodeableReference, CodeableConcept } from '../../interfaces/datatypes';
+import { ICodeableReference, ICodeableConcept } from '../../interfaces/datatypes';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 
 export class EncounterDiagnosisBuilder extends BackboneElementBuilder<EncounterDiagnosisBuilder> {
-  condition?: CodeableReference[];
-  use?: CodeableConcept[];
+  condition?: ICodeableReference[];
+  use?: ICodeableConcept[];
 }

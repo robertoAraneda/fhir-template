@@ -1,31 +1,31 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Buildable, Serializable, Element, Reference } from '../../interfaces/base';
-import { PersonLink } from '../../interfaces/backbones';
-import { IdentityAssuranceLevel } from '../../enums/IdentityAssuranceLevel';
-import { IdentityAssuranceLevelType } from '../../types/IdentityAssuranceLevelType';
+import { IBuildable, ISerializable, IElement, IReference } from '../../interfaces/base';
+import { IPersonLink } from '../../interfaces/backbones';
+import { IdentityAssuranceLevelEnum } from '../../enums';
+import { IdentityAssuranceLevelType } from '../../types';
 
 export class PersonLinkBuilder
   extends BackboneElementBuilder<PersonLinkBuilder>
-  implements Buildable<PersonLink>, Serializable
+  implements IBuildable<IPersonLink>, ISerializable
 {
-  private readonly personLink: PersonLink;
+  private readonly personLink: IPersonLink;
 
   constructor() {
     super();
-    this.personLink = {} as PersonLink;
+    this.personLink = {} as IPersonLink;
   }
 
-  addPersonLinkParamExtension(param: 'assurance', extension: Element): PersonLinkBuilder {
+  addPersonLinkParamExtension(param: 'assurance', extension: IElement): PersonLinkBuilder {
     this.personLink[`_${param}`] = extension;
     return this;
   }
 
-  setTarget(target: Reference): PersonLinkBuilder {
+  setTarget(target: IReference): PersonLinkBuilder {
     this.personLink.target = target;
     return this;
   }
 
-  setAssurance(assurance: IdentityAssuranceLevel | IdentityAssuranceLevelType): PersonLinkBuilder {
+  setAssurance(assurance: IdentityAssuranceLevelEnum | IdentityAssuranceLevelType): PersonLinkBuilder {
     this.personLink.assurance = assurance;
     return this;
   }
@@ -34,11 +34,11 @@ export class PersonLinkBuilder
     return JSON.stringify(this.raw());
   }
 
-  build(): PersonLink {
-    return JSON.parse(JSON.stringify(this.raw()));
+  build(): IPersonLink {
+    return JSON.parse(this.serialize());
   }
 
-  raw(): PersonLink {
+  raw(): IPersonLink {
     return {
       ...this.personLink,
       ...super.entity(),

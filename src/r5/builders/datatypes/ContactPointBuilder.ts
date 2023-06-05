@@ -1,31 +1,29 @@
-import { ContactPointSystem } from '../../enums/ContactPointSystem';
-import { ContactPointSystemType } from '../../types/ContactPointSystemType';
-import { ContactPointUse } from '../../enums/ContactPointUse';
-import { ContactPointUseType } from '../../types/ContactPointUseType';
-import { ContactPoint, Period, CodeableConcept } from '../../interfaces/datatypes';
-import { Element, Buildable, Serializable } from '../../interfaces/base';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
+import { ContactPointSystemType, ContactPointUseType } from '../../types';
+import { IContactPoint, IPeriod, ICodeableConcept } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 type ParamType = 'system' | 'value' | 'use' | 'rank';
 export class ContactPointBuilder
   extends ElementBuilder<ContactPointBuilder>
-  implements Buildable<CodeableConcept>, Serializable
+  implements IBuildable<ICodeableConcept>, ISerializable
 {
-  private readonly contactPoint: ContactPoint;
+  private readonly contactPoint: IContactPoint;
 
   constructor() {
     super();
 
-    this.contactPoint = {} as ContactPoint;
+    this.contactPoint = {} as IContactPoint;
   }
 
-  addContactPointParamExtension(param: ParamType, extension: Element): ContactPointBuilder {
+  addContactPointParamExtension(param: ParamType, extension: IElement): ContactPointBuilder {
     this.contactPoint[`_${param}`] = extension;
 
     return this;
   }
 
-  setSystem(value: ContactPointSystem | ContactPointSystemType): ContactPointBuilder {
+  setSystem(value: ContactPointSystemEnum | ContactPointSystemType): ContactPointBuilder {
     this.contactPoint.system = value;
 
     return this;
@@ -37,7 +35,7 @@ export class ContactPointBuilder
     return this;
   }
 
-  setUse(value: ContactPointUse | ContactPointUseType): ContactPointBuilder {
+  setUse(value: ContactPointUseEnum | ContactPointUseType): ContactPointBuilder {
     this.contactPoint.use = value;
 
     return this;
@@ -50,7 +48,7 @@ export class ContactPointBuilder
     return this;
   }
 
-  setPeriod(value: Period): ContactPointBuilder {
+  setPeriod(value: IPeriod): ContactPointBuilder {
     this.contactPoint.period = value;
 
     return this;
@@ -60,11 +58,11 @@ export class ContactPointBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): ContactPoint {
+  build(): IContactPoint {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Element {
+  raw(): IContactPoint {
     return {
       ...this.contactPoint,
       ...super.entity(),

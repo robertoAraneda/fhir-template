@@ -1,9 +1,9 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { CodeableConcept, Period } from '../../interfaces/datatypes';
-import { Reference } from '../../interfaces/base';
+import { ICodeableConcept, IPeriod } from '../../interfaces/datatypes';
+import { IReference } from '../../interfaces/base';
 
 export class EncounterParticipantBuilder extends BackboneElementBuilder<EncounterParticipantBuilder> {
-  type?: CodeableConcept[];
-  period?: Period;
-  actor?: Reference;
+  type?: ICodeableConcept[];
+  period?: IPeriod;
+  actor?: IReference;
 }

@@ -1,5 +1,5 @@
-import { Attachment } from '../../interfaces/datatypes';
-import { Element, Buildable, Serializable } from '../../interfaces/base';
+import { IAttachment } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 type ParamType =
@@ -18,17 +18,17 @@ type ParamType =
   | 'width';
 export class AttachmentBuilder
   extends ElementBuilder<AttachmentBuilder>
-  implements Buildable<Attachment>, Serializable
+  implements IBuildable<IAttachment>, ISerializable
 {
-  private readonly attachment: Attachment;
+  private readonly attachment: IAttachment;
 
   constructor() {
     super();
 
-    this.attachment = {} as Attachment;
+    this.attachment = {} as IAttachment;
   }
 
-  addAttachmentParamExtension(param: ParamType, extension: Element): AttachmentBuilder {
+  addAttachmentParamExtension(param: ParamType, extension: IElement): AttachmentBuilder {
     this.attachment[`_${param}`] = extension;
     return this;
   }
@@ -102,11 +102,11 @@ export class AttachmentBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): Attachment {
+  build(): IAttachment {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Attachment {
+  raw(): IAttachment {
     return {
       ...super.entity(),
       ...this.attachment,

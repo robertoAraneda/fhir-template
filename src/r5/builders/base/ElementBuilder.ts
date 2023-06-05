@@ -1,13 +1,13 @@
-import { Extension } from '../../interfaces/datatypes';
+import { IExtension } from '../../interfaces/datatypes';
 import { BaseBuilder } from './BaseBuilder';
-import { Element } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 
 export class ElementBuilder<BuilderClass extends ElementBuilder<BuilderClass>> extends BaseBuilder<BuilderClass> {
-  private readonly element: Element;
+  private readonly element: IElement;
 
   constructor() {
     super();
-    this.element = {} as Element;
+    this.element = {} as IElement;
   }
 
   setId(id: string): BuilderClass {
@@ -15,18 +15,18 @@ export class ElementBuilder<BuilderClass extends ElementBuilder<BuilderClass>> e
     return this as unknown as BuilderClass;
   }
 
-  setMultipleExtension(extension: Extension[]): BuilderClass {
+  setMultipleExtension(extension: IExtension[]): BuilderClass {
     this.element.extension = extension;
     return this as unknown as BuilderClass;
   }
 
-  addExtension(extension: Extension): BuilderClass {
+  addExtension(extension: IExtension): BuilderClass {
     this.element.extension = this.element.extension || [];
     this.element.extension.push(extension);
     return this as unknown as BuilderClass;
   }
 
-  entity(): Element {
+  entity(): IElement {
     return {
       ...this.element,
       ...super.entity(),

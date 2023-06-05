@@ -1,18 +1,24 @@
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
-import { PatientCommunicationBuilder } from '../../src/r5/builders/backbones/PatientCommunicationBuilder';
-import { PatientCommunication } from '../../src/r5/interfaces/backbones/PatientCommunication';
+import { PatientCommunicationBuilder } from '../../src/r5/builders/backbones';
+import { IPatientCommunication } from '../../src/r5/interfaces/backbones';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('PatientCommunication', () => {
+  let validator: IValidatorContext;
   let builder: PatientCommunicationBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.PatientCommunication();
+    builder = new PatientCommunicationBuilder();
   });
 
   it('should be able to create a new patient_communication payload and validate with correct data', async () => {
-    const dataType: PatientCommunication = {
+    const dataType: IPatientCommunication = {
       id: '123',
       preferred: true,
       language: {
@@ -26,7 +32,7 @@ describe('PatientCommunication', () => {
       },
     };
 
-    const validate = await BackboneElementValidator.PatientCommunication(dataType);
+    const validate = await validator.PatientCommunication(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -48,7 +54,7 @@ describe('PatientCommunication', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.PatientCommunication(dataType);
+    const validate = await validator.PatientCommunication(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

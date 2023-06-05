@@ -1,6 +1,6 @@
-import { EncounterStatus } from '../enums/EncounterStatus';
+import { EncounterStatusEnum } from '../enums/EncounterStatusEnum';
 
-const typesArray = Object.values(EncounterStatus).map((value: any) => {
+const typesArray = Object.values(EncounterStatusEnum).map((value: any) => {
   return value;
 }) as string[];
 

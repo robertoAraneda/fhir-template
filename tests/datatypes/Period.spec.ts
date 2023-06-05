@@ -1,12 +1,19 @@
-import { Period } from '../../src/r5/interfaces/datatypes/Period';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
-import { PeriodBuilder } from '../../src/r5/builders/datatypes/PeriodBuilder';
+import { PeriodBuilder } from '../../src/r5/builders/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('Period', () => {
+  let validator: IValidatorContext;
   let builder: PeriodBuilder;
-  beforeAll(async () => {
-    builder = ElementBuilder.Period();
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
+
+  // create global
+  beforeEach(() => {
+    builder = new PeriodBuilder();
   });
 
   it('should return a Period with method', async function () {
@@ -56,7 +63,7 @@ describe('Period', () => {
       },
     });
 
-    const validate = await ElementValidator.Period(dataType);
+    const validate = await validator.Period(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -69,7 +76,7 @@ describe('Period', () => {
       notExist: 'not exist',
     } as any;
 
-    const validate = await ElementValidator.Period(dataType);
+    const validate = await validator.Period(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toHaveLength(1);

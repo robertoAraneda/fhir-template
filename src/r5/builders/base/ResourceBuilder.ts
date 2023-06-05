@@ -1,13 +1,13 @@
 import { BaseBuilder } from './BaseBuilder';
-import { Resource, Element } from '../../interfaces/base';
+import { IResource, IElement } from '../../interfaces/base';
 
 type ResourceParamExtension = 'language' | 'implicitRules';
 export class ResourceBuilder<ClassBuilder> extends BaseBuilder<ClassBuilder> {
-  private readonly resource: Resource;
+  private readonly resource: IResource;
 
   constructor() {
     super();
-    this.resource = {} as Resource;
+    this.resource = {} as IResource;
   }
 
   addResourceParamExtension(param: ResourceParamExtension, extension: Element): ClassBuilder {
@@ -40,7 +40,7 @@ export class ResourceBuilder<ClassBuilder> extends BaseBuilder<ClassBuilder> {
     return this as unknown as ClassBuilder;
   }
 
-  entity(): Resource {
+  entity(): IResource {
     return {
       ...super.entity(),
       ...this.resource,

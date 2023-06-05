@@ -1,14 +1,14 @@
-import { Period } from '../../interfaces/datatypes';
-import { Element, Buildable, Serializable } from '../../interfaces/base';
+import { IPeriod } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
-export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements Buildable<Period>, Serializable {
-  private readonly period: Period;
+export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IBuildable<IPeriod>, ISerializable {
+  private readonly period: IPeriod;
 
   constructor() {
     super();
 
-    this.period = {} as Period;
+    this.period = {} as IPeriod;
   }
 
   setStart(value: string): PeriodBuilder {
@@ -23,7 +23,7 @@ export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements Buil
     return this;
   }
 
-  addPeriodParamExtension(param: 'start' | 'end', extension: Element): PeriodBuilder {
+  addPeriodParamExtension(param: 'start' | 'end', extension: IElement): PeriodBuilder {
     this.period[`_${param}`] = extension;
 
     return this;
@@ -33,11 +33,11 @@ export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements Buil
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): Period {
+  build(): IPeriod {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Period {
+  raw(): IPeriod {
     return {
       ...this.period,
       ...super.entity(),

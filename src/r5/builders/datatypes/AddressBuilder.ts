@@ -1,27 +1,27 @@
-import { Address, Period } from '../../interfaces/datatypes';
-import { Element, Serializable, Buildable } from '../../interfaces/base';
+import { IAddress, IPeriod } from '../../interfaces/datatypes';
+import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
-export class AddressBuilder extends ElementBuilder<AddressBuilder> implements Buildable<Address>, Serializable {
-  private readonly address: Address;
+export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IBuildable<IAddress>, ISerializable {
+  private readonly address: IAddress;
 
   constructor() {
     super();
 
-    this.address = {} as Address;
+    this.address = {} as IAddress;
   }
 
   addParamExtension<T extends AddressParam>(
     param: T,
-    extension: T extends 'line' ? Element[] : Element,
+    extension: T extends 'line' ? IElement[] : IElement,
   ): AddressBuilder {
     if (param === 'line') {
-      this.address._line = extension as Element[];
+      this.address._line = extension as IElement[];
     } else {
       const localParam = param as Exclude<AddressParam, 'line'>;
-      this.address[`_${localParam}`] = extension as Element;
+      this.address[`_${localParam}`] = extension as IElement;
     }
 
     return this;
@@ -78,7 +78,7 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements Bu
     return this;
   }
 
-  setPeriod(value: Period): AddressBuilder {
+  setPeriod(value: IPeriod): AddressBuilder {
     this.address.period = value;
     return this;
   }
@@ -87,11 +87,11 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements Bu
     return JSON.stringify(this.raw());
   }
 
-  build(): Address {
+  build(): IAddress {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Address {
+  raw(): IAddress {
     return {
       ...this.address,
       ...super.entity(),

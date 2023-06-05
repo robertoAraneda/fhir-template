@@ -1,18 +1,24 @@
-import { MetaBuilder } from '../../src/r5/builders/datatypes/MetaBuilder';
-import { Meta } from '../../src/r5/interfaces/datatypes/Meta';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { MetaBuilder } from '../../src/r5/builders/datatypes';
+import { IMeta } from '../../src/r5/interfaces/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('Meta', () => {
+  let validator: IValidatorContext;
   let builder: MetaBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ElementBuilder.Meta();
+    builder = new MetaBuilder();
   });
 
   it('should be able to create a new meta and validate with correct data', async () => {
-    const dataType: Meta = {
+    const dataType: IMeta = {
       id: '123',
       tag: [
         {
@@ -26,7 +32,7 @@ describe('Meta', () => {
       versionId: 'test',
     };
 
-    const validate = await ElementValidator.Meta(dataType);
+    const validate = await validator.Meta(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -47,7 +53,7 @@ describe('Meta', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await ElementValidator.Meta(dataType);
+    const validate = await validator.Meta(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

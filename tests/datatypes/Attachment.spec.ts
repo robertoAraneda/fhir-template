@@ -1,18 +1,24 @@
-import { AttachmentBuilder } from '../../src/r5/builders/datatypes/AttachmentBuilder';
-import { Attachment } from '../../src/r5/interfaces/datatypes/Attachment';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { IAttachment } from '../../src/r5/interfaces/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import { AttachmentBuilder } from '../../src/r5/builders/datatypes';
+import FHIRContext from '../../src';
 
 describe('Attachment', () => {
+  let validator: IValidatorContext;
   let builder: AttachmentBuilder;
 
-  // create global identifierBuilder
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
+
+  // create global
   beforeEach(() => {
-    builder = ElementBuilder.Attachment();
+    builder = new AttachmentBuilder();
   });
 
   it('should be able to create a new attachment and validate with correct data', async () => {
-    const dataType: Attachment = {
+    const dataType: IAttachment = {
       id: '123',
       url: 'http://hl7.org/fhir/sid/us-npi',
       contentType: 'test',
@@ -37,7 +43,7 @@ describe('Attachment', () => {
       },
     };
 
-    const validate = await ElementValidator.Attachment(dataType);
+    const validate = await validator.Attachment(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -58,7 +64,7 @@ describe('Attachment', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await ElementValidator.Attachment(dataType);
+    const validate = await validator.Attachment(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

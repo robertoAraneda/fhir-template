@@ -1,13 +1,26 @@
-import { Builder } from './Builder';
-import { Validator } from './Validator';
+import { BackboneElementBuilder } from './BackboneElementBuilder';
+import { ElementBuilder } from './ElementBuilder';
+import { ResourceBuilder } from './ResourceBuilder';
+import { BackboneElementValidator } from './validators/BackboneElementValidator';
+import { DataTypesValidator } from './validators/ElementValidator';
+import { ResourceValidator } from './validators/ResourceValidator';
+import { IValidateProperties } from './interfaces/IValidateProperties';
 
-const FhirContextR5 = {
-  Builder,
-  Validator,
+export interface IFHIRContextR5 {
+  validators: IValidatorContext;
+}
+
+export interface IValidatorContext {
+  [key: string]: (data: unknown) => Promise<IValidateProperties>;
+}
+
+export const FhirContextR5: IFHIRContextR5 = {
+  validators: {
+    ...BackboneElementValidator,
+    ...DataTypesValidator,
+    ...ResourceValidator,
+  },
 };
-
-export default FhirContextR5;
-export { Builder, Validator };
 
 /*
 export class FhirContextR5 {

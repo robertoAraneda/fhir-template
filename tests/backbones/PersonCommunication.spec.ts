@@ -1,19 +1,24 @@
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
-import { PatientCommunication } from '../../src/r5/interfaces/backbones/PatientCommunication';
-import { PersonCommunicationBuilder } from '../../src/r5/builders/backbones/PersonCommunicationBuilder';
-import { PersonCommunication } from '../../src/r5/interfaces/backbones/PersonCommunication';
+import { PersonCommunicationBuilder } from '../../src/r5/builders/backbones';
+import { IPersonCommunication } from '../../src/r5/interfaces/backbones';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('PatientCommunication', () => {
+  let validator: IValidatorContext;
   let builder: PersonCommunicationBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.PersonCommunication();
+    builder = new PersonCommunicationBuilder();
   });
 
   it('should be able to create a new patient_communication payload and validate with correct data', async () => {
-    const dataType: PersonCommunication = {
+    const dataType: IPersonCommunication = {
       id: '123',
       preferred: true,
       language: {
@@ -27,7 +32,7 @@ describe('PatientCommunication', () => {
       },
     };
 
-    const validate = await BackboneElementValidator.PersonCommunication(dataType);
+    const validate = await validator.PersonCommunication(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -49,7 +54,7 @@ describe('PatientCommunication', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.PersonCommunication(dataType);
+    const validate = await validator.PersonCommunication(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

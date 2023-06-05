@@ -1,8 +1,7 @@
-import { Reference } from '../interfaces/base/Reference';
-import { DomainResource } from '../interfaces/base/DomainResource';
+import { IReference, IDomainResource } from '../interfaces/base';
 
-export const transformReference = <T extends DomainResource>(item: T): string => {
-  const _item = item as DomainResource;
+export const transformReference = <T extends IDomainResource>(item: T): string => {
+  const _item = item as IDomainResource;
   if (!_item.resourceType) throw new Error('Reference must have a resourceType');
   if (!_item.id) throw new Error('Reference must have an id');
 

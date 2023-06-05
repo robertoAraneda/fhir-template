@@ -1,18 +1,24 @@
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
-import { PersonLink } from '../../src/r5/interfaces/backbones/PersonLink';
-import { PersonLinkBuilder } from '../../src/r5/builders/backbones/PersonLinkBuilder';
+import { IPersonLink } from '../../src/r5/interfaces/backbones';
+import { PersonLinkBuilder } from '../../src/r5/builders/backbones';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('PersonLink', () => {
+  let validator: IValidatorContext;
   let builder: PersonLinkBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.PersonLink();
+    builder = new PersonLinkBuilder();
   });
 
   it('should be able to create a new person_link payload and validate with correct data', async () => {
-    const dataType: PersonLink = {
+    const dataType: IPersonLink = {
       id: '123',
       target: {
         reference: 'test',
@@ -26,7 +32,7 @@ describe('PersonLink', () => {
       ],
     };
 
-    const validate = await BackboneElementValidator.PersonLink(dataType);
+    const validate = await validator.PersonLink(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -44,7 +50,7 @@ describe('PersonLink', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.PersonLink(dataType);
+    const validate = await validator.PersonLink(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

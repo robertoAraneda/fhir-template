@@ -4,7 +4,7 @@ import * as extensionSchema from '../schemas/extension.schema.json';
 import * as datatypeSchema from '../schemas/datatypes.schema.json';
 import * as backboneSchema from '../schemas/backbone.schema.json';
 import * as baseResourceSchema from '../schemas/base-resource.schema.json';
-import { ValidateProperties } from '../interfaces/ValidateProperties';
+import { IValidateProperties } from '../interfaces/IValidateProperties';
 
 const ajv = new Ajv({
   allErrors: true,
@@ -69,19 +69,19 @@ const _validate = async (schema: any, data: any) => {
   };
 };
 
-export const _validateBaseResource = async (data: any, entity: string): Promise<ValidateProperties> => {
+export const _validateBaseResource = async (data: any, entity: string): Promise<IValidateProperties> => {
   const schema = extractSchemaFromDefinition(entity, 'BaseResource');
 
   return _validate(schema, data);
 };
 
-export const _validateDataType = async (data: any, entity: string): Promise<ValidateProperties> => {
+export const _validateDataType = async (data: any, entity: string): Promise<IValidateProperties> => {
   const schema = extractSchemaFromDefinition(entity, 'DataType');
 
   return _validate(schema, data);
 };
 
-export const _validateBackbone = async (data: any, entity: string): Promise<ValidateProperties> => {
+export const _validateBackbone = async (data: any, entity: string): Promise<IValidateProperties> => {
   const schema = extractSchemaFromDefinition(entity, 'BackboneElement');
 
   return _validate(schema, data);

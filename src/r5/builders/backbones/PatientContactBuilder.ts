@@ -1,65 +1,65 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Buildable, Serializable, Element, Reference } from '../../interfaces/base';
-import { OrganizationQualification } from '../../interfaces/backbones';
-import { PatientContact } from '../../interfaces/backbones';
-import { CodeableConcept, HumanName, ContactPoint, Period } from '../../interfaces/datatypes';
-import { AdministrativeGender } from '../../enums/AdministrativeGender';
-import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
+import { IBuildable, ISerializable, IElement, IReference } from '../../interfaces/base';
+import { IOrganizationQualification } from '../../interfaces/backbones';
+import { IPatientContact } from '../../interfaces/backbones';
+import { ICodeableConcept, IHumanName, IContactPoint, IPeriod } from '../../interfaces/datatypes';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 
 export class PatientContactBuilder
   extends BackboneElementBuilder<PatientContactBuilder>
-  implements Buildable<PatientContact>, Serializable
+  implements IBuildable<IPatientContact>, ISerializable
 {
-  private readonly patientContact: PatientContact;
+  private readonly patientContact: IPatientContact;
 
   constructor() {
     super();
-    this.patientContact = {} as PatientContact;
+    this.patientContact = {} as IPatientContact;
   }
 
-  addPatientContactParamExtension(param: 'gender', extension: Element): PatientContactBuilder {
+  addPatientContactParamExtension(param: 'gender', extension: IElement): PatientContactBuilder {
     this.patientContact[`_${param}`] = extension;
     return this;
   }
 
-  addRelationship(relationship: CodeableConcept): PatientContactBuilder {
+  addRelationship(relationship: ICodeableConcept): PatientContactBuilder {
     this.patientContact.relationship = this.patientContact.relationship || [];
     this.patientContact.relationship.push(relationship);
     return this;
   }
 
-  setMultipleRelationship(relationship: CodeableConcept[]): PatientContactBuilder {
+  setMultipleRelationship(relationship: ICodeableConcept[]): PatientContactBuilder {
     this.patientContact.relationship = relationship;
     return this;
   }
 
-  setName(name: HumanName): PatientContactBuilder {
+  setName(name: IHumanName): PatientContactBuilder {
     this.patientContact.name = name;
     return this;
   }
 
-  addTelecom(telecom: ContactPoint): PatientContactBuilder {
+  addTelecom(telecom: IContactPoint): PatientContactBuilder {
     this.patientContact.telecom = this.patientContact.telecom || [];
     this.patientContact.telecom.push(telecom);
     return this;
   }
 
-  setMultipleTelecom(telecom: ContactPoint[]): PatientContactBuilder {
+  setMultipleTelecom(telecom: IContactPoint[]): PatientContactBuilder {
     this.patientContact.telecom = telecom;
     return this;
   }
 
-  setGender(gender: AdministrativeGender | AdministrativeGenderType): PatientContactBuilder {
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PatientContactBuilder {
     this.patientContact.gender = gender;
     return this;
   }
 
-  setOrganization(organization: Reference): PatientContactBuilder {
+  setOrganization(organization: IReference): PatientContactBuilder {
     this.patientContact.organization = organization;
     return this;
   }
 
-  setPeriod(period: Period): PatientContactBuilder {
+  setPeriod(period: IPeriod): PatientContactBuilder {
     this.patientContact.period = period;
     return this;
   }
@@ -68,11 +68,11 @@ export class PatientContactBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): OrganizationQualification {
+  build(): IOrganizationQualification {
     return JSON.parse(JSON.stringify(this.raw()));
   }
 
-  raw(): PatientContact {
+  raw(): IPatientContact {
     return {
       ...this.patientContact,
       ...super.entity(),

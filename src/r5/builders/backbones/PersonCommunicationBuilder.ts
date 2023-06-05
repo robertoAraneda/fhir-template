@@ -1,25 +1,25 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Buildable, Serializable, Element } from '../../interfaces/base';
-import { PersonCommunication } from '../../interfaces/backbones';
-import { CodeableConcept } from '../../interfaces/datatypes';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
+import { IPersonCommunication } from '../../interfaces/backbones';
+import { ICodeableConcept } from '../../interfaces/datatypes';
 
 export class PersonCommunicationBuilder
   extends BackboneElementBuilder<PersonCommunicationBuilder>
-  implements Buildable<PersonCommunication>, Serializable
+  implements IBuildable<IPersonCommunication>, ISerializable
 {
-  private readonly personCommunication: PersonCommunication;
+  private readonly personCommunication: IPersonCommunication;
 
   constructor() {
     super();
-    this.personCommunication = {} as PersonCommunication;
+    this.personCommunication = {} as IPersonCommunication;
   }
 
-  addPersonCommunicationParamExtension(param: 'preferred', extension: Element): PersonCommunicationBuilder {
+  addPersonCommunicationParamExtension(param: 'preferred', extension: IElement): PersonCommunicationBuilder {
     this.personCommunication[`_${param}`] = extension;
     return this;
   }
 
-  setLanguage(language: CodeableConcept): PersonCommunicationBuilder {
+  setLanguage(language: ICodeableConcept): PersonCommunicationBuilder {
     this.personCommunication.language = language;
     return this;
   }
@@ -33,11 +33,11 @@ export class PersonCommunicationBuilder
     return JSON.stringify(this.raw());
   }
 
-  build(): PersonCommunication {
-    return JSON.parse(JSON.stringify(this.raw()));
+  build(): IPersonCommunication {
+    return JSON.parse(this.serialize());
   }
 
-  raw(): PersonCommunication {
+  raw(): IPersonCommunication {
     return {
       ...this.personCommunication,
       ...super.entity(),

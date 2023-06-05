@@ -1,10 +1,11 @@
-import { Person } from '../../interfaces/resources';
-import { PersonCommunication, PersonLink, PatientCommunication } from '../../interfaces/backbones';
-import { AdministrativeGender } from '../../enums/AdministrativeGender';
-import { AdministrativeGenderType } from '../../types/AdministrativeGenderType';
-import { Identifier, CodeableConcept, HumanName, Attachment, ContactPoint } from '../../interfaces/datatypes';
-import { Reference, Element, Buildable, Serializable } from '../../interfaces/base';
+import { IPersonCommunication, IPersonLink, IPatientCommunication } from '../../interfaces/backbones';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
+import { IIdentifier, ICodeableConcept, IHumanName, IAttachment, IContactPoint } from '../../interfaces/datatypes';
+import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
+import { Person } from '../../resources';
+import { IPerson } from '../../interfaces/resources';
 
 type ParamType =
   | 'active'
@@ -15,26 +16,25 @@ type ParamType =
   | 'deceasedBoolean'
   | 'deceasedDateTime';
 
-export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements Buildable<Person>, Serializable {
-  private readonly person: Person;
+export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements IBuildable<Person>, ISerializable {
+  private readonly person: IPerson;
   constructor() {
     super();
-    this.person = {} as Person;
-    this.person.resourceType = 'Person';
+    this.person = new Person();
   }
 
-  addPersonParamExtension(param: ParamType, extension: Element): PersonBuilder {
+  addPersonParamExtension(param: ParamType, extension: IElement): PersonBuilder {
     this.person[`_${param}`] = extension;
     return this;
   }
 
-  addName(name: HumanName): PersonBuilder {
+  addName(name: IHumanName): PersonBuilder {
     this.person.name = this.person.name || [];
     this.person.name.push(name);
     return this;
   }
 
-  addMultipleName(names: HumanName[]): PersonBuilder {
+  addMultipleName(names: IHumanName[]): PersonBuilder {
     this.person.name = names;
     return this;
   }
@@ -44,29 +44,29 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
     return this;
   }
 
-  addIdentifier(identifier: Identifier): PersonBuilder {
+  addIdentifier(identifier: IIdentifier): PersonBuilder {
     this.person.identifier = this.person.identifier || [];
     this.person.identifier.push(identifier);
     return this;
   }
 
-  setMultipleIdentifier(identifiers: Identifier[]): PersonBuilder {
+  setMultipleIdentifier(identifiers: IIdentifier[]): PersonBuilder {
     this.person.identifier = identifiers;
     return this;
   }
 
-  addTelecom(telecom: ContactPoint): PersonBuilder {
+  addTelecom(telecom: IContactPoint): PersonBuilder {
     this.person.telecom = this.person.telecom || [];
     this.person.telecom.push(telecom);
     return this;
   }
 
-  setMultipleTelecom(telecoms: ContactPoint[]): PersonBuilder {
+  setMultipleTelecom(telecoms: IContactPoint[]): PersonBuilder {
     this.person.telecom = telecoms;
     return this;
   }
 
-  setGender(gender: AdministrativeGender | AdministrativeGenderType): PersonBuilder {
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PersonBuilder {
     this.person.gender = gender;
     return this;
   }
@@ -76,12 +76,12 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
     return this;
   }
 
-  setMaritalStatus(maritalStatus: CodeableConcept): PersonBuilder {
+  setMaritalStatus(maritalStatus: ICodeableConcept): PersonBuilder {
     this.person.maritalStatus = maritalStatus;
     return this;
   }
 
-  addLink(link: PersonLink): PersonBuilder {
+  addLink(link: IPersonLink): PersonBuilder {
     if (typeof link.target.reference === 'string') {
       const target = link.target.reference as string;
       if (
@@ -99,7 +99,7 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
     return this;
   }
 
-  setMultipleLinks(links: PersonLink[]): PersonBuilder {
+  setMultipleLinks(links: IPersonLink[]): PersonBuilder {
     this.person.link = links;
 
     return this;
@@ -117,7 +117,7 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
     return this;
   }
 
-  setManagingOrganization(args: Reference): PersonBuilder {
+  setManagingOrganization(args: IReference): PersonBuilder {
     if (typeof args.reference === 'string' && !args.reference.startsWith('Organization/')) {
       throw new Error('Managing organization reference must start with Organization/');
     }
@@ -126,24 +126,24 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
     return this;
   }
 
-  addCommunication(communication: PatientCommunication): PersonBuilder {
+  addCommunication(communication: IPatientCommunication): PersonBuilder {
     this.person.communication = this.person.communication || [];
     this.person.communication.push(communication);
     return this;
   }
 
-  setMultipleCommunications(communications: PersonCommunication[]): PersonBuilder {
+  setMultipleCommunications(communications: IPersonCommunication[]): PersonBuilder {
     this.person.communication = communications;
     return this;
   }
 
-  addPhoto(attachment: Attachment): PersonBuilder {
+  addPhoto(attachment: IAttachment): PersonBuilder {
     this.person.photo = this.person.photo || [];
     this.person.photo.push(attachment);
     return this;
   }
 
-  setMultiplePhoto(attachments: Attachment[]): PersonBuilder {
+  setMultiplePhoto(attachments: IAttachment[]): PersonBuilder {
     this.person.photo = attachments;
     return this;
   }

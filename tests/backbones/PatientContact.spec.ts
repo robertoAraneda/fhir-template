@@ -1,22 +1,24 @@
-import { PatientContactBuilder } from '../../src/r5/builders/backbones/PatientContactBuilder';
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import BackboneElementValidator from '../../src/r5/BackboneElementValidator';
-import { PatientContact } from '../../src/r5/interfaces/backbones/PatientContact';
+import { PatientContactBuilder } from '../../src/r5/builders/backbones';
+import { IPatientContact } from '../../src/r5/interfaces/backbones';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('PatientContact', () => {
+  let validator: IValidatorContext;
   let builder: PatientContactBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = BackboneElementBuilder.PatientContact().setId('123').setGender('male').addTelecom({
-      use: 'home',
-      system: 'phone',
-      value: '1234567890',
-    });
+    builder = new PatientContactBuilder();
   });
 
   it('should be able to create a new patient_contact payload and validate with correct data', async () => {
-    const dataType: PatientContact = {
+    const dataType: IPatientContact = {
       id: '123',
       gender: 'female',
       relationship: [
@@ -37,7 +39,7 @@ describe('PatientContact', () => {
       },
     };
 
-    const validate = await BackboneElementValidator.PatientContact(dataType);
+    const validate = await validator.PatientContact(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -64,7 +66,7 @@ describe('PatientContact', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await BackboneElementValidator.PatientContact(dataType);
+    const validate = await validator.PatientContact(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -104,6 +106,13 @@ describe('PatientContact', () => {
   it('should be able to create a new patient_contact payload using builder methods', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .setGender('male')
+      .addTelecom({
+        use: 'home',
+        system: 'phone',
+        value: '1234567890',
+      })
       .addPatientContactParamExtension('gender', {
         extension: [
           {

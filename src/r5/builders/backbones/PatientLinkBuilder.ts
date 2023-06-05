@@ -1,36 +1,36 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Buildable, Serializable, Element, Reference } from '../../interfaces/base';
-import { PatientLink } from '../../interfaces/backbones';
-import { LinkType } from '../../enums/LinkType';
-import { LinkTypeType } from '../../types/LinkTypeType';
+import { IBuildable, ISerializable, IElement, IReference } from '../../interfaces/base';
+import { IPatientLink } from '../../interfaces/backbones';
+import { LinkTypeEnum } from '../../enums';
+import { LinkTypeType } from '../../types';
 
 export class PatientLinkBuilder
   extends BackboneElementBuilder<PatientLinkBuilder>
-  implements Buildable<PatientLink>, Serializable
+  implements IBuildable<IPatientLink>, ISerializable
 {
-  private readonly patientLink: PatientLink;
+  private readonly patientLink: IPatientLink;
 
   constructor() {
     super();
-    this.patientLink = {} as PatientLink;
+    this.patientLink = {} as IPatientLink;
   }
 
-  addPatientLinkParamExtension(param: 'type', extension: Element): PatientLinkBuilder {
+  addPatientLinkParamExtension(param: 'type', extension: IElement): PatientLinkBuilder {
     this.patientLink[`_${param}`] = extension;
     return this;
   }
 
-  setOther(other: Reference): PatientLinkBuilder {
+  setOther(other: IReference): PatientLinkBuilder {
     this.patientLink.other = other;
     return this;
   }
 
-  setType(type: LinkType | LinkTypeType): PatientLinkBuilder {
+  setType(type: LinkTypeEnum | LinkTypeType): PatientLinkBuilder {
     this.patientLink.type = type;
     return this;
   }
 
-  build(): PatientLink {
+  build(): IPatientLink {
     return JSON.parse(JSON.stringify(this.raw()));
   }
 
@@ -38,7 +38,7 @@ export class PatientLinkBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  raw(): PatientLink {
+  raw(): IPatientLink {
     return {
       ...this.patientLink,
       ...super.entity(),

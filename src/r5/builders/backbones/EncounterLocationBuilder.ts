@@ -1,12 +1,12 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { Reference } from '../../interfaces/base';
-import { EncounterLocationStatus } from '../../enums/EncounterLocationStatus';
-import { EncounterLocationStatusType } from '../../types/EncounterLocationStatusType';
-import { CodeableConcept, Period } from '../../interfaces/datatypes';
+import { IReference } from '../../interfaces/base';
+import { EncounterLocationStatusEnum } from '../../enums';
+import { EncounterLocationStatusType } from '../../types';
+import { ICodeableConcept, IPeriod } from '../../interfaces/datatypes';
 
 export class EncounterLocationBuilder extends BackboneElementBuilder<EncounterLocationBuilder> {
-  location: Reference;
-  status?: EncounterLocationStatus | EncounterLocationStatusType;
-  form?: CodeableConcept;
-  period?: Period;
+  location: IReference;
+  status?: EncounterLocationStatusEnum | EncounterLocationStatusType;
+  form?: ICodeableConcept;
+  period?: IPeriod;
 }

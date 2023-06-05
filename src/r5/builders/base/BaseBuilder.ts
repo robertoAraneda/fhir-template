@@ -1,13 +1,13 @@
-import { Base } from '../../interfaces/base';
+import { IBase } from '../../interfaces/base';
 
 export class BaseBuilder<ClassBuilder> {
-  private readonly base: Base;
+  private readonly base: IBase;
 
   constructor() {
-    this.base = {} as Base;
+    this.base = {} as IBase;
   }
 
-  entity(): Base {
+  entity(): IBase {
     return this.base;
   }
 }

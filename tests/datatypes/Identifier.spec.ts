@@ -1,25 +1,24 @@
-import { Identifier } from '../../src/r5/interfaces/datatypes/Identifier';
-import { IdentifierBuilder } from '../../src/r5/builders/datatypes/IdentifierBuilder';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { IIdentifier } from '../../src/r5/interfaces/datatypes';
+import { IdentifierBuilder } from '../../src/r5/builders/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('Identifier', () => {
+  let validator: IValidatorContext;
   let builder: IdentifierBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ElementBuilder.Identifier()
-      .setUse('official')
-      .setSystem('http://hl7.org/fhir/sid/us-npi')
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-02',
-      })
-      .setValue('1234567890');
+    builder = new IdentifierBuilder();
   });
 
   it('should be able to create a new identifier and validate with correct data', async () => {
-    const dataType: Identifier = {
+    const dataType: IIdentifier = {
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -33,7 +32,7 @@ describe('Identifier', () => {
       },
     };
 
-    const validate = await ElementValidator.Identifier(dataType);
+    const validate = await validator.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -54,7 +53,7 @@ describe('Identifier', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await ElementValidator.Identifier(dataType);
+    const validate = await validator.Identifier(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -72,7 +71,16 @@ describe('Identifier', () => {
 
   it('should be able to create a new identifier using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder.setAssigner({ reference: 'Organization/123' }).build();
+    const dataType = builder
+      .setUse('official')
+      .setSystem('http://hl7.org/fhir/sid/us-npi')
+      .setPeriod({
+        start: '2020-01-01',
+        end: '2020-01-02',
+      })
+      .setValue('1234567890')
+      .setAssigner({ reference: 'Organization/123' })
+      .build();
 
     expect(dataType).toBeDefined();
     expect(dataType).toEqual({
@@ -91,6 +99,13 @@ describe('Identifier', () => {
 
   it('should return errors if identifiers has wrong data', async () => {
     const dataType = builder
+      .setUse('official')
+      .setSystem('http://hl7.org/fhir/sid/us-npi')
+      .setPeriod({
+        start: '2020-01-01',
+        end: '2020-01-02',
+      })
+      .setValue('1234567890')
       .setAssigner({ reference: 'Organization/123' })
       .setPeriod({
         start: '2020-01-01 HH:MM:SS', // wrong format
@@ -112,7 +127,7 @@ describe('Identifier', () => {
       value: '1234567890',
     });
 
-    const validate = await ElementValidator.Identifier(dataType);
+    const validate = await validator.Identifier(dataType);
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors).toHaveLength(1);

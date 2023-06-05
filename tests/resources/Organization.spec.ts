@@ -1,18 +1,58 @@
-import { OrganizationBuilder } from '../../src/r5/builders/resources/OrganizationBuilder';
-import { Organization } from '../../src/r5/interfaces/resources/Organization';
-import ResourceBuilder from '../../src/r5/ResourceBuilder';
-import ResourceValidator from '../../src/r5/ResourceValidator';
+import FHIRContext from '../../src';
+import { Organization } from '../../src/r5/resources';
+import { IOrganization } from '../../src/r5/interfaces/resources';
+import { OrganizationBuilder } from '../../src/r5/builders/resources';
 
 describe('Organization', () => {
+  const context = new FHIRContext();
+  const { validators } = context.forR5();
   let builder: OrganizationBuilder;
 
   // create global
   beforeEach(() => {
-    builder = ResourceBuilder.Organization();
+    builder = new OrganizationBuilder();
   });
 
   it('should be able to create a new organization and validate with correct data [Example Organization/1]', async () => {
-    const dataType: Organization = {
+    const resource = new Organization({
+      resourceType: 'Organization',
+      id: '1',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\n<p>Gastroenterology @ Acme Hospital. ph: +1 555 234 3523, email: \n<a href="mailto:gastro@acme.org">gastro@acme.org</a>\n</p>\n\n</div>',
+      },
+      identifier: [
+        {
+          system: 'http://www.acme.org.au/units',
+          value: 'Gastro',
+        },
+      ],
+      name: 'Gastroenterology',
+      contact: [
+        {
+          telecom: [
+            {
+              system: 'phone',
+              value: '+1 555 234 3523',
+              use: 'mobile',
+            },
+            {
+              system: 'email',
+              value: 'gastro@acme.org',
+              use: 'work',
+            },
+          ],
+        },
+      ],
+    });
+
+    const validate = await validators.Organization(resource);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new organization and validate with correct data [Example Organization/1]', async () => {
+    const resource: IOrganization = {
       resourceType: 'Organization',
       id: '1',
       text: {
@@ -44,13 +84,13 @@ describe('Organization', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Organization(dataType);
+    const validate = await validators.Organization(resource);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new organization and validate with correct data [Example Organization/f203]', async () => {
-    const dataType: Organization = {
+    const resource: IOrganization = {
       meta: {},
       resourceType: 'Organization',
       id: 'f203',
@@ -102,13 +142,13 @@ describe('Organization', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Organization(dataType);
+    const validate = await validators.Organization(resource);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new organization and validate with wrong data [Example Organization/mmanu]', async () => {
-    const dataType = {
+    const resource = {
       wrongProperty: 'wrong', // wrong property
       resourceType: 'Organization',
       id: 'mmanu',
@@ -127,7 +167,7 @@ describe('Organization', () => {
       ],
     };
 
-    const validate = await ResourceValidator.Organization(dataType);
+    const validate = await validators.Organization(resource);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -152,7 +192,7 @@ describe('Organization', () => {
 
   it('should be able to create a new organization using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const resource = builder
       .setName('test')
       .setActive(true)
       .setId('123')
@@ -198,8 +238,8 @@ describe('Organization', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(resource).toBeDefined();
+    expect(resource).toEqual({
       _active: {
         extension: [
           {

@@ -1,7 +1,7 @@
 {
   "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rules": {
-    "no-empty-interface": false
+    "no-empty-interface": false,
+    "no-namespace": false
   }
-
 }

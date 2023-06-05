@@ -1,29 +1,24 @@
-import { EndpointPayloadBuilder } from '../../src/r5/builders/backbones/EndpointPayloadBuilder';
-import BackboneElementBuilder from '../../src/r5/BackboneElementBuilder';
-import { EndpointPayload } from '../../src/r5/interfaces/backbones';
-import { Builder, Validator } from '../../src/r5';
+import FHIRContext from '../../src';
+import { IValidatorContext } from '../../src/r5';
+import { EndpointPayloadBuilder } from '../../src/r5/builders/backbones';
+import { IEndpointPayload } from '../../src/r5/interfaces/backbones';
 
 describe('EndpointPayload', () => {
+  let validator: IValidatorContext;
   let builder: EndpointPayloadBuilder;
-  let validator = Validator.BackboneElement;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = Builder.BackboneElement.EndpointPayload()
-      .setId('123')
-      .addType({
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/endpoint-payload-type',
-            code: 'any',
-            display: 'Any',
-          },
-        ],
-      });
+    builder = new EndpointPayloadBuilder();
   });
 
   it('should be able to create a new endpoint payload and validate with correct data', async () => {
-    const dataType: EndpointPayload = {
+    const dataType: IEndpointPayload = {
       id: '123',
       type: [
         {
@@ -80,6 +75,16 @@ describe('EndpointPayload', () => {
   it('should be able to create a new endpoint payload using builder methods', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .addType({
+        coding: [
+          {
+            code: 'any',
+            display: 'Any',
+            system: 'http://hl7.org/fhir/endpoint-payload-type',
+          },
+        ],
+      })
       .addEndpointPayloadParamExtension('mimeType', {
         extension: [
           {

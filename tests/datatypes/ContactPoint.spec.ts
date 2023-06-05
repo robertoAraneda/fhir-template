@@ -1,18 +1,24 @@
-import { ContactPointBuilder } from '../../src/r5/builders/datatypes/ContactPointBuilder';
-import { ContactPoint } from '../../src/r5/interfaces/datatypes/ContactPoint';
-import ElementBuilder from '../../src/r5/ElementBuilder';
-import ElementValidator from '../../src/r5/ElementValidator';
+import { ContactPointBuilder } from '../../src/r5/builders/datatypes';
+import { IContactPoint } from '../../src/r5/interfaces/datatypes';
+import { IValidatorContext } from '../../src/r5';
+import FHIRContext from '../../src';
 
 describe('ContactPoint', () => {
+  let validator: IValidatorContext;
   let builder: ContactPointBuilder;
+
+  beforeAll(() => {
+    const context = new FHIRContext();
+    validator = context.forR5().validators;
+  });
 
   // create global
   beforeEach(() => {
-    builder = ElementBuilder.ContactPoint().setId('123').setSystem('url').setRank(1).setValue('test');
+    builder = new ContactPointBuilder();
   });
 
   it('should be able to create a new contact point and validate with correct data', async () => {
-    const dataType: ContactPoint = {
+    const dataType: IContactPoint = {
       id: '123',
       value: 'test',
       system: 'url',
@@ -20,7 +26,7 @@ describe('ContactPoint', () => {
       use: 'home',
     };
 
-    const validate = await ElementValidator.ContactPoint(dataType);
+    const validate = await validator.ContactPoint(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -36,7 +42,7 @@ describe('ContactPoint', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await ElementValidator.ContactPoint(dataType);
+    const validate = await validator.ContactPoint(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -62,6 +68,10 @@ describe('ContactPoint', () => {
   it('should be able to create a new contact point using builder methods', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .setRank(1)
+      .setSystem('url')
+      .setValue('test')
       .addContactPointParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 

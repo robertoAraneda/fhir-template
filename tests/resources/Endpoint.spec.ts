@@ -5,21 +5,21 @@ import { Endpoint } from '../../src/r5/resources';
 import { IValidatorContext } from '../../src/r5';
 
 describe('Endpoint', () => {
-  let builder: EndpointBuilder;
+  let builder;
   const context = new FHIRContext();
-  const { validators: val, createResource, createResourceWithBuilder } = context.forR5();
+  const { validators: val, builders } = context.forR5();
 
   const validators: IValidatorContext = val;
 
   // create global
-  beforeEach(async () => {
-    builder = await createResourceWithBuilder('Endpoint');
+  beforeEach(() => {
+    builder = builders.resources.EndpointBuilder();
   });
 
   // create global
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
-    const resource = await createResource('Endpoint').payload({
+    const resource = new Endpoint({
       resourceType: 'Endpoint',
       id: 'example',
       text: {

@@ -1,14 +1,14 @@
 import * as BackboneBuilder from './builders/backbones';
 
 export const BackboneElementBuilder = {
-  EndpointPayloadBuilder: BackboneBuilder.EndpointPayloadBuilder,
-  OrganizationQualificationBuilder: BackboneBuilder.OrganizationQualificationBuilder,
-  PatientContactBuilder: BackboneBuilder.PatientContactBuilder,
-  PatientCommunicationBuilder: BackboneBuilder.PatientCommunicationBuilder,
-  PatientLinkBuilder: BackboneBuilder.PatientLinkBuilder,
-  PersonCommunicationBuilder: BackboneBuilder.PersonCommunicationBuilder,
-  PersonLinkBuilder: BackboneBuilder.PersonLinkBuilder,
-  PractitionerCommunicationBuilder: BackboneBuilder.PractitionerCommunicationBuilder,
-  PractitionerQualificationBuilder: BackboneBuilder.PractitionerQualificationBuilder,
-  RelatedPersonCommunicationBuilder: BackboneBuilder.RelatedPersonCommunicationBuilder,
+  EndpointPayloadBuilder: new BackboneBuilder.EndpointPayloadBuilder(),
+  OrganizationQualificationBuilder: new BackboneBuilder.OrganizationQualificationBuilder(),
+  PatientContactBuilder: new BackboneBuilder.PatientContactBuilder(),
+  PatientCommunicationBuilder: new BackboneBuilder.PatientCommunicationBuilder(),
+  PatientLinkBuilder: new BackboneBuilder.PatientLinkBuilder(),
+  PersonCommunicationBuilder: new BackboneBuilder.PersonCommunicationBuilder(),
+  PersonLinkBuilder: new BackboneBuilder.PersonLinkBuilder(),
+  PractitionerCommunicationBuilder: new BackboneBuilder.PractitionerCommunicationBuilder(),
+  PractitionerQualificationBuilder: new BackboneBuilder.PractitionerQualificationBuilder(),
+  RelatedPersonCommunicationBuilder: new BackboneBuilder.RelatedPersonCommunicationBuilder(),
 };

@@ -1,4 +1,5 @@
 import * as ResourceBuilders from './builders/resources';
+import { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole, RelatedPerson } from './resources';
 
 export const ResourceBuilder = {
   PatientBuilder: () => new ResourceBuilders.PatientBuilder(),

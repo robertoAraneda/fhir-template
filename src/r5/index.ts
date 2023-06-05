@@ -3,6 +3,7 @@ import { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole
 import {
   createBackboneElementBuilderType,
   createDatatypeBuilderType,
+  createInstance,
   createResourceBuilderType,
   createResourceType,
 } from '../helpers';
@@ -116,6 +117,16 @@ export type DatatypeTypeR5 =
   | 'Period'
   | 'Reference';
 
+const mapResourceTypeToBuilder = {
+  Patient: new Patient(),
+  Organization: new Organization(),
+  Endpoint: new Endpoint(),
+  Person: new Person(),
+  Practitioner: new Practitioner(),
+  PractitionerRole: new PractitionerRole(),
+  RelatedPerson: new RelatedPerson(),
+};
+
 export class FhirContextR5 {
   /*
   public async createResource<T extends IDomainResource>(
@@ -143,6 +154,45 @@ export class FhirContextR5 {
    */
 
   public createResource<T extends ResourceTypeR5>(resourceType: T) {
+    return {
+      payload: (
+        payload: T extends 'Patient'
+          ? Patient
+          : T extends 'Endpoint'
+          ? Endpoint
+          : T extends 'Person'
+          ? Person
+          : T extends 'Practitioner'
+          ? Practitioner
+          : T extends 'RelatedPerson'
+          ? RelatedPerson
+          : T extends 'Organization'
+          ? Organization
+          : T extends 'PractitionerRole'
+          ? PractitionerRole
+          : unknown,
+      ) =>
+        createInstance(resourceType, payload) as T extends 'Patient'
+          ? Patient
+          : T extends 'Endpoint'
+          ? Endpoint
+          : T extends 'Person'
+          ? Person
+          : T extends 'Practitioner'
+          ? Practitioner
+          : T extends 'RelatedPerson'
+          ? RelatedPerson
+          : T extends 'Organization'
+          ? Organization
+          : T extends 'PractitionerRole'
+          ? PractitionerRole
+          : unknown,
+    };
+  }
+
+  /*
+
+  public createResource<T extends ResourceTypeR5>(resourceType: T) {
     type ResourceInstance = T extends 'Patient'
       ? Patient
       : T extends 'Endpoint'
@@ -162,6 +212,8 @@ export class FhirContextR5 {
       payload: (payload: ResourceInstance) => createResourceType<ResourceInstance>(resourceType, payload),
     };
   }
+  
+   */
 
   public async createResourceWithBuilder<T extends ResourceTypeR5>(resourceType: ResourceTypeR5) {
     type ResourceInstance = T extends 'Patient'

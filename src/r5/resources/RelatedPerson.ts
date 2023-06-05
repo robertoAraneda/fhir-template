@@ -42,4 +42,8 @@ export class RelatedPerson implements IRelatedPerson {
   resourceType: string = 'RelatedPerson';
   telecom?: IContactPoint[];
   text?: INarrative;
+
+  constructor(args?: Partial<RelatedPerson>) {
+    Object.assign(this, args);
+  }
 }

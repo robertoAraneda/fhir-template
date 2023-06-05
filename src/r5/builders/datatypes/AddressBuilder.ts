@@ -1,16 +1,17 @@
 import { IAddress, IPeriod } from '../../interfaces/datatypes';
 import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { Address } from '../../datatypes/Address';
 
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
 export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IBuildable<IAddress>, ISerializable {
-  private readonly address: IAddress;
+  private readonly address: Address;
 
   constructor() {
     super();
 
-    this.address = {} as IAddress;
+    this.address = new Address();
   }
 
   addParamExtension<T extends AddressParam>(
@@ -87,11 +88,11 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IB
     return JSON.stringify(this.raw());
   }
 
-  build(): IAddress {
+  build(): Address {
     return JSON.parse(this.serialize());
   }
 
-  raw(): IAddress {
+  raw(): Address {
     return {
       ...this.address,
       ...super.entity(),

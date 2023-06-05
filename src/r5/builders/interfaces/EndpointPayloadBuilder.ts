@@ -1,16 +1,16 @@
-import { Buildable, Element, ISerializable } from '../../interfaces/base';
+import { ICodeableConcept } from '../../interfaces/datatypes';
 import { EndpointPayloadBuilder as Builder } from '../../builders/backbones/EndpointPayloadBuilder';
-import { EndpointPayload } from '../../interfaces/backbones';
-import { CodeableConcept } from '../../interfaces/datatypes';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
+import { IBuildable, ISerializable } from '../../interfaces/base';
+import { IEndpointPayload } from '../../interfaces/backbones';
 
 export interface EndpointPayloadBuilder
   extends ISerializable,
-    Buildable<EndpointPayload>,
+    IBuildable<IEndpointPayload>,
     BackboneElementBuilder<EndpointPayloadBuilder> {
   addEndpointPayloadParamExtension(param: 'mimeType', extension: Element): Builder;
-  addType(type: CodeableConcept): Builder;
-  setMultipleType(type: CodeableConcept[]): Builder;
+  addType(type: ICodeableConcept): Builder;
+  setMultipleType(type: ICodeableConcept[]): Builder;
   addMimeType(mimeType: string): Builder;
   setMultipleMimeType(mimeType: string[]): Builder;
 }

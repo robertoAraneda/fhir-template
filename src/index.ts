@@ -1,4 +1,5 @@
-import { BackboneTypeR5, DatatypeTypeR5, FhirContextR5, IValidatorContext, ResourceTypeR5 } from './r5';
+import { FhirContextR5, ResourceTypeR5 } from './r5';
+import { DatatypeTypeR5 } from './r5/GlobalDatatypes';
 
 class FHIRContext {
   forR5() {

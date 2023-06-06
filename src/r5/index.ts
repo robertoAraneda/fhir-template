@@ -4,32 +4,9 @@ import { ResourceValidator } from './validators/ResourceValidator';
 import { ResourceBuilder } from './ResourceBuilder';
 import { ElementBuilder } from './ElementBuilder';
 import { BackboneElementBuilder } from './BackboneElementBuilder';
-import { Address } from './models/datatypes/Address';
-import { Attachment } from './models/datatypes/Attachment';
-import {
-  IAddress,
-  IAttachment,
-  IAvailability,
-  ICodeableConcept,
-  ICodeableReference,
-  ICoding,
-  IContactPoint,
-  IHumanName,
-  IIdentifier,
-  IMeta,
-  IPeriod,
-} from './interfaces/datatypes';
-import { IReference } from './interfaces/base';
-import { Endpoint } from './models/resources';
-import { EndpointBuilder } from './builders/resources';
-import {
-  AddressBuilder,
-  AttachmentBuilder,
-  CodeableConceptBuilder,
-  CodeableReferenceBuilder,
-  PeriodBuilder,
-} from './builders/datatypes';
-import { AvailabilityBuilder } from './builders/datatypes';
+import { DataType, DatatypeTypeR5 } from './GlobalDatatypes';
+import { generateInstanceDatatype } from './InstanceBuilderDatatype';
+import { generateInstanceResource } from './InstanceBuilderResource';
 
 export interface IBackboneValidatorProperties {
   EndpointPayload: (data: unknown) => Wait;
@@ -96,89 +73,13 @@ export type BackboneTypeR5 =
   | 'OrganizationQualification'
   | 'EndpointPayload';
 
-export type DatatypeTypeR5 =
-  | 'Address'
-  | 'Attachment'
-  | 'CodeableConcept'
-  | 'Coding'
-  | 'ContactPoint'
-  | 'HumanName'
-  | 'Identifier'
-  | 'Meta'
-  | 'Period'
-  | 'Availability'
-  | 'CodeableReference'
-  | 'Reference';
-
-const generateInstanceResource = (resourceType: ResourceTypeR5) => {
-  switch (resourceType) {
-    case 'Patient':
-      return { data: (data: Partial<Endpoint>) => new EndpointBuilder().fromJSON(data).build() };
-    case 'Organization':
-    case 'Endpoint':
-    case 'Person':
-    case 'Practitioner':
-    case 'PractitionerRole':
-    case 'RelatedPerson':
-      return { data: (data: Partial<Endpoint>) => new EndpointBuilder().fromJSON(data).build() };
-  }
-};
-
-const generateInstanceDatatype = (resourceType: DatatypeTypeR5) => {
-  switch (resourceType) {
-    case 'Address':
-      return { data: (data: IAddress) => new AddressBuilder().fromJSON(data).build() };
-    case 'Availability':
-      return { data: (data: IAvailability) => new AvailabilityBuilder().fromJSON(data).build() };
-    case 'CodeableConcept':
-      return { data: (data: ICodeableConcept) => new CodeableConceptBuilder().fromJSON(data).build() };
-    case 'CodeableReference':
-      return { data: (data: ICodeableReference) => new CodeableReferenceBuilder().fromJSON(data).build() };
-    case 'Period':
-      return { data: (data: IPeriod) => new PeriodBuilder().fromJSON(data).build() };
-    case 'Coding':
-    case 'Meta':
-    case 'Reference':
-    case 'Identifier':
-    case 'HumanName':
-    case 'ContactPoint':
-    case 'Attachment':
-      return { data: (data: IAttachment) => new AttachmentBuilder().fromJSON(data).build() };
-  }
-};
-
 export class FhirContextR5 {
   createResource<T extends ResourceTypeR5>(resourceType: T) {
     return generateInstanceResource(resourceType);
   }
 
   createDatatype<T extends DatatypeTypeR5>(datatypeType: T) {
-    type dataType = T extends 'Address'
-      ? IAddress
-      : T extends 'Attachment'
-      ? IAttachment
-      : T extends 'CodeableConcept'
-      ? ICodeableConcept
-      : T extends 'Coding'
-      ? ICoding
-      : T extends 'ContactPoint'
-      ? IContactPoint
-      : T extends 'HumanName'
-      ? IHumanName
-      : T extends 'Identifier'
-      ? IIdentifier
-      : T extends 'Meta'
-      ? IMeta
-      : T extends 'Period'
-      ? IPeriod
-      : T extends 'Reference'
-      ? IReference
-      : T extends 'Availability'
-      ? IAvailability
-      : T extends 'CodeableReference'
-      ? ICodeableReference
-      : unknown;
-    return generateInstanceDatatype(datatypeType) as unknown as { data: (data: dataType) => dataType };
+    return generateInstanceDatatype(datatypeType) as unknown as { data: (data: DataType<T>) => DataType<T> };
   }
   public getBuilders() {
     return {

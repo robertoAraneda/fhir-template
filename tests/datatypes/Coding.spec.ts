@@ -16,6 +16,7 @@ describe('Coding', () => {
     builder = new CodingBuilder();
     builderFromFunction = builders.dataTypes.CodingBuilder();
   });
+
   it('should be able to create a new coding and validate with correct data [createDatatype]', async () => {
     const dataType = createDatatype('Coding').data({
       id: '123',

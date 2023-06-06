@@ -1,10 +1,12 @@
-import { IElement } from '../base';
+import { IContactPoint, IExtension, IPeriod } from '../../interfaces/datatypes';
 import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
 import { ContactPointSystemType, ContactPointUseType } from '../../types';
-import { IPeriod } from './IPeriod';
+import { IElement } from '../../interfaces/base';
 
 /**
  * @description Details for all kinds of technology-mediated contact points for a person or organization, including telephone, email, etc.
+ * @property {string} id - Unique id for inter-element referencing
+ * @property {IExtension[]} extension - Additional content defined by implementations
  * @property {IPeriod} period - Time period when the contact point was/is in use
  * @property {number} rank - Specify preferred order of use (1 = highest)
  * @property {ContactPointSystemEnum} system - phone | fax | email | pager | url | sms | other
@@ -28,7 +30,17 @@ import { IPeriod } from './IPeriod';
  *   "period" : { Period } // Time period when the contact point was/is in use
  * }
  */
-export interface IContactPoint extends IElement {
+export class ContactPoint implements IContactPoint {
+  /**
+   * @description Unique id for inter-element referencing
+   */
+  id?: string;
+
+  /**
+   * @description Additional content defined by implementations
+   */
+  extension?: IExtension[];
+
   /**
    * @description phone | fax | email | pager | url | sms | other
    */
@@ -75,4 +87,8 @@ export interface IContactPoint extends IElement {
    * @description Extension of rank element
    */
   _rank?: IElement;
+
+  constructor(args?: IContactPoint) {
+    Object.assign(this, args);
+  }
 }

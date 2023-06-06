@@ -1,5 +1,5 @@
 import { ICodeableConcept } from '../../src/r5/interfaces/datatypes';
-import { AvailabilityBuilder, CodeableConceptBuilder } from '../../src/r5/builders/datatypes';
+import { CodeableConceptBuilder } from '../../src/r5/builders/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
 import { CodeableConcept } from '../../src/r5/models/datatypes/CodeableConcept';

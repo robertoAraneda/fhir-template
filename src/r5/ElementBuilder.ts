@@ -11,4 +11,5 @@ export const ElementBuilder = {
   MetaBuilder: () => new DataTypesBuilder.MetaBuilder(),
   PeriodBuilder: () => new DataTypesBuilder.PeriodBuilder(),
   ReferenceBuilder: () => new DataTypesBuilder.ReferenceBuilder(),
+  CodeableReferenceBuilder: () => new DataTypesBuilder.CodeableReferenceBuilder(),
 };

@@ -11,6 +11,7 @@ import {
   IAttachment,
   IAvailability,
   ICodeableConcept,
+  ICodeableReference,
   ICoding,
   IContactPoint,
   IHumanName,
@@ -21,8 +22,14 @@ import {
 import { IReference } from './interfaces/base';
 import { Endpoint } from './models/resources';
 import { EndpointBuilder } from './builders/resources';
-import { AddressBuilder, AttachmentBuilder } from './builders/datatypes';
-import { AvailabilityBuilder } from './builders/datatypes/AvailabilityBuilder';
+import {
+  AddressBuilder,
+  AttachmentBuilder,
+  CodeableConceptBuilder,
+  CodeableReferenceBuilder,
+  PeriodBuilder,
+} from './builders/datatypes';
+import { AvailabilityBuilder } from './builders/datatypes';
 
 export interface IBackboneValidatorProperties {
   EndpointPayload: (data: unknown) => Wait;
@@ -51,6 +58,7 @@ export interface IDatatypeValidatorProperties {
   Address: (data: unknown) => Wait;
   Attachment: (data: unknown) => Wait;
   CodeableConcept: (data: unknown) => Wait;
+  CodeableReference: (data: unknown) => Wait;
   Coding: (data: unknown) => Wait;
   ContactPoint: (data: unknown) => Wait;
   HumanName: (data: unknown) => Wait;
@@ -99,6 +107,7 @@ export type DatatypeTypeR5 =
   | 'Meta'
   | 'Period'
   | 'Availability'
+  | 'CodeableReference'
   | 'Reference';
 
 const generateInstanceResource = (resourceType: ResourceTypeR5) => {
@@ -122,7 +131,11 @@ const generateInstanceDatatype = (resourceType: DatatypeTypeR5) => {
     case 'Availability':
       return { data: (data: IAvailability) => new AvailabilityBuilder().fromJSON(data).build() };
     case 'CodeableConcept':
+      return { data: (data: ICodeableConcept) => new CodeableConceptBuilder().fromJSON(data).build() };
+    case 'CodeableReference':
+      return { data: (data: ICodeableReference) => new CodeableReferenceBuilder().fromJSON(data).build() };
     case 'Period':
+      return { data: (data: IPeriod) => new PeriodBuilder().fromJSON(data).build() };
     case 'Coding':
     case 'Meta':
     case 'Reference':
@@ -162,6 +175,8 @@ export class FhirContextR5 {
       ? IReference
       : T extends 'Availability'
       ? IAvailability
+      : T extends 'CodeableReference'
+      ? ICodeableReference
       : unknown;
     return generateInstanceDatatype(datatypeType) as unknown as { data: (data: dataType) => dataType };
   }

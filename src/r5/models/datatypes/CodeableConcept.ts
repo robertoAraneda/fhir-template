@@ -10,6 +10,13 @@ import { IElement } from '../../interfaces/base';
  * @property {IElement} _text - Extension of text element
  * @see https://www.hl7.org/fhir/datatypes.html#CodeableConcept CodeableConcept
  * @author Roberto Araneda
+ * @example ```json
+ * JSON Template
+ * {
+ *   // from Element: extension
+ *   "coding" : [{ Coding }], // Code defined by a terminology system
+ *   "text" : "<string>" // Plain text representation of the concept
+ * }
  */
 export class CodeableConcept implements ICodeableConcept {
   /**

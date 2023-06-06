@@ -1,59 +1,144 @@
 import { ICoding, ICodeableConcept } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { Coding } from '../../models/datatypes/Coding';
 
 type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
 
+/**
+ * @description Coding builder
+ *
+ */
 export class CodingBuilder
   extends ElementBuilder<CodingBuilder>
   implements IBuildable<ICodeableConcept>, ISerializable
 {
-  private readonly coding: ICoding;
+  private coding: ICoding;
 
   constructor() {
     super();
 
-    this.coding = {} as ICoding;
+    this.coding = new Coding();
   }
 
+  /**
+   * @description Create a new Coding from a JSON representation
+   * @param json
+   * @returns build and serialize functions
+   */
+  fromJSON(json: ICoding) {
+    this.coding = json;
+
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
+  }
+
+  /**
+   * @description Add a param extension to the coding
+   * @param param
+   * @param extension
+   * @returns CodingBuilder The builder
+   * @example ```typescript
+   * const coding = new CodingBuilder()
+   * .addCodingParamExtension('system', {
+   *    "extension": [
+   *      {
+   *        url: "http://example.com",
+   *        valueString: "example"
+   *      }
+   *    ]
+   *  })
+   *  .build();
+   *
+   *  JSON generated:
+   *    {
+   *      "_system": {
+   *        "extension": [
+   *          {
+   *            url: "http://example.com",
+   *            valueString: "example"
+   *          }
+   *        ]
+   *      }
+   *    }
+   */
   addCodingParamExtension(param: ParamType, extension: IElement): CodingBuilder {
     this.coding[`_${param}`] = extension;
     return this;
   }
 
+  /**
+   * @description Set the system of the coding
+   * @param system
+   * @returns {CodingBuilder} The builder
+   */
   setSystem(system: string): CodingBuilder {
     this.coding.system = system;
     return this;
   }
 
+  /**
+   * @description Set the version of the coding
+   * @param version
+   * @returns {CodingBuilder} The builder
+   */
   setVersion(version: string): CodingBuilder {
     this.coding.version = version;
     return this;
   }
 
+  /**
+   * @description Set the code of the coding
+   * @param code
+   * @returns {CodingBuilder} The builder
+   */
   setCode(code: string): CodingBuilder {
     this.coding.code = code;
     return this;
   }
 
+  /**
+   * @description Set the display of the coding
+   * @param display
+   * @returns {CodingBuilder} The builder
+   */
   setDisplay(display: string): CodingBuilder {
     this.coding.display = display;
     return this;
   }
 
+  /**
+   * @description Set the userSelected of the coding
+   * @param userSelected
+   * @returns {CodingBuilder} The builder
+   */
   setUserSelected(userSelected: boolean): CodingBuilder {
     this.coding.userSelected = userSelected;
     return this;
   }
 
+  /**
+   * @description Return the coding as a JSON string
+   * @returns {ICoding} The coding
+   */
   serialize(): string {
     return JSON.stringify(this.raw(), null, 2);
   }
 
+  /**
+   * @description Return the coding as a ICoding object
+   * @returns {ICoding} The coding
+   */
   build(): ICoding {
     return JSON.parse(this.serialize());
   }
 
+  /**
+   * @description Return the coding as a native ICoding object
+   * @returns {ICoding} The coding
+   */
   raw(): ICoding {
     return {
       ...this.coding,

@@ -1,6 +1,7 @@
 import { IAttachment } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { Attachment } from '../../datatypes/Attachment';
 
 type ParamType =
   | 'contentType'
@@ -20,12 +21,19 @@ export class AttachmentBuilder
   extends ElementBuilder<AttachmentBuilder>
   implements IBuildable<IAttachment>, ISerializable
 {
-  private readonly attachment: IAttachment;
+  private attachment: IAttachment;
 
   constructor() {
     super();
-
     this.attachment = {} as IAttachment;
+  }
+
+  fromJSON(json: IAttachment) {
+    this.attachment = json;
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
   }
 
   addAttachmentParamExtension(param: ParamType, extension: IElement): AttachmentBuilder {
@@ -102,11 +110,11 @@ export class AttachmentBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): IAttachment {
+  build(): Attachment {
     return JSON.parse(this.serialize());
   }
 
-  raw(): IAttachment {
+  raw(): Attachment {
     return {
       ...super.entity(),
       ...this.attachment,

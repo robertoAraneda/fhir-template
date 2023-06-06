@@ -13,6 +13,7 @@ const Identifier = async (item: unknown): Wait => _validateDataType(item, 'Ident
 const Meta = async (item: unknown): Wait => _validateDataType(item, 'Meta');
 const Period = async (item: unknown): Wait => _validateDataType(item, 'Period');
 const Reference = async (item: unknown): Wait => _validateDataType(item, 'Reference');
+const Availability = async (item: unknown): Wait => _validateDataType(item, 'Availability');
 
 export const DataTypesValidator = {
   Address,
@@ -25,4 +26,5 @@ export const DataTypesValidator = {
   Meta,
   Period,
   Reference,
+  Availability,
 };

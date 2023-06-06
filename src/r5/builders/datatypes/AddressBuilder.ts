@@ -6,15 +6,23 @@ import { Address } from '../../datatypes/Address';
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
 export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IBuildable<IAddress>, ISerializable {
-  private readonly address: Address;
+  private address: IAddress;
 
   constructor() {
     super();
-
     this.address = new Address();
   }
 
-  addParamExtension<T extends AddressParam>(
+  fromJSON(json: IAddress) {
+    this.address = json;
+
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
+  }
+
+  addAddressParamExtension<T extends AddressParam>(
     param: T,
     extension: T extends 'line' ? IElement[] : IElement,
   ): AddressBuilder {

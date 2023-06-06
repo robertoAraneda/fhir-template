@@ -1,4 +1,7 @@
 import { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole, RelatedPerson } from './r5/resources';
+import { EndpointBuilder } from './r5/builders/resources';
+import { IEndpoint } from './r5/interfaces/resources';
+import { ResourceTypeR5 } from './r5';
 
 const generatePayloadType = async <T>(resourceType: string, payload: T) => {
   const entity = await import(`./r5/resources/${resourceType}`);
@@ -24,15 +27,4 @@ export const createDatatypeBuilderType = <T>(resourceType: string) => {
 
 export const createBackboneElementBuilderType = <T>(resourceType: string) => {
   return generateBuilder<T>(resourceType, 'backbones');
-};
-
-export const createInstance = (resourceType: any, payload: any) => {
-  const resource = resourceType as string;
-  if (resource === 'Patient') return new Patient(payload);
-  if (resource === 'Endpoint') return new Endpoint(payload);
-  if (resource === 'Person') return new Person(payload);
-  if (resource === 'Practitioner') return new Practitioner(payload);
-  if (resource === 'RelatedPerson') return new RelatedPerson(payload);
-  if (resource === 'Organization') return new Organization(payload);
-  if (resource === 'PractitionerRole') return new PractitionerRole(payload);
 };

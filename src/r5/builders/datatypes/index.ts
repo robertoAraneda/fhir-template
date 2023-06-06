@@ -8,3 +8,4 @@ export { IdentifierBuilder } from './IdentifierBuilder';
 export { MetaBuilder } from './MetaBuilder';
 export { PeriodBuilder } from './PeriodBuilder';
 export { ReferenceBuilder } from './ReferenceBuilder';
+export { AvailabilityBuilder } from './AvailabilityBuilder';

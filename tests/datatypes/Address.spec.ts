@@ -2,15 +2,58 @@ import { AddressBuilder } from '../../src/r5/builders/datatypes';
 import { IAddress } from '../../src/r5/interfaces/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
+import { Address } from '../../src/r5/datatypes/Address';
 
 describe('Address', () => {
-  const { validators: val, builders } = new FHIRContext().forR5();
+  const { validators: val, builders, createDatatype } = new FHIRContext().forR5();
   const validator: IValidatorContext = val;
   let builder: AddressBuilder;
 
   // create global
   beforeEach(async () => {
     builder = await builders.dataTypes.AddressBuilder();
+  });
+
+  it('should be able to validate a new address', async () => {
+    const address = createDatatype('Address').data({
+      id: '123',
+      type: 'postal',
+      period: {
+        start: '2020-01-01',
+        end: '2020-01-02',
+      },
+      text: '123 Main St',
+      line: ['123 Main St'],
+      district: 'Anycounty',
+      country: 'USA',
+      postalCode: '12345',
+      state: 'AnyState',
+    });
+
+    const validateAddress = await validator.dataTypes.Address(address);
+    expect(validateAddress.isValid).toBeTruthy();
+    expect(validateAddress.errors).toBeUndefined();
+  });
+
+  it('should be able to validate a new address', async () => {
+    const address = new Address({
+      id: '123',
+      type: 'postal',
+      period: {
+        start: '2020-01-01',
+        end: '2020-01-02',
+      },
+      text: '123 Main St',
+      line: ['123 Main St'],
+      district: 'Anycounty',
+      country: 'USA',
+      postalCode: '12345',
+      state: 'AnyState',
+    });
+
+    const validateAddress = await validator.dataTypes.Address(address);
+    expect(validateAddress.isValid).toBeTruthy();
+    expect(validateAddress.errors).toBeUndefined();
   });
 
   it('should be able to validate a new address', async () => {
@@ -51,7 +94,7 @@ describe('Address', () => {
       .setState('AnyState')
       .setType('postal')
       .setUse('home')
-      .addParamExtension('line', [
+      .addAddressParamExtension('line', [
         {
           extension: [
             {
@@ -61,7 +104,7 @@ describe('Address', () => {
           ],
         },
       ])
-      .addParamExtension('city', {
+      .addAddressParamExtension('city', {
         extension: [
           {
             url: 'latitude',

@@ -2,19 +2,81 @@ import { IAttachment } from '../../src/r5/interfaces/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import { AttachmentBuilder } from '../../src/r5/builders/datatypes';
 import FHIRContext from '../../src';
+import { Attachment } from '../../src/r5/datatypes/Attachment';
 
 describe('Attachment', () => {
   let validator: IValidatorContext;
   let builder: AttachmentBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  const { validators: val, createDatatype } = new FHIRContext().forR5();
+  validator = val;
 
   // create global
   beforeEach(() => {
     builder = new AttachmentBuilder();
+  });
+
+  it('should be able to create a new attachment and validate with correct data', async () => {
+    const dataType = createDatatype('Attachment').data({
+      id: '123',
+      url: 'http://hl7.org/fhir/sid/us-npi',
+      contentType: 'test',
+      language: 'test',
+      data: 'test',
+      size: 1,
+      hash: 'test',
+      title: 'test',
+      creation: '2020-01-01',
+      width: 1,
+      height: 1,
+      frames: 1,
+      duration: 1,
+      pages: 1,
+      _creation: {
+        extension: [
+          {
+            url: 'test',
+            valueDate: '2020-01-01',
+          },
+        ],
+      },
+    });
+
+    const validate = await validator.dataTypes.Attachment(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new attachment and validate with correct data', async () => {
+    const dataType = new Attachment({
+      id: '123',
+      url: 'http://hl7.org/fhir/sid/us-npi',
+      contentType: 'test',
+      language: 'test',
+      data: 'test',
+      size: 1,
+      hash: 'test',
+      title: 'test',
+      creation: '2020-01-01',
+      width: 1,
+      height: 1,
+      frames: 1,
+      duration: 1,
+      pages: 1,
+      _creation: {
+        extension: [
+          {
+            url: 'test',
+            valueDate: '2020-01-01',
+          },
+        ],
+      },
+    });
+
+    const validate = await validator.dataTypes.Attachment(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new attachment and validate with correct data', async () => {

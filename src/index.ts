@@ -8,6 +8,9 @@ class FHIRContext {
       createResource: <T extends ResourceTypeR5>(resourceType: T) => {
         return new FhirContextR5().createResource<T>(resourceType);
       },
+      createDatatype: <T extends DatatypeTypeR5>(datatypeType: T) => {
+        return new FhirContextR5().createDatatype<T>(datatypeType);
+      },
     };
   }
 }

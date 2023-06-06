@@ -3,6 +3,9 @@ import { AddressUseType, AddressTypeType } from '../../types';
 import { AddressTypeEnum, AddressUseEnum } from '../../enums';
 import { IPeriod } from './index';
 
+/**
+ * @interface IAddress - An address expressed using postal conventions (as opposed to GPS or other location definition formats)
+ */
 export interface IAddress extends IElement {
   use?: AddressUseEnum | AddressUseType;
   _use?: IElement;

@@ -1,6 +1,6 @@
 import { PatientBuilder } from '../../src/r5/builders/resources';
 import { IPatient } from '../../src/r5/interfaces/resources';
-import { Patient } from '../../src/r5/resources';
+import { Patient } from '../../src/r5/models/resources';
 import FHIRContext from '../../src';
 import { IValidatorContext } from '../../src/r5';
 

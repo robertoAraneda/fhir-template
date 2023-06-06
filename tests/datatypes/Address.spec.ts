@@ -2,7 +2,7 @@ import { AddressBuilder } from '../../src/r5/builders/datatypes';
 import { IAddress } from '../../src/r5/interfaces/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
-import { Address } from '../../src/r5/datatypes/Address';
+import { Address } from '../../src/r5/models/datatypes/Address';
 
 describe('Address', () => {
   const { validators: val, builders, createDatatype } = new FHIRContext().forR5();

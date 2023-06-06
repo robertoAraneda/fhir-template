@@ -1,4 +1,4 @@
-import { IAvailability, IAvailableTime, IExtension, INotAvailableTime } from '../interfaces/datatypes';
+import { IAvailability, IAvailableTime, IExtension, INotAvailableTime } from '../../interfaces/datatypes';
 
 /**
  * @description Availability data for an {item}.

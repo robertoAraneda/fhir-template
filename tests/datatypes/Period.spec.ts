@@ -1,7 +1,7 @@
 import { AvailabilityBuilder, PeriodBuilder } from '../../src/r5/builders/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
-import { Period } from '../../src/r5/datatypes/Period';
+import { Period } from '../../src/r5/models/datatypes/Period';
 import { IPeriod } from '../../lib/r5/interfaces/datatypes';
 
 describe('Period', () => {

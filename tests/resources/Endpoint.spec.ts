@@ -1,7 +1,7 @@
 import { EndpointBuilder } from '../../src/r5/builders/resources';
 import { IEndpoint } from '../../src/r5/interfaces/resources';
 import FHIRContext from '../../src';
-import { Endpoint } from '../../src/r5/resources';
+import { Endpoint } from '../../src/r5/models/resources';
 import { IValidatorContext } from '../../src/r5';
 
 describe('Endpoint', () => {

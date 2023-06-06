@@ -6,7 +6,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { validateReference } from '../../helpers/validateReference';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Practitioner } from '../../resources/Practitioner';
+import { Practitioner } from '../../models/resources/Practitioner';
 
 type ParamType = 'active' | 'birthDate' | 'deceasedBoolean' | 'deceasedDateTime';
 

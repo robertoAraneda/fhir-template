@@ -4,8 +4,8 @@ import { ResourceValidator } from './validators/ResourceValidator';
 import { ResourceBuilder } from './ResourceBuilder';
 import { ElementBuilder } from './ElementBuilder';
 import { BackboneElementBuilder } from './BackboneElementBuilder';
-import { Address } from './datatypes/Address';
-import { Attachment } from './datatypes/Attachment';
+import { Address } from './models/datatypes/Address';
+import { Attachment } from './models/datatypes/Attachment';
 import {
   IAddress,
   IAttachment,
@@ -19,7 +19,7 @@ import {
   IPeriod,
 } from './interfaces/datatypes';
 import { IReference } from './interfaces/base';
-import { Endpoint } from './resources';
+import { Endpoint } from './models/resources';
 import { EndpointBuilder } from './builders/resources';
 import { AddressBuilder, AttachmentBuilder } from './builders/datatypes';
 import { AvailabilityBuilder } from './builders/datatypes/AvailabilityBuilder';

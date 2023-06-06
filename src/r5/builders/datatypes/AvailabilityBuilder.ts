@@ -1,7 +1,7 @@
 import { ElementBuilder } from '../base/ElementBuilder';
 import { IBuildable, ISerializable } from '../../interfaces/base';
 import { IAvailability, IAvailableTime, INotAvailableTime } from '../../interfaces/datatypes';
-import { Availability } from '../../datatypes/Availability';
+import { Availability } from '../../models/datatypes/Availability';
 
 export class AvailabilityBuilder
   extends ElementBuilder<AvailabilityBuilder>
@@ -45,11 +45,11 @@ export class AvailabilityBuilder
     return this;
   }
 
-  build(): Availability {
+  build(): IAvailability {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Availability {
+  raw(): IAvailability {
     return {
       ...this.availability,
       ...super.entity(),

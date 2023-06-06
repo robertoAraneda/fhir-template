@@ -1,5 +1,5 @@
-import { IPractitioner } from '../interfaces/resources';
-import { IElement, INarrative, IResource } from '../interfaces/base';
+import { IPractitioner } from '../../interfaces/resources';
+import { IElement, INarrative, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -8,10 +8,10 @@ import {
   IHumanName,
   IIdentifier,
   IMeta,
-} from '../interfaces/datatypes';
-import { IPractitionerCommunication, IPractitionerQualification } from '../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../enums';
-import { AdministrativeGenderType } from '../types';
+} from '../../interfaces/datatypes';
+import { IPractitionerCommunication, IPractitionerQualification } from '../../interfaces/backbones';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 
 export class Practitioner implements IPractitioner {
   _active?: IElement;

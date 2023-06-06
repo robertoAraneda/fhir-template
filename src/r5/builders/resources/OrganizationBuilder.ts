@@ -1,5 +1,5 @@
 import { IOrganizationQualification } from '../../interfaces/backbones';
-import { Organization } from '../../resources';
+import { Organization } from '../../models/resources';
 import { IElement, IReference, IBuildable, ISerializable } from '../../interfaces/base';
 import { IExtendedContactDetail, IIdentifier, ICodeableConcept } from '../../interfaces/datatypes';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';

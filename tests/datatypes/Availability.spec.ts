@@ -2,7 +2,7 @@ import { IAvailability } from '../../src/r5/interfaces/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import { AvailabilityBuilder } from '../../src/r5/builders/datatypes';
 import FHIRContext from '../../src';
-import { Availability } from '../../src/r5/datatypes/Availability';
+import { Availability } from '../../src/r5/models/datatypes/Availability';
 
 describe('Availability', () => {
   let validator: IValidatorContext;

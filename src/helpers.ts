@@ -1,4 +1,12 @@
-import { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole, RelatedPerson } from './r5/resources';
+import {
+  Endpoint,
+  Organization,
+  Patient,
+  Person,
+  Practitioner,
+  PractitionerRole,
+  RelatedPerson,
+} from './r5/models/resources';
 import { EndpointBuilder } from './r5/builders/resources';
 import { IEndpoint } from './r5/interfaces/resources';
 import { ResourceTypeR5 } from './r5';

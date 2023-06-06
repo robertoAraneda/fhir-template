@@ -1,5 +1,5 @@
 import FHIRContext from '../../src';
-import { Organization } from '../../src/r5/resources';
+import { Organization } from '../../src/r5/models/resources';
 import { IOrganization } from '../../src/r5/interfaces/resources';
 import { OrganizationBuilder } from '../../src/r5/builders/resources';
 

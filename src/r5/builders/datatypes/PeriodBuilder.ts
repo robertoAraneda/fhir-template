@@ -1,7 +1,7 @@
 import { IPeriod } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Period } from '../../datatypes/Period';
+import { Period } from '../../models/datatypes/Period';
 
 export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IBuildable<IPeriod>, ISerializable {
   private period: IPeriod;

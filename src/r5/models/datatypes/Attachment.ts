@@ -1,5 +1,5 @@
-import { IAttachment, IExtension } from '../interfaces/datatypes';
-import { IElement } from '../interfaces/base';
+import { IAttachment, IExtension } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 
 export class Attachment implements IAttachment {
   id?: string;

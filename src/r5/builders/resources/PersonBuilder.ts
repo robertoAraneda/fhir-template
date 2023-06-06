@@ -4,7 +4,7 @@ import { AdministrativeGenderType } from '../../types';
 import { IIdentifier, ICodeableConcept, IHumanName, IAttachment, IContactPoint } from '../../interfaces/datatypes';
 import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Person } from '../../resources';
+import { Person } from '../../models/resources';
 import { IPerson } from '../../interfaces/resources';
 
 type ParamType =

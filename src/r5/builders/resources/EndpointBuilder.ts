@@ -5,7 +5,7 @@ import { IEndpointPayload } from '../../interfaces/backbones';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Endpoint } from '../../resources';
+import { Endpoint } from '../../models/resources';
 
 type ParamType = 'address' | 'description' | 'header' | 'name' | 'status' | 'implicitRules' | 'language';
 export class EndpointBuilder

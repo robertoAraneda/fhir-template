@@ -1,5 +1,5 @@
-import { IRelatedPerson } from '../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../interfaces/base';
+import { IRelatedPerson } from '../../interfaces/resources';
+import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -10,10 +10,10 @@ import {
   IIdentifier,
   IMeta,
   IPeriod,
-} from '../interfaces/datatypes';
-import { IRelatedPersonCommunication } from '../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../enums';
-import { AdministrativeGenderType } from '../types';
+} from '../../interfaces/datatypes';
+import { IRelatedPersonCommunication } from '../../interfaces/backbones';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 
 export class RelatedPerson implements IRelatedPerson {
   _active?: IElement;

@@ -1,5 +1,5 @@
-import { IPatient } from '../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../interfaces/base';
+import { IPatient } from '../../interfaces/resources';
+import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -9,10 +9,10 @@ import {
   IHumanName,
   IIdentifier,
   IMeta,
-} from '../interfaces/datatypes';
-import { IPatientCommunication, IPatientContact, IPatientLink } from '../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../enums';
-import { AdministrativeGenderType } from '../types';
+} from '../../interfaces/datatypes';
+import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 
 export class Patient implements IPatient {
   active?: boolean;

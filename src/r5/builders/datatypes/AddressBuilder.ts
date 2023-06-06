@@ -1,7 +1,7 @@
 import { IAddress, IPeriod } from '../../interfaces/datatypes';
 import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Address } from '../../datatypes/Address';
+import { Address } from '../../models/datatypes/Address';
 
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
@@ -96,11 +96,11 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IB
     return JSON.stringify(this.raw());
   }
 
-  build(): Address {
+  build(): IAddress {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Address {
+  raw(): IAddress {
     return {
       ...this.address,
       ...super.entity(),

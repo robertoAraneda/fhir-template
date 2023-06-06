@@ -1,7 +1,7 @@
-import { IOrganization } from '../interfaces/resources';
-import { ICodeableConcept, IExtendedContactDetail, IExtension, IIdentifier, IMeta } from '../interfaces/datatypes';
-import { IElement, INarrative, IReference, IResource } from '../interfaces/base';
-import { IOrganizationQualification } from '../interfaces/backbones';
+import { IOrganization } from '../../interfaces/resources';
+import { ICodeableConcept, IExtendedContactDetail, IExtension, IIdentifier, IMeta } from '../../interfaces/datatypes';
+import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import { IOrganizationQualification } from '../../interfaces/backbones';
 
 export class Organization implements IOrganization {
   _active?: IElement;

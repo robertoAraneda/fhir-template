@@ -11,7 +11,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Patient } from '../../resources';
+import { Patient } from '../../models/resources';
 import { IPatient } from '../../interfaces/resources';
 
 type ParamType =

@@ -14,7 +14,7 @@ import { validateReference } from '../../helpers/validateReference';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
-import { RelatedPerson } from '../../resources/RelatedPerson';
+import { RelatedPerson } from '../../models/resources/RelatedPerson';
 
 export class RelatedPersonBuilder
   extends DomainResourceBuilder<RelatedPersonBuilder>

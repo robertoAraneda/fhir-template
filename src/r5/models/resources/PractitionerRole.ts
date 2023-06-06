@@ -1,5 +1,5 @@
-import { IPractitionerRole } from '../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../interfaces/base';
+import { IPractitionerRole } from '../../interfaces/resources';
+import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
 import {
   IAvailability,
   ICodeableConcept,
@@ -8,7 +8,7 @@ import {
   IIdentifier,
   IMeta,
   IPeriod,
-} from '../interfaces/datatypes';
+} from '../../interfaces/datatypes';
 
 export class PractitionerRole implements IPractitionerRole {
   _active?: IElement;

@@ -1,5 +1,5 @@
-import { IExtension, IPeriod } from '../interfaces/datatypes';
-import { IElement } from '../interfaces/base';
+import { IExtension, IPeriod } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 
 /**
  * @description Time range defined by start and end date/time.

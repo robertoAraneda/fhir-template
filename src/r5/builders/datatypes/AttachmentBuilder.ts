@@ -1,7 +1,7 @@
 import { IAttachment } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Attachment } from '../../datatypes/Attachment';
+import { Attachment } from '../../models/datatypes/Attachment';
 
 type ParamType =
   | 'contentType'
@@ -110,11 +110,11 @@ export class AttachmentBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): Attachment {
+  build(): IAttachment {
     return JSON.parse(this.serialize());
   }
 
-  raw(): Attachment {
+  raw(): IAttachment {
     return {
       ...super.entity(),
       ...this.attachment,

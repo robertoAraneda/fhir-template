@@ -1,7 +1,7 @@
-import { IAddress, IExtension, IPeriod } from '../interfaces/datatypes';
-import { IElement } from '../interfaces/base';
-import { AddressTypeEnum, AddressUseEnum } from '../enums';
-import { AddressTypeType, AddressUseType } from '../types';
+import { IAddress, IExtension, IPeriod } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
+import { AddressTypeEnum, AddressUseEnum } from '../../enums';
+import { AddressTypeType, AddressUseType } from '../../types';
 
 /**
  * @description An address expressed using postal conventions (as opposed to GPS or other location definition formats)

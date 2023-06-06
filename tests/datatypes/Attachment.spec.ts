@@ -2,7 +2,7 @@ import { IAttachment } from '../../src/r5/interfaces/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import { AttachmentBuilder } from '../../src/r5/builders/datatypes';
 import FHIRContext from '../../src';
-import { Attachment } from '../../src/r5/datatypes/Attachment';
+import { Attachment } from '../../src/r5/models/datatypes/Attachment';
 
 describe('Attachment', () => {
   let validator: IValidatorContext;

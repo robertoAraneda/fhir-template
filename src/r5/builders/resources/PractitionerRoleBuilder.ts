@@ -9,7 +9,7 @@ import {
   IAvailability,
 } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
-import { PractitionerRole } from '../../resources/PractitionerRole';
+import { PractitionerRole } from '../../models/resources/PractitionerRole';
 
 export class PractitionerRoleBuilder
   extends DomainResourceBuilder<PractitionerRoleBuilder>

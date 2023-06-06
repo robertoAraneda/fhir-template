@@ -93,7 +93,7 @@ export class FhirContextR5 {
   createResource<T extends ResourceTypeR5>(resourceType: T) {
     switch (resourceType) {
       case 'Patient':
-        return { data: (data: IEndpoint) => new EndpointBuilder().fromJSON(data).build() };
+        return { data: (data: Partial<Endpoint>) => new EndpointBuilder().fromJSON(data).build() };
       case 'Organization':
       case 'Endpoint':
       case 'Person':

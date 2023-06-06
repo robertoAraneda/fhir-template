@@ -12,14 +12,19 @@ export class EndpointBuilder
   extends DomainResourceBuilder<EndpointBuilder>
   implements IBuildable<Endpoint>, ISerializable
 {
-  private endpoint: IEndpoint;
+  private endpoint: Endpoint;
   constructor() {
     super();
     this.endpoint = new Endpoint();
   }
 
-  fromJSON(data: IEndpoint) {
+  fromJSON(data: Partial<Endpoint>) {
+    if (!data.address) throw new Error('Endpoint.address is required');
+    if (!data.connectionType) throw new Error('Endpoint.connectionType is required');
     this.endpoint = {
+      address: data.address,
+      connectionType: data.connectionType,
+      resourceType: 'Endpoint',
       ...data,
     };
     return {

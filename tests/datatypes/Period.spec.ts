@@ -1,19 +1,56 @@
-import { PeriodBuilder } from '../../src/r5/builders/datatypes';
+import { AvailabilityBuilder, PeriodBuilder } from '../../src/r5/builders/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
+import { Period } from '../../src/r5/datatypes/Period';
+import { IPeriod } from '../../lib/r5/interfaces/datatypes';
 
 describe('Period', () => {
   let validator: IValidatorContext;
   let builder: PeriodBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  let builderFromFunction: PeriodBuilder;
+  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
+  validator = val;
 
   // create global
   beforeEach(() => {
     builder = new PeriodBuilder();
+    builderFromFunction = builders.dataTypes.PeriodBuilder();
+  });
+
+  it('should be able to create a new attachment and validate with correct data [IPeriod]', async function () {
+    const dataType: IPeriod = {
+      start: '2020-01-01',
+      end: '2020-01-02',
+    };
+
+    const validate = await validator.dataTypes.Period(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new attachment and validate with correct data [new Period]', async function () {
+    const dataType = new Period({
+      start: '2020-01-01',
+      end: '2020-01-02',
+    });
+
+    const validate = await validator.dataTypes.Period(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new attachment and validate with correct data [createDataType]', async function () {
+    const dataType = createDatatype('Period').data({
+      start: '2020-01-01',
+      end: '2020-01-02',
+    });
+
+    const validate = await validator.dataTypes.Period(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should return a Period with method', async function () {

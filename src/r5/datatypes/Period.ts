@@ -1,15 +1,27 @@
-import { IElement } from '../base';
+import { IExtension, IPeriod } from '../interfaces/datatypes';
+import { IElement } from '../interfaces/base';
 
 /**
  * @description Time range defined by start and end date/time.
+ * @implements {IPeriod}
+ * @property {string} id - Unique id for inter-element referencing
+ * @property {IExtension[]} extension - Additional content defined by implementations
  * @property {string} start - Starting time with inclusive boundary
  * @property {string} end - End time with inclusive boundary, if not ongoing
  * @property {IElement} _start - Extension of start
  * @property {IElement} _end - Extension of end
- * @see {@link http://www.hl7.org/fhir/datatypes.html#Period Period}
+ * @see {@link https://www.hl7.org/fhir/datatypes.html#Period Period}
  * @author Roberto Araneda
  */
-export interface IPeriod extends IElement {
+export class Period implements IPeriod {
+  /**
+   * @description Unique id for inter-element referencing
+   */
+  id: string;
+  /**
+   * @description Additional content defined by implementations
+   */
+  extension: IExtension[];
   /**
    * @description Starting time with inclusive boundary
    * @description A date, date-time or partial date (e.g. just year or year + month) as used in human communication. The format is YYYY, YYYY-MM, YYYY-MM-DD or YYYY-MM-DDThh:mm:ss+zz:zz
@@ -34,4 +46,8 @@ export interface IPeriod extends IElement {
    * @description Extension of end
    */
   _end?: IElement;
+
+  constructor(args?: IPeriod) {
+    Object.assign(this, args);
+  }
 }

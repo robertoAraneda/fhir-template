@@ -1,14 +1,24 @@
 import { IPeriod } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { Period } from '../../datatypes/Period';
 
 export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IBuildable<IPeriod>, ISerializable {
-  private readonly period: IPeriod;
+  private period: IPeriod;
 
   constructor() {
     super();
 
-    this.period = {} as IPeriod;
+    this.period = new Period();
+  }
+
+  fromJSON(json: IPeriod) {
+    this.period = json;
+
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
   }
 
   setStart(value: string): PeriodBuilder {

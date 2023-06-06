@@ -6,7 +6,7 @@ import { IPeriod } from './IPeriod';
  * @property {string} description - Reason presented to the user explaining why time not available
  * @property {IPeriod} during - Service not available during this period
  * @property {string} _description - Extension for description
- * @see {@link http://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.notAvailable NotAvailable}
+ * @see https://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.notAvailable NotAvailable
  * @since 2023-06-01
  * @interface INotAvailableTime
  * @extends {IElement} IElement

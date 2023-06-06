@@ -21,7 +21,6 @@ export interface IAvailableTime extends IElement {
    * @description 	mon | tue | wed | thu | fri | sat | sun
    * @description Binding: {@link http://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.availableTime.daysOfWeek Days Of Week} (Required)
    * @see {@link http://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.availableTime.daysOfWeek DaysOfWeek}
-   * @type {DaysOfWeekEnum | DaysOfWeekType[]} daysOfWeek
    */
   daysOfWeek?: DaysOfWeekEnum[] | DaysOfWeekType[];
 
@@ -34,39 +33,39 @@ export interface IAvailableTime extends IElement {
 
   /**
    * @description Opening time of day (ignored if allDay = true)
+   * @description A time during the day, in the format hh:mm:ss.
+   * @description The time "24:00" SHALL NOT be used.
    * @see {@link http://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.availableTime.availableStartTime availableStartTime}
-   * @type {string} availableStartTime
+   * @example 09:00:00
    */
   availableStartTime?: string;
 
   /**
    * @description Closing time of day (ignored if allDay = true)
+   * @description A time during the day, in the format hh:mm:ss.
+   * @description The time "24:00" SHALL NOT be used.
    * @see {@link http://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.availableTime.availableEndTime availableEndTime}
-   * @type {string} availableEndTime
+   * @example 09:00:00
    */
   availableEndTime?: string;
 
   /**
    * @description Extension of daysOfWeek element
-   * @type {IElement} _daysOfWeek - Extension for daysOfWeek
    */
   _daysOfWeek?: IElement[];
 
   /**
    * @description Extension of allDay element
-   * @type {IElement} _allDay - Extension for allDay
    */
   _allDay?: IElement;
 
   /**
    * @description Extension of availableStartTime element
-   * @type {IElement} _availableStartTime - Extension for availableStartTime
    */
   _availableStartTime?: IElement;
 
   /**
    * @description Extension of availableEndTime element
-   * @type {IElement} _availableEndTime - Extension for availableEndTime
    */
   _availableEndTime?: IElement;
 }

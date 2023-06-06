@@ -12,10 +12,20 @@ export class EndpointBuilder
   extends DomainResourceBuilder<EndpointBuilder>
   implements IBuildable<Endpoint>, ISerializable
 {
-  private readonly endpoint: IEndpoint;
+  private endpoint: IEndpoint;
   constructor() {
     super();
     this.endpoint = new Endpoint();
+  }
+
+  fromJSON(data: IEndpoint) {
+    this.endpoint = {
+      ...data,
+    };
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
   }
 
   addEndpointParamExtension(param: ParamType, extension: IElement): EndpointBuilder {

@@ -5,6 +5,9 @@ class FHIRContext {
     return {
       builders: new FhirContextR5().getBuilders(),
       validators: new FhirContextR5().getValidator(),
+      createResource: <T extends ResourceTypeR5>(resourceType: T) => {
+        return new FhirContextR5().createResource<T>(resourceType);
+      },
     };
   }
 }

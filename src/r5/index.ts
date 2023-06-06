@@ -4,6 +4,10 @@ import { ResourceValidator } from './validators/ResourceValidator';
 import { ResourceBuilder } from './ResourceBuilder';
 import { ElementBuilder } from './ElementBuilder';
 import { BackboneElementBuilder } from './BackboneElementBuilder';
+import { IDomainResource } from './interfaces/base';
+import { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole, RelatedPerson } from './resources';
+import { EndpointBuilder, OrganizationBuilder } from './builders/resources';
+import { IEndpoint, IOrganization } from './interfaces/resources';
 
 export interface IBackboneValidatorProperties {
   EndpointPayload: (data: unknown) => Wait;
@@ -80,7 +84,26 @@ export type DatatypeTypeR5 =
   | 'Period'
   | 'Reference';
 
+const generateBuilder = async <T>(resourceType: string, type: string) => {
+  const entity = await import(`./r5/builders/${type}/${resourceType}Builder`);
+  return new entity[`${resourceType}Builder`]() as T;
+};
+
 export class FhirContextR5 {
+  createResource<T extends ResourceTypeR5>(resourceType: T) {
+    switch (resourceType) {
+      case 'Patient':
+        return { data: (data: IEndpoint) => new EndpointBuilder().fromJSON(data).build() };
+      case 'Organization':
+      case 'Endpoint':
+      case 'Person':
+      case 'Practitioner':
+      case 'PractitionerRole':
+      case 'RelatedPerson':
+      default:
+        return { data: (data: IEndpoint) => new EndpointBuilder().fromJSON(data).build() };
+    }
+  }
   public getBuilders() {
     return {
       backboneElements: BackboneElementBuilder,

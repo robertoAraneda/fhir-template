@@ -7,7 +7,7 @@ import { IValidatorContext } from '../../src/r5';
 describe('Endpoint', () => {
   let builder: EndpointBuilder;
   const context = new FHIRContext();
-  const { validators: val, builders } = context.forR5();
+  const { validators: val, builders, createResource } = context.forR5();
 
   const validators: IValidatorContext = val;
 
@@ -17,6 +17,89 @@ describe('Endpoint', () => {
   });
 
   // create global
+
+  it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
+    const resource = createResource('Endpoint').data({
+      resourceType: 'Endpoint',
+      id: 'example',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tHealth Intersections CarePlan Hub<br/>\n\t\t\tCarePlans can be uploaded to/from this loccation\n\t\t</div>',
+      },
+      identifier: [
+        {
+          system: 'http://example.org/enpoint-identifier',
+          value: 'epcp12',
+        },
+      ],
+      status: 'active',
+      connectionType: [
+        {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/endpoint-connection-type',
+              code: 'hl7-fhir-rest',
+            },
+          ],
+        },
+      ],
+      name: 'Health Intersections CarePlan Hub',
+      description: 'The CarePlan hub provides a test/dev environment for testing submissions',
+      environmentType: [
+        {
+          coding: [
+            {
+              system: 'http://hl7.org/fhir/endpoint-environment',
+              code: 'test',
+            },
+          ],
+        },
+        {
+          coding: [
+            {
+              system: 'http://hl7.org/fhir/endpoint-environment',
+              code: 'dev',
+            },
+          ],
+        },
+      ],
+      managingOrganization: {
+        reference: 'Organization/hl7',
+      },
+      contact: [
+        {
+          system: 'email',
+          value: 'endpointmanager@example.org',
+          use: 'work',
+        },
+      ],
+      period: {
+        start: '2014-09-01',
+      },
+      payload: [
+        {
+          type: [
+            {
+              coding: [
+                {
+                  system: 'http://hl7.org/fhir/fhir-types',
+                  code: 'CarePlan',
+                },
+              ],
+            },
+          ],
+          mimeType: ['application/fhir+xml'],
+        },
+      ],
+      address: 'http://fhir3.healthintersections.com.au/open/CarePlan',
+      header: ['bearer-code BASGS534s4'],
+    });
+
+    const validate = await validators.resources.Endpoint(resource);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
     const resource = new Endpoint({

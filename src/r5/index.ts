@@ -45,6 +45,7 @@ export interface IDatatypeValidatorProperties {
   Reference: (data: unknown) => Wait;
   Availability: (data: unknown) => Wait;
   Duration: (data: unknown) => Wait;
+  ExtendedContactDetail: (data: unknown) => Wait;
 }
 
 export interface IValidatorContext {

@@ -5,6 +5,8 @@ export const validateReference = (value: string, resources: string[]): void => {
   }
 
   if (!resources.includes(resourceType[0])) {
-    throw new Error(`Invalid reference. ${value} is not a valid resource type.`);
+    throw new Error(
+      `Invalid reference. ${value} is not a valid resource type. Valid resource types are: [${resources}]`,
+    );
   }
 };

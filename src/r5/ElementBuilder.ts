@@ -13,4 +13,5 @@ export const ElementBuilder = {
   ReferenceBuilder: () => new DataTypesBuilder.ReferenceBuilder(),
   CodeableReferenceBuilder: () => new DataTypesBuilder.CodeableReferenceBuilder(),
   DurationBuilder: () => new DataTypesBuilder.DurationBuilder(),
+  ExtendedContactDetailBuilder: () => new DataTypesBuilder.ExtendedContactDetailBuilder(),
 };

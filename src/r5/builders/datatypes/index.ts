@@ -11,3 +11,4 @@ export { ReferenceBuilder } from './ReferenceBuilder';
 export { AvailabilityBuilder } from './AvailabilityBuilder';
 export { CodeableReferenceBuilder } from './CodeableReferenceBuilder';
 export { DurationBuilder } from './DurationBuilder';
+export { ExtendedContactDetailBuilder } from './ExtendedContactDetailBuilder';

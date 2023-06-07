@@ -6,6 +6,7 @@ import {
   ICodeableReference,
   IContactPoint,
   IDuration,
+  IExtendedContactDetail,
   IPeriod,
 } from './interfaces/datatypes';
 import {
@@ -16,6 +17,7 @@ import {
   CodeableReferenceBuilder,
   ContactPointBuilder,
   DurationBuilder,
+  ExtendedContactDetailBuilder,
   PeriodBuilder,
 } from './builders/datatypes';
 import { DatatypeTypeR5 } from './GlobalDatatypes';
@@ -42,6 +44,10 @@ export const generateInstanceDatatype = (resourceType: DatatypeTypeR5) => {
     case 'Reference':
     case 'Identifier':
     case 'HumanName':
+    case 'ExtendedContactDetail':
+      return {
+        data: (duration: IExtendedContactDetail) => new ExtendedContactDetailBuilder().fromJSON(duration).build(),
+      };
     case 'Duration':
       return { data: (duration: IDuration) => new DurationBuilder().fromJSON(duration).build() };
     case 'ContactPoint':

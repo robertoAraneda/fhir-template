@@ -1,13 +1,18 @@
-import { IPeriod } from './IPeriod';
-import { IReference } from '../base/IReference';
-import { IAddress } from './IAddress';
-import { IContactPoint } from './IContactPoint';
-import { IHumanName } from './IHumanName';
-import { IElement } from '../base/IElement';
-import { ICodeableConcept } from './ICodeableConcept';
+import {
+  IAddress,
+  ICodeableConcept,
+  IContactPoint,
+  IExtendedContactDetail,
+  IExtension,
+  IHumanName,
+  IPeriod,
+} from '../../interfaces/datatypes';
+import { IReference } from '../../interfaces/base';
 
 /**
  * @description Contact information
+ * @property {string} id - Unique id for inter-element referencing
+ * @property {IExtension[]} extension - Additional content defined by implementations
  * @property {ICodeableConcept} purpose - The type of contact
  * @property {IHumanName[]} name - Name of an individual to contact
  * @property {IContactPoint[]} telecom - 	Contact details (e.g.phone/fax/url)
@@ -28,7 +33,17 @@ import { ICodeableConcept } from './ICodeableConcept';
  * }
  * ```
  */
-export interface IExtendedContactDetail extends IElement {
+export class ExtendedContactDetail implements IExtendedContactDetail {
+  /**
+   * @description Unique id for inter-element referencing
+   */
+  id?: string;
+
+  /**
+   * @description Additional content defined by implementations
+   */
+  extension?: IExtension[];
+
   /**
    * @description The type of contact icon
    */
@@ -57,4 +72,15 @@ export interface IExtendedContactDetail extends IElement {
    * @description Period that this contact was valid for usage
    */
   period?: IPeriod;
+
+  constructor(args?: IExtendedContactDetail) {
+    args?.id && (this.id = args.id);
+    args?.extension && (this.extension = args.extension);
+    args?.purpose && (this.purpose = args.purpose);
+    args?.name && (this.name = args.name);
+    args?.telecom && (this.telecom = args.telecom);
+    args?.address && (this.address = args.address);
+    args?.organization && (this.organization = args.organization);
+    args?.period && (this.period = args.period);
+  }
 }

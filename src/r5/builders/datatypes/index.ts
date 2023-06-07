@@ -10,3 +10,4 @@ export { PeriodBuilder } from './PeriodBuilder';
 export { ReferenceBuilder } from './ReferenceBuilder';
 export { AvailabilityBuilder } from './AvailabilityBuilder';
 export { CodeableReferenceBuilder } from './CodeableReferenceBuilder';
+export { DurationBuilder } from './DurationBuilder';

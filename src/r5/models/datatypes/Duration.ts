@@ -1,10 +1,13 @@
-import { IElement } from '../base';
+import { IDuration, IExtension } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 
 /**
  * @description A length of time.
  * @description fhirVersion : 5.0.0
+ * @property {id} id - Unique id for inter-element referencing.
+ * @property {IExtension[]} extension - Additional content defined by implementations.
  * @property {number} value - The value of the measured amount. The value includes an implicit precision in the presentation of the value.
  * @property {QuantityComparatorEnum | QuantityComparatorType} comparator - How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is "<" , then the real value is < stated value.
  * @property {string} unit - A human-readable form of the unit.
@@ -17,8 +20,18 @@ import { QuantityComparatorType } from '../../types';
  * @property {IElement} _code - Extensions for code
  * @see https://www.hl7.org/fhir/datatypes.html#Duration Duration
  * @author Roberto Araneda
+ *
  */
-export interface IDuration extends IElement {
+export class Duration implements IDuration {
+  /**
+   * @description Unique id for inter-element referencing.
+   */
+  id?: string;
+
+  /**
+   * @description Additional content defined by implementations.
+   */
+  extension?: IExtension[];
   /**
    * @description The value of the measured amount. The value includes an implicit precision in the presentation of the value.
    */
@@ -70,4 +83,8 @@ export interface IDuration extends IElement {
    * @description Extensions for code
    */
   _code?: IElement;
+
+  constructor(args?: IDuration) {
+    Object.assign(this, args);
+  }
 }

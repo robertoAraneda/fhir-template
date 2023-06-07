@@ -12,4 +12,5 @@ export const ElementBuilder = {
   PeriodBuilder: () => new DataTypesBuilder.PeriodBuilder(),
   ReferenceBuilder: () => new DataTypesBuilder.ReferenceBuilder(),
   CodeableReferenceBuilder: () => new DataTypesBuilder.CodeableReferenceBuilder(),
+  DurationBuilder: () => new DataTypesBuilder.DurationBuilder(),
 };

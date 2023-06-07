@@ -5,6 +5,7 @@ import {
   ICodeableConcept,
   ICodeableReference,
   IContactPoint,
+  IDuration,
   IPeriod,
 } from './interfaces/datatypes';
 import {
@@ -14,6 +15,7 @@ import {
   CodeableConceptBuilder,
   CodeableReferenceBuilder,
   ContactPointBuilder,
+  DurationBuilder,
   PeriodBuilder,
 } from './builders/datatypes';
 import { DatatypeTypeR5 } from './GlobalDatatypes';
@@ -40,9 +42,13 @@ export const generateInstanceDatatype = (resourceType: DatatypeTypeR5) => {
     case 'Reference':
     case 'Identifier':
     case 'HumanName':
+    case 'Duration':
+      return { data: (duration: IDuration) => new DurationBuilder().fromJSON(duration).build() };
     case 'ContactPoint':
       return { data: (contactPoint: IContactPoint) => new ContactPointBuilder().fromJSON(contactPoint).build() };
     case 'Attachment':
       return { data: (attachment: IAttachment) => new AttachmentBuilder().fromJSON(attachment).build() };
+    default:
+      throw new Error(`Datatype ${resourceType} not supported`);
   }
 };

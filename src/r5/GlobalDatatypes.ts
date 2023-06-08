@@ -8,6 +8,7 @@ import {
   IContactPoint,
   IDuration,
   IExtendedContactDetail,
+  IExtension,
   IHumanName,
   IIdentifier,
   IMeta,
@@ -28,6 +29,7 @@ export type DatatypeTypeR5 =
   | 'Availability'
   | 'CodeableReference'
   | 'Duration'
+  | 'Extension'
   | 'ExtendedContactDetail'
   | 'Reference';
 
@@ -59,4 +61,6 @@ export type DataType<T> = T extends 'Address'
   ? IDuration
   : T extends 'ExtendedContactDetail'
   ? IExtendedContactDetail
+  : T extends 'Extension'
+  ? IExtension
   : unknown;

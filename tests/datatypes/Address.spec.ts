@@ -1,20 +1,23 @@
-import { AddressBuilder } from '../../src/r5/builders/datatypes';
+import { AddressBuilder, CodingBuilder } from '../../src/r5/builders/datatypes';
 import { IAddress } from '../../src/r5/interfaces/datatypes';
 import { IValidatorContext } from '../../src/r5';
 import FHIRContext from '../../src';
 import { Address } from '../../src/r5/models/datatypes/Address';
 
 describe('Address', () => {
-  const { validators: val, builders, createDatatype } = new FHIRContext().forR5();
-  const validator: IValidatorContext = val;
+  let validator: IValidatorContext;
   let builder: AddressBuilder;
+  let builderFromFunction: AddressBuilder;
+  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
+  validator = val;
 
   // create global
-  beforeEach(async () => {
-    builder = await builders.dataTypes.AddressBuilder();
+  beforeEach(() => {
+    builder = new AddressBuilder();
+    builderFromFunction = builders.dataTypes.AddressBuilder();
   });
 
-  it('should be able to validate a new address', async () => {
+  it('should be able to validate a new address [createDatatype]', async () => {
     const address = createDatatype('Address').data({
       id: '123',
       type: 'postal',
@@ -35,7 +38,7 @@ describe('Address', () => {
     expect(validateAddress.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new address', async () => {
+  it('should be able to validate a new address [new Address()]', async () => {
     const address = new Address({
       id: '123',
       type: 'postal',
@@ -56,7 +59,7 @@ describe('Address', () => {
     expect(validateAddress.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new address', async () => {
+  it('should be able to validate a new address [IAddress]', async () => {
     const address: IAddress = {
       id: '123',
       type: 'postal',
@@ -79,8 +82,78 @@ describe('Address', () => {
     expect(validateAddress.errors).toBeUndefined();
   });
 
-  it('should be able to create a new address using builder methods', async () => {
-    const address: IAddress = new AddressBuilder()
+  it('should be able to create a new address using builder methods [new AddressBuilder()]', async () => {
+    const address: IAddress = builder
+      .setCity('Anytown')
+      .setCountry('USA')
+      .setDistrict('Anycounty')
+      .setId('123')
+      .addLine('123 Main St')
+      .setPeriod({
+        start: '2020-01-01',
+        end: '2020-01-02',
+      })
+      .setPostalCode('12345')
+      .setState('AnyState')
+      .setType('postal')
+      .setUse('home')
+      .addAddressParamExtension('line', [
+        {
+          extension: [
+            {
+              url: 'latitude',
+              valueCode: '123',
+            },
+          ],
+        },
+      ])
+      .addAddressParamExtension('city', {
+        extension: [
+          {
+            url: 'latitude',
+            valueCode: '123',
+          },
+        ],
+      })
+      .build();
+
+    expect(address).toEqual({
+      id: '123',
+      type: 'postal',
+      period: {
+        start: '2020-01-01',
+        end: '2020-01-02',
+      },
+      line: ['123 Main St'],
+      _line: [
+        {
+          extension: [
+            {
+              url: 'latitude',
+              valueCode: '123',
+            },
+          ],
+        },
+      ],
+      city: 'Anytown',
+      use: 'home',
+      district: 'Anycounty',
+      country: 'USA',
+      postalCode: '12345',
+      state: 'AnyState',
+      _city: {
+        extension: [
+          {
+            url: 'latitude',
+            valueCode: '123',
+          },
+        ],
+      },
+    });
+  });
+
+  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
+    const address: IAddress = builderFromFunction
       .setCity('Anytown')
       .setCountry('USA')
       .setDistrict('Anycounty')

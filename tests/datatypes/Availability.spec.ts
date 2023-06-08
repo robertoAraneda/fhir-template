@@ -7,15 +7,17 @@ import { Availability } from '../../src/r5/models/datatypes/Availability';
 describe('Availability', () => {
   let validator: IValidatorContext;
   let builder: AvailabilityBuilder;
-  const { validators: val, createDatatype } = new FHIRContext().forR5();
+  let builderFromFunction: AvailabilityBuilder;
+  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
   validator = val;
 
   // create global
   beforeEach(() => {
     builder = new AvailabilityBuilder();
+    builderFromFunction = builders.dataTypes.AvailabilityBuilder();
   });
 
-  it('should be able to create a new attachment and validate with correct data [createDatatype]', async () => {
+  it('should be able to create a new availability and validate with correct data [createDatatype()]', async () => {
     const dataType = createDatatype('Availability').data({
       availableTime: [
         {
@@ -41,7 +43,7 @@ describe('Availability', () => {
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new attachment and validate with correct data [new Availability]', async () => {
+  it('should be able to create a new availability and validate with correct data [new Availability()]', async () => {
     const dataType = new Availability({
       availableTime: [
         {
@@ -67,7 +69,7 @@ describe('Availability', () => {
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new attachment and validate with correct data [IAvailability]', async () => {
+  it('should be able to create a new availability and validate with correct data [IAvailability]', async () => {
     const dataType: IAvailability = {
       availableTime: [
         {
@@ -93,7 +95,7 @@ describe('Availability', () => {
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new attachment and validate with wrong data', async () => {
+  it('should be able to validate a new availability and validate with wrong data', async () => {
     const dataType = {
       availableTime: [
         {
@@ -137,9 +139,45 @@ describe('Availability', () => {
     ]);
   });
 
-  it('should be able to create a new attachment using builder methods', async () => {
+  it('should be able to create a new attachment using builder methods [new AvailabilityBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .addAvailableTime({
+        allDay: true,
+        daysOfWeek: ['mon', 'tue'],
+      })
+      .addNotAvailableTime({
+        description: 'test',
+        during: {
+          start: '2020-01-01',
+          end: '2020-01-02',
+        },
+      })
+      .build();
+
+    expect(dataType).toBeDefined();
+    expect(dataType).toEqual({
+      availableTime: [
+        {
+          allDay: true,
+          daysOfWeek: ['mon', 'tue'],
+        },
+      ],
+      notAvailableTime: [
+        {
+          description: 'test',
+          during: {
+            end: '2020-01-02',
+            start: '2020-01-01',
+          },
+        },
+      ],
+    });
+  });
+
+  it('should be able to create a new attachment using builder methods [builders.dataTypes.AvailabilityBuilder()]', async () => {
+    // build() is a method that returns the object that was built
+    const dataType = builderFromFunction
       .addAvailableTime({
         allDay: true,
         daysOfWeek: ['mon', 'tue'],

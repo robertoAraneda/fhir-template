@@ -7,6 +7,7 @@ import {
   IContactPoint,
   IDuration,
   IExtendedContactDetail,
+  IExtension,
   IPeriod,
 } from './interfaces/datatypes';
 import {
@@ -18,6 +19,7 @@ import {
   ContactPointBuilder,
   DurationBuilder,
   ExtendedContactDetailBuilder,
+  ExtensionBuilder,
   PeriodBuilder,
 } from './builders/datatypes';
 import { DatatypeTypeR5 } from './GlobalDatatypes';
@@ -44,6 +46,10 @@ export const generateInstanceDatatype = (resourceType: DatatypeTypeR5) => {
     case 'Reference':
     case 'Identifier':
     case 'HumanName':
+    case 'Extension':
+      return {
+        data: (extension: IExtension) => new ExtensionBuilder().fromJSON(extension).build(),
+      };
     case 'ExtendedContactDetail':
       return {
         data: (duration: IExtendedContactDetail) => new ExtendedContactDetailBuilder().fromJSON(duration).build(),

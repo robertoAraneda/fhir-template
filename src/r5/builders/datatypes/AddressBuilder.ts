@@ -5,7 +5,25 @@ import { Address } from '../../models/datatypes/Address';
 
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
-export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IBuildable<IAddress>, ISerializable {
+interface IAddressBuilder extends IBuildable<IAddress>, ISerializable {
+  build(): IAddress;
+  serialize(): string;
+  fromJSON(json: IAddress): Pick<IAddressBuilder, 'build' | 'serialize'>;
+  addAddressParamExtension(param: AddressParam, extension: IElement): AddressBuilder;
+  setUse(value: string): AddressBuilder;
+  setType(value: string): AddressBuilder;
+  setText(value: string): AddressBuilder;
+  addLine(value: string): AddressBuilder;
+  setMultipleLines(value: string[]): AddressBuilder;
+  setCity(value: string): AddressBuilder;
+  setDistrict(value: string): AddressBuilder;
+  setState(value: string): AddressBuilder;
+  setPostalCode(value: string): AddressBuilder;
+  setCountry(value: string): AddressBuilder;
+  setPeriod(value: IPeriod): AddressBuilder;
+}
+
+export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IAddressBuilder {
   private address: IAddress;
 
   constructor() {
@@ -13,7 +31,7 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IB
     this.address = new Address();
   }
 
-  fromJSON(json: IAddress) {
+  fromJSON(json: IAddress): Pick<IAddressBuilder, 'build' | 'serialize'> {
     this.address = json;
 
     return {

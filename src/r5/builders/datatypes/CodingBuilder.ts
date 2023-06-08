@@ -2,17 +2,24 @@ import { ICoding, ICodeableConcept } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { Coding } from '../../models/datatypes/Coding';
+import { BuildAndSerialize, createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
 
 type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
+type BuilderMethod = 'setSystem' | 'setVersion' | 'setCode' | 'setDisplay' | 'setUserSelected' | 'build' | 'serialize';
+interface ICodingBuilder {
+  build: () => ICoding;
+  serialize: () => string;
+  setSystem: (value: string) => Getters<ICodingBuilder>;
+}
 
+type Getters<Type> = {
+  [Property in keyof Type]: () => Type[Property];
+};
 /**
  * @description Coding builder
  *
  */
-export class CodingBuilder
-  extends ElementBuilder<CodingBuilder>
-  implements IBuildable<ICodeableConcept>, ISerializable
-{
+export class CodingBuilder extends ElementBuilder<CodingBuilder> implements IBuildable<ICoding>, ISerializable {
   private coding: ICoding;
 
   constructor() {
@@ -26,13 +33,10 @@ export class CodingBuilder
    * @param json
    * @returns build and serialize functions
    */
-  fromJSON(json: ICoding) {
+  fromJSON(json: ICoding): Pick<ICodingBuilder, 'build' | 'serialize'> {
     this.coding = json;
 
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
+    return createBuildAndSerializeMethods(this.raw());
   }
 
   /**

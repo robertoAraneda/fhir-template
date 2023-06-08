@@ -17,6 +17,7 @@ const Availability = async (item: unknown): Wait => _validateDataType(item, 'Ava
 const CodeableReference = async (item: unknown): Wait => _validateDataType(item, 'CodeableReference');
 const Duration = async (item: unknown): Wait => _validateDataType(item, 'Duration');
 const ExtendedContactDetail = async (item: unknown): Wait => _validateDataType(item, 'ExtendedContactDetail');
+const Extension = async (item: unknown): Wait => _validateDataType(item, 'Extension');
 
 export const DataTypesValidator = {
   Address,
@@ -33,4 +34,5 @@ export const DataTypesValidator = {
   CodeableReference,
   Duration,
   ExtendedContactDetail,
+  Extension,
 };

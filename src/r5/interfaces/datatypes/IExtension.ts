@@ -33,7 +33,7 @@ export interface IExtension extends IElement {
   _valueInstant?: IElement;
   valueInteger?: number;
   _valueInteger?: IElement;
-  valueInteger64?: string;
+  valueInteger64?: number;
   _valueInteger64?: IElement;
   valueMarkdown?: string;
   _valueMarkdown?: IElement;

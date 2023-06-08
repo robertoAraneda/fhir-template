@@ -74,13 +74,6 @@ export class ExtendedContactDetail implements IExtendedContactDetail {
   period?: IPeriod;
 
   constructor(args?: IExtendedContactDetail) {
-    args?.id && (this.id = args.id);
-    args?.extension && (this.extension = args.extension);
-    args?.purpose && (this.purpose = args.purpose);
-    args?.name && (this.name = args.name);
-    args?.telecom && (this.telecom = args.telecom);
-    args?.address && (this.address = args.address);
-    args?.organization && (this.organization = args.organization);
-    args?.period && (this.period = args.period);
+    Object.assign(this, args);
   }
 }

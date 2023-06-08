@@ -29,7 +29,6 @@ interface IAttachmentBuilder extends IBuildable<IAttachment>, ISerializable {
   setHash(hash: string): AttachmentBuilder;
   setSize(size: number): AttachmentBuilder;
   setDuration(duration: number): AttachmentBuilder;
-  setLanguage(language: string): AttachmentBuilder;
   setWidth(width: number): AttachmentBuilder;
   setHeight(height: number): AttachmentBuilder;
   setFrames(frames: number): AttachmentBuilder;

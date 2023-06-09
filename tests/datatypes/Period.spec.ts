@@ -42,7 +42,7 @@ describe('Period', () => {
   });
 
   it('should be able to create a new attachment and validate with correct data [createDataType]', async function () {
-    const dataType = createDatatype('Period').data({
+    const dataType = createDatatype('Period', {
       start: '2020-01-01',
       end: '2020-01-02',
     });

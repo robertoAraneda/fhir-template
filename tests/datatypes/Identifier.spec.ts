@@ -38,7 +38,7 @@ describe('Identifier', () => {
   });
 
   it('should be able to create a new identifier and validate with correct data [createDatatype()]', async () => {
-    const dataType = createDatatype('Identifier').data({
+    const dataType = createDatatype('Identifier', {
       id: '123',
       use: 'official',
       value: '1234567890',

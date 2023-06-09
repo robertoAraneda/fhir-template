@@ -19,7 +19,7 @@ describe('Endpoint', () => {
   // create global
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
-    const resource = createResource('Endpoint').data({
+    const resource = createResource('Endpoint', {
       resourceType: 'Endpoint',
       id: 'example',
       text: {

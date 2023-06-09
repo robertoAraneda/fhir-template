@@ -1,65 +1,55 @@
-import {
-  IAddress,
-  IAttachment,
-  IAvailability,
-  ICodeableConcept,
-  ICodeableReference,
-  IContactPoint,
-  IDuration,
-  IExtendedContactDetail,
-  IExtension,
-  IPeriod,
-} from './interfaces/datatypes';
-import {
-  AddressBuilder,
-  AttachmentBuilder,
-  AvailabilityBuilder,
-  CodeableConceptBuilder,
-  CodeableReferenceBuilder,
-  ContactPointBuilder,
-  DurationBuilder,
-  ExtendedContactDetailBuilder,
-  ExtensionBuilder,
-  PeriodBuilder,
-} from './builders/datatypes';
 import { DatatypeTypeR5 } from './GlobalDatatypes';
+import { Address } from './models/datatypes/Address';
+import { Availability } from './models/datatypes/Availability';
+import { CodeableConcept } from './models/datatypes/CodeableConcept';
+import { CodeableReference } from './models/datatypes/CodeableReference';
+import { Period } from './models/datatypes/Period';
+import { Coding } from './models/datatypes/Coding';
+import { Meta } from './models/datatypes/Meta';
+import { Extension } from './models/datatypes/Extension';
+import { Identifier } from './models/datatypes/Identifier';
+import { HumanName } from './models/datatypes/HumanName';
+import { ExtendedContactDetail } from './models/datatypes/ExtendedContactDetail';
+import { Quantity } from './models/datatypes/Quantity';
+import { Duration } from './models/datatypes/Duration';
+import { ContactPoint } from './models/datatypes/ContactPoint';
+import { Attachment } from './models/datatypes/Attachment';
 
-export const generateInstanceDatatype = (resourceType: DatatypeTypeR5) => {
+export const generateInstanceDatatype = (resourceType: DatatypeTypeR5, d: any) => {
   switch (resourceType) {
     case 'Address':
-      return { data: (address: IAddress) => new AddressBuilder().fromJSON(address).build() };
+      return new Address(d);
     case 'Availability':
-      return { data: (availability: IAvailability) => new AvailabilityBuilder().fromJSON(availability).build() };
+      return new Availability(d);
     case 'CodeableConcept':
-      return {
-        data: (codeableConcept: ICodeableConcept) => new CodeableConceptBuilder().fromJSON(codeableConcept).build(),
-      };
+      return new CodeableConcept(d);
     case 'CodeableReference':
-      return {
-        data: (codeableReference: ICodeableReference) =>
-          new CodeableReferenceBuilder().fromJSON(codeableReference).build(),
-      };
+      return new CodeableReference(d);
     case 'Period':
-      return { data: (period: IPeriod) => new PeriodBuilder().fromJSON(period).build() };
+      return new Period(d);
     case 'Coding':
+      return new Coding(d);
     case 'Meta':
+      return new Meta(d);
     case 'Reference':
+      //TODO - this is a hack, but it works for now
+      return new Extension(d);
     case 'Identifier':
+      return new Identifier(d);
     case 'HumanName':
+      return new HumanName(d);
     case 'Extension':
-      return {
-        data: (extension: IExtension) => new ExtensionBuilder().fromJSON(extension).build(),
-      };
+      return new Extension(d);
     case 'ExtendedContactDetail':
-      return {
-        data: (duration: IExtendedContactDetail) => new ExtendedContactDetailBuilder().fromJSON(duration).build(),
-      };
+      return new ExtendedContactDetail(d);
+    case 'Quantity':
+      return new Quantity(d);
     case 'Duration':
-      return { data: (duration: IDuration) => new DurationBuilder().fromJSON(duration).build() };
+      return new Duration(d);
     case 'ContactPoint':
-      return { data: (contactPoint: IContactPoint) => new ContactPointBuilder().fromJSON(contactPoint).build() };
+      return new ContactPoint(d);
     case 'Attachment':
-      return { data: (attachment: IAttachment) => new AttachmentBuilder().fromJSON(attachment).build() };
+      return new Attachment(d);
     default:
       throw new Error(`Datatype ${resourceType} not supported`);
   }

@@ -13,8 +13,27 @@ import {
   IIdentifier,
   IMeta,
   IPeriod,
+  IQuantity,
 } from './interfaces/datatypes';
 import { IReference } from './interfaces/base';
+import { Wait } from './validators/BackboneElementValidator';
+export interface IDatatypeValidatorProperties {
+  Address: (data: unknown) => Wait;
+  Attachment: (data: unknown) => Wait;
+  CodeableConcept: (data: unknown) => Wait;
+  CodeableReference: (data: unknown) => Wait;
+  Coding: (data: unknown) => Wait;
+  ContactPoint: (data: unknown) => Wait;
+  HumanName: (data: unknown) => Wait;
+  Identifier: (data: unknown) => Wait;
+  Meta: (data: unknown) => Wait;
+  Period: (data: unknown) => Wait;
+  Reference: (data: unknown) => Wait;
+  Availability: (data: unknown) => Wait;
+  Duration: (data: unknown) => Wait;
+  ExtendedContactDetail: (data: unknown) => Wait;
+  Quantity: (data: unknown) => Wait;
+}
 
 export type DatatypeTypeR5 =
   | 'Address'
@@ -31,6 +50,7 @@ export type DatatypeTypeR5 =
   | 'Duration'
   | 'Extension'
   | 'ExtendedContactDetail'
+  | 'Quantity'
   | 'Reference';
 
 export type DataType<T> = T extends 'Address'
@@ -63,4 +83,6 @@ export type DataType<T> = T extends 'Address'
   ? IExtendedContactDetail
   : T extends 'Extension'
   ? IExtension
+  : T extends 'Quantity'
+  ? IQuantity
   : unknown;

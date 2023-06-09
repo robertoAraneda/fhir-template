@@ -18,6 +18,7 @@ const CodeableReference = async (item: unknown): Wait => _validateDataType(item,
 const Duration = async (item: unknown): Wait => _validateDataType(item, 'Duration');
 const ExtendedContactDetail = async (item: unknown): Wait => _validateDataType(item, 'ExtendedContactDetail');
 const Extension = async (item: unknown): Wait => _validateDataType(item, 'Extension');
+const Quantity = async (item: unknown): Wait => _validateDataType(item, 'Quantity');
 
 export const DataTypesValidator = {
   Address,
@@ -35,4 +36,5 @@ export const DataTypesValidator = {
   Duration,
   ExtendedContactDetail,
   Extension,
+  Quantity,
 };

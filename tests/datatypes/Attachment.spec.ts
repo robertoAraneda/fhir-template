@@ -18,7 +18,7 @@ describe('Attachment', () => {
   });
 
   it('should be able to create a new attachment and validate with correct data [createDatatype]', async () => {
-    const dataType = createDatatype('Attachment').data({
+    const dataType = createDatatype('Attachment', {
       id: '123',
       url: 'http://hl7.org/fhir/sid/us-npi',
       contentType: 'test',

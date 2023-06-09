@@ -42,7 +42,7 @@ describe('HumanName', () => {
   });
 
   it('should be able to create a new humanname and validate with correct data [createDatatype()]', async () => {
-    const dataType: IHumanName = createDatatype('HumanName').data({
+    const dataType: IHumanName = createDatatype('HumanName', {
       use: 'maiden',
       family: 'Windsor',
       given: ['Peter', 'James'],

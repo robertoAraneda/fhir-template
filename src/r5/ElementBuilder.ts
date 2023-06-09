@@ -15,4 +15,6 @@ export const ElementBuilder = {
   DurationBuilder: () => new DataTypesBuilder.DurationBuilder(),
   ExtendedContactDetailBuilder: () => new DataTypesBuilder.ExtendedContactDetailBuilder(),
   AvailabilityBuilder: () => new DataTypesBuilder.AvailabilityBuilder(),
+  ExtensionBuilder: () => new DataTypesBuilder.ExtensionBuilder(),
+  QuantityBuilder: () => new DataTypesBuilder.QuantityBuilder(),
 };

@@ -1,16 +1,3 @@
-import {
-  Endpoint,
-  Organization,
-  Patient,
-  Person,
-  Practitioner,
-  PractitionerRole,
-  RelatedPerson,
-} from './r5/models/resources';
-import { EndpointBuilder } from './r5/builders/resources';
-import { IEndpoint } from './r5/interfaces/resources';
-import { ResourceTypeR5 } from './r5';
-
 const generatePayloadType = async <T>(resourceType: string, payload: T) => {
   const entity = await import(`./r5/resources/${resourceType}`);
   return new entity[`${resourceType}`](payload) as T;

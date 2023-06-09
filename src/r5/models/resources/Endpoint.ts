@@ -35,7 +35,7 @@ export class Endpoint implements IEndpoint {
   status?: EndpointStatusEnum | EndpointStatusType;
   text?: INarrative;
 
-  constructor(args?: Partial<Endpoint>) {
+  constructor(args?: Endpoint) {
     Object.assign(this, args);
   }
 }

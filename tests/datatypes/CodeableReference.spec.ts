@@ -18,7 +18,7 @@ describe('CodeableReference', () => {
   });
 
   it('should be able to create a new codeableconcept and validate with correct data [new CodeableReference]', async () => {
-    const dataType = createDatatype('CodeableReference').data({
+    const dataType = createDatatype('CodeableReference', {
       id: '123',
       concept: {
         coding: [

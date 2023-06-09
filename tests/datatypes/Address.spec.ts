@@ -18,7 +18,7 @@ describe('Address', () => {
   });
 
   it('should be able to validate a new address [createDatatype]', async () => {
-    const address = createDatatype('Address').data({
+    const address = createDatatype('Address', {
       id: '123',
       type: 'postal',
       period: {

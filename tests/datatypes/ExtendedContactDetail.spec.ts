@@ -18,7 +18,7 @@ describe('ExtendedContactDetail', () => {
   });
 
   it('should be able to create a new contact point and validate with correct data [createDatatype]', async () => {
-    const dataType = createDatatype('ExtendedContactDetail').data({
+    const dataType = createDatatype('ExtendedContactDetail', {
       id: '123',
       name: [
         {

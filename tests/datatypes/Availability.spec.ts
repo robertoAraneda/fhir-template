@@ -18,7 +18,7 @@ describe('Availability', () => {
   });
 
   it('should be able to create a new availability and validate with correct data [createDatatype()]', async () => {
-    const dataType = createDatatype('Availability').data({
+    const dataType = createDatatype('Availability', {
       availableTime: [
         {
           allDay: true,

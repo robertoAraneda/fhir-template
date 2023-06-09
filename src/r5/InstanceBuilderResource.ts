@@ -1,17 +1,16 @@
 import { Endpoint } from './models/resources';
-import { EndpointBuilder } from './builders/resources';
-import { ResourceTypeR5 } from './index';
+import { ResourceTypeR5 } from './GlobalResourceTypes';
 
-export const generateInstanceResource = (resourceType: ResourceTypeR5) => {
+export const generateInstanceResource = (resourceType: ResourceTypeR5, data: any) => {
   switch (resourceType) {
     case 'Patient':
-      return { data: (data: Partial<Endpoint>) => new EndpointBuilder().fromJSON(data).build() };
+      return new Endpoint(data);
     case 'Organization':
     case 'Endpoint':
     case 'Person':
     case 'Practitioner':
     case 'PractitionerRole':
     case 'RelatedPerson':
-      return { data: (data: Partial<Endpoint>) => new EndpointBuilder().fromJSON(data).build() };
+      return new Endpoint(data);
   }
 };

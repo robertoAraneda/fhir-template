@@ -4,9 +4,10 @@ import { ResourceValidator } from './validators/ResourceValidator';
 import { ResourceBuilder } from './ResourceBuilder';
 import { ElementBuilder } from './ElementBuilder';
 import { BackboneElementBuilder } from './BackboneElementBuilder';
-import { DataType, DatatypeTypeR5 } from './GlobalDatatypes';
+import { DataType, DatatypeTypeR5, IDatatypeValidatorProperties } from './GlobalDatatypes';
 import { generateInstanceDatatype } from './InstanceBuilderDatatype';
 import { generateInstanceResource } from './InstanceBuilderResource';
+import { IResourceValidatorProperties, ResourceType, ResourceTypeR5 } from './GlobalResourceTypes';
 
 export interface IBackboneValidatorProperties {
   EndpointPayload: (data: unknown) => Wait;
@@ -21,47 +22,11 @@ export interface IBackboneValidatorProperties {
   RelatedPersonCommunication: (data: unknown) => Wait;
 }
 
-export interface IResourceValidatorProperties {
-  Patient: (data: unknown) => Wait;
-  Organization: (data: unknown) => Wait;
-  Endpoint: (data: unknown) => Wait;
-  Person: (data: unknown) => Wait;
-  Practitioner: (data: unknown) => Wait;
-  PractitionerRole: (data: unknown) => Wait;
-  RelatedPerson: (data: unknown) => Wait;
-}
-
-export interface IDatatypeValidatorProperties {
-  Address: (data: unknown) => Wait;
-  Attachment: (data: unknown) => Wait;
-  CodeableConcept: (data: unknown) => Wait;
-  CodeableReference: (data: unknown) => Wait;
-  Coding: (data: unknown) => Wait;
-  ContactPoint: (data: unknown) => Wait;
-  HumanName: (data: unknown) => Wait;
-  Identifier: (data: unknown) => Wait;
-  Meta: (data: unknown) => Wait;
-  Period: (data: unknown) => Wait;
-  Reference: (data: unknown) => Wait;
-  Availability: (data: unknown) => Wait;
-  Duration: (data: unknown) => Wait;
-  ExtendedContactDetail: (data: unknown) => Wait;
-}
-
 export interface IValidatorContext {
   backboneElements: IBackboneValidatorProperties;
   dataTypes: IDatatypeValidatorProperties;
   resources: IResourceValidatorProperties;
 }
-
-export type ResourceTypeR5 =
-  | 'Patient'
-  | 'Organization'
-  | 'Endpoint'
-  | 'Person'
-  | 'Practitioner'
-  | 'PractitionerRole'
-  | 'RelatedPerson';
 
 export type BackboneTypeR5 =
   | 'PatientContact'
@@ -76,12 +41,12 @@ export type BackboneTypeR5 =
   | 'EndpointPayload';
 
 export class FhirContextR5 {
-  createResource<T extends ResourceTypeR5>(resourceType: T) {
-    return generateInstanceResource(resourceType);
+  createResource<T extends ResourceTypeR5>(resourceType: T, data?: ResourceType<T>) {
+    return generateInstanceResource(resourceType, data);
   }
 
-  createDatatype<T extends DatatypeTypeR5>(datatypeType: T) {
-    return generateInstanceDatatype(datatypeType) as unknown as { data: (data: DataType<T>) => DataType<T> };
+  createDatatype<T extends DatatypeTypeR5>(datatypeType: T, d: DataType<T>) {
+    return generateInstanceDatatype(datatypeType, d) as DataType<T>;
   }
   public getBuilders() {
     return {

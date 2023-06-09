@@ -40,7 +40,7 @@ describe('Meta', () => {
   });
 
   it('should be able to create a new meta and validate with correct data [createDatatype()]', async () => {
-    const dataType = createDatatype('Meta').data({
+    const dataType = createDatatype('Meta', {
       id: '123',
       tag: [
         {

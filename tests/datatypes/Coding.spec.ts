@@ -18,7 +18,7 @@ describe('Coding', () => {
   });
 
   it('should be able to create a new coding and validate with correct data [createDatatype]', async () => {
-    const dataType = createDatatype('Coding').data({
+    const dataType = createDatatype('Coding', {
       id: '123',
       code: '123',
       version: '1.0.0',

@@ -1,0 +1,9 @@
+export type { IBackboneElement } from './IBackboneElement';
+export type { IBase } from './IBase';
+export type { IBuildable } from './IBuildable';
+export type { IDomainResource } from './IDomainResource';
+export type { IElement } from './IElement';
+export type { INarrative } from './INarrative';
+export type { ISerializable } from './ISerializable';
+export type { IReference } from './IReference';
+export type { IResource } from './IResource';

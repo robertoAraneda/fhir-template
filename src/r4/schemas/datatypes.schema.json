@@ -1,0 +1,1087 @@
+{
+  "$id": "https://example.com/datatypes.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Base FHIR Data Types",
+  "definitions": {
+    "Element": {
+      "description": "Base definition for all elements in a resource.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Address": {
+      "description": "An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This data type may be used to convey addresses for use in delivering mail as well as for visiting locations which might not be valid for mail delivery.  There are a variety of postal address formats defined around the world.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "use": {
+          "description": "The purpose of this address.",
+          "enum": ["home", "work", "temp", "old", "billing"]
+        },
+        "_use": {
+          "description": "Extensions for use",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "type": {
+          "description": "Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.",
+          "enum": ["postal", "physical", "both"]
+        },
+        "_type": {
+          "description": "Extensions for type",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "text": {
+          "description": "Specifies the entire address as it should be displayed e.g. on a postal label. This may be provided instead of or as well as the specific parts.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_text": {
+          "description": "Extensions for text",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "line": {
+          "description": "This component contains the house number, apartment number, street name, street direction,  P.O. Box number, delivery hints, and similar address information.",
+          "items": {
+            "$ref": "base.schema.json#/definitions/string"
+          },
+          "type": "array"
+        },
+        "_line": {
+          "description": "Extensions for line",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "city": {
+          "description": "The name of the city, town, suburb, village or other community or delivery center.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_city": {
+          "description": "Extensions for city",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "district": {
+          "description": "The name of the administrative area (county).",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_district": {
+          "description": "Extensions for district",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "state": {
+          "description": "Sub-unit of a country with limited sovereignty in a federally organized country. A code may be used if codes are in common use (e.g. US 2 letter state codes).",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_state": {
+          "description": "Extensions for state",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "postalCode": {
+          "description": "A postal code designating a region defined by the postal service.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_postalCode": {
+          "description": "Extensions for postalCode",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "country": {
+          "description": "Country - a nation as commonly understood or generally accepted.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_country": {
+          "description": "Extensions for country",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "period": {
+          "description": "Time period when address was/is in use.",
+          "$ref": "datatypes.schema.json#/definitions/Period"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Period": {
+      "description": "A time period defined by a start and end date and optionally time.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "start": {
+          "description": "The start of the period. The boundary is inclusive.",
+          "$ref": "base.schema.json#/definitions/dateTime"
+        },
+        "_start": {
+          "description": "Extensions for start",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "end": {
+          "description": "The end of the period. If the end of the period is missing, it means no end was known or planned at the time the instance was created. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.",
+          "$ref": "base.schema.json#/definitions/dateTime"
+        },
+        "_end": {
+          "description": "Extensions for end",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Meta": {
+      "description": "The metadata about a resource. This is content in the resource that is maintained by the infrastructure. Changes to the content might not always be associated with version changes to the resource.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "versionId": {
+          "description": "The version specific identifier, as it appears in the version portion of the URL. This value changes when the resource is created, updated, or deleted.",
+          "$ref": "base.schema.json#/definitions/id"
+        },
+        "_versionId": {
+          "description": "Extensions for versionId",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "lastUpdated": {
+          "description": "When the resource last changed - e.g. when the version changed.",
+          "$ref": "base.schema.json#/definitions/instant"
+        },
+        "_lastUpdated": {
+          "description": "Extensions for lastUpdated",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "source": {
+          "description": "A uri that identifies the source system of the resource. This provides a minimal amount of [[[Provenance]]] information that can be used to track or differentiate the source of information in the resource. The source may identify another FHIR server, document, message, database, etc.",
+          "$ref": "base.schema.json#/definitions/uri"
+        },
+        "_source": {
+          "description": "Extensions for source",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "profile": {
+          "description": "A list of profiles (references to [[[StructureDefinition]]] resources) that this resource claims to conform to. The URL is a reference to [[[StructureDefinition.url]]].",
+          "items": {
+            "$ref": "base.schema.json#/definitions/canonical"
+          },
+          "type": "array"
+        },
+        "security": {
+          "description": "Security labels applied to this resource. These tags connect specific resources to the overall security policy and infrastructure.",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Coding"
+          },
+          "type": "array"
+        },
+        "tag": {
+          "description": "Tags applied to this resource. Tags are intended to be used to identify and relate resources to process and workflow, and applications are not required to consider the tags when interpreting the meaning of a resource.",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Coding"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Narrative": {
+      "description": "A human-readable summary of the resource conveying the essential clinical and business information for the resource.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "status": {
+          "description": "The status of the narrative - whether it\u0027s entirely generated (from just the defined data or the extensions too), or whether a human authored it and it may contain additional data.",
+          "enum": ["generated", "extensions", "additional", "empty"]
+        },
+        "_status": {
+          "description": "Extensions for status",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "div": {
+          "description": "The actual narrative content, a stripped down version of XHTML.",
+          "$ref": "base.schema.json#/definitions/xhtml"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["div"]
+    },
+    "Identifier": {
+      "description": "An identifier - identifies some entity uniquely and unambiguously. Typically this is used for business identifiers.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "Description of identifier.",
+          "$ref": "datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "use": {
+          "description": "The purpose of this identifier.",
+          "enum": ["usual", "official", "temp", "secondary", "old"]
+        },
+        "_use": {
+          "description": "Extensions for use",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "Establishes the namespace for the value - that is, a URL that describes a set values that are unique.",
+          "$ref": "base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "value": {
+          "description": "The portion of the identifier typically relevant to the user and which is unique within the context of the system.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "period": {
+          "description": "Time period during which identifier is/was valid for use.",
+          "$ref": "datatypes.schema.json#/definitions/Period"
+        },
+        "assigner": {
+          "description": "Organization that issued/manages the identifier.",
+          "$ref": "datatypes.schema.json#/definitions/Reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Reference": {
+      "description": "A reference from one resource to another.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "reference": {
+          "description": "A reference to a location at which the other resource is found. The reference may be a relative reference, in which case it is relative to the service base URL, or an absolute URL that resolves to the location where the resource is found. The reference may be version specific or not. If the reference is not to a FHIR RESTful server, then it should be assumed to be version specific. Internal fragment references (start with \u0027#\u0027) refer to contained resources.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_reference": {
+          "description": "Extensions for reference",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "type": {
+          "description": "The expected type of the target of the reference. If both Reference.type and Reference.reference are populated and Reference.reference is a FHIR URL, both SHALL be consistent.\n\nThe type is the Canonical URL of Resource Definition that is the type this reference refers to. References are URLs that are relative to http://hl7.org/fhir/StructureDefinition/ e.g. \"Patient\" is a reference to http://hl7.org/fhir/StructureDefinition/Patient. Absolute URLs are only allowed for logical models (and can only be used in references in logical models, not resources).",
+          "$ref": "base.schema.json#/definitions/uri"
+        },
+        "_type": {
+          "description": "Extensions for type",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "identifier": {
+          "description": "An identifier for the target resource. This is used when there is no way to reference the other resource directly, either because the entity it represents is not available through a FHIR server, or because there is no way for the author of the resource to convert a known identifier to an actual location. There is no requirement that a Reference.identifier point to something that is actually exposed as a FHIR instance, but it SHALL point to a business concept that would be expected to be exposed as a FHIR instance, and that instance would need to be of a FHIR resource type allowed by the reference.",
+          "$ref": "datatypes.schema.json#/definitions/Identifier"
+        },
+        "display": {
+          "description": "Plain text narrative that identifies the resource in addition to the resource reference.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_display": {
+          "description": "Extensions for display",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "HumanName": {
+      "description": "A human\u0027s name with the ability to identify parts and usage.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "use": {
+          "description": "Identifies the purpose for this name.",
+          "enum": ["usual", "official", "temp", "nickname", "anonymous", "old", "maiden"]
+        },
+        "_use": {
+          "description": "Extensions for use",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "text": {
+          "description": "Specifies the entire name as it should be displayed e.g. on an application UI. This may be provided instead of or as well as the specific parts.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_text": {
+          "description": "Extensions for text",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "family": {
+          "description": "The part of a name that links to the genealogy. In some cultures (e.g. Eritrea) the family name of a son is the first name of his father.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_family": {
+          "description": "Extensions for family",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "given": {
+          "description": "Given name.",
+          "items": {
+            "$ref": "base.schema.json#/definitions/string"
+          },
+          "type": "array"
+        },
+        "_given": {
+          "description": "Extensions for given",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "prefix": {
+          "description": "Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that appears at the start of the name.",
+          "items": {
+            "$ref": "base.schema.json#/definitions/string"
+          },
+          "type": "array"
+        },
+        "_prefix": {
+          "description": "Extensions for prefix",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "suffix": {
+          "description": "Part of the name that is acquired as a title due to academic, legal, employment or nobility status, etc. and that appears at the end of the name.",
+          "items": {
+            "$ref": "base.schema.json#/definitions/string"
+          },
+          "type": "array"
+        },
+        "_suffix": {
+          "description": "Extensions for suffix",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "period": {
+          "description": "Indicates the period of time when this name was valid for the named person.",
+          "$ref": "datatypes.schema.json#/definitions/Period"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ContactPoint": {
+      "description": "Details for all kinds of technology mediated contact points for a person or organization, including telephone, email, etc.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "system": {
+          "description": "Telecommunications form for contact point - what communications system is required to make use of the contact.",
+          "enum": ["phone", "fax", "email", "pager", "url", "sms", "other"]
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "value": {
+          "description": "The actual contact point details, in a form that is meaningful to the designated communication system (i.e. phone number or email address).",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "use": {
+          "description": "Identifies the purpose for the contact point.",
+          "enum": ["home", "work", "temp", "old", "mobile"]
+        },
+        "_use": {
+          "description": "Extensions for use",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "rank": {
+          "description": "Specifies a preferred order in which to use a set of contacts. ContactPoints with lower rank values are more preferred than those with higher rank values.",
+          "$ref": "base.schema.json#/definitions/positiveInt"
+        },
+        "_rank": {
+          "description": "Extensions for rank",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "period": {
+          "description": "Time period when the contact point was/is in use.",
+          "$ref": "datatypes.schema.json#/definitions/Period"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CodeableConcept": {
+      "description": "A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "coding": {
+          "description": "A reference to a code defined by a terminology system.",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Coding"
+          },
+          "type": "array"
+        },
+        "text": {
+          "description": "A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_text": {
+          "description": "Extensions for text",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CodeableReference": {
+      "description": "Reference to a resource or a concept.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "concept": {
+          "description": "Reference to a concept (by class).",
+          "$ref": "datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "reference": {
+          "description": "Reference to a resource (by instance).",
+          "$ref": "datatypes.schema.json#/definitions/Reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Coding": {
+      "description": "A reference to a code defined by a terminology system.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "system": {
+          "description": "The identification of the code system that defines the meaning of the symbol in the code.",
+          "$ref": "base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "version": {
+          "description": "The version of the code system which was used when choosing this code. Note that a well-maintained code system does not need the version reported, because the meaning of codes is consistent across versions. However this cannot consistently be assured, and when the meaning is not guaranteed to be consistent, the version SHOULD be exchanged.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_version": {
+          "description": "Extensions for version",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A symbol in syntax defined by the system. The symbol may be a predefined code or an expression in a syntax defined by the coding system (e.g. post-coordination).",
+          "$ref": "base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "display": {
+          "description": "A representation of the meaning of the code in the system, following the rules of the system.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_display": {
+          "description": "Extensions for display",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "userSelected": {
+          "description": "Indicates that this coding was chosen by a user directly - e.g. off a pick list of available items (codes or displays).",
+          "$ref": "base.schema.json#/definitions/boolean"
+        },
+        "_userSelected": {
+          "description": "Extensions for userSelected",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Attachment": {
+      "description": "For referring to data content defined in other formats.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "contentType": {
+          "description": "Identifies the type of the data in the attachment and allows a method to be chosen to interpret or render the data. Includes mime type parameters such as charset where appropriate.",
+          "$ref": "base.schema.json#/definitions/code"
+        },
+        "_contentType": {
+          "description": "Extensions for contentType",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "language": {
+          "description": "The human language of the content. The value can be any valid value according to BCP 47.",
+          "$ref": "base.schema.json#/definitions/code"
+        },
+        "_language": {
+          "description": "Extensions for language",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "data": {
+          "description": "The actual data of the attachment - a sequence of bytes, base64 encoded.",
+          "$ref": "base.schema.json#/definitions/base64Binary"
+        },
+        "_data": {
+          "description": "Extensions for data",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "url": {
+          "description": "A location where the data can be accessed.",
+          "$ref": "base.schema.json#/definitions/url"
+        },
+        "_url": {
+          "description": "Extensions for url",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "size": {
+          "description": "The number of bytes of data that make up this attachment (before base64 encoding, if that is done).",
+          "$ref": "base.schema.json#/definitions/unsignedInt"
+        },
+        "_size": {
+          "description": "Extensions for size",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "hash": {
+          "description": "The calculated hash of the data using SHA-1. Represented using base64.",
+          "$ref": "base.schema.json#/definitions/base64Binary"
+        },
+        "_hash": {
+          "description": "Extensions for hash",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "title": {
+          "description": "A label or set of text to display in place of the data.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_title": {
+          "description": "Extensions for title",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "creation": {
+          "description": "The date that the attachment was first created.",
+          "$ref": "base.schema.json#/definitions/dateTime"
+        },
+        "_creation": {
+          "description": "Extensions for creation",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "height": {
+          "description": "Height of the image in pixels (photo/video)",
+          "$ref": "base.schema.json#/definitions/positiveInt"
+        },
+        "_height": {
+          "description": "Extensions for height",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "width": {
+          "description": "Width of the image in pixels (photo/video)",
+          "$ref": "base.schema.json#/definitions/positiveInt"
+        },
+        "_width": {
+          "description": "Extensions for width",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "frames": {
+          "description": "Number of frames if > 1 (photo)",
+          "$ref": "base.schema.json#/definitions/positiveInt"
+        },
+        "_frames": {
+          "description": "Extensions for frames",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "duration": {
+          "description": "Length in seconds (audio / video)",
+          "$ref": "base.schema.json#/definitions/decimal"
+        },
+        "_duration": {
+          "description": "Extensions for duration",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "pages": {
+          "description": "Number of printed pages",
+          "$ref": "base.schema.json#/definitions/positiveInt"
+        },
+        "_pages": {
+          "description": "Extensions for pages",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ExtendedContactDetail": {
+      "description": "Contact information.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "purpose": {
+          "description": "The type of contact.",
+          "$ref": "datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "name": {
+          "description": "Name of an individual to contact.",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/HumanName"
+          },
+          "type": "array"
+        },
+        "telecom": {
+          "description": "Contact details (e.g.phone/fax/url).",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/ContactPoint"
+          },
+          "type": "array"
+        },
+        "address": {
+          "description": "Address for the contact.",
+          "$ref": "datatypes.schema.json#/definitions/Address"
+        },
+        "organization": {
+          "description": "This contact detail is handled/monitored by a specific organization.",
+          "$ref": "datatypes.schema.json#/definitions/Reference"
+        },
+        "period": {
+          "description": "Period that this contact was valid for usage.",
+          "$ref": "datatypes.schema.json#/definitions/Period"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Quantity": {
+      "description": "A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "The value of the measured amount. The value includes an implicit precision in the presentation of the value.",
+          "$ref": "base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "comparator": {
+          "description": "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is \"\u003c\" , then the real value is \u003c stated value.",
+          "enum": ["\u003c", "\u003c\u003d", "\u003e\u003d", "\u003e"]
+        },
+        "_comparator": {
+          "description": "Extensions for comparator",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "unit": {
+          "description": "A human-readable form of the unit.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_unit": {
+          "description": "Extensions for unit",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "The identification of the system that provides the coded form of the unit.",
+          "$ref": "base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A computer processable form of the unit in some unit representation system.",
+          "$ref": "base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AvailableTime": {
+      "description": "Times the {item} is available.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "daysOfWeek": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "base.schema.json#/definitions/code",
+            "enum": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+          },
+          "type": "array"
+        },
+        "_daysOfWeek": {
+          "description": "Extensions for daysOfWeek",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "allDay": {
+          "description": "Always available? i.e. 24 hour service.",
+          "$ref": "base.schema.json#/definitions/boolean"
+        },
+        "_allDay": {
+          "description": "Extensions for allDay",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "availableStartTime": {
+          "description": "Opening time of day (ignored if allDay = true).",
+          "$ref": "base.schema.json#/definitions/time"
+        },
+        "_availableStartTime": {
+          "description": "Extensions for availableStartTime",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "availableEndTime": {
+          "description": "Closing time of day (ignored if allDay = true).",
+          "$ref": "base.schema.json#/definitions/time"
+        },
+        "_availableEndTime": {
+          "description": "Extensions for availableEndTime",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "NotAvailableTime": {
+      "description": "Not available during this time due to provided reason.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "description": {
+          "description": "Always available? i.e. 24 hour service.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_description": {
+          "description": "Extensions for description",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "during": {
+          "description": "Service not available during this period.",
+          "$ref": "datatypes.schema.json#/definitions/Period"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Availability": {
+      "description": "Availability data for an {item}.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "availableTime": {
+          "description": "Times the {item} is available.",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/AvailableTime"
+          },
+          "type": "array"
+        },
+        "notAvailableTime": {
+          "description": "Not available during this time due to provided reason.",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/NotAvailableTime"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Duration": {
+      "description": "A length of time.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "The value of the measured amount. The value includes an implicit precision in the presentation of the value.",
+          "$ref": "base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "comparator": {
+          "description": "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is \"\u003c\" , then the real value is \u003c stated value.",
+          "enum": ["\u003c", "\u003c\u003d", "\u003e\u003d", "\u003e"]
+        },
+        "_comparator": {
+          "description": "Extensions for comparator",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "unit": {
+          "description": "A human-readable form of the unit.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_unit": {
+          "description": "Extensions for unit",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "The identification of the system that provides the coded form of the unit.",
+          "$ref": "base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A computer processable form of the unit in some unit representation system.",
+          "$ref": "base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "VirtualServiceDetail": {
+      "description": "Virtual Service Contact Details.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "channelType": {
+          "description": "Channel Type.",
+          "$ref": "datatypes.schema.json#/definitions/Coding"
+        },
+        "addressUrl": {
+          "description": "Contact address/number",
+          "$ref": "base.schema.json#/definitions/url"
+        },
+        "_addressUrl": {
+          "description": "Extensions for addressUrl",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "addressString": {
+          "description": "Contact address/number",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_addressString": {
+          "description": "Extensions for addressString",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "addressContactPoint": {
+          "description": "Contact address/number",
+          "$ref": "datatypes.schema.json#/definitions/ContactPoint"
+        },
+        "addressExtendedContactDetail": {
+          "description": "Contact address/number",
+          "$ref": "datatypes.schema.json#/definitions/ExtendedContactDetail"
+        },
+        "additionalInfo": {
+          "description": "Address to see alternative connection details",
+          "items": {
+            "$ref": "base.schema.json#/definitions/url"
+          },
+          "type": "array"
+        },
+        "_additionalInfo": {
+          "description": "Extensions for additionalInfo",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "maxParticipants": {
+          "description": "Maximum number of participants supported by the virtual service.",
+          "$ref": "base.schema.json#/definitions/positiveInt"
+        },
+        "_maxParticipants": {
+          "description": "Extensions for maxParticipants",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "sessionKey": {
+          "description": "Session Key required by the virtual service.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_sessionKey": {
+          "description": "Extensions for sessionKey",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

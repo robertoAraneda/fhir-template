@@ -1,27 +1,43 @@
-import { ICoding, IMeta } from '../../interfaces/datatypes';
+import { ICoding, IIdentifier, IMeta } from '../../interfaces/datatypes';
 import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { Meta } from '../../models/datatypes/Meta';
 
-type ParamsType = 'lastUpdated' | 'profile' | 'source' | 'versionId';
-export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IBuildable<IMeta>, ISerializable {
-  private readonly meta: IMeta;
+type ParamsType = 'lastUpdated' | 'source' | 'versionId';
+
+interface IMetaBuilder extends IBuildable<IMeta>, ISerializable {
+  addMetaParamExtension(param: ParamsType, extension: IElement[] | IElement): MetaBuilder;
+  setSource(source: string): MetaBuilder;
+  setVersionId(versionId: string | number): MetaBuilder;
+  setLastUpdated(lastUpdated: string): MetaBuilder;
+  addTag(tag: ICoding): MetaBuilder;
+  addProfile(profile: string): MetaBuilder;
+  addSecurity(security: ICoding): MetaBuilder;
+  setMultipleTag(tag: ICoding[]): MetaBuilder;
+  setMultipleProfile(profile: string[]): MetaBuilder;
+  setMultipleSecurity(security: ICoding[]): MetaBuilder;
+  fromJSON(json: IIdentifier): Pick<IMetaBuilder, 'build' | 'serialize'>;
+}
+export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBuilder {
+  private meta: IMeta;
 
   constructor() {
     super();
 
-    this.meta = {} as IMeta;
+    this.meta = new Meta();
   }
 
-  addMetaParamExtension<T extends ParamsType>(
-    param: T,
-    extension: T extends 'profile' ? IElement[] : IElement,
-  ): MetaBuilder {
-    if (param === 'profile') {
-      this.meta._profile = extension as IElement[];
-    } else {
-      const localParam = param as Exclude<ParamsType, 'profile'>;
-      this.meta[`_${localParam}`] = extension as IElement;
-    }
+  fromJSON(json: IIdentifier): Pick<IMetaBuilder, 'build' | 'serialize'> {
+    this.meta = json;
+
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
+  }
+
+  addMetaParamExtension<T extends ParamsType>(param: T, extension: IElement): MetaBuilder {
+    this.meta[`_${param}`] = extension as IElement;
 
     return this;
   }

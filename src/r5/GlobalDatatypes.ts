@@ -14,6 +14,7 @@ import {
   IMeta,
   IPeriod,
   IQuantity,
+  IVirtualServiceDetail,
 } from './interfaces/datatypes';
 import { IReference } from './interfaces/base';
 import { Wait } from './validators/BackboneElementValidator';
@@ -33,6 +34,7 @@ export interface IDatatypeValidatorProperties {
   Duration: (data: unknown) => Wait;
   ExtendedContactDetail: (data: unknown) => Wait;
   Quantity: (data: unknown) => Wait;
+  VirtualServiceDetail: (data: unknown) => Wait;
 }
 
 export type DatatypeTypeR5 =
@@ -51,6 +53,7 @@ export type DatatypeTypeR5 =
   | 'Extension'
   | 'ExtendedContactDetail'
   | 'Quantity'
+  | 'VirtualServiceDetail'
   | 'Reference';
 
 export type DataType<T> = T extends 'Address'
@@ -85,4 +88,6 @@ export type DataType<T> = T extends 'Address'
   ? IExtension
   : T extends 'Quantity'
   ? IQuantity
+  : T extends 'VirtualServiceDetail'
+  ? IVirtualServiceDetail
   : unknown;

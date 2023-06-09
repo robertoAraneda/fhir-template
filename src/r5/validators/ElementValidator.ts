@@ -19,6 +19,7 @@ const Duration = async (item: unknown): Wait => _validateDataType(item, 'Duratio
 const ExtendedContactDetail = async (item: unknown): Wait => _validateDataType(item, 'ExtendedContactDetail');
 const Extension = async (item: unknown): Wait => _validateDataType(item, 'Extension');
 const Quantity = async (item: unknown): Wait => _validateDataType(item, 'Quantity');
+const VirtualServiceDetail = async (item: unknown): Wait => _validateDataType(item, 'VirtualServiceDetail');
 
 export const DataTypesValidator = {
   Address,
@@ -37,4 +38,5 @@ export const DataTypesValidator = {
   ExtendedContactDetail,
   Extension,
   Quantity,
+  VirtualServiceDetail,
 };

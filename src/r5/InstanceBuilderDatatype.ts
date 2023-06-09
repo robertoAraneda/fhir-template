@@ -14,42 +14,45 @@ import { Quantity } from './models/datatypes/Quantity';
 import { Duration } from './models/datatypes/Duration';
 import { ContactPoint } from './models/datatypes/ContactPoint';
 import { Attachment } from './models/datatypes/Attachment';
+import { VirtualServiceDetail } from './models/datatypes/VirtualServiceDetail';
 
-export const generateInstanceDatatype = (resourceType: DatatypeTypeR5, d: any) => {
+export const generateInstanceDatatype = (resourceType: DatatypeTypeR5, data: any) => {
   switch (resourceType) {
     case 'Address':
-      return new Address(d);
+      return new Address(data);
     case 'Availability':
-      return new Availability(d);
+      return new Availability(data);
     case 'CodeableConcept':
-      return new CodeableConcept(d);
+      return new CodeableConcept(data);
     case 'CodeableReference':
-      return new CodeableReference(d);
+      return new CodeableReference(data);
     case 'Period':
-      return new Period(d);
+      return new Period(data);
     case 'Coding':
-      return new Coding(d);
+      return new Coding(data);
     case 'Meta':
-      return new Meta(d);
+      return new Meta(data);
     case 'Reference':
       //TODO - this is a hack, but it works for now
-      return new Extension(d);
+      return new Extension(data);
     case 'Identifier':
-      return new Identifier(d);
+      return new Identifier(data);
     case 'HumanName':
-      return new HumanName(d);
+      return new HumanName(data);
     case 'Extension':
-      return new Extension(d);
+      return new Extension(data);
     case 'ExtendedContactDetail':
-      return new ExtendedContactDetail(d);
+      return new ExtendedContactDetail(data);
     case 'Quantity':
-      return new Quantity(d);
+      return new Quantity(data);
     case 'Duration':
-      return new Duration(d);
+      return new Duration(data);
     case 'ContactPoint':
-      return new ContactPoint(d);
+      return new ContactPoint(data);
     case 'Attachment':
-      return new Attachment(d);
+      return new Attachment(data);
+    case 'VirtualServiceDetail':
+      return new VirtualServiceDetail(data);
     default:
       throw new Error(`Datatype ${resourceType} not supported`);
   }

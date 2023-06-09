@@ -17,4 +17,5 @@ export const ElementBuilder = {
   AvailabilityBuilder: () => new DataTypesBuilder.AvailabilityBuilder(),
   ExtensionBuilder: () => new DataTypesBuilder.ExtensionBuilder(),
   QuantityBuilder: () => new DataTypesBuilder.QuantityBuilder(),
+  VirtualServiceDetailBuilder: () => new DataTypesBuilder.VirtualServiceDetailBuilder(),
 };

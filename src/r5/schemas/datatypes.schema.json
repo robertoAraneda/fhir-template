@@ -38,13 +38,7 @@
         },
         "use": {
           "description": "The purpose of this address.",
-          "enum": [
-            "home",
-            "work",
-            "temp",
-            "old",
-            "billing"
-          ]
+          "enum": ["home", "work", "temp", "old", "billing"]
         },
         "_use": {
           "description": "Extensions for use",
@@ -52,11 +46,7 @@
         },
         "type": {
           "description": "Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.",
-          "enum": [
-            "postal",
-            "physical",
-            "both"
-          ]
+          "enum": ["postal", "physical", "both"]
         },
         "_type": {
           "description": "Extensions for type",
@@ -1013,6 +1003,81 @@
         },
         "_code": {
           "description": "Extensions for code",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "VirtualServiceDetail": {
+      "description": "Virtual Service Contact Details.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "channelType": {
+          "description": "Channel Type.",
+          "$ref": "datatypes.schema.json#/definitions/Coding"
+        },
+        "addressUrl": {
+          "description": "Contact address/number",
+          "$ref": "base.schema.json#/definitions/url"
+        },
+        "_addressUrl": {
+          "description": "Extensions for addressUrl",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "addressString": {
+          "description": "Contact address/number",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_addressString": {
+          "description": "Extensions for addressString",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "addressContactPoint": {
+          "description": "Contact address/number",
+          "$ref": "datatypes.schema.json#/definitions/ContactPoint"
+        },
+        "addressExtendedContactDetail": {
+          "description": "Contact address/number",
+          "$ref": "datatypes.schema.json#/definitions/ExtendedContactDetail"
+        },
+        "additionalInfo": {
+          "description": "Address to see alternative connection details",
+          "items": {
+            "$ref": "base.schema.json#/definitions/url"
+          },
+          "type": "array"
+        },
+        "_additionalInfo": {
+          "description": "Extensions for additionalInfo",
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "maxParticipants": {
+          "description": "Maximum number of participants supported by the virtual service.",
+          "$ref": "base.schema.json#/definitions/positiveInt"
+        },
+        "_maxParticipants": {
+          "description": "Extensions for maxParticipants",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "sessionKey": {
+          "description": "Session Key required by the virtual service.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_sessionKey": {
+          "description": "Extensions for sessionKey",
           "$ref": "datatypes.schema.json#/definitions/Element"
         }
       },

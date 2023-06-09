@@ -1,3 +1,5 @@
+import exp from 'constants';
+
 export { AddressBuilder } from './AddressBuilder';
 export { AttachmentBuilder } from './AttachmentBuilder';
 export { CodeableConceptBuilder } from './CodeableConceptBuilder';
@@ -14,3 +16,4 @@ export { DurationBuilder } from './DurationBuilder';
 export { ExtendedContactDetailBuilder } from './ExtendedContactDetailBuilder';
 export { ExtensionBuilder } from './ExtensionBuilder';
 export { QuantityBuilder } from './QuantityBuilder';
+export { VirtualServiceDetailBuilder } from './VirtualServiceDetailBuilder';

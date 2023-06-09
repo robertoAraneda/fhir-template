@@ -1,23 +1,41 @@
 import { IdentifierUseEnum } from '../../enums/IdentifierUseEnum';
 import { IdentifierUseType } from '../../types/IdentifierUseType';
-import { IIdentifier, ICodeableConcept, IPeriod } from '../../interfaces/datatypes';
+import { IIdentifier, ICodeableConcept, IPeriod, IHumanName } from '../../interfaces/datatypes';
 import { IElement, ISerializable, IBuildable, IReference } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { validateReference } from '../../helpers/validateReference';
+import { Identifier } from '../../models/datatypes/Identifier';
 
-export class IdentifierBuilder
-  extends ElementBuilder<IdentifierBuilder>
-  implements IBuildable<IIdentifier>, ISerializable
-{
-  private readonly identifier: IIdentifier;
+interface IIdentifierBuilder extends IBuildable<IIdentifier>, ISerializable {
+  addIdentifierParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder;
+  setType(value: ICodeableConcept): IdentifierBuilder;
+  setUse(value: IdentifierUseEnum | IdentifierUseType): IdentifierBuilder;
+  setSystem(value: string): IdentifierBuilder;
+  setValue(value: string): IdentifierBuilder;
+  setPeriod(value: IPeriod): IdentifierBuilder;
+  setAssigner(value: IReference): IdentifierBuilder;
+  fromJSON(json: IIdentifier): Pick<IIdentifierBuilder, 'build' | 'serialize'>;
+}
+
+export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
+  private identifier: IIdentifier;
 
   constructor() {
     super();
 
-    this.identifier = {} as IIdentifier;
+    this.identifier = new Identifier();
   }
 
-  addIdentifierParamExtension(param: 'use' | 'system' | 'value', extension: Element): IdentifierBuilder {
+  fromJSON(json: IIdentifier): Pick<IIdentifierBuilder, 'build' | 'serialize'> {
+    this.identifier = json;
+
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
+  }
+
+  addIdentifierParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder {
     this.identifier[`_${param}`] = extension;
 
     return this;

@@ -6,8 +6,6 @@ import { Address } from '../../models/datatypes/Address';
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
 interface IAddressBuilder extends IBuildable<IAddress>, ISerializable {
-  build(): IAddress;
-  serialize(): string;
   fromJSON(json: IAddress): Pick<IAddressBuilder, 'build' | 'serialize'>;
   addAddressParamExtension(param: AddressParam, extension: IElement): AddressBuilder;
   setUse(value: string): AddressBuilder;

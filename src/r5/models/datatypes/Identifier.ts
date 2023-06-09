@@ -1,17 +1,18 @@
+import { ICodeableConcept, IExtension, IIdentifier, IPeriod } from '../../interfaces/datatypes';
+import { IElement, IReference } from '../../interfaces/base';
 import { IdentifierUseEnum } from '../../enums';
 import { IdentifierUseType } from '../../types';
-import { IElement, IReference } from '../base';
-import { IPeriod } from './IPeriod';
-import { ICodeableConcept } from './ICodeableConcept';
 
 /**
  * @description An identifier intended for computation
+ * @property {string} id - Unique id for inter-element referencing
+ * @property {IExtension[]} extension - Additional content defined by implementations
  * @property {IdentifierUseEnum | IdentifierUseType} use - 	usual | official | temp | secondary | old (If known). Binding: IdentifierUse (Required)
  * @property {ICodeableConcept} type - Description of identifier
  * @property {string} system - The namespace for the identifier value
  * @property {string} value - The value that is unique
  * @property {IPeriod} period - Time period when id is/was valid for use
- * @property {IReference} assigner - Organization that issued id (may be just text)
+ * @property {IReference} assigner - Organization that issued id (maybe just text)
  * @property {IElement} _use - Extension of use
  * @property {IElement} _system - Extension of system
  * @property {IElement} _value - Extension of value
@@ -28,7 +29,17 @@ import { ICodeableConcept } from './ICodeableConcept';
  *   "assigner" : { Reference(Organization) } // Organization that issued id (may be just text)
  * }
  */
-export interface IIdentifier extends IElement {
+export class Identifier implements IIdentifier {
+  /**
+   * @description Unique id for inter-element referencing
+   */
+  id?: string;
+
+  /**
+   * @description Additional content defined by implementations
+   */
+  extension?: IExtension[];
+
   /**
    * @description usual | official | temp | secondary | old (If known)
    */
@@ -73,4 +84,8 @@ export interface IIdentifier extends IElement {
    * @description Extension of value
    */
   _value?: IElement;
+
+  constructor(args?: IIdentifier) {
+    Object.assign(this, args);
+  }
 }

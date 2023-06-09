@@ -1,8 +1,9 @@
 import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
-import { IHumanName, IPeriod } from '../../interfaces/datatypes';
+import { IAddress, IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { HumanName } from '../../models/datatypes/HumanName';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
 type MultipleParamType = 'given' | 'prefix' | 'suffix';
@@ -19,6 +20,7 @@ interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable {
   addSuffix(value: string): HumanNameBuilder;
   setMultipleSuffix(value: string[]): HumanNameBuilder;
   setPeriod(value: IPeriod): HumanNameBuilder;
+  fromJSON(json: IHumanName): Pick<IHumanNameBuilder, 'build' | 'serialize'>;
 }
 export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
   private humanName: IHumanName;
@@ -26,7 +28,16 @@ export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implement
   constructor() {
     super();
 
-    this.humanName = {} as IHumanName;
+    this.humanName = new HumanName();
+  }
+
+  fromJSON(json: IHumanName): Pick<IHumanNameBuilder, 'build' | 'serialize'> {
+    this.humanName = json;
+
+    return {
+      build: () => this.build(),
+      serialize: () => this.serialize(),
+    };
   }
 
   addHumanNameParamExtension<T extends ParamType>(

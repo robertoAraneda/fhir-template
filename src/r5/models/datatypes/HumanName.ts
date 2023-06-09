@@ -39,12 +39,12 @@ export class HumanName implements IHumanName {
   /**
    * @description Unique id for inter-element referencing
    */
-  id: string;
+  id?: string;
 
   /**
    * @description Additional content defined by implementations
    */
-  extension: IExtension[];
+  extension?: IExtension[];
 
   /**
    * @description usual | official | temp | nickname | anonymous | old | maiden

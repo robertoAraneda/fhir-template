@@ -16,6 +16,7 @@ describe('HumanName', () => {
     builder = new HumanNameBuilder();
     builderFromFunction = builders.dataTypes.HumanNameBuilder();
   });
+
   it('should be able to create a new humanname and validate with correct data [new HumanName()]', async () => {
     const dataType = new HumanName({
       use: 'maiden',

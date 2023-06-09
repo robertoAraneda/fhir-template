@@ -15,15 +15,74 @@ import {
 import { Extension } from '../../models/datatypes/Extension';
 import { BuildAndSerialize, createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
 
-export class ExtensionBuilder
-  extends ElementBuilder<ExtensionBuilder>
-  implements IBuildable<IExtension>, ISerializable
-{
+type ExtensionParamType =
+  | 'valueId'
+  | 'valueBase64Binary'
+  | 'valueBoolean'
+  | 'valueCanonical'
+  | 'valueCode'
+  | 'valueDate'
+  | 'valueDateTime'
+  | 'valueDecimal'
+  | 'valueInstant'
+  | 'valueInteger'
+  | 'valueInteger64'
+  | 'valueMarkdown'
+  | 'valueOid'
+  | 'valuePositiveInt'
+  | 'valueString'
+  | 'valueTime'
+  | 'valueUnsignedInt'
+  | 'valueUri'
+  | 'valueUrl'
+  | 'valueUuid';
+interface IExtensionBuilder extends IBuildable<IExtension>, ISerializable {
+  fromJSON(json: any): BuildAndSerialize<IExtension>;
+  addExtensionParamExtension(param: ExtensionParamType, extension: IExtension): ExtensionBuilder;
+  setUrl(url: string): ExtensionBuilder;
+  setValueId(valueId: string): BuildAndSerialize<IExtension>;
+  setValueAddress(valueAddress: IAddress): BuildAndSerialize<IExtension>;
+  setValueAttachment(valueAttachment: IAttachment): BuildAndSerialize<IExtension>;
+  setValueBase64Binary(valueBase64Binary: string): BuildAndSerialize<IExtension>;
+  setValueBoolean(valueBoolean: boolean): BuildAndSerialize<IExtension>;
+  setValueCanonical(valueCanonical: string): BuildAndSerialize<IExtension>;
+  setValueCode(valueCode: string): BuildAndSerialize<IExtension>;
+  setValueCodeableConcept(valueCodeableConcept: ICodeableConcept): BuildAndSerialize<IExtension>;
+  setValueCodeableReference(valueCodeableReference: ICodeableReference): BuildAndSerialize<IExtension>;
+  setValueCoding(valueCoding: ICoding): BuildAndSerialize<IExtension>;
+  setValueContactPoint(valueContactPoint: IContactPoint): BuildAndSerialize<IExtension>;
+  setValueDate(valueDate: string): BuildAndSerialize<IExtension>;
+  setValueDateTime(valueDateTime: string): BuildAndSerialize<IExtension>;
+  setValueDecimal(valueDecimal: number): BuildAndSerialize<IExtension>;
+  setValueIdentifier(valueIdentifier: IIdentifier): BuildAndSerialize<IExtension>;
+  setValueInstant(valueInstant: string): BuildAndSerialize<IExtension>;
+  setValueInteger(valueInteger: number): BuildAndSerialize<IExtension>;
+  setValueInteger64(valueInteger64: number): BuildAndSerialize<IExtension>;
+  setValueMarkdown(valueMarkdown: string): BuildAndSerialize<IExtension>;
+  setValueString(valueString: string): BuildAndSerialize<IExtension>;
+  setValueTime(valueTime: string): BuildAndSerialize<IExtension>;
+  setValueUnsignedInt(valueUnsignedInt: number): BuildAndSerialize<IExtension>;
+  setValueUri(valueUri: string): BuildAndSerialize<IExtension>;
+  setValueUrl(valueUrl: string): BuildAndSerialize<IExtension>;
+  setValueUuid(valueUuid: string): BuildAndSerialize<IExtension>;
+  setValueOid(valueOid: string): BuildAndSerialize<IExtension>;
+  setValuePeriod(valuePeriod: IPeriod): BuildAndSerialize<IExtension>;
+  setValuePositiveInt(valuePositiveInt: number): BuildAndSerialize<IExtension>;
+  setValueQuantity(valueQuantity: IQuantity): BuildAndSerialize<IExtension>;
+  setValueReference(valueReference: IReference): BuildAndSerialize<IExtension>;
+}
+
+export class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
   private extension: IExtension;
 
   constructor() {
     super();
     this.extension = new Extension();
+  }
+
+  addExtensionParamExtension(param: ExtensionParamType, extension: IExtension): ExtensionBuilder {
+    this.extension[`_${param}`] = extension;
+    return this;
   }
 
   fromJSON(json: any): BuildAndSerialize<IExtension> {

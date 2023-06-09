@@ -1,10 +1,13 @@
+import { IExtension, IHumanName, IPeriod } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
-import { IPeriod } from './IPeriod';
-import { IElement } from '../base';
 
 /**
  * @description Name of a human or other living entity - parts and usage
+ * @implements {IHumanName}
+ * @property {string} id - Unique id for inter-element referencing
+ * @property {IExtension[]} extension - Additional content defined by implementations
  * @property {NameUseEnum} use - usual | official | temp | nickname | anonymous | old | maiden
  * @property {string} text - Text representation of the full name
  * @property {string} family - Family name (often called 'Surname')
@@ -20,8 +23,29 @@ import { IElement } from '../base';
  * @property {IElement[]} _suffix - Extension of suffix
  * @see {@link https://www.hl7.org/fhir/datatypes.html#HumanName HumanName}
  * @author Roberto Araneda
+ * @example JSON Template for HumanName
+ * {
+ *   // from Element: extension
+ *   "use" : "<code>", // usual | official | temp | nickname | anonymous | old | maiden
+ *   "text" : "<string>", // Text representation of the full name
+ *   "family" : "<string>", // Family name (often called 'Surname')
+ *   "given" : ["<string>"], // Given names (not always 'first'). Includes middle names
+ *   "prefix" : ["<string>"], // Parts that come before the name
+ *   "suffix" : ["<string>"], // Parts that come after the name
+ *   "period" : { Period } // Time period when name was/is in use
+ * }
  */
-export interface IHumanName extends IElement {
+export class HumanName implements IHumanName {
+  /**
+   * @description Unique id for inter-element referencing
+   */
+  id: string;
+
+  /**
+   * @description Additional content defined by implementations
+   */
+  extension: IExtension[];
+
   /**
    * @description usual | official | temp | nickname | anonymous | old | maiden
    */
@@ -88,4 +112,8 @@ export interface IHumanName extends IElement {
    * @description Extension of suffix
    */
   _suffix?: IElement[];
+
+  constructor(args?: IHumanName) {
+    Object.assign(this, args);
+  }
 }

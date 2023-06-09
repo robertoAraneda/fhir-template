@@ -6,11 +6,22 @@ import { ElementBuilder } from '../base/ElementBuilder';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
 type MultipleParamType = 'given' | 'prefix' | 'suffix';
-export class HumanNameBuilder
-  extends ElementBuilder<HumanNameBuilder>
-  implements IBuildable<IHumanName>, ISerializable
-{
-  private readonly humanName: IHumanName;
+
+interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable {
+  addHumanNameParamExtension(param: ParamType, extension: IElement | IElement[]): HumanNameBuilder;
+  setUse(value: NameUseEnum | NameUseType): HumanNameBuilder;
+  setText(value: string): HumanNameBuilder;
+  setFamily(value: string): HumanNameBuilder;
+  addGiven(value: string): HumanNameBuilder;
+  setMultipleGiven(value: string[]): HumanNameBuilder;
+  addPrefix(value: string): HumanNameBuilder;
+  setMultiplePrefix(value: string[]): HumanNameBuilder;
+  addSuffix(value: string): HumanNameBuilder;
+  setMultipleSuffix(value: string[]): HumanNameBuilder;
+  setPeriod(value: IPeriod): HumanNameBuilder;
+}
+export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
+  private humanName: IHumanName;
 
   constructor() {
     super();

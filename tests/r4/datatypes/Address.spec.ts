@@ -1,282 +1,154 @@
-import { AddressBuilder, CodingBuilder } from '../../../src/r4/builders/datatypes';
-import { IAddress } from '../../../src/r4/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
-import { Address } from '../../../src/r4/models/datatypes/Address';
+import { AddressBuilder } from '../../../src/r4/builders/datatypes';
+import { AddressTypeEnum } from '../../../src/r4/enums';
+import { Address } from '../../../src/r4/models/datatypes';
+import { IAddress } from '../../../src/r4/interfaces/datatypes';
 
-describe('Address', () => {
-  let validator: IValidatorContext;
+describe('Address FHIR R4', () => {
   let builder: AddressBuilder;
   let builderFromFunction: AddressBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR4();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new AddressBuilder();
-    builderFromFunction = builders.dataTypes.AddressBuilder();
+    builderFromFunction = Builder.dataTypes.AddressBuilder();
   });
 
   it('should be able to validate a new address [createDatatype]', async () => {
-    const address = createDatatype('Address', {
+    const item = createDatatype('Address', {
       id: '123',
-      type: 'postal',
-      period: {
-        start: '2020-01-01',
-        end: '2020-01-02',
-      },
-      text: '123 Main St',
+      type: AddressTypeEnum.BOTH,
+      use: 'old',
+      city: 'Anytown',
       line: ['123 Main St'],
-      district: 'Anycounty',
       country: 'USA',
-      postalCode: '12345',
-      state: 'AnyState',
     });
 
-    const validateAddress = await validator.dataTypes.Address(address);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await Validator.dataTypes.Address(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new address [new Address()]', async () => {
-    const address = new Address({
+    const item = new Address({
       id: '123',
-      type: 'postal',
-      period: {
-        start: '2020-01-01',
-        end: '2020-01-02',
-      },
-      text: '123 Main St',
+      type: AddressTypeEnum.BOTH,
+      use: 'old',
+      city: 'Anytown',
       line: ['123 Main St'],
-      district: 'Anycounty',
       country: 'USA',
-      postalCode: '12345',
-      state: 'AnyState',
     });
 
-    const validateAddress = await validator.dataTypes.Address(address);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await Validator.dataTypes.Address(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new address [IAddress]', async () => {
-    const address: IAddress = {
+    const item: IAddress = {
       id: '123',
-      type: 'postal',
-      period: {
-        start: '2020-01-01',
-        end: '2020-01-02',
-      },
-      text: '123 Main St',
-      line: ['123 Main St'],
+      type: AddressTypeEnum.BOTH,
+      use: 'old',
       city: 'Anytown',
-      use: 'home',
-      district: 'Anycounty',
+      line: ['123 Main St'],
       country: 'USA',
-      postalCode: '12345',
-      state: 'AnyState',
     };
 
-    const validateAddress = await validator.dataTypes.Address(address);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await Validator.dataTypes.Address(item);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new address using builder methods [new AddressBuilder()]', async () => {
-    const address: IAddress = builder
-      .setCity('Anytown')
-      .setCountry('USA')
-      .setDistrict('Anycounty')
+  it('should be able to create a new address using builder methods [new Address()]', async () => {
+    const item = builder
       .setId('123')
       .addLine('123 Main St')
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-02',
-      })
-      .setPostalCode('12345')
-      .setState('AnyState')
-      .setType('postal')
-      .setUse('home')
-      .addAddressParamExtension('line', [
-        {
-          extension: [
-            {
-              url: 'latitude',
-              valueCode: '123',
-            },
-          ],
-        },
-      ])
-      .addAddressParamExtension('city', {
+      .setType(AddressTypeEnum.BOTH)
+      .setUse('old')
+      .setCity('Anytown')
+      .addParamExtension('district', {
         extension: [
           {
-            url: 'latitude',
-            valueCode: '123',
+            url: 'district',
+            valueString: 'district',
           },
         ],
       })
       .build();
 
-    expect(address).toEqual({
-      id: '123',
-      type: 'postal',
-      period: {
-        start: '2020-01-01',
-        end: '2020-01-02',
-      },
-      line: ['123 Main St'],
-      _line: [
-        {
-          extension: [
-            {
-              url: 'latitude',
-              valueCode: '123',
-            },
-          ],
-        },
-      ],
-      city: 'Anytown',
-      use: 'home',
-      district: 'Anycounty',
-      country: 'USA',
-      postalCode: '12345',
-      state: 'AnyState',
-      _city: {
+    expect(item).toEqual({
+      _district: {
         extension: [
           {
-            url: 'latitude',
-            valueCode: '123',
+            url: 'district',
+            valueString: 'district',
           },
         ],
       },
+      city: 'Anytown',
+      id: '123',
+      line: ['123 Main St'],
+      type: 'both',
+      use: 'old',
     });
   });
 
   it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
-    const address: IAddress = builderFromFunction
-      .setCity('Anytown')
-      .setCountry('USA')
-      .setDistrict('Anycounty')
+    const item = builderFromFunction
       .setId('123')
       .addLine('123 Main St')
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-02',
-      })
-      .setPostalCode('12345')
-      .setState('AnyState')
-      .setType('postal')
-      .setUse('home')
-      .addAddressParamExtension('line', [
-        {
-          extension: [
-            {
-              url: 'latitude',
-              valueCode: '123',
-            },
-          ],
-        },
-      ])
-      .addAddressParamExtension('city', {
+      .setType(AddressTypeEnum.BOTH)
+      .setUse('old')
+      .setCity('Anytown')
+      .addParamExtension('district', {
         extension: [
           {
-            url: 'latitude',
-            valueCode: '123',
+            url: 'district',
+            valueString: 'district',
           },
         ],
       })
       .build();
 
-    expect(address).toEqual({
-      id: '123',
-      type: 'postal',
-      period: {
-        start: '2020-01-01',
-        end: '2020-01-02',
-      },
-      line: ['123 Main St'],
-      _line: [
-        {
-          extension: [
-            {
-              url: 'latitude',
-              valueCode: '123',
-            },
-          ],
-        },
-      ],
-      city: 'Anytown',
-      use: 'home',
-      district: 'Anycounty',
-      country: 'USA',
-      postalCode: '12345',
-      state: 'AnyState',
-      _city: {
+    expect(item).toEqual({
+      _district: {
         extension: [
           {
-            url: 'latitude',
-            valueCode: '123',
+            url: 'district',
+            valueString: 'district',
           },
         ],
       },
+      city: 'Anytown',
+      id: '123',
+      line: ['123 Main St'],
+      type: 'both',
+      use: 'old',
     });
   });
 
-  it('should be get errors validators if new address has wrong period', async () => {
-    const address: IAddress = {
+  it('should be get errors validators if new address has wrong data', async () => {
+    const item = {
       id: '123',
-      type: 'both',
-      period: {
-        start: 'bas start period', // wrong start period,
-        end: 'bad end period', // wrong end period
-      },
-      text: '123 Main St',
-      line: ['123 Main St'],
-      _line: [
-        {
-          extension: [
-            {
-              url: 'latitude',
-              valueCode: '123',
-            },
-          ],
-        },
-      ],
-      city: 'Anytown',
-      use: 'temp',
-      district: 'Anycounty',
-      country: 'USA',
-      postalCode: '12345',
-      state: 'AnyState',
-      extension: [
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/geolocation',
-          valueCode: '123',
-          extension: [
-            {
-              url: 'latitude',
-              valueId: '123',
-              extension: [
-                {
-                  url: 'longitude',
-                  valueAddress: {
-                    city: 'Anytown',
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      wrongProperty: 'wrong',
     };
 
-    const validateAddress = await validator.dataTypes.Address(address);
-    expect(validateAddress.isValid).toBeFalsy();
-    expect(validateAddress.errors).toBeDefined();
-    expect(validateAddress.errors?.length).toBe(2);
-
-    for (const error of validateAddress.errors!) {
-      expect(error.instancePath).toContain('period');
-    }
+    const validate = await Validator.dataTypes.Address(item);
+    expect(validate.isValid).toBeFalsy();
+    expect(validate.errors).toBeDefined();
+    expect(validate.errors?.length).toBe(1);
+    expect(validate.errors).toEqual([
+      {
+        instancePath: '',
+        keyword: 'additionalProperties',
+        message: 'must NOT have additional properties',
+        params: {
+          additionalProperty: 'wrongProperty',
+        },
+        schemaPath: '#/additionalProperties',
+      },
+    ]);
   });
 });

@@ -1,7 +1,1 @@
-import { AddressUseEnum } from '../enums/AddressUseEnum';
-
-const typesArray = Object.values(AddressUseEnum).map((value: any) => {
-  return value;
-}) as string[];
-
-export type AddressUseType = (typeof typesArray)[number];
+export type AddressUseType = 'home' | 'work' | 'temp' | 'old' | 'billing';

@@ -1,20 +1,17 @@
-import { CodeableReferenceBuilder, CodingBuilder } from '../../../src/r4/builders/datatypes';
+import { CodingBuilder } from '../../../src/r4/builders/datatypes';
 import { ICoding } from '../../../src/r4/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
-import { Coding } from '../../../src/r4/models/datatypes/Coding';
+import { Coding } from '../../../src/r4/models/datatypes';
 
-describe('Coding', () => {
-  let validator: IValidatorContext;
+describe('Coding FHIR R4', () => {
   let builder: CodingBuilder;
   let builderFromFunction: CodingBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR4();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new CodingBuilder();
-    builderFromFunction = builders.dataTypes.CodingBuilder();
+    builderFromFunction = Builder.dataTypes.CodingBuilder();
   });
 
   it('should be able to create a new coding and validate with correct data [createDatatype]', async () => {
@@ -26,11 +23,11 @@ describe('Coding', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     });
 
-    const validate = await validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
-  it('should be able to create a new coding and validate with correct data [new Coding]', async () => {
+  it('should be able to create a new coding and validate with correct data [new Coding()]', async () => {
     const dataType = new Coding({
       id: '123',
       code: '123',
@@ -39,7 +36,7 @@ describe('Coding', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     });
 
-    const validate = await validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -53,7 +50,7 @@ describe('Coding', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     };
 
-    const validate = await validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -68,7 +65,7 @@ describe('Coding', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -92,7 +89,7 @@ describe('Coding', () => {
       .setSystem('http://hl7.org/fhir/sid/us-npi')
       .setUserSelected(true)
       .setVersion('1.0.0')
-      .addCodingParamExtension('code', { id: '123', extension: [{ url: 'url', valueId: '1221' }] })
+      .addParamExtension('code', { id: '123', extension: [{ url: 'url', valueId: '1221' }] })
       .build();
 
     expect(dataType).toBeDefined();
@@ -122,7 +119,7 @@ describe('Coding', () => {
       .setSystem('http://hl7.org/fhir/sid/us-npi')
       .setUserSelected(true)
       .setVersion('1.0.0')
-      .addCodingParamExtension('code', { id: '123', extension: [{ url: 'url', valueId: '1221' }] })
+      .addParamExtension('code', { id: '123', extension: [{ url: 'url', valueId: '1221' }] })
       .build();
 
     expect(dataType).toBeDefined();

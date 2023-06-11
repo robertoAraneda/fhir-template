@@ -18,7 +18,7 @@ import { RelatedPerson } from '../../models/resources';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { validateReference } from '../../../globals/helpers/validateReference';
 
-type ParamType = 'active' | 'gender' | 'birthDate';
+type ParamType = 'implicitRules' | 'language' | 'active' | 'gender' | 'birthDate';
 
 interface IRelatedPersonBuilder extends IBuildable<RelatedPerson>, ISerializable {
   addParamExtension(param: ParamType, extension: IElement): this;

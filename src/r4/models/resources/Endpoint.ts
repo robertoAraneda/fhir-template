@@ -8,6 +8,7 @@ import {
   IPeriod,
   INarrative,
   IReference,
+  ICoding,
 } from '../../interfaces/datatypes';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
@@ -33,7 +34,7 @@ export class Endpoint implements IEndpoint {
   // Endpoint attributes
   identifier?: IIdentifier[];
   status: EndpointStatusEnum | EndpointStatusType;
-  connectionType: ICodeableConcept[];
+  connectionType: ICoding;
   name?: string;
   managingOrganization?: IReference;
   contact?: IContactPoint[];

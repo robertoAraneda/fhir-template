@@ -19,6 +19,8 @@ import { createBuildAndSerializeMethods } from '../../../globals/helpers/buildAn
 import { validateReference } from '../../../globals/helpers/validateReference';
 
 type ParamType =
+  | 'implicitRules'
+  | 'language'
   | 'active'
   | 'birthDate'
   | 'gender'

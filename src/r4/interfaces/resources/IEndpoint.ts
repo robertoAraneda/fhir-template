@@ -1,6 +1,6 @@
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
-import { ICodeableConcept, IContactPoint, IIdentifier, IPeriod, IReference } from '../datatypes';
+import { ICodeableConcept, ICoding, IContactPoint, IIdentifier, IPeriod, IReference } from '../datatypes';
 import { IDomainResource, IElement } from '../base';
 
 /**
@@ -25,7 +25,7 @@ export interface IEndpoint extends IDomainResource {
    * Protocol/Profile/Standard to be used with this endpoint connection.
    * @summary Required field
    */
-  connectionType: ICodeableConcept[];
+  connectionType: ICoding;
   /**
    * A name that this endpoint can be identified by.
    */

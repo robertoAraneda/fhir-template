@@ -9,7 +9,7 @@ import { IPerson } from '../../interfaces/resources';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { validateReference } from '../../../globals/helpers/validateReference';
 
-type ParamType = 'active' | 'birthDate' | 'gender';
+type ParamType = 'implicitRules' | 'language' | 'active' | 'birthDate' | 'gender';
 
 interface IPersonBuilder extends IBuildable<IPerson>, ISerializable {
   addParamExtension(param: ParamType, extension: IElement): this;

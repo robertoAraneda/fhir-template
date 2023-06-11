@@ -6,7 +6,7 @@ import { IOrganization } from '../../interfaces/resources';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { IOrganizationContact } from '../../interfaces/backbones';
 
-type ParamsType = 'active' | 'alias' | 'name';
+type ParamsType = 'implicitRules' | 'language' | 'active' | 'alias' | 'name';
 interface IOrganizationBuilder extends IBuildable<Organization>, ISerializable {
   addOrganizationParamExtension<T extends ParamsType>(
     param: T,

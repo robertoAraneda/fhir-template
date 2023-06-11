@@ -1,5 +1,5 @@
 import { IEndpoint } from '../../interfaces/resources';
-import { ICodeableConcept, IContactPoint, IPeriod, IIdentifier, IReference } from '../../interfaces/datatypes';
+import { ICodeableConcept, IContactPoint, IPeriod, IIdentifier, IReference, ICoding } from '../../interfaces/datatypes';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
 import { Endpoint } from '../../models/resources';
@@ -15,8 +15,7 @@ interface IEndpointBuilder extends IBuildable<IEndpoint>, ISerializable {
   addIdentifier(identifier: IIdentifier): EndpointBuilder;
   setMultipleIdentifier(identifier: IIdentifier[]): EndpointBuilder;
   setStatus(status: EndpointStatusEnum | EndpointStatusType): EndpointBuilder;
-  addConnectionType(connectionType: ICodeableConcept): EndpointBuilder;
-  setMultipleConnectionType(connectionType: ICodeableConcept[]): EndpointBuilder;
+  setConnectionType(connectionType: ICoding): EndpointBuilder;
   setName(name: string): EndpointBuilder;
   setManagingOrganization(managingOrganization: IReference): EndpointBuilder;
   addContact(contact: IContactPoint): EndpointBuilder;
@@ -84,7 +83,7 @@ export class EndpointBuilder extends DomainResourceBuilder<EndpointBuilder> impl
     return this;
   }
 
-  setMultipleConnectionType(connectionType: ICodeableConcept[]): EndpointBuilder {
+  setConnectionType(connectionType: ICoding): EndpointBuilder {
     this.endpoint.connectionType = connectionType;
 
     return this;
@@ -131,14 +130,6 @@ export class EndpointBuilder extends DomainResourceBuilder<EndpointBuilder> impl
 
     return this;
   }
-
-  addConnectionType(connectionType: ICodeableConcept): EndpointBuilder {
-    this.endpoint.connectionType = this.endpoint.connectionType || [];
-    this.endpoint.connectionType.push(connectionType);
-
-    return this;
-  }
-
   addContact(contact: IContactPoint): EndpointBuilder {
     this.endpoint.contact = this.endpoint.contact || [];
     this.endpoint.contact.push(contact);

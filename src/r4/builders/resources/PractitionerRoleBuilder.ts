@@ -7,7 +7,7 @@ import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { validateReference } from '../../../globals/helpers/validateReference';
 import { IPractitionerRoleAvailableTime, IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 
-type ParamType = 'active' | 'availabilityExceptions';
+type ParamType = 'implicitRules' | 'language' | 'active' | 'availabilityExceptions';
 
 interface IPractitionerRoleBuilder extends IBuildable<IPractitionerRole>, ISerializable {
   addParamExtension(param: ParamType, extension: IElement): this;

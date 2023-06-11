@@ -16,7 +16,7 @@ import { Practitioner } from '../../models/resources';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { validateReference } from '../../../globals/helpers/validateReference';
 
-type ParamType = 'active' | 'birthDate' | 'gender';
+type ParamType = 'implicitRules' | 'language' | 'active' | 'birthDate' | 'gender';
 
 interface IPractitionerBuilder extends IBuildable<Practitioner>, ISerializable {
   addParamExtension(param: ParamType, extension: IElement): this;

@@ -2,13 +2,12 @@ import { IElement } from '../base';
 import { ICoding } from './ICoding';
 
 /**
+ * @summary FHIR R4
  * @description Concept - reference to a terminology or just text.
- * @property {string} id - Unique id for inter-element referencing
- * @property {IExtension[]} extension - Additional content defined by implementations
  * @property {ICoding[]} coding - Code defined by a terminology system
  * @property {string} text - Plain text representation of the concept
  * @extends {IElement}
- * @see https://www.hl7.org/fhir/datatypes.html#CodeableConcept CodeableConcept
+ * @see http://hl7.org/fhir/R4/datatypes.html#CodeableConcept http://hl7.org/fhir/R4/datatypes.html#CodeableConcept
  * @author Roberto Araneda
  */
 export interface ICodeableConcept extends IElement {

@@ -1,12 +1,15 @@
-import { IExtension } from '../../interfaces/datatypes';
-import { BaseBuilder } from './BaseBuilder';
 import { IElement } from '../../interfaces/base';
+import { IExtension } from '../../interfaces/datatypes';
 
-export class ElementBuilder<BuilderClass extends ElementBuilder<BuilderClass>> extends BaseBuilder<BuilderClass> {
+interface IElementBuilder<BuilderClass> {
+  setId(id: string): BuilderClass;
+  addExtension(extension: IExtension): BuilderClass;
+  setMultipleExtension(extension: IExtension[]): BuilderClass;
+}
+export class ElementBuilder<BuilderClass> implements IElementBuilder<BuilderClass> {
   private readonly element: IElement;
 
   constructor() {
-    super();
     this.element = {} as IElement;
   }
 
@@ -26,10 +29,9 @@ export class ElementBuilder<BuilderClass extends ElementBuilder<BuilderClass>> e
     return this as unknown as BuilderClass;
   }
 
-  entity(): IElement {
+  protected entity(): IElement {
     return {
       ...this.element,
-      ...super.entity(),
     };
   }
 }

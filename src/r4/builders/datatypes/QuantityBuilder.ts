@@ -1,30 +1,30 @@
 import { ElementBuilder } from '../base/ElementBuilder';
 import { IQuantity } from '../../interfaces/datatypes';
-import { Quantity } from '../../models/datatypes/Quantity';
-import { IBuildable, ISerializable } from '../../interfaces/base';
+import { Quantity } from '../../models/datatypes';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IElement } from '../../interfaces/base';
 
-type QuantityParam = 'code' | 'system' | 'unit' | 'value' | 'comparator';
+type ParamType = 'code' | 'system' | 'unit' | 'value' | 'comparator';
 interface IQuantityBuilder extends IBuildable<IQuantity>, ISerializable {
-  fromJSON(json: IQuantity): Pick<IQuantityBuilder, 'build' | 'serialize'>;
   setCode(value: string): QuantityBuilder;
   setSystem(value: string): QuantityBuilder;
   setUnit(value: string): QuantityBuilder;
   setValue(value: number): QuantityBuilder;
   setComparator(value: QuantityComparatorEnum | QuantityComparatorType): QuantityBuilder;
-  addQuantityParamExtension(param: QuantityParam, extension: IQuantity): QuantityBuilder;
+  addParamExtension(param: ParamType, extension: IElement): QuantityBuilder;
 }
 
 export class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
-  private quantity: IQuantity;
+  private readonly quantity: IQuantity;
 
   constructor() {
     super();
     this.quantity = new Quantity();
   }
 
-  addQuantityParamExtension(param: QuantityParam, extension: IQuantity): QuantityBuilder {
+  addParamExtension(param: ParamType, extension: IElement): QuantityBuilder {
     this.quantity[`_${param}`] = extension;
 
     return this;
@@ -32,13 +32,6 @@ export class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements 
 
   build(): IQuantity {
     return JSON.parse(this.serialize());
-  }
-
-  fromJSON(json: IQuantity): Pick<IQuantityBuilder, 'build' | 'serialize'> {
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   raw(): IQuantity {

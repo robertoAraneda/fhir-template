@@ -1,28 +1,22 @@
 import {
   IAddress,
   IAttachment,
-  IAvailability,
   ICodeableConcept,
-  ICodeableReference,
   ICoding,
   IContactPoint,
   IDuration,
-  IExtendedContactDetail,
   IExtension,
   IHumanName,
   IIdentifier,
   IMeta,
   IPeriod,
   IQuantity,
-  IVirtualServiceDetail,
 } from './interfaces/datatypes';
-import { IReference } from './interfaces/base';
 import { Wait } from './validators/BackboneElementValidator';
 export interface IDatatypeValidatorProperties {
   Address: (data: unknown) => Wait;
   Attachment: (data: unknown) => Wait;
   CodeableConcept: (data: unknown) => Wait;
-  CodeableReference: (data: unknown) => Wait;
   Coding: (data: unknown) => Wait;
   ContactPoint: (data: unknown) => Wait;
   HumanName: (data: unknown) => Wait;
@@ -30,11 +24,8 @@ export interface IDatatypeValidatorProperties {
   Meta: (data: unknown) => Wait;
   Period: (data: unknown) => Wait;
   Reference: (data: unknown) => Wait;
-  Availability: (data: unknown) => Wait;
   Duration: (data: unknown) => Wait;
-  ExtendedContactDetail: (data: unknown) => Wait;
   Quantity: (data: unknown) => Wait;
-  VirtualServiceDetail: (data: unknown) => Wait;
 }
 
 export type DatatypeTypeR4 =
@@ -47,16 +38,12 @@ export type DatatypeTypeR4 =
   | 'Identifier'
   | 'Meta'
   | 'Period'
-  | 'Availability'
-  | 'CodeableReference'
   | 'Duration'
   | 'Extension'
-  | 'ExtendedContactDetail'
   | 'Quantity'
-  | 'VirtualServiceDetail'
   | 'Reference';
 
-export type DataType<T> = T extends 'Address'
+export type ParseDataTypeR4<T> = T extends 'Address'
   ? IAddress
   : T extends 'Attachment'
   ? IAttachment
@@ -74,20 +61,10 @@ export type DataType<T> = T extends 'Address'
   ? IMeta
   : T extends 'Period'
   ? IPeriod
-  : T extends 'Reference'
-  ? IReference
-  : T extends 'Availability'
-  ? IAvailability
-  : T extends 'CodeableReference'
-  ? ICodeableReference
   : T extends 'Duration'
   ? IDuration
-  : T extends 'ExtendedContactDetail'
-  ? IExtendedContactDetail
   : T extends 'Extension'
   ? IExtension
   : T extends 'Quantity'
   ? IQuantity
-  : T extends 'VirtualServiceDetail'
-  ? IVirtualServiceDetail
   : unknown;

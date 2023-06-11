@@ -1,5 +1,6 @@
 import { IDomainResource, IElement, IReference } from '../base';
-import { IIdentifier, IPeriod, ICodeableConcept, IExtendedContactDetail, IAvailability } from '../datatypes';
+import { IIdentifier, IPeriod, ICodeableConcept, IContactPoint } from '../datatypes';
+import { IPractitionerRoleAvailableTime, IPractitionerRoleNotAvailable } from '../backbones';
 
 export interface IPractitionerRole extends IDomainResource {
   identifier?: IIdentifier[];
@@ -11,10 +12,11 @@ export interface IPractitionerRole extends IDomainResource {
   specialty?: ICodeableConcept[];
   location?: IReference[];
   healthcareService?: IReference[];
-  contact?: IExtendedContactDetail[];
-  characteristic?: ICodeableConcept[];
-  communication?: ICodeableConcept[];
-  availability?: IAvailability[];
+  telecom?: IContactPoint[];
+  availableTime?: IPractitionerRoleAvailableTime[];
+  notAvailable?: IPractitionerRoleNotAvailable[];
+  availabilityExceptions?: string;
   endpoint?: IReference[];
   _active?: IElement;
+  _availabilityExceptions?: IElement;
 }

@@ -1,41 +1,55 @@
 import { IEndpoint } from '../../interfaces/resources';
-import { ICodeableConcept, IContactPoint, IExtension, IIdentifier, IMeta, IPeriod } from '../../interfaces/datatypes';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
-import { IEndpointPayload } from '../../interfaces/backbones';
+import {
+  ICodeableConcept,
+  IContactPoint,
+  IExtension,
+  IIdentifier,
+  IMeta,
+  IPeriod,
+  INarrative,
+  IReference,
+} from '../../interfaces/datatypes';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
+import { IElement, IResource } from '../../interfaces/base';
 
 export class Endpoint implements IEndpoint {
-  _address?: IElement;
-  _description?: IElement;
-  _header?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
-  _name?: IElement;
-  _status?: IElement;
-  address: string;
-  connectionType: ICodeableConcept[];
-  contact?: IContactPoint[];
-  contained?: IResource[];
-  description?: string;
-  environmentType?: ICodeableConcept[];
-  extension?: IExtension[];
-  header?: string[];
+  resourceType: string = 'Endpoint';
+
+  // Resource attributes
   id?: number | string;
-  identifier?: IIdentifier[];
+  meta?: IMeta;
   implicitRules?: string;
   language?: string;
-  managingOrganization?: IReference;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
-  name?: string;
-  payload?: IEndpointPayload[];
-  period?: IPeriod;
-  resourceType: string = 'Endpoint';
-  status?: EndpointStatusEnum | EndpointStatusType;
-  text?: INarrative;
+  _implicitRules?: IElement;
+  _language?: IElement;
 
-  constructor(args?: Endpoint) {
+  // DomainResource attributes
+  text?: INarrative;
+  contained?: IResource[];
+  extension?: IExtension[];
+  modifierExtension?: IExtension[];
+
+  // Endpoint attributes
+  identifier?: IIdentifier[];
+  status: EndpointStatusEnum | EndpointStatusType;
+  connectionType: ICodeableConcept[];
+  name?: string;
+  managingOrganization?: IReference;
+  contact?: IContactPoint[];
+  period?: IPeriod;
+  payloadType: ICodeableConcept[];
+  payloadMimeType?: string[];
+  address: string;
+  header?: string[];
+
+  // Extensions
+  _address?: IElement;
+  _header?: IElement[];
+  _name?: IElement;
+  _status?: IElement;
+
+  constructor(args?: IEndpoint) {
     Object.assign(this, args);
   }
 }

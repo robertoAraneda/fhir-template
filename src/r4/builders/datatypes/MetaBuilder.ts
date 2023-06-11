@@ -1,12 +1,13 @@
-import { ICoding, IIdentifier, IMeta } from '../../interfaces/datatypes';
-import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
+import { ICoding, IMeta } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { Meta } from '../../models/datatypes/Meta';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 type ParamsType = 'lastUpdated' | 'source' | 'versionId';
 
 interface IMetaBuilder extends IBuildable<IMeta>, ISerializable {
-  addMetaParamExtension(param: ParamsType, extension: IElement[] | IElement): MetaBuilder;
+  addParamExtension(param: ParamsType, extension: IElement): MetaBuilder;
   setSource(source: string): MetaBuilder;
   setVersionId(versionId: string | number): MetaBuilder;
   setLastUpdated(lastUpdated: string): MetaBuilder;
@@ -16,10 +17,9 @@ interface IMetaBuilder extends IBuildable<IMeta>, ISerializable {
   setMultipleTag(tag: ICoding[]): MetaBuilder;
   setMultipleProfile(profile: string[]): MetaBuilder;
   setMultipleSecurity(security: ICoding[]): MetaBuilder;
-  fromJSON(json: IIdentifier): Pick<IMetaBuilder, 'build' | 'serialize'>;
 }
 export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBuilder {
-  private meta: IMeta;
+  private readonly meta: IMeta;
 
   constructor() {
     super();
@@ -27,16 +27,7 @@ export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBui
     this.meta = new Meta();
   }
 
-  fromJSON(json: IIdentifier): Pick<IMetaBuilder, 'build' | 'serialize'> {
-    this.meta = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
-  }
-
-  addMetaParamExtension<T extends ParamsType>(param: T, extension: IElement): MetaBuilder {
+  addParamExtension<T extends ParamsType>(param: T, extension: IElement): MetaBuilder {
     this.meta[`_${param}`] = extension as IElement;
 
     return this;

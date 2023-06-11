@@ -1,14 +1,16 @@
-import { IElement } from '../base/IElement';
+import { IElement } from '../base';
 import { IAddress } from './IAddress';
 import { ICodeableConcept } from './ICodeableConcept';
 import { IPeriod } from './IPeriod';
-import { IReference } from '../base/IReference';
-import { ICodeableReference } from './ICodeableReference';
 import { ICoding } from './ICoding';
 import { IAttachment } from './IAttachment';
 import { IContactPoint } from './IContactPoint';
 import { IIdentifier } from './IIdentifier';
 import { IQuantity } from './IQuantity';
+import { IReference } from './IReference';
+import { IDuration } from './IDuration';
+import { IHumanName } from './IHumanName';
+import { IMeta } from './IMeta';
 
 export interface IExtension extends IElement {
   url: string;
@@ -33,8 +35,6 @@ export interface IExtension extends IElement {
   _valueInstant?: IElement;
   valueInteger?: number;
   _valueInteger?: IElement;
-  valueInteger64?: number;
-  _valueInteger64?: IElement;
   valueMarkdown?: string;
   _valueMarkdown?: IElement;
   valueOid?: string;
@@ -54,15 +54,34 @@ export interface IExtension extends IElement {
   valueUuid?: string;
   _valueUuid?: IElement;
   valueAddress?: IAddress;
-  valueCodeableConcept?: ICodeableConcept;
+  // TODO missing age
+  // TODO missing annotation
   valueAttachment?: IAttachment;
-
-  valueReference?: IReference;
-  valueCodeableReference?: ICodeableReference;
+  valueCodeableConcept?: ICodeableConcept;
   valueCoding?: ICoding;
   valueContactPoint?: IContactPoint;
+  // TODO missing count
+  // TODO missing distance
+  valueDuration?: IDuration;
+  valueHumanName?: IHumanName;
   valueIdentifier?: IIdentifier;
-
+  // TODO missing money
   valuePeriod?: IPeriod;
   valueQuantity?: IQuantity;
+  // TODO missing range
+  // TODO missing ratio
+  valueReference?: IReference;
+  // TODO missing sampledData
+  // TODO missing signature
+  // TODO missing timing
+  // TODO missing contactDetail
+  // TODO missing contributor
+  // TODO missing dataRequirement
+  // TODO missing expression
+  // TODO missing parameterDefinition
+  // TODO missing relatedArtifact
+  // TODO missing triggerDefinition
+  // TODO missing usageContext
+  // TODO missing dosage
+  valueMeta?: IMeta;
 }

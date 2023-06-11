@@ -1,41 +1,65 @@
 import { IEndpoint } from '../../interfaces/resources';
-import { ICodeableConcept, IContactPoint, IPeriod, IIdentifier } from '../../interfaces/datatypes';
-import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
-import { IEndpointPayload } from '../../interfaces/backbones';
+import { ICodeableConcept, IContactPoint, IPeriod, IIdentifier, IReference } from '../../interfaces/datatypes';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
-import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Endpoint } from '../../models/resources';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
+import { createBuildAndSerializeMethods } from '../../../globals/helpers/buildAndSerialize';
+import { IElement } from '../../interfaces/base';
 
-type ParamType = 'address' | 'description' | 'header' | 'name' | 'status' | 'implicitRules' | 'language';
-export class EndpointBuilder
-  extends DomainResourceBuilder<EndpointBuilder>
-  implements IBuildable<Endpoint>, ISerializable
-{
-  private endpoint: Endpoint;
+type ParamType = 'implicitRules' | 'language' | 'address' | 'name' | 'status' | 'header' | 'payloadMimeType';
+interface IEndpointBuilder extends IBuildable<IEndpoint>, ISerializable {
+  fromJSON(json: any): Pick<IEndpointBuilder, 'serialize' | 'build'>;
+  addParamExtension(param: ParamType, extension: IElement[] | IElement): EndpointBuilder;
+  addIdentifier(identifier: IIdentifier): EndpointBuilder;
+  setMultipleIdentifier(identifier: IIdentifier[]): EndpointBuilder;
+  setStatus(status: EndpointStatusEnum | EndpointStatusType): EndpointBuilder;
+  addConnectionType(connectionType: ICodeableConcept): EndpointBuilder;
+  setMultipleConnectionType(connectionType: ICodeableConcept[]): EndpointBuilder;
+  setName(name: string): EndpointBuilder;
+  setManagingOrganization(managingOrganization: IReference): EndpointBuilder;
+  addContact(contact: IContactPoint): EndpointBuilder;
+  setMultipleContact(contact: IContactPoint[]): EndpointBuilder;
+  setPeriod(period: IPeriod): EndpointBuilder;
+  addPayloadType(payloadType: ICodeableConcept[]): EndpointBuilder;
+  setMultiplePayloadType(payloadType: ICodeableConcept[]): EndpointBuilder;
+  addPayloadMimeType(payloadMimeType: string): EndpointBuilder;
+  setMultiplePayloadMimeType(payloadMimeType: string[]): EndpointBuilder;
+  setAddress(address: string): EndpointBuilder;
+  addHeader(header: string): EndpointBuilder;
+  setMultipleHeader(header: string[]): EndpointBuilder;
+}
+export class EndpointBuilder extends DomainResourceBuilder<EndpointBuilder> implements IEndpointBuilder {
+  private endpoint: IEndpoint;
   constructor() {
     super();
     this.endpoint = new Endpoint();
   }
 
-  fromJSON(data: Partial<Endpoint>) {
+  fromJSON(data: IEndpoint): Pick<IEndpointBuilder, 'serialize' | 'build'> {
     if (!data.address) throw new Error('Endpoint.address is required');
     if (!data.connectionType) throw new Error('Endpoint.connectionType is required');
-    this.endpoint = {
-      address: data.address,
-      connectionType: data.connectionType,
-      resourceType: 'Endpoint',
-      ...data,
-    };
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
+    if (!data.payloadType) throw new Error('Endpoint.payloadType is required');
+    this.endpoint = data;
+    return createBuildAndSerializeMethods(this.endpoint);
   }
 
-  addEndpointParamExtension(param: ParamType, extension: IElement): EndpointBuilder {
-    this.endpoint[`_${param}`] = extension;
-
+  addParamExtension<T extends ParamType>(
+    param: T,
+    extension: T extends 'header' | 'payloadMimeType' ? IElement[] : IElement,
+  ): EndpointBuilder {
+    const includes = ['header', 'payloadMimeType'];
+    if (includes.includes(param)) {
+      const localMultipleParam = param as Exclude<
+        ParamType,
+        'implicitRules' | 'language' | 'address' | 'name' | 'status'
+      >;
+      this.endpoint[`_${localMultipleParam}`] = extension as IElement[];
+    } else {
+      const localParam = param as Exclude<ParamType, 'header' | 'payloadMimeType'>;
+      this.endpoint[`_${localParam}`] = extension as IElement;
+    }
     return this;
   }
 
@@ -43,14 +67,14 @@ export class EndpointBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  raw(): Endpoint {
+  raw(): IEndpoint {
     return {
       ...this.endpoint,
       ...super.entity(),
     };
   }
 
-  build(): Endpoint {
+  build(): IEndpoint {
     return JSON.parse(this.serialize());
   }
 
@@ -68,18 +92,6 @@ export class EndpointBuilder
 
   setMultipleContact(contact: IContactPoint[]): EndpointBuilder {
     this.endpoint.contact = contact;
-
-    return this;
-  }
-
-  setDescription(description: string): EndpointBuilder {
-    this.endpoint.description = description;
-
-    return this;
-  }
-
-  setMultipleEnvironmentType(environmentType: ICodeableConcept[]): EndpointBuilder {
-    this.endpoint.environmentType = environmentType;
 
     return this;
   }
@@ -104,12 +116,6 @@ export class EndpointBuilder
 
   setName(name: string): EndpointBuilder {
     this.endpoint.name = name;
-
-    return this;
-  }
-
-  setMultiplePayload(payload: IEndpointPayload[]): EndpointBuilder {
-    this.endpoint.payload = payload;
 
     return this;
   }
@@ -140,13 +146,6 @@ export class EndpointBuilder
     return this;
   }
 
-  addEnvironmentType(environmentType: ICodeableConcept): EndpointBuilder {
-    this.endpoint.environmentType = this.endpoint.environmentType || [];
-    this.endpoint.environmentType.push(environmentType);
-
-    return this;
-  }
-
   addHeader(header: string): EndpointBuilder {
     this.endpoint.header = this.endpoint.header || [];
     this.endpoint.header.push(header);
@@ -161,10 +160,27 @@ export class EndpointBuilder
     return this;
   }
 
-  addPayload(payload: IEndpointPayload): EndpointBuilder {
-    this.endpoint.payload = this.endpoint.payload || [];
-    this.endpoint.payload.push(payload);
+  addPayloadMimeType(payloadMimeType: string): EndpointBuilder {
+    this.endpoint.payloadMimeType = this.endpoint.payloadMimeType || [];
+    this.endpoint.payloadMimeType.push(payloadMimeType);
 
+    return this;
+  }
+
+  addPayloadType(payloadType: ICodeableConcept[]): EndpointBuilder {
+    this.endpoint.payloadType = this.endpoint.payloadType || [];
+    this.endpoint.payloadType.push(...payloadType);
+
+    return this;
+  }
+
+  setMultiplePayloadMimeType(payloadMimeType: string[]): EndpointBuilder {
+    this.endpoint.payloadMimeType = payloadMimeType;
+    return this;
+  }
+
+  setMultiplePayloadType(payloadType: ICodeableConcept[]): EndpointBuilder {
+    this.endpoint.payloadType = payloadType;
     return this;
   }
 }

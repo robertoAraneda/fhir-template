@@ -1,36 +1,53 @@
 import { IOrganization } from '../../interfaces/resources';
-import { ICodeableConcept, IExtendedContactDetail, IExtension, IIdentifier, IMeta } from '../../interfaces/datatypes';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
-import { IOrganizationQualification } from '../../interfaces/backbones';
+import {
+  IAddress,
+  ICodeableConcept,
+  IContactPoint,
+  IExtension,
+  IIdentifier,
+  IMeta,
+  INarrative,
+  IReference,
+} from '../../interfaces/datatypes';
+import { IElement, IResource } from '../../interfaces/base';
+import { IOrganizationContact } from '../../interfaces/backbones';
 
 export class Organization implements IOrganization {
+  resourceType = 'Organization';
+
+  // Resource attributes
+  id?: number | string;
+  meta?: IMeta;
+  implicitRules?: string;
+  language?: string;
+  _implicitRules?: IElement;
+  _language?: IElement;
+
+  // DomainResource attributes
+  text?: INarrative;
+  contained?: IResource[];
+  extension?: IExtension[];
+  modifierExtension?: IExtension[];
+
+  // Organization attributes
+  identifier?: IIdentifier[];
+  active?: boolean;
+  type?: ICodeableConcept[];
+  name?: string;
+  alias?: string[];
+  telecom?: IContactPoint[];
+  address?: IAddress[];
+  partOf?: IReference;
+  contact?: IOrganizationContact[];
+  endpoint?: IReference[];
+
+  // Extensions
   _active?: IElement;
   _alias?: IElement[];
   _description?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
   _name?: IElement;
-  active?: boolean;
-  alias?: string[];
-  contact?: IExtendedContactDetail[];
-  contained?: IResource[];
-  description?: string;
-  endpoint?: IReference[];
-  extension?: IExtension[];
-  id?: number | string;
-  identifier?: IIdentifier[];
-  implicitRules?: string;
-  language?: string;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
-  name?: string;
-  partOf?: IReference;
-  qualification?: IOrganizationQualification[];
-  resourceType: string = 'Organization';
-  text?: INarrative;
-  type?: ICodeableConcept[];
 
-  constructor(args?: Partial<Organization>) {
+  constructor(args?: IOrganization) {
     Object.assign(this, args);
   }
 }

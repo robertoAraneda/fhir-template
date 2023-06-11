@@ -4,26 +4,29 @@ import { AddressTypeEnum, AddressUseEnum } from '../../enums';
 import { IPeriod } from './index';
 
 /**
- * @interface IAddress - An address expressed using postal conventions (as opposed to GPS or other location definition formats)
+ * @description FHIR R4
  */
 export interface IAddress extends IElement {
+  // Address attributes
   use?: AddressUseEnum | AddressUseType;
-  _use?: IElement;
   type?: AddressTypeEnum | AddressTypeType;
-  _type?: IElement;
   text?: string;
-  _text?: IElement;
   line?: string[];
-  _line?: IElement[];
   city?: string;
-  _city?: IElement;
   district?: string;
-  _district?: IElement;
   state?: string;
-  _state?: IElement;
   postalCode?: string;
-  _postalCode?: IElement;
   country?: string;
-  _country?: IElement;
   period?: IPeriod;
+
+  // Extensions
+  _use?: IElement;
+  _type?: IElement;
+  _text?: IElement;
+  _line?: IElement[];
+  _city?: IElement;
+  _district?: IElement;
+  _state?: IElement;
+  _postalCode?: IElement;
+  _country?: IElement;
 }

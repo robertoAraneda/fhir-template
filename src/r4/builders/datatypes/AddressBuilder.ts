@@ -1,13 +1,13 @@
 import { IAddress, IPeriod } from '../../interfaces/datatypes';
-import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Address } from '../../models/datatypes/Address';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { Address } from '../../models/datatypes';
 
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
 interface IAddressBuilder extends IBuildable<IAddress>, ISerializable {
-  fromJSON(json: IAddress): Pick<IAddressBuilder, 'build' | 'serialize'>;
-  addAddressParamExtension(param: AddressParam, extension: IElement): AddressBuilder;
+  addParamExtension(param: AddressParam, extension: IElement): AddressBuilder;
   setUse(value: string): AddressBuilder;
   setType(value: string): AddressBuilder;
   setText(value: string): AddressBuilder;
@@ -22,23 +22,14 @@ interface IAddressBuilder extends IBuildable<IAddress>, ISerializable {
 }
 
 export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IAddressBuilder {
-  private address: IAddress;
+  private readonly address: IAddress;
 
   constructor() {
     super();
     this.address = new Address();
   }
 
-  fromJSON(json: IAddress): Pick<IAddressBuilder, 'build' | 'serialize'> {
-    this.address = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
-  }
-
-  addAddressParamExtension<T extends AddressParam>(
+  addParamExtension<T extends AddressParam>(
     param: T,
     extension: T extends 'line' ? IElement[] : IElement,
   ): AddressBuilder {

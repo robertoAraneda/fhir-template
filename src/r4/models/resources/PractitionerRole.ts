@@ -1,44 +1,58 @@
 import { IPractitionerRole } from '../../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
-  IAvailability,
   ICodeableConcept,
-  IExtendedContactDetail,
   IExtension,
   IIdentifier,
   IMeta,
+  INarrative,
   IPeriod,
+  IReference,
 } from '../../interfaces/datatypes';
+import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
+import { IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 
+/**
+ * @summary FHIR R4
+ */
 export class PractitionerRole implements IPractitionerRole {
-  _active?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
-  active?: boolean;
-  availability?: IAvailability[];
-  characteristic?: ICodeableConcept[];
-  code?: ICodeableConcept[];
-  communication?: ICodeableConcept[];
-  contact?: IExtendedContactDetail[];
-  contained?: IResource[];
-  endpoint?: IReference[];
-  extension?: IExtension[];
-  healthcareService?: IReference[];
+  resourceType = 'PractitionerRole';
+
+  // Resource attributes
   id?: number | string;
-  identifier?: IIdentifier[];
+  meta?: IMeta;
   implicitRules?: string;
   language?: string;
-  location?: IReference[];
-  meta?: IMeta;
+  _implicitRules?: IElement;
+  _language?: IElement;
+
+  // DomainResource attributes
+  text?: INarrative;
+  contained?: IResource[];
+  extension?: IExtension[];
   modifierExtension?: IExtension[];
-  organization?: IReference;
+
+  // PractitionerRole attributes
+  identifier?: IIdentifier[];
+  active?: boolean;
   period?: IPeriod;
   practitioner?: IReference;
-  resourceType: string = 'PractitionerRole';
+  organization?: IReference;
+  code?: ICodeableConcept[];
   specialty?: ICodeableConcept[];
-  text?: INarrative;
+  location?: IReference[];
+  healthcareService?: IReference[];
+  telecom?: IReference[];
+  availableTime?: IPractitionerRoleAvailableTime[];
+  notAvailable?: IPractitionerRoleNotAvailable[];
+  availabilityExceptions?: string;
+  endpoint?: IReference[];
 
-  constructor(args?: Partial<PractitionerRole>) {
+  // Extensions
+  _active?: IElement;
+  _availabilityExceptions?: IElement;
+
+  constructor(args?: PractitionerRole) {
     Object.assign(this, args);
   }
 }

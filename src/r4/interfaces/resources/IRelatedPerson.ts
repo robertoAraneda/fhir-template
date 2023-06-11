@@ -7,9 +7,9 @@ import { IRelatedPersonCommunication } from '../backbones';
 export interface IRelatedPerson extends IDomainResource {
   identifier?: IIdentifier[];
   active?: boolean;
-  name?: IHumanName[];
   patient?: IReference;
   relationship?: ICodeableConcept[];
+  name?: IHumanName[];
   telecom?: IContactPoint[];
   gender?: AdministrativeGenderEnum | AdministrativeGenderType;
   birthDate?: string;

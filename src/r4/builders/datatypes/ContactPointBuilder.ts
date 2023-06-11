@@ -1,35 +1,28 @@
 import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
 import { ContactPointSystemType, ContactPointUseType } from '../../types';
 import { IContactPoint, IPeriod, ICodeableConcept } from '../../interfaces/datatypes';
-import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { ContactPoint } from '../../models/datatypes/ContactPoint';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 type ParamType = 'system' | 'value' | 'use' | 'rank';
-export class ContactPointBuilder
-  extends ElementBuilder<ContactPointBuilder>
-  implements IBuildable<ICodeableConcept>, ISerializable
-{
-  private contactPoint: IContactPoint;
+
+interface IContactPointBuilder extends IBuildable<ICodeableConcept>, ISerializable {
+  addParamExtension(param: ParamType, extension: IElement): ContactPointBuilder;
+  setSystem(value: ContactPointSystemEnum | ContactPointSystemType): ContactPointBuilder;
+  setValue(value: string): ContactPointBuilder;
+  setUse(value: ContactPointUseEnum | ContactPointUseType): ContactPointBuilder;
+  setRank(value: number): ContactPointBuilder;
+  setPeriod(value: IPeriod): ContactPointBuilder;
+}
+export class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> implements IContactPointBuilder {
+  private readonly contactPoint: IContactPoint;
 
   constructor() {
     super();
 
     this.contactPoint = new ContactPoint();
-  }
-
-  /**
-   * @description Create a new ContactPoint from a JSON representation
-   * @param json
-   * @returns build and serialize functions
-   */
-  fromJSON(json: IContactPoint) {
-    this.contactPoint = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   /**
@@ -39,7 +32,7 @@ export class ContactPointBuilder
    * @returns ContactPointBuilder The builder
    * @example ```typescript
    * const contactPoint = new ContactPointBuilder()
-   * .addContactPointParamExtension('system', {
+   * .addParamExtension('system', {
    *   "extension": [
    *    {
    *      url: "http://example.com",
@@ -60,7 +53,7 @@ export class ContactPointBuilder
    *   }
    * }
    */
-  addContactPointParamExtension(param: ParamType, extension: IElement): ContactPointBuilder {
+  addParamExtension(param: ParamType, extension: IElement): ContactPointBuilder {
     this.contactPoint[`_${param}`] = extension;
 
     return this;

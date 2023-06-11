@@ -1,15 +1,37 @@
-import { IOrganizationQualification } from '../../interfaces/backbones';
 import { Organization } from '../../models/resources';
-import { IElement, IReference, IBuildable, ISerializable } from '../../interfaces/base';
-import { IExtendedContactDetail, IIdentifier, ICodeableConcept } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
+import { IIdentifier, ICodeableConcept, IReference, IAddress, IContactPoint } from '../../interfaces/datatypes';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { IOrganization } from '../../interfaces/resources';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IOrganizationContact } from '../../interfaces/backbones';
 
-type ParamsType = 'active' | 'alias' | 'description' | 'name';
-export class OrganizationBuilder
-  extends DomainResourceBuilder<OrganizationBuilder>
-  implements IBuildable<Organization>, ISerializable
-{
+type ParamsType = 'active' | 'alias' | 'name';
+interface IOrganizationBuilder extends IBuildable<Organization>, ISerializable {
+  addOrganizationParamExtension<T extends ParamsType>(
+    param: T,
+    extension: T extends 'alias' ? IElement[] : IElement,
+  ): this;
+  setActive(active: boolean): this;
+  addIdentifier(identifier: IIdentifier): this;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this;
+  addAlias(alias: string): this;
+  setMultipleAlias(aliases: string[]): this;
+  addType(type: ICodeableConcept): this;
+  setMultipleType(types: ICodeableConcept[]): this;
+  setName(name: string): this;
+  addTelecom(telecom: IContactPoint): this;
+  setMultipleTelecom(telecoms: IContactPoint[]): this;
+  addAddress(address: IAddress): this;
+  setMultipleAddress(addresses: IAddress[]): this;
+  setPartOf(partOf: IReference): this;
+  addContact(contact: IOrganizationContact): this;
+  setMultipleContact(contacts: IOrganizationContact[]): this;
+  addEndpoint(endpoint: IReference): this;
+  setMultipleEndpoint(endpoints: IReference[]): this;
+  setMultipleEndpoint(endpoints: IReference[]): this;
+}
+export class OrganizationBuilder extends DomainResourceBuilder<OrganizationBuilder> implements IOrganizationBuilder {
   private readonly organization: IOrganization;
 
   constructor() {
@@ -20,7 +42,7 @@ export class OrganizationBuilder
   addOrganizationParamExtension<T extends ParamsType>(
     param: T,
     extension: T extends 'alias' ? IElement[] : IElement,
-  ): OrganizationBuilder {
+  ): this {
     if (param === 'alias') {
       this.organization._alias = extension as IElement[];
     } else {
@@ -37,7 +59,7 @@ export class OrganizationBuilder
    * @param identifier
    * @returns {OrganizationBuilder}
    */
-  addIdentifier(identifier: IIdentifier): OrganizationBuilder {
+  addIdentifier(identifier: IIdentifier): this {
     this.organization.identifier = this.organization.identifier || [];
     this.organization.identifier.push(identifier);
 
@@ -49,7 +71,7 @@ export class OrganizationBuilder
    * @param identifiers Array of Identifiers
    * @returns {OrganizationBuilder} OrganizationBuilder
    */
-  setMultipleIdentifier(identifiers: IIdentifier[]): OrganizationBuilder {
+  setMultipleIdentifier(identifiers: IIdentifier[]): this {
     this.organization.identifier = identifiers;
 
     return this;
@@ -60,91 +82,98 @@ export class OrganizationBuilder
    * @param active boolean
    * @returns {OrganizationBuilder} OrganizationBuilder
    */
-  setActive(active: boolean): OrganizationBuilder {
+  setActive(active: boolean): this {
     this.organization.active = active;
 
     return this;
   }
 
-  addType(type: ICodeableConcept): OrganizationBuilder {
+  addType(type: ICodeableConcept): this {
     this.organization.type = this.organization.type || [];
     this.organization.type.push(type);
 
     return this;
   }
 
-  setMultipleType(types: ICodeableConcept[]): OrganizationBuilder {
+  setMultipleType(types: ICodeableConcept[]): this {
     this.organization.type = types;
 
     return this;
   }
 
-  setName(name: string): OrganizationBuilder {
+  setName(name: string): this {
     this.organization.name = name;
 
     return this;
   }
 
-  addAlias(alias: string): OrganizationBuilder {
+  addAlias(alias: string): this {
     this.organization.alias = this.organization.alias || [];
     this.organization.alias.push(alias);
 
     return this;
   }
 
-  setMultipleAlias(aliases: string[]): OrganizationBuilder {
+  setMultipleAlias(aliases: string[]): this {
     this.organization.alias = aliases;
 
     return this;
   }
 
-  setDescription(description: string): OrganizationBuilder {
-    this.organization.description = description;
-
-    return this;
-  }
-
-  addContact(contact: IExtendedContactDetail): OrganizationBuilder {
-    this.organization.contact = this.organization.contact || [];
-    this.organization.contact.push(contact);
-
-    return this;
-  }
-
-  setMultipleContact(contacts: IExtendedContactDetail[]): OrganizationBuilder {
-    this.organization.contact = contacts;
-
-    return this;
-  }
-
-  setPartOf(partOf: IReference): OrganizationBuilder {
+  setPartOf(partOf: IReference): this {
     this.organization.partOf = partOf;
 
     return this;
   }
 
-  addEndpoint(endpoint: IReference): OrganizationBuilder {
+  addEndpoint(endpoint: IReference): this {
     this.organization.endpoint = this.organization.endpoint || [];
     this.organization.endpoint.push(endpoint);
 
     return this;
   }
 
-  setMultipleEndpoint(endpoints: IReference[]): OrganizationBuilder {
+  setMultipleEndpoint(endpoints: IReference[]): this {
     this.organization.endpoint = endpoints;
 
     return this;
   }
 
-  addQualification(qualification: IOrganizationQualification): OrganizationBuilder {
-    this.organization.qualification = this.organization.qualification || [];
-    this.organization.qualification.push(qualification);
+  addAddress(address: IAddress): this {
+    this.organization.address = this.organization.address || [];
+    this.organization.address.push(address);
 
     return this;
   }
 
-  setMultipleQualification(qualifications: IOrganizationQualification[]): OrganizationBuilder {
-    this.organization.qualification = qualifications;
+  addTelecom(telecom: IContactPoint): this {
+    this.organization.telecom = this.organization.telecom || [];
+    this.organization.telecom.push(telecom);
+
+    return this;
+  }
+
+  addContact(contact: IOrganizationContact): this {
+    this.organization.contact = this.organization.contact || [];
+    this.organization.contact.push(contact);
+
+    return this;
+  }
+
+  setMultipleAddress(addresses: IAddress[]): this {
+    this.organization.address = addresses;
+
+    return this;
+  }
+
+  setMultipleContact(contacts: IOrganizationContact[]): this {
+    this.organization.contact = contacts;
+
+    return this;
+  }
+
+  setMultipleTelecom(telecoms: IContactPoint[]): this {
+    this.organization.telecom = telecoms;
 
     return this;
   }

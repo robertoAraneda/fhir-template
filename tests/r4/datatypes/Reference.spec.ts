@@ -103,7 +103,7 @@ describe('Reference', () => {
           instancePath: '/identifier/period/start',
           message: "The value '/identifier/period/start' does not match with datatype 'dateTime'",
           params: { value: '/identifier/period/start' },
-          schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
+          schemaPath: 'r4base.schema.json#/definitions/dateTime/pattern',
         },
       ]);
     }

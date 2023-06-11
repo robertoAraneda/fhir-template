@@ -1,7 +1,7 @@
 import { IElement } from '../base';
 
 /**
- * Attachment FHIR R5 Datatype
+ * @summary FHIR R4
  * @property {string} contentType - Mime type of the content, with charset etc.
  * @property {string} language - Human language of the content (BCP-47)
  * @property {string} data - Data inline, base64ed
@@ -28,7 +28,7 @@ import { IElement } from '../base';
  * @property {IElement} _frames - Extensions for frames
  * @property {IElement} _duration - Extensions for duration
  * @property {IElement} _pages - Extensions for pages
- * @see https://hl7.org/fhir/datatypes.html#Attachment
+ * @see http://hl7.org/fhir/R4/datatypes.html#Attachment http://hl7.org/fhir/R4/datatypes.html#Attachment
  * @description This type is for containing or referencing attachments - additional data content defined in other formats. The most common use of this type is to include images or reports in some report format such as PDF. However, it can be used for any data that has a MIME type.
  * @author Roberto Araneda
  */

@@ -73,14 +73,14 @@ describe('PractitionerCommunication', () => {
         keyword: 'type',
         message: 'must be boolean',
         params: { type: 'boolean' },
-        schemaPath: 'base.schema.json#/definitions/boolean/type',
+        schemaPath: 'r4base.schema.json#/definitions/boolean/type',
       },
       {
         instancePath: '/preferred',
         keyword: 'pattern',
         message: "The value '/preferred' does not match with datatype 'boolean'",
         params: { value: '/preferred' },
-        schemaPath: 'base.schema.json#/definitions/boolean/pattern',
+        schemaPath: 'r4base.schema.json#/definitions/boolean/pattern',
       },
     ]);
   });

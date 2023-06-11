@@ -1,15 +1,16 @@
 import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
-import { IAddress, IHumanName, IPeriod } from '../../interfaces/datatypes';
-import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import { IHumanName, IPeriod } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { HumanName } from '../../models/datatypes/HumanName';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
 type MultipleParamType = 'given' | 'prefix' | 'suffix';
 
 interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable {
-  addHumanNameParamExtension(param: ParamType, extension: IElement | IElement[]): HumanNameBuilder;
+  addParamExtension(param: ParamType, extension: IElement | IElement[]): HumanNameBuilder;
   setUse(value: NameUseEnum | NameUseType): HumanNameBuilder;
   setText(value: string): HumanNameBuilder;
   setFamily(value: string): HumanNameBuilder;
@@ -20,10 +21,9 @@ interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable {
   addSuffix(value: string): HumanNameBuilder;
   setMultipleSuffix(value: string[]): HumanNameBuilder;
   setPeriod(value: IPeriod): HumanNameBuilder;
-  fromJSON(json: IHumanName): Pick<IHumanNameBuilder, 'build' | 'serialize'>;
 }
 export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
-  private humanName: IHumanName;
+  private readonly humanName: IHumanName;
 
   constructor() {
     super();
@@ -31,16 +31,7 @@ export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implement
     this.humanName = new HumanName();
   }
 
-  fromJSON(json: IHumanName): Pick<IHumanNameBuilder, 'build' | 'serialize'> {
-    this.humanName = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
-  }
-
-  addHumanNameParamExtension<T extends ParamType>(
+  addParamExtension<T extends ParamType>(
     param: T,
     extension: T extends 'given' | 'prefix' | 'suffix' ? IElement[] : IElement,
   ): HumanNameBuilder {

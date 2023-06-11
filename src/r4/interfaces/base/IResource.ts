@@ -1,8 +1,7 @@
 import { IMeta } from '../datatypes';
-import { IBase } from './IBase';
 import { IElement } from './IElement';
 
-export interface IResource extends IBase {
+export interface IResource {
   resourceType: string;
   id?: number | string;
   meta?: IMeta;

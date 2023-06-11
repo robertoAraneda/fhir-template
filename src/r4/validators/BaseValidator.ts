@@ -1,28 +1,34 @@
 import Ajv, { ErrorObject, SchemaObject, ValidateFunction } from 'ajv';
-import * as defSchema from '../schemas/base.schema.json';
-import * as extensionSchema from '../schemas/extension.schema.json';
-import * as datatypeSchema from '../schemas/datatypes.schema.json';
-import * as backboneSchema from '../schemas/backbone.schema.json';
-import * as baseResourceSchema from '../schemas/base-resource.schema.json';
-import { IValidateProperties } from '../interfaces/IValidateProperties';
+import * as defSchema from '../schemas/r4base.schema.json';
+import * as extensionSchema from '../schemas/r4extension.schema.json';
+import * as datatypeSchema from '../schemas/r4datatypes.schema.json';
+import * as backboneSchema from '../schemas/r4backbone.schema.json';
+import * as baseResourceSchema from '../schemas/r4base-resource.schema.json';
+import { IValidateProperties } from '../../globals/interfaces';
 
 const ajv = new Ajv({
   allErrors: true,
   strict: false,
   loadSchema: (uri) => {
     return new Promise((resolve, reject) => {
-      if (uri === 'base.schema.json' || uri === 'base.schema.json#' || uri === 'https://example.com/base.schema.json') {
-        resolve(defSchema);
-      } else if (uri === 'datatypes.schema.json' || uri === 'https://example.com/datatypes.schema.json') {
-        resolve(datatypeSchema);
-      } else if (uri === 'extension.schema.json' || uri === 'https://example.com/extension.schema.json') {
-        resolve(extensionSchema);
-      } else if (uri === 'backbone.schema.json' || uri === 'https://example.com/backbone.schema.json') {
-        resolve(backboneSchema);
-      } else if (uri === 'base-resource.schema.json' || uri === 'https://example.com/base-resource.schema.json') {
-        resolve(baseResourceSchema);
-      } else {
-        reject(new Error(`Unable to load schema: ${uri}`));
+      switch (uri) {
+        case 'r4base.schema.json':
+          resolve(defSchema);
+          break;
+        case 'r4datatypes.schema.json':
+          resolve(datatypeSchema);
+          break;
+        case 'r4extension.schema.json':
+          resolve(extensionSchema);
+          break;
+        case 'r4backbone.schema.json':
+          resolve(backboneSchema);
+          break;
+        case 'r4base-resource.schema.json':
+          resolve(baseResourceSchema);
+          break;
+        default:
+          reject(new Error(`Unable to load schema: ${uri}`));
       }
     });
   },

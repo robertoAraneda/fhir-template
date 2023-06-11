@@ -2,9 +2,14 @@ import { ElementBuilder } from './ElementBuilder';
 import { IBackboneElement } from '../../interfaces/base';
 import { IExtension } from '../../interfaces/datatypes';
 
-export class BackboneElementBuilder<
-  BuilderClass extends BackboneElementBuilder<BuilderClass>,
-> extends ElementBuilder<BuilderClass> {
+interface IBackboneElementBuilder<BuilderClass> {
+  setMultipleModifierExtension(modifierExtension: IExtension[]): BuilderClass;
+  addModifierExtension(modifierExtension: IExtension): BuilderClass;
+}
+export class BackboneElementBuilder<BuilderClass extends BackboneElementBuilder<BuilderClass>>
+  extends ElementBuilder<BuilderClass>
+  implements IBackboneElementBuilder<BuilderClass>
+{
   private readonly backboneElement: IBackboneElement;
 
   constructor() {
@@ -23,7 +28,7 @@ export class BackboneElementBuilder<
     return this as unknown as BuilderClass;
   }
 
-  entity(): IBackboneElement {
+  protected entity(): IBackboneElement {
     return {
       ...this.backboneElement,
       ...super.entity(),

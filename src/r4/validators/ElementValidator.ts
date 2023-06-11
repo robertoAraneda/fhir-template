@@ -1,5 +1,5 @@
 import { _validateDataType } from './BaseValidator';
-import { IValidateProperties } from '../interfaces/IValidateProperties';
+import { IValidateProperties } from '../../globals/interfaces';
 
 type Wait = Promise<IValidateProperties>;
 
@@ -13,13 +13,9 @@ const Identifier = async (item: unknown): Wait => _validateDataType(item, 'Ident
 const Meta = async (item: unknown): Wait => _validateDataType(item, 'Meta');
 const Period = async (item: unknown): Wait => _validateDataType(item, 'Period');
 const Reference = async (item: unknown): Wait => _validateDataType(item, 'Reference');
-const Availability = async (item: unknown): Wait => _validateDataType(item, 'Availability');
-const CodeableReference = async (item: unknown): Wait => _validateDataType(item, 'CodeableReference');
 const Duration = async (item: unknown): Wait => _validateDataType(item, 'Duration');
-const ExtendedContactDetail = async (item: unknown): Wait => _validateDataType(item, 'ExtendedContactDetail');
 const Extension = async (item: unknown): Wait => _validateDataType(item, 'Extension');
 const Quantity = async (item: unknown): Wait => _validateDataType(item, 'Quantity');
-const VirtualServiceDetail = async (item: unknown): Wait => _validateDataType(item, 'VirtualServiceDetail');
 
 export const DataTypesValidator = {
   Address,
@@ -32,11 +28,7 @@ export const DataTypesValidator = {
   Meta,
   Period,
   Reference,
-  Availability,
-  CodeableReference,
   Duration,
-  ExtendedContactDetail,
   Extension,
   Quantity,
-  VirtualServiceDetail,
 };

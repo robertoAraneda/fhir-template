@@ -5,18 +5,15 @@ import { AdministrativeGenderType } from '../../types';
 import { IPatientContact, IPatientCommunication, IPatientLink } from '../backbones';
 
 export interface IPatient extends IDomainResource {
+  // Patient attributes
+
   /**
    * An identifier for this patient
-   * @see {@link https://www.hl7.org/fhir/datatypes.html#Identifier Identifier}
    */
   identifier?: IIdentifier[];
 
   /**
    * @description Whether this patient's record is in active use
-   * @description xs:boolean
-   * @description xs:default true
-   * @type {boolean} active
-   * @see {@link https://www.hl7.org/fhir/patient-definitions.html#Patient.active active}
    */
   active?: boolean;
   name?: IHumanName[];
@@ -35,6 +32,8 @@ export interface IPatient extends IDomainResource {
   generalPractitioner?: IReference[];
   managingOrganization?: IReference;
   link?: IPatientLink[];
+
+  // Extensions attributes
   _active?: IElement;
   _birthDate?: IElement;
   _multipleBirthBoolean?: IElement;

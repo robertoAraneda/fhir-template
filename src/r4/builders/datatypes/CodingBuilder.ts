@@ -1,42 +1,30 @@
-import { ICoding, ICodeableConcept } from '../../interfaces/datatypes';
-import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import { ICoding } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Coding } from '../../models/datatypes/Coding';
-import { BuildAndSerialize, createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
+import { Coding } from '../../models/datatypes';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
-type BuilderMethod = 'setSystem' | 'setVersion' | 'setCode' | 'setDisplay' | 'setUserSelected' | 'build' | 'serialize';
-interface ICodingBuilder {
-  build: () => ICoding;
-  serialize: () => string;
-  setSystem: (value: string) => Getters<ICodingBuilder>;
+interface ICodingBuilder extends IBuildable<ICoding>, ISerializable {
+  setSystem: (value: string) => CodingBuilder;
+  setVersion: (value: string) => CodingBuilder;
+  setCode: (value: string) => CodingBuilder;
+  setDisplay: (value: string) => CodingBuilder;
+  setUserSelected: (value: boolean) => CodingBuilder;
+  addParamExtension: (param: ParamType, extension: IElement) => CodingBuilder;
 }
 
-type Getters<Type> = {
-  [Property in keyof Type]: () => Type[Property];
-};
 /**
  * @description Coding builder
  *
  */
-export class CodingBuilder extends ElementBuilder<CodingBuilder> implements IBuildable<ICoding>, ISerializable {
-  private coding: ICoding;
+export class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICodingBuilder {
+  private readonly coding: ICoding;
 
   constructor() {
     super();
 
     this.coding = new Coding();
-  }
-
-  /**
-   * @description Create a new Coding from a JSON representation
-   * @param json
-   * @returns build and serialize functions
-   */
-  fromJSON(json: ICoding): Pick<ICodingBuilder, 'build' | 'serialize'> {
-    this.coding = json;
-
-    return createBuildAndSerializeMethods(this.raw());
   }
 
   /**
@@ -68,7 +56,7 @@ export class CodingBuilder extends ElementBuilder<CodingBuilder> implements IBui
    *      }
    *    }
    */
-  addCodingParamExtension(param: ParamType, extension: IElement): CodingBuilder {
+  addParamExtension(param: ParamType, extension: IElement): CodingBuilder {
     this.coding[`_${param}`] = extension;
     return this;
   }

@@ -4,49 +4,34 @@ import { ResourceValidator } from './validators/ResourceValidator';
 import { ResourceBuilder } from './ResourceBuilder';
 import { ElementBuilder } from './ElementBuilder';
 import { BackboneElementBuilder } from './BackboneElementBuilder';
-import { DataType, DatatypeTypeR4, IDatatypeValidatorProperties } from './GlobalDatatypes';
+import { ParseDataTypeR4, DatatypeTypeR4, IDatatypeValidatorProperties } from './GlobalDatatypes';
+import {
+  BackboneElementTypeR4,
+  ParseBackboneElementTypeR4,
+  IBackboneElementValidatorProperties,
+} from './GlobalBackboneElements';
+import { IResourceValidatorProperties, ParseResourceTypeR4, ResourceTypeR4 } from './GlobalResourceTypes';
 import { generateInstanceDatatype } from './InstanceBuilderDatatype';
 import { generateInstanceResource } from './InstanceBuilderResource';
-import { IResourceValidatorProperties, ResourceType, ResourceTypeR4 } from './GlobalResourceTypes';
-
-export interface IBackboneValidatorProperties {
-  EndpointPayload: (data: unknown) => Wait;
-  OrganizationQualification: (data: unknown) => Wait;
-  PatientContact: (data: unknown) => Wait;
-  PatientCommunication: (data: unknown) => Wait;
-  PatientLink: (data: unknown) => Wait;
-  PersonCommunication: (data: unknown) => Wait;
-  PersonLink: (data: unknown) => Wait;
-  PractitionerCommunication: (data: unknown) => Wait;
-  PractitionerQualification: (data: unknown) => Wait;
-  RelatedPersonCommunication: (data: unknown) => Wait;
-}
+import { generateInstanceBackboneElement } from './InstanceBuilderBackboneElement';
 
 export interface IValidatorContext {
-  backboneElements: IBackboneValidatorProperties;
+  backboneElements: IBackboneElementValidatorProperties;
   dataTypes: IDatatypeValidatorProperties;
   resources: IResourceValidatorProperties;
 }
 
-export type BackboneTypeR5 =
-  | 'PatientContact'
-  | 'PatientCommunication'
-  | 'PatientLink'
-  | 'PersonCommunication'
-  | 'PersonLink'
-  | 'PractitionerCommunication'
-  | 'PractitionerQualification'
-  | 'RelatedPersonCommunication'
-  | 'OrganizationQualification'
-  | 'EndpointPayload';
-
 export class FhirContextR4 {
-  createResource<T extends ResourceTypeR4>(resourceType: T, data?: ResourceType<T>) {
+  createResource<T extends ResourceTypeR4>(resourceType: T, data?: ParseResourceTypeR4<T>) {
     return generateInstanceResource(resourceType, data);
   }
 
-  createDatatype<T extends DatatypeTypeR4>(datatypeType: T, d: DataType<T>) {
-    return generateInstanceDatatype(datatypeType, d) as DataType<T>;
+  createDatatype<T extends DatatypeTypeR4>(datatypeType: T, d: ParseDataTypeR4<T>) {
+    return generateInstanceDatatype(datatypeType, d) as ParseDataTypeR4<T>;
+  }
+
+  createBackboneElement<T extends BackboneElementTypeR4>(backboneType: T, data?: ParseBackboneElementTypeR4<T>) {
+    return generateInstanceBackboneElement(backboneType, data) as ParseBackboneElementTypeR4<T>;
   }
   public getBuilders() {
     return {
@@ -64,81 +49,3 @@ export class FhirContextR4 {
     };
   }
 }
-
-/*
-export class FhirContextR5 {
-  public validate(resourceType: ResourceEnum | ResourceTypeType, payload: any): boolean {
-    switch (resourceType) {
-      case 'Patient':
-        return this.validatePatient(payload);
-      case 'Organization':
-        return this.validateOrganization(payload);
-      default:
-        return false;
-    }
-  }
-
-  private validatePatient(patient: Patient): boolean {
-    // validate identifier
-    if (patient.identifier) {
-      patient.identifier.forEach((_identifier: Identifier) => {
-        const id = new Identifier(_identifier);
-      });
-    }
-
-    // validate contact
-    if (patient.contact) {
-      patient.contact.forEach((_contact: any) => {
-        if (!_contact.name && !_contact.telecom && !_contact.address && !_contact.organization) {
-          throw new Error(
-            `[Constraints: Patient.contact] SHALL at least contain a contact's details or a reference to an organization`,
-          );
-        }
-      });
-    }
-
-    return true;
-  }
-
-  private validateOrganization(organization: Organization): boolean {
-    if (!organization.identifier && !organization.name) {
-      throw new Error(
-        `[Constraints: (base)] The organization SHALL at least have a name or an identifier, and possibly more than one.`,
-      );
-    }
-
-    if (organization.identifier) {
-      organization.identifier.forEach((_identifier: Identifier) => {
-        const id = new Identifier(_identifier);
-      });
-    }
-
-    if (organization.contact) {
-      organization.contact.forEach((_contact: any) => {
-        if (_contact.telecom) {
-          _contact.telecom.forEach((_telecom: any) => {
-            if (_telecom.use && _telecom.use === 'home') {
-              throw new Error(
-                `[Constraints: Organization.contact] The telecom of an organization can never be of use 'home'.`,
-              );
-            }
-          });
-        }
-
-        if (_contact.address) {
-          _contact.address.forEach((_address: any) => {
-            if (_address.use && _address.use === 'home') {
-              throw new Error(
-                `[Constraints: Organization.contact] The address of an organization can never be of use 'home'.`,
-              );
-            }
-          });
-        }
-      });
-    }
-
-    return true;
-  }
-}
-
- */

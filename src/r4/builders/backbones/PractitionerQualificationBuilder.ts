@@ -1,26 +1,34 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBuildable, ISerializable, IReference } from '../../interfaces/base';
 import { IPractitionerQualification } from '../../interfaces/backbones';
-import { ICodeableConcept, IIdentifier, IPeriod } from '../../interfaces/datatypes';
-import { validateReference } from '../../helpers/validateReference';
+import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { validateReference } from '../../../globals/helpers/validateReference';
+import { PractitionerQualification } from '../../models/backbones/PractitionerQualification';
 
+interface IPractitionerQualificationBuilder extends IBuildable<IPractitionerQualification>, ISerializable {
+  setCode(code: ICodeableConcept): this;
+  addIdentifier(identifier: IIdentifier): this;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this;
+  setIssuer(issuer: IReference): this;
+  setPeriod(period: IPeriod): this;
+}
 export class PractitionerQualificationBuilder
   extends BackboneElementBuilder<PractitionerQualificationBuilder>
-  implements IBuildable<IPractitionerQualification>, ISerializable
+  implements IPractitionerQualificationBuilder
 {
   private readonly practitionerQualification: IPractitionerQualification;
 
   constructor() {
     super();
-    this.practitionerQualification = {} as IPractitionerQualification;
+    this.practitionerQualification = new PractitionerQualification();
   }
 
-  setCode(code: ICodeableConcept): PractitionerQualificationBuilder {
+  setCode(code: ICodeableConcept): this {
     this.practitionerQualification.code = code;
     return this;
   }
 
-  addIdentifier(identifier: IIdentifier): PractitionerQualificationBuilder {
+  addIdentifier(identifier: IIdentifier): this {
     if (identifier.assigner?.reference) {
       validateReference(identifier.assigner.reference, ['Organization']);
     }
@@ -31,12 +39,17 @@ export class PractitionerQualificationBuilder
     return this;
   }
 
-  setMultipleIdentifier(identifiers: IIdentifier[]): PractitionerQualificationBuilder {
+  setMultipleIdentifier(identifiers: IIdentifier[]): this {
+    for (const identifier of identifiers) {
+      if (identifier.assigner?.reference) {
+        validateReference(identifier.assigner.reference, ['Organization']);
+      }
+    }
     this.practitionerQualification.identifier = identifiers;
     return this;
   }
 
-  setIssuer(issuer: IReference): PractitionerQualificationBuilder {
+  setIssuer(issuer: IReference): this {
     if (issuer.reference) {
       validateReference(issuer.reference, ['Organization']);
     }
@@ -45,7 +58,7 @@ export class PractitionerQualificationBuilder
     return this;
   }
 
-  setPeriod(period: IPeriod): PractitionerQualificationBuilder {
+  setPeriod(period: IPeriod): this {
     this.practitionerQualification.period = period;
     return this;
   }
@@ -62,6 +75,6 @@ export class PractitionerQualificationBuilder
   }
 
   serialize(): string {
-    return JSON.stringify(this.raw());
+    return JSON.stringify(this.raw(), null, 2);
   }
 }

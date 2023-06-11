@@ -1,5 +1,5 @@
 import { IPatient } from '../../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -9,50 +9,69 @@ import {
   IHumanName,
   IIdentifier,
   IMeta,
+  INarrative,
+  IReference,
 } from '../../interfaces/datatypes';
 import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
+/**
+ * @description FHIR R4
+ */
 export class Patient implements IPatient {
-  active?: boolean;
-  address?: IAddress[];
-  birthDate?: string;
-  communication?: IPatientCommunication[];
-  contact?: IPatientContact[];
+  resourceType = 'Patient';
+
+  // Resource attributes
+  id?: number | string;
+  meta?: IMeta;
+  implicitRules?: string;
+  _implicitRules?: IElement;
+  language?: string;
+  _language?: IElement;
+
+  // DomainResource attributes
+  text?: INarrative;
   contained?: IResource[];
+  extension?: IExtension[];
+  modifierExtension?: IExtension[];
+
+  // Patient attributes
+  /**
+   * @description An identifier for this patient
+   */
+  identifier?: IIdentifier[];
+
+  /**
+   * @description Whether this patient's record is in active use
+   */
+  active?: boolean;
+  name?: IHumanName[];
+  telecom?: IContactPoint[];
+  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
+  birthDate?: string;
   deceasedBoolean?: boolean;
   deceasedDateTime?: string;
-  extension?: IExtension[];
-  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
-  generalPractitioner?: IReference[];
-  id?: number | string;
-  identifier?: IIdentifier[];
-  implicitRules?: string;
-  language?: string;
-  link?: IPatientLink[];
-  managingOrganization?: IReference;
+  address?: IAddress[];
   maritalStatus?: ICodeableConcept;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
   multipleBirthBoolean?: boolean;
   multipleBirthInteger?: number;
-  name?: IHumanName[];
   photo?: IAttachment[];
-  resourceType: string = 'Patient';
-  telecom?: IContactPoint[];
-  text?: INarrative;
+  contact?: IPatientContact[];
+  communication?: IPatientCommunication[];
+  generalPractitioner?: IReference[];
+  managingOrganization?: IReference;
+  link?: IPatientLink[];
+
+  // Extensions
   _active?: IElement;
   _birthDate?: IElement;
+  _multipleBirthBoolean?: IElement;
+  _multipleBirthInteger?: IElement;
   _deceasedBoolean?: IElement;
   _deceasedDateTime?: IElement;
   _gender?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
-  _multipleBirthBoolean?: IElement;
-  _multipleBirthInteger?: IElement;
-
-  constructor(args?: Partial<Patient>) {
+  constructor(args?: Patient) {
     Object.assign(this, args);
   }
 }

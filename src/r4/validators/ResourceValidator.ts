@@ -1,5 +1,5 @@
 import { _validateBaseResource } from './BaseValidator';
-import { IValidateProperties } from '../interfaces/IValidateProperties';
+import { IValidateProperties } from '../../globals/interfaces';
 
 type Wait = Promise<IValidateProperties>;
 

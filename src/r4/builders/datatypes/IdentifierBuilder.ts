@@ -1,24 +1,24 @@
-import { IdentifierUseEnum } from '../../enums/IdentifierUseEnum';
-import { IdentifierUseType } from '../../types/IdentifierUseType';
-import { IIdentifier, ICodeableConcept, IPeriod, IHumanName } from '../../interfaces/datatypes';
-import { IElement, ISerializable, IBuildable, IReference } from '../../interfaces/base';
+import { IdentifierUseEnum } from '../../enums';
+import { IdentifierUseType } from '../../types';
+import { IIdentifier, ICodeableConcept, IPeriod, IReference } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { validateReference } from '../../helpers/validateReference';
 import { Identifier } from '../../models/datatypes/Identifier';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { validateReference } from '../../../globals/helpers/validateReference';
 
 interface IIdentifierBuilder extends IBuildable<IIdentifier>, ISerializable {
-  addIdentifierParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder;
+  addParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder;
   setType(value: ICodeableConcept): IdentifierBuilder;
   setUse(value: IdentifierUseEnum | IdentifierUseType): IdentifierBuilder;
   setSystem(value: string): IdentifierBuilder;
   setValue(value: string): IdentifierBuilder;
   setPeriod(value: IPeriod): IdentifierBuilder;
   setAssigner(value: IReference): IdentifierBuilder;
-  fromJSON(json: IIdentifier): Pick<IIdentifierBuilder, 'build' | 'serialize'>;
 }
 
 export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
-  private identifier: IIdentifier;
+  private readonly identifier: IIdentifier;
 
   constructor() {
     super();
@@ -26,16 +26,7 @@ export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> impleme
     this.identifier = new Identifier();
   }
 
-  fromJSON(json: IIdentifier): Pick<IIdentifierBuilder, 'build' | 'serialize'> {
-    this.identifier = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
-  }
-
-  addIdentifierParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder {
+  addParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder {
     this.identifier[`_${param}`] = extension;
 
     return this;
@@ -86,7 +77,7 @@ export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> impleme
   }
 
   build(): IIdentifier {
-    return JSON.parse(JSON.stringify(this.raw()));
+    return JSON.parse(this.serialize());
   }
 
   raw(): IIdentifier {

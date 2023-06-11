@@ -1,130 +1,170 @@
-import { PatientCommunicationBuilder } from '../../../src/r4/builders/backbones';
-import { IPatientCommunication } from '../../../src/r4/interfaces/backbones';
 import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
+import { PatientCommunication } from '../../../src/r4/models/backbones/PatientCommunication';
+import { PatientCommunicationBuilder } from '../../../src/r4/builders/backbones';
+import { IPatientCommunication } from '../../../src/r4/interfaces/backbones';
 
-describe('PatientCommunication', () => {
-  let validator: IValidatorContext;
+describe('PatientCommunication FHIR R4', () => {
   let builder: PatientCommunicationBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR4().validators;
-  });
+  let builderFromFunction: PatientCommunicationBuilder;
+  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new PatientCommunicationBuilder();
+    builderFromFunction = Builder.backboneElements.PatientCommunicationBuilder();
   });
 
-  it('should be able to create a new patient_communication payload and validate with correct data', async () => {
-    const dataType: IPatientCommunication = {
+  it('should be able to validate a new patient_communication [createBackboneElement]', async () => {
+    const backboneElement = createBackboneElement('PatientCommunication', {
       id: '123',
       preferred: true,
       language: {
         coding: [
           {
-            system: 'http://hl7.org/fhir/ValueSet/languages',
-            code: 'en',
-            display: 'English',
+            code: '123',
+            system: 'system',
+          },
+        ],
+      },
+    });
+
+    const validate = await Validator.backboneElements.PatientCommunication(backboneElement);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to validate a new patient_communication [new PatientCommunication()]', async () => {
+    const item = new PatientCommunication({
+      id: '123',
+      preferred: true,
+      language: {
+        coding: [
+          {
+            code: '123',
+            system: 'system',
+          },
+        ],
+      },
+    });
+
+    const validateAddress = await Validator.backboneElements.PatientCommunication(item);
+    expect(validateAddress.isValid).toBeTruthy();
+    expect(validateAddress.errors).toBeUndefined();
+  });
+
+  it('should be able to validate a new patient_communication [IPatientCommunication]', async () => {
+    const item: IPatientCommunication = {
+      id: '123',
+      preferred: true,
+      language: {
+        coding: [
+          {
+            code: '123',
+            system: 'system',
           },
         ],
       },
     };
 
-    const validate = await validator.backboneElements.PatientCommunication(dataType);
+    const validate = await Validator.backboneElements.PatientCommunication(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new organization_qualification payload and validate with wrong data', async () => {
-    const dataType = {
-      id: '123',
-      preferred: 'bad data type', // wrong data type
-      language: {
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/ValueSet/languages',
-            code: 'en',
-            display: 'English',
-          },
-        ],
-      },
-      wrongProperty: 'test', // wrong property
-    };
-
-    const validate = await validator.backboneElements.PatientCommunication(dataType);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(3);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: { type: 'boolean' },
-        schemaPath: 'base.schema.json#/definitions/boolean/type',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'pattern',
-        message: "The value '/preferred' does not match with datatype 'boolean'",
-        params: { value: '/preferred' },
-        schemaPath: 'base.schema.json#/definitions/boolean/pattern',
-      },
-    ]);
-  });
-
-  it('should be able to create a new organization_qualification payload using builder methods', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builder
-      .setLanguage({
-        coding: [
-          {
-            code: 'any',
-            system: 'http://hl7.org/fhir/organization-qualification',
-            display: 'test',
-          },
-        ],
-      })
-      .addPatientCommunicationParamExtension('preferred', {
+  it('should be able to create a new patient_communication using builder methods [new PatientCommunication()]', async () => {
+    const item = builder
+      .setId('123')
+      .setPreferred(true)
+      .addParamExtension('preferred', {
         extension: [
           {
-            url: 'test',
-            valueString: 'test',
+            url: 'preferred',
+            valueDate: '2020-01-01',
           },
         ],
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toEqual({
       _preferred: {
         extension: [
           {
-            url: 'test',
-            valueString: 'test',
+            url: 'preferred',
+            valueDate: '2020-01-01',
           },
         ],
       },
-      language: {
-        coding: [
-          {
-            code: 'any',
-            display: 'test',
-            system: 'http://hl7.org/fhir/organization-qualification',
-          },
-        ],
-      },
+      id: '123',
+      preferred: true,
     });
+  });
+
+  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
+    const item = builderFromFunction
+      .setId('123')
+      .setPreferred(true)
+      .addParamExtension('preferred', {
+        extension: [
+          {
+            url: 'preferred',
+            valueDate: '2020-01-01',
+          },
+        ],
+      })
+      .build();
+
+    expect(item).toEqual({
+      _preferred: {
+        extension: [
+          {
+            url: 'preferred',
+            valueDate: '2020-01-01',
+          },
+        ],
+      },
+      id: '123',
+      preferred: true,
+    });
+  });
+
+  it('should be get errors validators if new address has wrong data', async () => {
+    const item = {
+      id: '123',
+      address: {
+        id: '123',
+        type: 'both',
+        period: {
+          start: '2020-01-01 HH:MM:SS',
+          end: '2020-01-02',
+        },
+      },
+    };
+
+    const validate = await Validator.backboneElements.PatientCommunication(item);
+    expect(validate.isValid).toBeFalsy();
+    expect(validate.errors).toBeDefined();
+    expect(validate.errors?.length).toBe(2);
+    expect(validate.errors).toEqual([
+      {
+        instancePath: '',
+        schemaPath: '#/required',
+        keyword: 'required',
+        params: {
+          missingProperty: 'language',
+        },
+        message: "must have required property 'language'",
+      },
+      {
+        instancePath: '',
+        schemaPath: '#/additionalProperties',
+        keyword: 'additionalProperties',
+        params: {
+          additionalProperty: 'address',
+        },
+        message: 'must NOT have additional properties',
+      },
+    ]);
   });
 });

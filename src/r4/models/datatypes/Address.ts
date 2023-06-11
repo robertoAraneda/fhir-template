@@ -135,7 +135,7 @@ export class Address implements IAddress {
    */
   _country?: IElement;
 
-  constructor(args?: Partial<Address>) {
+  constructor(args?: IAddress) {
     Object.assign(this, args);
   }
 }

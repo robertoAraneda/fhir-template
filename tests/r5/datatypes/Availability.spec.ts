@@ -134,7 +134,7 @@ describe('Availability', () => {
         keyword: 'pattern',
         message: "The value '/availableTime/0/availableStartTime' does not match with datatype 'time'",
         params: { value: '/availableTime/0/availableStartTime' },
-        schemaPath: 'base.schema.json#/definitions/time/pattern',
+        schemaPath: 'r4base.schema.json#/definitions/time/pattern',
       },
     ]);
   });

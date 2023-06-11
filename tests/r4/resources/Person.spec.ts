@@ -332,7 +332,7 @@ describe('Person', () => {
         keyword: 'pattern',
         message: "The value '/birthDate' does not match with datatype 'date'",
         params: { value: '/birthDate' },
-        schemaPath: 'base.schema.json#/definitions/date/pattern',
+        schemaPath: 'r4base.schema.json#/definitions/date/pattern',
       },
     ]);
   });

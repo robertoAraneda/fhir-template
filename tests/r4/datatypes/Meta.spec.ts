@@ -113,7 +113,7 @@ describe('Meta', () => {
         keyword: 'pattern',
         message: "The value '/lastUpdated' does not match with datatype 'instant'",
         params: { value: '/lastUpdated' },
-        schemaPath: 'base.schema.json#/definitions/instant/pattern',
+        schemaPath: 'r4base.schema.json#/definitions/instant/pattern',
       },
     ]);
   });

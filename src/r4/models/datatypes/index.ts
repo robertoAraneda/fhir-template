@@ -1,0 +1,13 @@
+export { Address } from './Address';
+export { Attachment } from './Attachment';
+export { CodeableConcept } from './CodeableConcept';
+export { Coding } from './Coding';
+export { ContactPoint } from './ContactPoint';
+export { Duration } from './Duration';
+export { HumanName } from './HumanName';
+export { Extension } from './Extension';
+export { Identifier } from './Identifier';
+export { Meta } from './Meta';
+export { Period } from './Period';
+export { Quantity } from './Quantity';
+export { Reference } from './Reference';

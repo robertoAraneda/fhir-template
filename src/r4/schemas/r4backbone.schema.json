@@ -1,0 +1,440 @@
+{
+  "$id": "r4backbone.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Base FHIR Backbone Elements",
+  "definitions": {
+    "RelatedPerson_Communication": {
+      "description": "Information about a person that is involved in the care for a patient, but who is not the target of healthcare, nor has a formal responsibility in the care process.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "language": {
+          "description": "The ISO-639-1 alpha 2 code in lower case for the language, optionally followed by a hyphen and the ISO-3166-1 alpha 2 code for the region in upper case; e.g. \"en\" for English, or \"en-US\" for American English versus \"en-EN\" for England English.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "preferred": {
+          "description": "Indicates whether or not the patient prefers this language (over other languages he masters up a certain level).",
+          "$ref": "r4base.schema.json#/definitions/boolean"
+        },
+        "_preferred": {
+          "description": "Extensions for preferred",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["language"]
+    },
+    "Organization_Contact": {
+      "description": "A formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action.  Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, payer/insurer, etc.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "purpose": {
+          "description": "Indicates a purpose for which the contact can be reached.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "name": {
+          "description": "A name associated with the contact.",
+          "$ref": "r4datatypes.schema.json#/definitions/HumanName"
+        },
+        "telecom": {
+          "description": "A contact detail (e.g. a telephone number or an email address) by which the party may be contacted.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/ContactPoint"
+          },
+          "type": "array"
+        },
+        "address": {
+          "description": "Visiting or postal addresses for the contact.",
+          "$ref": "r4datatypes.schema.json#/definitions/Address"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Patient_Contact": {
+      "description": "Demographics and other administrative information about an individual or animal receiving care or other health-related services.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "relationship": {
+          "description": "The nature of the relationship between the patient and the contact person.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "A name associated with the contact person.",
+          "$ref": "r4datatypes.schema.json#/definitions/HumanName"
+        },
+        "telecom": {
+          "description": "A contact detail for the person, e.g. a telephone number or an email address.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/ContactPoint"
+          },
+          "type": "array"
+        },
+        "address": {
+          "description": "Address for the contact person.",
+          "$ref": "r4datatypes.schema.json#/definitions/Address"
+        },
+        "gender": {
+          "description": "Administrative Gender - the gender that the contact person is considered to have for administration and record keeping purposes.",
+          "enum": ["male", "female", "other", "unknown"]
+        },
+        "_gender": {
+          "description": "Extensions for gender",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "organization": {
+          "description": "Organization on behalf of which the contact is acting or for which the contact is working.",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        },
+        "period": {
+          "description": "The period during which this contact person or organization is valid to be contacted relating to this patient.",
+          "$ref": "r4datatypes.schema.json#/definitions/Period"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Patient_Communication": {
+      "description": "Demographics and other administrative information about an individual or animal receiving care or other health-related services.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "language": {
+          "description": "The ISO-639-1 alpha 2 code in lower case for the language, optionally followed by a hyphen and the ISO-3166-1 alpha 2 code for the region in upper case; e.g. \"en\" for English, or \"en-US\" for American English versus \"en-EN\" for England English.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "preferred": {
+          "description": "Indicates whether or not the patient prefers this language (over other languages he masters up a certain level).",
+          "$ref": "r4base.schema.json#/definitions/boolean"
+        },
+        "_preferred": {
+          "description": "Extensions for preferred",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["language"]
+    },
+    "Patient_Link": {
+      "description": "Demographics and other administrative information about an individual or animal receiving care or other health-related services.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "other": {
+          "description": "The other patient resource that the link refers to.",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        },
+        "type": {
+          "description": "The type of link between this patient resource and another patient resource.",
+          "enum": ["replaced-by", "replaces", "refer", "seealso"]
+        },
+        "_type": {
+          "description": "Extensions for type",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["other"]
+    },
+    "Person_Link": {
+      "description": "Demographics and administrative information about a person independent of a specific health-related context.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "target": {
+          "description": "The resource to which this actual person is associated.",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        },
+        "assurance": {
+          "description": "Level of assurance that this link is associated with the target resource.",
+          "enum": ["level1", "level2", "level3", "level4"]
+        },
+        "_assurance": {
+          "description": "Extensions for assurance",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["target"]
+    },
+    "Person_Communication": {
+      "description": "A language which may be used to communicate with the person about his or her health.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "language": {
+          "description": "The language which can be used to communicate with the person about his or her health.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "preferred": {
+          "description": "Language preference indicator.",
+          "$ref": "r4base.schema.json#/definitions/boolean"
+        },
+        "_preferred": {
+          "description": "Extensions for preferred",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["language"]
+    },
+    "Practitioner_Qualification": {
+      "description": "A person who is directly or indirectly involved in the provisioning of healthcare.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "identifier": {
+          "description": "An identifier that applies to this person\u0027s qualification in this role.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/Identifier"
+          },
+          "type": "array"
+        },
+        "code": {
+          "description": "Coded representation of the qualification.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "period": {
+          "description": "Period during which the qualification is valid.",
+          "$ref": "r4datatypes.schema.json#/definitions/Period"
+        },
+        "issuer": {
+          "description": "Organization that regulates and issues the qualification.",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["code"]
+    },
+    "PractitionerRole_AvailableTime": {
+      "description": "A specific set of Roles/Locations/specialties/services that a practitioner may perform at an organization for a period of time.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "daysOfWeek": {
+          "description": "Indicates which days of the week are available between the start and end Times.",
+          "items": {
+            "$ref": "r4base.schema.json#/definitions/code"
+          },
+          "type": "array"
+        },
+        "_daysOfWeek": {
+          "description": "Extensions for daysOfWeek",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "allDay": {
+          "description": "Is this always available? (hence times are irrelevant) e.g. 24 hour service.",
+          "$ref": "r4base.schema.json#/definitions/boolean"
+        },
+        "_allDay": {
+          "description": "Extensions for allDay",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "availableStartTime": {
+          "description": "The opening time of day. Note: If the AllDay flag is set, then this time is ignored.",
+          "$ref": "r4base.schema.json#/definitions/time"
+        },
+        "_availableStartTime": {
+          "description": "Extensions for availableStartTime",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "availableEndTime": {
+          "description": "The closing time of day. Note: If the AllDay flag is set, then this time is ignored.",
+          "$ref": "r4base.schema.json#/definitions/time"
+        },
+        "_availableEndTime": {
+          "description": "Extensions for availableEndTime",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PractitionerRole_NotAvailable": {
+      "description": "A specific set of Roles/Locations/specialties/services that a practitioner may perform at an organization for a period of time.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "description": {
+          "description": "The reason that can be presented to the user as to why this time is not available.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "_description": {
+          "description": "Extensions for description",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "during": {
+          "description": "Service is not available (seasonally or for a public holiday) from this date.",
+          "$ref": "r4datatypes.schema.json#/definitions/Period"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,5 +1,5 @@
-import { ICodeableConcept, IExtension, IIdentifier, IPeriod } from '../../interfaces/datatypes';
-import { IElement, IReference } from '../../interfaces/base';
+import { ICodeableConcept, IExtension, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { IdentifierUseEnum } from '../../enums';
 import { IdentifierUseType } from '../../types';
 
@@ -66,7 +66,7 @@ export class Identifier implements IIdentifier {
   period?: IPeriod;
 
   /**
-   * @description Organization that issued id (may be just text)
+   * @description Organization that issued id (may-be just text)
    */
   assigner?: IReference;
 

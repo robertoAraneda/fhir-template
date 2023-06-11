@@ -1,56 +1,54 @@
 import { IPerson } from '../../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
-  ICodeableConcept,
   IContactPoint,
   IExtension,
   IHumanName,
   IIdentifier,
   IMeta,
+  INarrative,
+  IReference,
 } from '../../interfaces/datatypes';
-import { IPersonCommunication, IPersonLink } from '../../interfaces/backbones';
+import { IPersonLink } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
 export class Person implements IPerson {
-  _active?: IElement;
-  _birthDate?: IElement;
-  _deceasedBoolean?: IElement;
-  _deceasedDateTime?: IElement;
-  _gender?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
-  _multipleBirthBoolean?: IElement;
-  _multipleBirthInteger?: IElement;
-  active?: boolean;
-  address?: IAddress[];
-  birthDate?: string;
-  communication?: IPersonCommunication[];
-  contained?: IResource[];
-  deceasedBoolean?: boolean;
-  deceasedDateTime?: string;
-  extension?: IExtension[];
-  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
+  resourceType = 'Person';
+
+  // Resource attributes
   id?: number | string;
-  identifier?: IIdentifier[];
+  meta?: IMeta;
   implicitRules?: string;
   language?: string;
-  link?: IPersonLink[];
-  managingOrganization?: IReference;
-  maritalStatus?: ICodeableConcept;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
-  multipleBirthBoolean?: boolean;
-  multipleBirthInteger?: number;
-  name?: IHumanName[];
-  photo?: IAttachment[];
-  resourceType: string = 'Person';
-  telecom?: IContactPoint[];
-  text?: INarrative;
+  _implicitRules?: IElement;
+  _language?: IElement;
 
-  constructor(args?: Partial<Person>) {
+  // DomainResource attributes
+  text?: INarrative;
+  contained?: IResource[];
+  extension?: IExtension[];
+  modifierExtension?: IExtension[];
+
+  // Person attributes
+  identifier?: IIdentifier[];
+  name?: IHumanName[];
+  telecom?: IContactPoint[];
+  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
+  birthDate?: string;
+  address?: IAddress[];
+  photo?: IAttachment;
+  managingOrganization?: IReference;
+  active?: boolean;
+  link?: IPersonLink[];
+
+  // Extensions
+  _birthDate?: IElement;
+  _gender?: IElement;
+
+  constructor(args?: Person) {
     Object.assign(this, args);
   }
 }

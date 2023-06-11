@@ -1,6 +1,5 @@
-import { INarrative } from './INarrative';
 import { IResource } from './IResource';
-import { IExtension } from '../datatypes';
+import { IExtension, INarrative } from '../datatypes';
 
 export interface IDomainResource extends IResource {
   text?: INarrative;

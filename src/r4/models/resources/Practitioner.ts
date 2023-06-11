@@ -1,48 +1,54 @@
 import { IPractitioner } from '../../interfaces/resources';
-import { IElement, INarrative, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
+  ICodeableConcept,
   IContactPoint,
   IExtension,
   IHumanName,
   IIdentifier,
   IMeta,
+  INarrative,
 } from '../../interfaces/datatypes';
-import { IPractitionerCommunication, IPractitionerQualification } from '../../interfaces/backbones';
+import { IPractitionerQualification } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
 export class Practitioner implements IPractitioner {
-  _active?: IElement;
-  _birthDate?: IElement;
-  _deceasedBoolean?: IElement;
-  _deceasedDateTime?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
-  active?: boolean;
-  address?: IAddress[];
-  birthDate?: string;
-  communication?: IPractitionerCommunication[];
-  contained?: IResource[];
-  deceasedBoolean?: boolean;
-  deceasedDateTime?: string;
-  extension?: IExtension[];
-  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
+  resourceType = 'Practitioner';
+
+  // Resource attributes
   id?: number | string;
-  identifier?: IIdentifier[];
+  meta?: IMeta;
   implicitRules?: string;
   language?: string;
-  meta?: IMeta;
+  _implicitRules?: IElement;
+  _language?: IElement;
+
+  // DomainResource attributes
+  text?: INarrative;
+  contained?: IResource[];
+  extension?: IExtension[];
   modifierExtension?: IExtension[];
+
+  // Practitioner attributes
+  identifier?: IIdentifier[];
+  active?: boolean;
   name?: IHumanName[];
+  telecom?: IContactPoint[];
+  address?: IAddress[];
+  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
+  birthDate?: string;
   photo?: IAttachment[];
   qualification?: IPractitionerQualification[];
-  resourceType: string = 'Practitioner';
-  telecom?: IContactPoint[];
-  text?: INarrative;
+  communication?: ICodeableConcept[];
 
-  constructor(args?: Partial<Practitioner>) {
+  _active?: IElement;
+  _birthDate?: IElement;
+  _gender?: IElement;
+
+  constructor(args?: Practitioner) {
     Object.assign(this, args);
   }
 }

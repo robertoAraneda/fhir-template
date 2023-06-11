@@ -2,7 +2,8 @@ import { IDomainResource, IElement } from '../base';
 import { IIdentifier, IHumanName, IContactPoint, IAddress, IAttachment } from '../datatypes';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
-import { IPractitionerCommunication, IPractitionerQualification } from '../backbones';
+import { IPractitionerQualification } from '../backbones';
+import { CodeableConcept } from '../../models/datatypes/CodeableConcept';
 
 export interface IPractitioner extends IDomainResource {
   identifier?: IIdentifier[];
@@ -10,15 +11,12 @@ export interface IPractitioner extends IDomainResource {
   _active?: IElement;
   name?: IHumanName[];
   telecom?: IContactPoint[];
+  address?: IAddress[];
   gender?: AdministrativeGenderEnum | AdministrativeGenderType;
+  _gender?: IElement;
   birthDate?: string;
   _birthDate?: IElement;
-  deceasedBoolean?: boolean;
-  _deceasedBoolean?: IElement;
-  deceasedDateTime?: string;
-  _deceasedDateTime?: IElement;
-  address?: IAddress[];
   photo?: IAttachment[];
   qualification?: IPractitionerQualification[];
-  communication?: IPractitionerCommunication[];
+  communication?: CodeableConcept[];
 }

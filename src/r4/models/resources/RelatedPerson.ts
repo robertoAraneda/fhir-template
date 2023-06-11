@@ -1,5 +1,5 @@
 import { IRelatedPerson } from '../../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -9,41 +9,50 @@ import {
   IHumanName,
   IIdentifier,
   IMeta,
+  INarrative,
   IPeriod,
+  IReference,
 } from '../../interfaces/datatypes';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
 export class RelatedPerson implements IRelatedPerson {
+  resourceType = 'RelatedPerson';
+
+  // Resource attributes
+  id?: number | string;
+  meta?: IMeta;
+  implicitRules?: string;
+  _implicitRules?: IElement;
+  language?: string;
+  _language?: IElement;
+
+  // DomainResource attributes
+  text?: INarrative;
+  contained?: IResource[];
+  extension?: IExtension[];
+  modifierExtension?: IExtension[];
+
+  // RelatedPerson attributes
+  identifier?: IIdentifier[];
+  active?: boolean;
+  patient?: IReference;
+  relationship?: ICodeableConcept[];
+  name?: IHumanName[];
+  telecom?: IContactPoint[];
+  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
+  birthDate?: string;
+  address?: IAddress[];
+  photo?: IAttachment[];
+  period?: IPeriod;
+  communication?: IRelatedPersonCommunication[];
+
   _active?: IElement;
   _birthDate?: IElement;
   _gender?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
-  active?: boolean;
-  address?: IAddress[];
-  birthDate?: string;
-  communication?: IRelatedPersonCommunication[];
-  contained?: IResource[];
-  extension?: IExtension[];
-  gender?: AdministrativeGenderEnum | AdministrativeGenderType;
-  id?: number | string;
-  identifier?: IIdentifier[];
-  implicitRules?: string;
-  language?: string;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
-  name?: IHumanName[];
-  patient?: IReference;
-  period?: IPeriod;
-  photo?: IAttachment[];
-  relationship?: ICodeableConcept[];
-  resourceType: string = 'RelatedPerson';
-  telecom?: IContactPoint[];
-  text?: INarrative;
 
-  constructor(args?: Partial<RelatedPerson>) {
+  constructor(args?: RelatedPerson) {
     Object.assign(this, args);
   }
 }

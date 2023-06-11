@@ -1012,7 +1012,7 @@ describe('Patient', () => {
         params: {
           type: 'boolean',
         },
-        schemaPath: 'base.schema.json#/definitions/boolean/type',
+        schemaPath: 'r4base.schema.json#/definitions/boolean/type',
       },
     ]);
   });

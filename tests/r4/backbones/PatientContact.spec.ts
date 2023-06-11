@@ -98,7 +98,7 @@ describe('PatientContact', () => {
         keyword: 'pattern',
         message: "The value '/period/start' does not match with datatype 'dateTime'",
         params: { value: '/period/start' },
-        schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
+        schemaPath: 'r4base.schema.json#/definitions/dateTime/pattern',
       },
     ]);
   });

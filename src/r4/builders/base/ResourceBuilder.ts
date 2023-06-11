@@ -1,18 +1,18 @@
-import { BaseBuilder } from './BaseBuilder';
-import { IResource, IElement } from '../../interfaces/base';
+import { IResource } from '../../interfaces/base';
 
-type ResourceParamExtension = 'language' | 'implicitRules';
-export class ResourceBuilder<ClassBuilder> extends BaseBuilder<ClassBuilder> {
+interface IResourceBuilder<ClassBuilder> {
+  setId(id: string): ClassBuilder;
+  setMeta(meta: any): ClassBuilder;
+  setImplicitRules(implicitRules: string): ClassBuilder;
+  setLanguage(language: string): ClassBuilder;
+  entity(): IResource;
+}
+
+export class ResourceBuilder<ClassBuilder> implements IResourceBuilder<ClassBuilder> {
   private readonly resource: IResource;
 
   constructor() {
-    super();
     this.resource = {} as IResource;
-  }
-
-  addResourceParamExtension(param: ResourceParamExtension, extension: Element): ClassBuilder {
-    this.resource[`_${param}`] = extension;
-    return this as unknown as ClassBuilder;
   }
 
   setId(id: string): ClassBuilder {
@@ -35,14 +35,8 @@ export class ResourceBuilder<ClassBuilder> extends BaseBuilder<ClassBuilder> {
     return this as unknown as ClassBuilder;
   }
 
-  setResourceType(resourceType: string): ClassBuilder {
-    this.resource.resourceType = resourceType;
-    return this as unknown as ClassBuilder;
-  }
-
   entity(): IResource {
     return {
-      ...super.entity(),
       ...this.resource,
     };
   }

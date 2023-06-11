@@ -1,32 +1,27 @@
 import { ElementBuilder } from '../base/ElementBuilder';
-import { IBuildable, IElement, ISerializable } from '../../interfaces/base';
 import { IDuration } from '../../interfaces/datatypes';
-import { Duration } from '../../models/datatypes/Duration';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
+import { Duration } from '../../models/datatypes';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IElement } from '../../interfaces/base';
 
 type ParamType = 'value' | 'comparator' | 'unit' | 'system' | 'code';
-export class DurationBuilder extends ElementBuilder<DurationBuilder> implements IBuildable<IDuration>, ISerializable {
-  private duration: IDuration;
+interface IDurationBuilder extends IBuildable<IDuration>, ISerializable {
+  addParamExtension(param: ParamType, extension: IElement): IDurationBuilder;
+  setValue(value: number): IDurationBuilder;
+  setComparator(comparator: QuantityComparatorEnum | QuantityComparatorType): IDurationBuilder;
+  setUnit(unit: string): IDurationBuilder;
+  setSystem(system: string): IDurationBuilder;
+  setCode(code: string): IDurationBuilder;
+}
+export class DurationBuilder extends ElementBuilder<DurationBuilder> implements IDurationBuilder {
+  private readonly duration: IDuration;
 
   constructor() {
     super();
 
     this.duration = new Duration();
-  }
-
-  /**
-   * @description Create a new Duration from a JSON representation
-   * @param json
-   * @returns DurationBuilder The builder
-   */
-  fromJSON(json: IDuration) {
-    this.duration = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   /**
@@ -57,7 +52,7 @@ export class DurationBuilder extends ElementBuilder<DurationBuilder> implements 
    *      }
    *  }
    */
-  addDurationParamExtension(param: ParamType, extension: IElement): DurationBuilder {
+  addParamExtension(param: ParamType, extension: IElement): DurationBuilder {
     this.duration[`_${param}`] = extension;
 
     return this;

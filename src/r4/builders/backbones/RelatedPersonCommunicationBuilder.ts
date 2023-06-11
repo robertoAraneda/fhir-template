@@ -1,23 +1,27 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { RelatedPersonCommunication } from '../../models/backbones/RelatedPersonCommunication';
 
+interface IRelatedPersonCommunicationBuilder extends IBuildable<IRelatedPersonCommunication>, ISerializable {
+  addParamExtension(param: 'preferred', extension: IElement): RelatedPersonCommunicationBuilder;
+  setLanguage(language: ICodeableConcept): RelatedPersonCommunicationBuilder;
+  setPreferred(preferred: boolean): RelatedPersonCommunicationBuilder;
+}
 export class RelatedPersonCommunicationBuilder
   extends BackboneElementBuilder<RelatedPersonCommunicationBuilder>
-  implements IBuildable<IRelatedPersonCommunication>, ISerializable
+  implements IRelatedPersonCommunicationBuilder
 {
   private readonly relatedPersonCommunication: IRelatedPersonCommunication;
 
   constructor() {
     super();
-    this.relatedPersonCommunication = {} as IRelatedPersonCommunication;
+    this.relatedPersonCommunication = new RelatedPersonCommunication();
   }
 
-  addRelatedPersonCommunicationParamExtension(
-    param: 'preferred',
-    extension: IElement,
-  ): RelatedPersonCommunicationBuilder {
+  addParamExtension(param: 'preferred', extension: IElement): RelatedPersonCommunicationBuilder {
     this.relatedPersonCommunication[`_${param}`] = extension;
     return this;
   }

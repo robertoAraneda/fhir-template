@@ -1,8 +1,21 @@
 import { ResourceBuilder } from './ResourceBuilder';
-import { INarrative, IResource, IDomainResource } from '../../interfaces/base';
-import { IExtension } from '../../interfaces/datatypes';
+import { IDomainResource, IResource } from '../../interfaces/base';
+import { INarrative, IExtension } from '../../interfaces/datatypes';
 
-export class DomainResourceBuilder<BuilderClass> extends ResourceBuilder<BuilderClass> {
+interface IDomainResourceBuilder<BuilderClass> {
+  setText(text: INarrative): BuilderClass;
+  addContained(contained: IResource): BuilderClass;
+  setMultipleContained(contained: IResource[]): BuilderClass;
+  addExtension(extension: IExtension): BuilderClass;
+  setMultipleExtension(extension: IExtension[]): BuilderClass;
+  addModifierExtension(modifierExtension: IExtension): BuilderClass;
+  setMultipleModifierExtension(modifierExtension: IExtension[]): BuilderClass;
+}
+
+export class DomainResourceBuilder<BuilderClass>
+  extends ResourceBuilder<BuilderClass>
+  implements IDomainResourceBuilder<BuilderClass>
+{
   private readonly domainResource: IDomainResource;
 
   constructor() {
@@ -25,6 +38,11 @@ export class DomainResourceBuilder<BuilderClass> extends ResourceBuilder<Builder
   addContained(contained: IResource): BuilderClass {
     this.domainResource.contained = this.domainResource.contained || [];
     this.domainResource.contained.push(contained);
+    return this as unknown as BuilderClass;
+  }
+
+  setMultipleContained(contained: IResource[]): BuilderClass {
+    this.domainResource.contained = contained;
     return this as unknown as BuilderClass;
   }
 

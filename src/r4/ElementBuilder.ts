@@ -11,11 +11,7 @@ export const ElementBuilder = {
   MetaBuilder: () => new DataTypesBuilder.MetaBuilder(),
   PeriodBuilder: () => new DataTypesBuilder.PeriodBuilder(),
   ReferenceBuilder: () => new DataTypesBuilder.ReferenceBuilder(),
-  CodeableReferenceBuilder: () => new DataTypesBuilder.CodeableReferenceBuilder(),
   DurationBuilder: () => new DataTypesBuilder.DurationBuilder(),
-  ExtendedContactDetailBuilder: () => new DataTypesBuilder.ExtendedContactDetailBuilder(),
-  AvailabilityBuilder: () => new DataTypesBuilder.AvailabilityBuilder(),
   ExtensionBuilder: () => new DataTypesBuilder.ExtensionBuilder(),
   QuantityBuilder: () => new DataTypesBuilder.QuantityBuilder(),
-  VirtualServiceDetailBuilder: () => new DataTypesBuilder.VirtualServiceDetailBuilder(),
 };

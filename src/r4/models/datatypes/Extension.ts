@@ -2,18 +2,23 @@ import {
   IAddress,
   IAttachment,
   ICodeableConcept,
-  ICodeableReference,
   ICoding,
   IContactPoint,
+  IDuration,
   IExtension,
+  IHumanName,
   IIdentifier,
+  IMeta,
   IPeriod,
   IQuantity,
+  IReference,
 } from '../../interfaces/datatypes';
-import { IElement, IReference } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 
 export class Extension implements IExtension {
   id?: string;
+  extension?: IExtension[];
+
   url: string;
 
   valueAddress?: IAddress;
@@ -23,7 +28,6 @@ export class Extension implements IExtension {
   valueCanonical?: string;
   valueCode?: string;
   valueCodeableConcept?: ICodeableConcept;
-  valueCodeableReference?: ICodeableReference;
   valueCoding?: ICoding;
   valueContactPoint?: IContactPoint;
   valueDate?: string;
@@ -33,19 +37,21 @@ export class Extension implements IExtension {
   valueIdentifier?: IIdentifier;
   valueInstant?: string;
   valueInteger?: number;
-  valueInteger64?: number;
   valueMarkdown?: string;
   valueOid?: string;
   valuePeriod?: IPeriod;
   valuePositiveInt?: number;
   valueQuantity?: IQuantity;
-  valueReference?: IReference;
   valueString?: string;
   valueTime?: string;
   valueUnsignedInt?: number;
   valueUri?: string;
   valueUrl?: string;
   valueUuid?: string;
+  valueDuration?: IDuration;
+  valueHumanName?: IHumanName;
+  valueMeta?: IMeta;
+  valueReference?: IReference;
 
   // Extensions for url
   _url?: IElement;
@@ -59,7 +65,6 @@ export class Extension implements IExtension {
   _valueId?: IElement;
   _valueInstant?: IElement;
   _valueInteger?: IElement;
-  _valueInteger64?: IElement;
   _valueMarkdown?: IElement;
   _valueOid?: IElement;
   _valuePositiveInt?: IElement;
@@ -69,7 +74,6 @@ export class Extension implements IExtension {
   _valueUri?: IElement;
   _valueUrl?: IElement;
   _valueUuid?: IElement;
-  extension?: IExtension[];
 
   constructor(args?: IExtension) {
     Object.assign(this, args);

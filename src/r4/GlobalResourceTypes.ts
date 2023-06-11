@@ -28,7 +28,7 @@ export type ResourceTypeR4 =
   | 'PractitionerRole'
   | 'RelatedPerson';
 
-export type ResourceType<T> = T extends 'Patient'
+export type ParseResourceTypeR4<T> = T extends 'Patient'
   ? IPatient
   : T extends 'Organization'
   ? IOrganization

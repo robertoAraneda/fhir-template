@@ -15,7 +15,7 @@ describe('HumanName FHIR R4', () => {
   });
 
   it('should be able to create a new humanname and validate with correct data [new HumanName()]', async () => {
-    const dataType = new HumanName({
+    const item = new HumanName({
       use: 'maiden',
       family: 'Windsor',
       given: ['Peter', 'James'],
@@ -33,13 +33,13 @@ describe('HumanName FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new humanname and validate with correct data [createDatatype()]', async () => {
-    const dataType: IHumanName = createDatatype('HumanName', {
+    const item: IHumanName = createDatatype('HumanName', {
       use: 'maiden',
       family: 'Windsor',
       given: ['Peter', 'James'],
@@ -57,13 +57,13 @@ describe('HumanName FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new humanname and validate with correct data [IHumanName]', async () => {
-    const dataType: IHumanName = {
+    const item: IHumanName = {
       use: 'maiden',
       family: 'Windsor',
       given: ['Peter', 'James'],
@@ -81,13 +81,13 @@ describe('HumanName FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new humanname and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       test: 'test', // wrong property
       use: 'wrong use', // wrong property
       family: 'Windsor',
@@ -106,7 +106,7 @@ describe('HumanName FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -131,7 +131,7 @@ describe('HumanName FHIR R4', () => {
 
   it('should be able to create a new identifier using builder methods [builders.dataTypes.HumanNameBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
+    const item = builderFromFunction
       .setUse('official')
       .addGiven('Peter')
       .addGiven('James')
@@ -157,8 +157,8 @@ describe('HumanName FHIR R4', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _family: {
         extension: [
           {
@@ -188,7 +188,7 @@ describe('HumanName FHIR R4', () => {
 
   it('should be able to create a new identifier using builder methods [new HumanNameBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setUse('official')
       .addGiven('Peter')
       .addGiven('James')
@@ -214,8 +214,8 @@ describe('HumanName FHIR R4', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _family: {
         extension: [
           {

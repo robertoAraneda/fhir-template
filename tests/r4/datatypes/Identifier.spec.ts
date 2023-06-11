@@ -4,7 +4,7 @@ import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
 import { Identifier } from '../../../src/r4/models/datatypes';
 
-describe('Identifier', () => {
+describe('Identifier FHIR R4', () => {
   let builder: IdentifierBuilder;
   let builderFromFunction: IdentifierBuilder;
   const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
@@ -16,7 +16,7 @@ describe('Identifier', () => {
   });
 
   it('should be able to create a new identifier and validate with correct data [new Identifier()]', async () => {
-    const dataType = new Identifier({
+    const item = new Identifier({
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -30,13 +30,13 @@ describe('Identifier', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new identifier and validate with correct data [createDatatype()]', async () => {
-    const dataType = createDatatype('Identifier', {
+    const item = createDatatype('Identifier', {
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -50,13 +50,13 @@ describe('Identifier', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new identifier and validate with correct data [IIdentifier]', async () => {
-    const dataType: IIdentifier = {
+    const item: IIdentifier = {
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -70,13 +70,13 @@ describe('Identifier', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new reference and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -91,7 +91,7 @@ describe('Identifier', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -109,7 +109,7 @@ describe('Identifier', () => {
 
   it('should be able to create a new identifier using builder methods [new IdentifierBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setUse('official')
       .setSystem('http://hl7.org/fhir/sid/us-npi')
       .setPeriod({
@@ -120,8 +120,8 @@ describe('Identifier', () => {
       .setAssigner({ reference: 'Organization/123' })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       assigner: {
         reference: 'Organization/123',
       },
@@ -137,7 +137,7 @@ describe('Identifier', () => {
 
   it('should be able to create a new identifier using builder methods [builders.dataTypes.IdentifierBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
+    const item = builderFromFunction
       .setUse('official')
       .setSystem('http://hl7.org/fhir/sid/us-npi')
       .setPeriod({
@@ -148,8 +148,8 @@ describe('Identifier', () => {
       .setAssigner({ reference: 'Organization/123' })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       assigner: {
         reference: 'Organization/123',
       },
@@ -164,7 +164,7 @@ describe('Identifier', () => {
   });
 
   it('should return errors if identifiers has wrong data', async () => {
-    const dataType = builder
+    const item = builder
       .setUse('official')
       .setSystem('http://hl7.org/fhir/sid/us-npi')
       .setPeriod({
@@ -179,8 +179,8 @@ describe('Identifier', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       assigner: {
         reference: 'Organization/123',
       },
@@ -193,7 +193,7 @@ describe('Identifier', () => {
       value: '1234567890',
     });
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(item);
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors).toHaveLength(1);

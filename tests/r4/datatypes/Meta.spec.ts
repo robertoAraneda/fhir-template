@@ -4,7 +4,7 @@ import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
 import { Meta } from '../../../src/r4/models/datatypes';
 
-describe('Meta', () => {
+describe('Meta FHIR R4', () => {
   let builder: MetaBuilder;
   let builderFromFunction: MetaBuilder;
   const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
@@ -16,7 +16,7 @@ describe('Meta', () => {
   });
 
   it('should be able to create a new meta and validate with correct data [new Meta()]', async () => {
-    const dataType = new Meta({
+    const item = new Meta({
       id: '123',
       tag: [
         {
@@ -31,14 +31,14 @@ describe('Meta', () => {
       versionId: 'test',
     });
 
-    const validate = await Validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new meta and validate with correct data [createDatatype()]', async () => {
-    const dataType = createDatatype('Meta', {
+    const item = createDatatype('Meta', {
       id: '123',
       tag: [
         {
@@ -52,13 +52,13 @@ describe('Meta', () => {
       versionId: 'test',
     });
 
-    const validate = await Validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new meta and validate with correct data [IMeta]', async () => {
-    const dataType: IMeta = {
+    const item: IMeta = {
       id: '123',
       tag: [
         {
@@ -72,13 +72,13 @@ describe('Meta', () => {
       versionId: 'test',
     };
 
-    const validate = await Validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new meta and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       tag: [
         {
@@ -93,7 +93,7 @@ describe('Meta', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -118,7 +118,7 @@ describe('Meta', () => {
 
   it('should be able to create a new meta using builder methods [new MetaBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .addProfile('http://hl7.org/fhir/us/core/StructureDefinition/patient')
       .addSecurity({ system: 'test', code: 'test' })
       .addTag({ code: '123', system: 'http://hl7.org/fhir/sid/us-npi' })
@@ -127,8 +127,8 @@ describe('Meta', () => {
       .setVersionId('test')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       source: 'test',
       tag: [
         {
@@ -148,9 +148,9 @@ describe('Meta', () => {
     });
   });
 
-  it('should be able to create a new meta using builder methods [builders.dataType.MetaBuilder()]', async () => {
+  it('should be able to create a new meta using builder methods [builders.item.MetaBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
+    const item = builderFromFunction
       .addProfile('http://hl7.org/fhir/us/core/StructureDefinition/patient')
       .addSecurity({ system: 'test', code: 'test' })
       .addTag({ code: '123', system: 'http://hl7.org/fhir/sid/us-npi' })
@@ -159,8 +159,8 @@ describe('Meta', () => {
       .setVersionId('test')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       source: 'test',
       tag: [
         {

@@ -15,7 +15,7 @@ describe('Coding FHIR R4', () => {
   });
 
   it('should be able to create a new coding and validate with correct data [createDatatype]', async () => {
-    const dataType = createDatatype('Coding', {
+    const item = createDatatype('Coding', {
       id: '123',
       code: '123',
       version: '1.0.0',
@@ -23,12 +23,12 @@ describe('Coding FHIR R4', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     });
 
-    const validate = await Validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
   it('should be able to create a new coding and validate with correct data [new Coding()]', async () => {
-    const dataType = new Coding({
+    const item = new Coding({
       id: '123',
       code: '123',
       version: '1.0.0',
@@ -36,13 +36,13 @@ describe('Coding FHIR R4', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     });
 
-    const validate = await Validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new coding and validate with correct data [ICoding]', async () => {
-    const dataType: ICoding = {
+    const item: ICoding = {
       id: '123',
       code: '123',
       version: '1.0.0',
@@ -50,13 +50,13 @@ describe('Coding FHIR R4', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     };
 
-    const validate = await Validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       code: '123',
       version: '1.0.0',
@@ -65,7 +65,7 @@ describe('Coding FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Coding(dataType);
+    const validate = await Validator.dataTypes.Coding(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -83,7 +83,7 @@ describe('Coding FHIR R4', () => {
 
   it('should be able to create a new coding using builder methods [new CodingBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setCode('123')
       .setDisplay('test')
       .setSystem('http://hl7.org/fhir/sid/us-npi')
@@ -92,8 +92,8 @@ describe('Coding FHIR R4', () => {
       .addParamExtension('code', { id: '123', extension: [{ url: 'url', valueId: '1221' }] })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _code: {
         extension: [
           {
@@ -113,7 +113,7 @@ describe('Coding FHIR R4', () => {
 
   it('should be able to create a new coding using builder methods [builders.dataTypes.CodingBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
+    const item = builderFromFunction
       .setCode('123')
       .setDisplay('test')
       .setSystem('http://hl7.org/fhir/sid/us-npi')
@@ -122,8 +122,8 @@ describe('Coding FHIR R4', () => {
       .addParamExtension('code', { id: '123', extension: [{ url: 'url', valueId: '1221' }] })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _code: {
         extension: [
           {

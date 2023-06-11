@@ -1,20 +1,17 @@
-import { CodingBuilder, ContactPointBuilder } from '../../../src/r4/builders/datatypes';
+import { ContactPointBuilder } from '../../../src/r4/builders/datatypes';
 import { IContactPoint } from '../../../src/r4/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
-import { ContactPoint } from '../../../src/r4/models/datatypes/ContactPoint';
+import { ContactPoint } from '../../../src/r4/models/datatypes';
 
-describe('ContactPoint', () => {
-  let validator: IValidatorContext;
+describe('ContactPoint FHIR R4', () => {
   let builder: ContactPointBuilder;
   let builderFromFunction: ContactPointBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR4();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new ContactPointBuilder();
-    builderFromFunction = builders.dataTypes.ContactPointBuilder();
+    builderFromFunction = Builder.dataTypes.ContactPointBuilder();
   });
 
   it('should be able to create a new contact point and validate with correct data [createDatatype]', async () => {
@@ -26,7 +23,7 @@ describe('ContactPoint', () => {
       use: 'home',
     });
 
-    const validate = await validator.dataTypes.ContactPoint(dataType);
+    const validate = await Validator.dataTypes.ContactPoint(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -41,7 +38,7 @@ describe('ContactPoint', () => {
       use: 'home',
     });
 
-    const validate = await validator.dataTypes.ContactPoint(dataType);
+    const validate = await Validator.dataTypes.ContactPoint(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -56,7 +53,7 @@ describe('ContactPoint', () => {
       use: 'home',
     };
 
-    const validate = await validator.dataTypes.ContactPoint(dataType);
+    const validate = await Validator.dataTypes.ContactPoint(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -72,7 +69,7 @@ describe('ContactPoint', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.ContactPoint(dataType);
+    const validate = await Validator.dataTypes.ContactPoint(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -102,7 +99,7 @@ describe('ContactPoint', () => {
       .setRank(1)
       .setSystem('url')
       .setValue('test')
-      .addContactPointParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
+      .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 
     expect(dataType).toBeDefined();
@@ -130,7 +127,7 @@ describe('ContactPoint', () => {
       .setRank(1)
       .setSystem('url')
       .setValue('test')
-      .addContactPointParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
+      .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 
     expect(dataType).toBeDefined();

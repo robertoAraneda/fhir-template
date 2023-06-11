@@ -1,20 +1,18 @@
 import { IIdentifier } from '../../../src/r4/interfaces/datatypes';
-import { HumanNameBuilder, IdentifierBuilder } from '../../../src/r4/builders/datatypes';
+import { IdentifierBuilder } from '../../../src/r4/builders/datatypes';
 import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
-import { Identifier } from '../../../src/r4/models/datatypes/Identifier';
+import { Identifier } from '../../../src/r4/models/datatypes';
 
 describe('Identifier', () => {
-  let validator: IValidatorContext;
   let builder: IdentifierBuilder;
   let builderFromFunction: IdentifierBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR4();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new IdentifierBuilder();
-    builderFromFunction = builders.dataTypes.IdentifierBuilder();
+    builderFromFunction = Builder.dataTypes.IdentifierBuilder();
   });
 
   it('should be able to create a new identifier and validate with correct data [new Identifier()]', async () => {
@@ -32,7 +30,7 @@ describe('Identifier', () => {
       },
     });
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -52,7 +50,7 @@ describe('Identifier', () => {
       },
     });
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -72,7 +70,7 @@ describe('Identifier', () => {
       },
     };
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -93,7 +91,7 @@ describe('Identifier', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -195,7 +193,7 @@ describe('Identifier', () => {
       value: '1234567890',
     });
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors).toHaveLength(1);

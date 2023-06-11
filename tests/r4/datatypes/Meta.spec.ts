@@ -2,19 +2,17 @@ import { MetaBuilder } from '../../../src/r4/builders/datatypes';
 import { IMeta } from '../../../src/r4/interfaces/datatypes';
 import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
-import { Meta } from '../../../src/r4/models/datatypes/Meta';
+import { Meta } from '../../../src/r4/models/datatypes';
 
 describe('Meta', () => {
-  let validator: IValidatorContext;
   let builder: MetaBuilder;
   let builderFromFunction: MetaBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR4();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new MetaBuilder();
-    builderFromFunction = builders.dataTypes.MetaBuilder();
+    builderFromFunction = Builder.dataTypes.MetaBuilder();
   });
 
   it('should be able to create a new meta and validate with correct data [new Meta()]', async () => {
@@ -33,7 +31,7 @@ describe('Meta', () => {
       versionId: 'test',
     });
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -54,7 +52,7 @@ describe('Meta', () => {
       versionId: 'test',
     });
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -74,7 +72,7 @@ describe('Meta', () => {
       versionId: 'test',
     };
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -95,7 +93,7 @@ describe('Meta', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

@@ -3,11 +3,13 @@ import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { PractitionerRoleAvailableTime } from '../../models/backbones/PractitionerRoleAvailableTime';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 
 type ParamType = 'daysOfWeek' | 'allDay' | 'availableStartTime' | 'availableEndTime';
 interface IPractitionerRoleAvailableTimeBuilder extends IBuildable<IPractitionerRoleAvailableTime>, ISerializable {
   addDaysOfWeek(value: string): this;
-  setMultipleDaysOfWeek(value: string[]): this;
+  setMultipleDaysOfWeek(value: DaysOfWeekType[] | DaysOfWeekEnum): this;
   setAllDay(value: boolean): this;
   setAvailableStartTime(value: string): this;
   setAvailableEndTime(value: string): this;
@@ -22,7 +24,7 @@ export class PractitionerRoleAvailableTimeBuilder
     super();
     this.practitionerRoleAvailableTime = new PractitionerRoleAvailableTime();
   }
-  addDaysOfWeek(value: string): this {
+  addDaysOfWeek(value: DaysOfWeekEnum | DaysOfWeekType): this {
     this.practitionerRoleAvailableTime.daysOfWeek = this.practitionerRoleAvailableTime.daysOfWeek || [];
     this.practitionerRoleAvailableTime.daysOfWeek.push(value);
     return this;
@@ -70,7 +72,7 @@ export class PractitionerRoleAvailableTimeBuilder
     return this;
   }
 
-  setMultipleDaysOfWeek(value: string[]): this {
+  setMultipleDaysOfWeek(value: DaysOfWeekEnum[] | DaysOfWeekType[]): this {
     this.practitionerRoleAvailableTime.daysOfWeek = value;
     return this;
   }

@@ -1,6 +1,8 @@
 import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
 import { IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 
 export class PractitionerRoleAvailableTime implements IPractitionerRoleAvailableTime {
   // Element attributes
@@ -11,7 +13,7 @@ export class PractitionerRoleAvailableTime implements IPractitionerRoleAvailable
   modifierExtension?: IExtension[];
 
   // PractitionerRoleAvailableTime attributes
-  daysOfWeek?: string[];
+  daysOfWeek?: DaysOfWeekEnum[] | DaysOfWeekType[];
   allDay?: boolean;
   availableStartTime?: string;
   availableEndTime?: string;

@@ -1,7 +1,9 @@
 import { IBackboneElement, IElement } from '../base';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 
 export interface IPractitionerRoleAvailableTime extends IBackboneElement {
-  daysOfWeek?: string[];
+  daysOfWeek?: DaysOfWeekEnum[] | DaysOfWeekType[];
   allDay?: boolean;
   availableStartTime?: string;
   availableEndTime?: string;

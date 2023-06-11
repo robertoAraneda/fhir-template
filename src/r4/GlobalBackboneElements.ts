@@ -4,6 +4,7 @@ import {
   IPatientCommunication,
   IPatientContact,
   IPatientLink,
+  IPersonLink,
   IPractitionerQualification,
   IPractitionerRoleAvailableTime,
   IPractitionerRoleNotAvailable,
@@ -27,6 +28,7 @@ export type BackboneElementTypeR4 =
   | 'PatientCommunication'
   | 'PatientContact'
   | 'PatientLink'
+  | 'PersonLink'
   | 'PractitionerQualification'
   | 'PractitionerRoleAvailableTime'
   | 'PractitionerRoleNotAvailable'
@@ -40,6 +42,8 @@ export type ParseBackboneElementTypeR4<T> = T extends 'OrganizationContact'
   ? IPatientContact
   : T extends 'PatientLink'
   ? IPatientLink
+  : T extends 'PersonLink'
+  ? IPersonLink
   : T extends 'PractitionerQualification'
   ? IPractitionerQualification
   : T extends 'PractitionerRoleAvailableTime'

@@ -2,6 +2,10 @@
   "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rules": {
     "no-empty-interface": false,
-    "no-namespace": false
+    "no-namespace": false,
+    "@typescript-eslint/member-ordering": [
+      "error",
+      { "default": ["signature", "method", "constructor", "field"] }
+    ]
   }
 }

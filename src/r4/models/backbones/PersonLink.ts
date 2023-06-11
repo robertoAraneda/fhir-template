@@ -16,4 +16,8 @@ export class PersonLink implements IPersonLink {
   assurance: IdentityAssuranceLevelEnum | IdentityAssuranceLevelType;
   target: IReference;
   _assurance: IElement;
+
+  constructor(args?: IPersonLink) {
+    Object.assign(this, args);
+  }
 }

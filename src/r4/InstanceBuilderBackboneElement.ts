@@ -7,6 +7,7 @@ import { PatientLink } from './models/backbones/PatientLink';
 import { PractitionerQualification } from './models/backbones/PractitionerQualification';
 import { PractitionerRoleAvailableTime } from './models/backbones/PractitionerRoleAvailableTime';
 import { RelatedPersonCommunication } from './models/backbones/RelatedPersonCommunication';
+import { PersonLink } from './models/backbones/PersonLink';
 
 export const generateInstanceBackboneElement = (backboneType: BackboneElementTypeR4, data: any) => {
   switch (backboneType) {
@@ -20,6 +21,8 @@ export const generateInstanceBackboneElement = (backboneType: BackboneElementTyp
       return new PatientContact(data);
     case 'PatientLink':
       return new PatientLink(data);
+    case 'PersonLink':
+      return new PersonLink(data);
     case 'PractitionerQualification':
       return new PractitionerQualification(data);
     case 'PractitionerRoleAvailableTime':

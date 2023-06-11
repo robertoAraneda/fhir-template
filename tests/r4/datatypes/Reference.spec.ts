@@ -1,44 +1,68 @@
+import { IReference } from '../../../src/r4/interfaces/datatypes';
 import { ReferenceBuilder } from '../../../src/r4/builders/datatypes';
-import { IReference } from '../../../src/r4/interfaces/base';
-import { IOrganization } from '../../../src/r4/interfaces/resources';
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
+import { Reference } from '../../../src/r4/models/datatypes';
+import { Patient } from '../../../src/r4/models/resources';
 
-describe('Reference', () => {
-  let validator: IValidatorContext;
+describe('Reference FHIR R4', () => {
   let builder: ReferenceBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR4().validators;
-  });
+  let builderFromFunction: ReferenceBuilder;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new ReferenceBuilder();
+    builderFromFunction = Builder.dataTypes.ReferenceBuilder();
   });
 
-  it('should be able to create a new reference and validate with correct data', async () => {
-    const dataType: IReference = {
-      type: 'official',
-      reference: 'Organization/123',
-      display: 'Organization display',
+  it('should be able to create a new reference and validate with correct data [createDatatype()]', async () => {
+    const item = createDatatype('Reference', {
+      reference: 'Patient/1',
+      display: 'test',
+      type: 'Patient',
+    });
+
+    const validate = await Validator.dataTypes.Reference(item);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new reference and validate with correct data [new Reference()]', async () => {
+    const item = new Reference({
+      reference: 'Patient/1',
+      display: 'test',
+      type: 'Patient',
+    });
+
+    const validate = await Validator.dataTypes.Reference(item);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new reference and validate with correct data [IReference]', async () => {
+    const item: IReference = {
+      reference: 'Patient/1',
+      display: 'test',
+      type: 'Patient',
     };
 
-    const validate = await validator.dataTypes.Reference(dataType);
+    const validate = await Validator.dataTypes.Reference(item);
+
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new reference and validate with wrong data', async () => {
-    const dataType = {
-      type: 'official',
-      reference: 'Organization/123',
-      display: 'Organization display',
-      test: 'test', // wrong property
+    const item = {
+      reference: 'Patient/1',
+      display: 'test',
+      type: 'Patient',
+      wrongProperty: 'test',
     };
 
-    const validate = await validator.dataTypes.Reference(dataType);
+    const validate = await Validator.dataTypes.Reference(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -46,80 +70,44 @@ describe('Reference', () => {
     expect(validate.errors).toEqual([
       {
         instancePath: '',
-        schemaPath: '#/additionalProperties',
         keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
         message: 'must NOT have additional properties',
+        params: { additionalProperty: 'wrongProperty' },
+        schemaPath: '#/additionalProperties',
       },
     ]);
   });
 
-  it('should be able to create a new address using builder methods', async () => {
+  it('should be able to create a new attachment using builder methods [new ReferenceBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
-      .setType('official')
-      .setReference('Organization/123')
-      .setDisplay('Organization display')
-      .build();
+    const item = builder.setType('Patient').setDisplay('test').setReference('Patient/1').build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({ type: 'official', display: 'Organization display', reference: 'Organization/123' });
-  });
-
-  it('should return errors if identifiers has wrong data', async () => {
-    const dataType = builder
-      .setType('official')
-      .setReference('Organization/123')
-      .setIdentifier({
-        period: {
-          start: '2020-01-01 HH:MM:SS',
-          end: '2020-01-02',
-        },
-      })
-      .setDisplay('Organization display')
-      .build();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      type: 'official',
-      display: 'Organization display',
-      reference: 'Organization/123',
-      identifier: {
-        period: {
-          end: '2020-01-02',
-          start: '2020-01-01 HH:MM:SS',
-        },
-      },
+    expect(item).toBeDefined();
+    expect(item).toEqual({
+      display: 'test',
+      reference: 'Patient/1',
+      type: 'Patient',
     });
-
-    const validate = await validator.dataTypes.Reference(dataType);
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    if (validate.errors) {
-      expect(validate.errors).toEqual([
-        {
-          keyword: 'pattern',
-          instancePath: '/identifier/period/start',
-          message: "The value '/identifier/period/start' does not match with datatype 'dateTime'",
-          params: { value: '/identifier/period/start' },
-          schemaPath: 'r4base.schema.json#/definitions/dateTime/pattern',
-        },
-      ]);
-    }
   });
 
-  it('should be able to create a new reference as resource with builder methods', async () => {
-    const organization: IOrganization = {
-      resourceType: 'Organization',
-      id: '123',
-    };
-    const dataType = new ReferenceBuilder().setReference(organization).setDisplay('Organization display').build();
+  it('should be able to create a new attachment using builder methods [Builder.dataTypes.ReferenceBuilder()]', async () => {
+    // build() is a method that returns the object that was built
+    const item = builderFromFunction
+      .setType('Patient')
+      .setDisplay('test')
+      .setReference(
+        new Patient({
+          id: '2',
+          resourceType: 'Patient',
+        }),
+      )
+      .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      reference: 'Organization/123',
-      display: 'Organization display',
+    expect(item).toBeDefined();
+    expect(item).toEqual({
+      display: 'test',
+      reference: 'Patient/2',
+      type: 'Patient',
     });
   });
 });

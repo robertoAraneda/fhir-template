@@ -11,6 +11,7 @@ import {
   IMeta,
   IPeriod,
   IQuantity,
+  IReference,
 } from './interfaces/datatypes';
 import { Wait } from './validators/BackboneElementValidator';
 export interface IDatatypeValidatorProperties {
@@ -65,6 +66,8 @@ export type ParseDataTypeR4<T> = T extends 'Address'
   ? IDuration
   : T extends 'Extension'
   ? IExtension
+  : T extends 'Reference'
+  ? IReference
   : T extends 'Quantity'
   ? IQuantity
   : unknown;

@@ -82,7 +82,7 @@ export class PatientContactBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build(): IOrganizationQualification {
+  build(): PatientContact {
     return JSON.parse(JSON.stringify(this.raw()));
   }
 

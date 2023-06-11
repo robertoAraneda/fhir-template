@@ -1,4 +1,3 @@
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
 import { PatientCommunication } from '../../../src/r4/models/backbones/PatientCommunication';
 import { PatientCommunicationBuilder } from '../../../src/r4/builders/backbones';

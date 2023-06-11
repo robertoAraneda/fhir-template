@@ -1,11 +1,9 @@
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
 import { OrganizationContact } from '../../../src/r4/models/backbones/OrganizationContact';
 import { OrganizationContactBuilder } from '../../../src/r4/builders/backbones';
 import { IOrganizationContact } from '../../../src/r4/interfaces/backbones';
 
 describe('OrganizationContact FHIR R4', () => {
-  let validator: IValidatorContext;
   let builder: OrganizationContactBuilder;
   let builderFromFunction: OrganizationContactBuilder;
   const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();

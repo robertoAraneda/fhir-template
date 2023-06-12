@@ -1,5 +1,13 @@
-import { IDomainResource, IReference, IElement } from '../base';
-import { IIdentifier, IHumanName, IContactPoint, IAddress, ICodeableConcept, IAttachment } from '../datatypes';
+import { IDomainResource, IElement } from '../base';
+import {
+  IIdentifier,
+  IHumanName,
+  IContactPoint,
+  IAddress,
+  ICodeableConcept,
+  IAttachment,
+  IReference,
+} from '../datatypes';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IPatientContact, IPatientCommunication, IPatientLink } from '../backbones';

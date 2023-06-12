@@ -1,20 +1,22 @@
-import { RelatedPersonBuilder } from '../../../src/r5/builders/resources';
-import { IRelatedPerson } from '../../../src/r5/interfaces/resources';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
+import { RelatedPersonBuilder } from '../../../src/r4/builders/resources';
+import { IRelatedPerson } from '../../../src/r4/interfaces/resources';
+import { RelatedPerson } from '../../../src/r4/models/resources';
 
-describe('RelatedPerson', () => {
-  const context = new FHIRContext();
-  let validator = context.forR4().validators.resources;
+describe('RelatedPerson Resource FHIR R4', () => {
   let builder: RelatedPersonBuilder;
+  let builderFromFunction: RelatedPersonBuilder;
+  const context = new FHIRContext();
+  const { Validator, Builder, createResource } = context.forR4();
 
   // create global
   beforeEach(() => {
     builder = new RelatedPersonBuilder();
+    builderFromFunction = Builder.resources.RelatedPerson();
   });
 
-  it('should be able to create a new coding and validate with correct data [Example RelatedPerson/benedicte]', async () => {
-    const dataType: IRelatedPerson = {
+  it('should be able to create a new related_person and validate [IRelatedPerson]', async () => {
+    const item: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'benedicte',
       text: {
@@ -86,13 +88,13 @@ describe('RelatedPerson', () => {
       ],
     };
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/peter]', async () => {
-    const dataType: IRelatedPerson = {
+  it('should be able to validate a new related_person and validate [new RelatedPerson()]', async () => {
+    const item = new RelatedPerson({
       resourceType: 'RelatedPerson',
       id: 'peter',
       text: {
@@ -145,16 +147,16 @@ describe('RelatedPerson', () => {
       period: {
         start: '2012-03-11',
       },
-    };
+    });
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/f001]', async () => {
-    const dataType: IRelatedPerson = {
+  it('should be able to validate a new related_person and validate [createResource()]', async () => {
+    const item = createResource('RelatedPerson', {
       resourceType: 'RelatedPerson',
       id: 'f001',
       text: {
@@ -203,16 +205,16 @@ describe('RelatedPerson', () => {
         },
       ],
       gender: 'female',
-    };
+    });
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/newborn-mom]', async () => {
-    const dataType: IRelatedPerson = {
+  it('should be able to validate a new related_person and validate [Example RelatedPerson/newborn-mom]', async () => {
+    const item: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'newborn-mom',
       text: {
@@ -273,15 +275,68 @@ describe('RelatedPerson', () => {
       ],
     };
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new coding using builder methods', async () => {
+  it('should be able to create a new related_person resource and validate with wrong data', async () => {
+    const item = {
+      birthDate: '1974-12-25',
+      gender: 'male',
+      identifier: [
+        {
+          system: 'urn:oid:2.16.840.1.113883.23',
+          type: {
+            text: 'BSN',
+          },
+          use: 'official',
+          value: '123456789',
+        },
+      ],
+      name: [
+        {
+          family: 'Chalmers',
+          given: ['Peter', 'James'],
+          use: 'official',
+        },
+      ],
+      resourceType: 'RelatedPerson',
+      wrongProperty: 'wrong',
+    };
+
+    const validate = await Validator.resources.RelatedPerson(item);
+
+    expect(validate.isValid).toBeFalsy();
+    expect(validate.errors).toBeDefined();
+    expect(validate.errors).toHaveLength(2);
+
+    expect(validate.errors).toEqual([
+      {
+        instancePath: '',
+        keyword: 'required',
+        message: "must have required property 'patient'",
+        params: {
+          missingProperty: 'patient',
+        },
+        schemaPath: '#/required',
+      },
+      {
+        instancePath: '',
+        keyword: 'additionalProperties',
+        message: 'must NOT have additional properties',
+        params: {
+          additionalProperty: 'wrongProperty',
+        },
+        schemaPath: '#/additionalProperties',
+      },
+    ]);
+  });
+
+  it('should be able to create a new related_person using builder methods [new RelatedPersonBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .addName({
         use: 'official',
         family: 'Chalmers',
@@ -299,8 +354,53 @@ describe('RelatedPerson', () => {
       .setBirthDate('1974-12-25')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
+      birthDate: '1974-12-25',
+      gender: 'male',
+      identifier: [
+        {
+          system: 'urn:oid:2.16.840.1.113883.23',
+          type: {
+            text: 'BSN',
+          },
+          use: 'official',
+          value: '123456789',
+        },
+      ],
+      name: [
+        {
+          family: 'Chalmers',
+          given: ['Peter', 'James'],
+          use: 'official',
+        },
+      ],
+      resourceType: 'RelatedPerson',
+    });
+  });
+
+  it('should be able to create a new related_person using builder methods [Builder.resources.RelatedPerson()]', async () => {
+    // build() is a method that returns the object that was built
+    const item = builderFromFunction
+      .addName({
+        use: 'official',
+        family: 'Chalmers',
+        given: ['Peter', 'James'],
+      })
+      .addIdentifier({
+        use: 'official',
+        type: {
+          text: 'BSN',
+        },
+        system: 'urn:oid:2.16.840.1.113883.23',
+        value: '123456789',
+      })
+      .setGender('male')
+      .setBirthDate('1974-12-25')
+      .build();
+
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       birthDate: '1974-12-25',
       gender: 'male',
       identifier: [

@@ -1,5 +1,5 @@
-import { IDomainResource, IElement, IReference } from '../base';
-import { IIdentifier, IPeriod, ICodeableConcept, IContactPoint } from '../datatypes';
+import { IDomainResource, IElement } from '../base';
+import { IIdentifier, IPeriod, ICodeableConcept, IContactPoint, IReference } from '../datatypes';
 import { IPractitionerRoleAvailableTime, IPractitionerRoleNotAvailable } from '../backbones';
 
 export interface IPractitionerRole extends IDomainResource {

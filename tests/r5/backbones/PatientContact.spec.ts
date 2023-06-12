@@ -1,23 +1,20 @@
 import { PatientContactBuilder } from '../../../src/r5/builders/backbones';
 import { IPatientContact } from '../../../src/r5/interfaces/backbones';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
+import { PatientContact } from '../../../src/r5/models/backbones/PatientContact';
 
-describe('PatientContact', () => {
-  let validator: IValidatorContext;
+describe('PatientContact FHIR R5', () => {
+  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
   let builder: PatientContactBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  let builderFromFunction: PatientContactBuilder;
 
   // create global
   beforeEach(() => {
     builder = new PatientContactBuilder();
+    builderFromFunction = Builder.backboneElements.PatientContact();
   });
 
-  it('should be able to create a new patient_contact payload and validate with correct data', async () => {
+  it('should be able to create a new patient_contact payload and validate with correct data [IPatientContact]', async () => {
     const dataType: IPatientContact = {
       id: '123',
       gender: 'female',
@@ -39,7 +36,63 @@ describe('PatientContact', () => {
       },
     };
 
-    const validate = await validator.backboneElements.PatientContact(dataType);
+    const validate = await Validator.backboneElements.PatientContact(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new patient_contact payload and validate with correct data [new PatientContact()]', async () => {
+    const dataType = new PatientContact({
+      id: '123',
+      gender: 'female',
+      relationship: [
+        {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
+              code: 'N',
+              display: 'Next-of-Kin',
+            },
+          ],
+        },
+      ],
+      name: {
+        use: 'official',
+        given: ['John'],
+        family: 'Doe',
+      },
+    });
+
+    const validate = await Validator.backboneElements.PatientContact(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new patient_contact payload and validate with correct data [createBackboneElement()]', async () => {
+    const dataType = createBackboneElement('PatientContact', {
+      id: '123',
+      gender: 'female',
+      relationship: [
+        {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
+              code: 'N',
+              display: 'Next-of-Kin',
+            },
+          ],
+        },
+      ],
+      name: {
+        use: 'official',
+        given: ['John'],
+        family: 'Doe',
+      },
+    });
+
+    const validate = await Validator.backboneElements.PatientContact(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -66,7 +119,7 @@ describe('PatientContact', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.backboneElements.PatientContact(dataType);
+    const validate = await Validator.backboneElements.PatientContact(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -98,14 +151,66 @@ describe('PatientContact', () => {
         keyword: 'pattern',
         message: "The value '/period/start' does not match with datatype 'dateTime'",
         params: { value: '/period/start' },
-        schemaPath: 'r4base.schema.json#/definitions/dateTime/pattern',
+        schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
       },
     ]);
   });
 
-  it('should be able to create a new patient_contact payload using builder methods', async () => {
+  it('should be able to create a new patient_contact payload using builder methods [new PatientContactBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .setGender('male')
+      .addTelecom({
+        use: 'home',
+        system: 'phone',
+        value: '1234567890',
+      })
+      .addPatientContactParamExtension('gender', {
+        extension: [
+          {
+            url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+            valueString: 'Jane Doe',
+          },
+        ],
+      })
+      .addExtension({
+        url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+        valueString: 'Jane Doe',
+      })
+      .build();
+
+    expect(dataType).toBeDefined();
+    expect(dataType).toEqual({
+      _gender: {
+        extension: [
+          {
+            url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+            valueString: 'Jane Doe',
+          },
+        ],
+      },
+      extension: [
+        {
+          url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+          valueString: 'Jane Doe',
+        },
+      ],
+      gender: 'male',
+      id: '123',
+      telecom: [
+        {
+          system: 'phone',
+          use: 'home',
+          value: '1234567890',
+        },
+      ],
+    });
+  });
+
+  it('should be able to create a new patient_contact payload using builder methods [Builder.backboneElements.PatientContact()]', async () => {
+    // build() is a method that returns the object that was built
+    const dataType = builderFromFunction
       .setId('123')
       .setGender('male')
       .addTelecom({

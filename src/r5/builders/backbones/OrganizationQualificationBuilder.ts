@@ -3,25 +3,34 @@ import { IBuildable, ISerializable } from '../../interfaces/base';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
+import { OrganizationQualification } from '../../models/backbones/OrganizationQualification';
+
+interface IOrganizationQualificationBuilder extends IBuildable<IOrganizationQualification>, ISerializable {
+  setCode(code: ICodeableConcept): this;
+  addIdentifier(identifier: IIdentifier): this;
+  setMultipleIdentifier(identifier: IIdentifier[]): this;
+  setIssuer(issuer: IReference): this;
+  setPeriod(period: IPeriod): this;
+}
 
 export class OrganizationQualificationBuilder
   extends BackboneElementBuilder<OrganizationQualificationBuilder>
-  implements IBuildable<IOrganizationQualification>, ISerializable
+  implements IOrganizationQualificationBuilder
 {
   private readonly organizationQualification: IOrganizationQualification;
 
   constructor() {
     super();
 
-    this.organizationQualification = {} as IOrganizationQualification;
+    this.organizationQualification = new OrganizationQualification();
   }
 
-  setCode(code: ICodeableConcept): OrganizationQualificationBuilder {
+  setCode(code: ICodeableConcept): this {
     this.organizationQualification.code = code;
     return this;
   }
 
-  setMultipleIdentifier(identifier: IIdentifier[]): OrganizationQualificationBuilder {
+  setMultipleIdentifier(identifier: IIdentifier[]): this {
     for (const id of identifier) {
       if (id.assigner?.reference) {
         validateReference(id.assigner?.reference, ['Organization']);
@@ -32,7 +41,7 @@ export class OrganizationQualificationBuilder
     return this;
   }
 
-  setIssuer(issuer: IReference): OrganizationQualificationBuilder {
+  setIssuer(issuer: IReference): this {
     if (issuer.reference) {
       validateReference(issuer.reference, ['Organization']);
     }
@@ -41,12 +50,12 @@ export class OrganizationQualificationBuilder
     return this;
   }
 
-  setPeriod(period: IPeriod): OrganizationQualificationBuilder {
+  setPeriod(period: IPeriod): this {
     this.organizationQualification.period = period;
     return this;
   }
 
-  addIdentifier(identifier: IIdentifier): OrganizationQualificationBuilder {
+  addIdentifier(identifier: IIdentifier): this {
     if (identifier.assigner?.reference) {
       validateReference(identifier.assigner?.reference, ['Organization']);
     }

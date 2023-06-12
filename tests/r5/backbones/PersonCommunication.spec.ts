@@ -135,7 +135,7 @@ describe('PatientCommunication FHIR R5', () => {
           },
         ],
       })
-      .addPersonCommunicationParamExtension('preferred', {
+      .addParamExtension('preferred', {
         extension: [
           {
             url: 'test',
@@ -179,7 +179,7 @@ describe('PatientCommunication FHIR R5', () => {
           },
         ],
       })
-      .addPersonCommunicationParamExtension('preferred', {
+      .addParamExtension('preferred', {
         extension: [
           {
             url: 'test',

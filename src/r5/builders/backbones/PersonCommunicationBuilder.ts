@@ -2,29 +2,36 @@ import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IPersonCommunication } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
+import { PersonCommunication } from '../../models/backbones/PersonCommunication';
+
+interface IPersonCommunicationBuilder extends IBuildable<IPersonCommunication>, ISerializable {
+  addParamExtension(param: 'preferred', extension: IElement): this;
+  setLanguage(language: ICodeableConcept): this;
+  setPreferred(preferred: boolean): this;
+}
 
 export class PersonCommunicationBuilder
   extends BackboneElementBuilder<PersonCommunicationBuilder>
-  implements IBuildable<IPersonCommunication>, ISerializable
+  implements IPersonCommunicationBuilder
 {
   private readonly personCommunication: IPersonCommunication;
 
   constructor() {
     super();
-    this.personCommunication = {} as IPersonCommunication;
+    this.personCommunication = new PersonCommunication();
   }
 
-  addPersonCommunicationParamExtension(param: 'preferred', extension: IElement): PersonCommunicationBuilder {
+  addParamExtension(param: 'preferred', extension: IElement): this {
     this.personCommunication[`_${param}`] = extension;
     return this;
   }
 
-  setLanguage(language: ICodeableConcept): PersonCommunicationBuilder {
+  setLanguage(language: ICodeableConcept): this {
     this.personCommunication.language = language;
     return this;
   }
 
-  setPreferred(preferred: boolean): PersonCommunicationBuilder {
+  setPreferred(preferred: boolean): this {
     this.personCommunication.preferred = preferred;
     return this;
   }

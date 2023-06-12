@@ -2,34 +2,37 @@ import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IPractitionerCommunication } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
+import { PractitionerCommunication } from '../../models/backbones/PractitionerCommunication';
+
+interface IPractitionerCommunicationBuilder extends IBuildable<IPractitionerCommunication>, ISerializable {
+  addParamExtension(param: 'preferred', extension: IElement): this;
+  setLanguage(language: ICodeableConcept): this;
+  setPreferred(preferred: boolean): this;
+}
 
 export class PractitionerCommunicationBuilder
   extends BackboneElementBuilder<PractitionerCommunicationBuilder>
-  implements IBuildable<IPractitionerCommunication>, ISerializable
+  implements IPractitionerCommunicationBuilder
 {
   private readonly practitionerCommunication: IPractitionerCommunication;
 
   constructor() {
     super();
-
-    this.practitionerCommunication = {} as IPractitionerCommunication;
+    this.practitionerCommunication = new PractitionerCommunication();
   }
 
-  addPractitionerCommunicationParamExtension(
-    param: 'preferred',
-    extension: IElement,
-  ): PractitionerCommunicationBuilder {
+  addParamExtension(param: 'preferred', extension: IElement): this {
     this.practitionerCommunication[`_${param}`] = extension;
     return this;
   }
 
-  setLanguage(language: ICodeableConcept): PractitionerCommunicationBuilder {
+  setLanguage(language: ICodeableConcept): this {
     this.practitionerCommunication.language = language;
 
     return this;
   }
 
-  setPreferred(preferred: boolean): PractitionerCommunicationBuilder {
+  setPreferred(preferred: boolean): this {
     this.practitionerCommunication.preferred = preferred;
     return this;
   }

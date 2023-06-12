@@ -166,7 +166,7 @@ describe('PatientContact FHIR R5', () => {
         system: 'phone',
         value: '1234567890',
       })
-      .addPatientContactParamExtension('gender', {
+      .addParamExtension('gender', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
@@ -218,7 +218,7 @@ describe('PatientContact FHIR R5', () => {
         system: 'phone',
         value: '1234567890',
       })
-      .addPatientContactParamExtension('gender', {
+      .addParamExtension('gender', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',

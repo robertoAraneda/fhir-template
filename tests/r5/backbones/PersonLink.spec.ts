@@ -115,7 +115,7 @@ describe('PersonLink FHIR R5', () => {
   it('should be able to create a new person_link payload using builder methods [new PersonLinkBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
-      .addPersonLinkParamExtension('assurance', {
+      .addParamExtension('assurance', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
@@ -151,7 +151,7 @@ describe('PersonLink FHIR R5', () => {
   it('should be able to create a new person_link payload using builder methods [Builder.backboneElements.PersonLink()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builderFromFunction
-      .addPersonLinkParamExtension('assurance', {
+      .addParamExtension('assurance', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',

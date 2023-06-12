@@ -8,6 +8,7 @@ import { PersonLink } from './models/backbones/PersonLink';
 import { EndpointPayload } from './models/backbones/EndpointPayload';
 import { OrganizationQualification } from './models/backbones/OrganizationQualification';
 import { PersonCommunication } from './models/backbones/PersonCommunication';
+import { PractitionerCommunication } from './models/backbones/PractitionerCommunication';
 
 export const generateInstanceBackboneElement = (backboneType: BackboneElementTypeR5, data: any) => {
   switch (backboneType) {
@@ -29,6 +30,8 @@ export const generateInstanceBackboneElement = (backboneType: BackboneElementTyp
       return new PractitionerQualification(data);
     case 'RelatedPersonCommunication':
       return new RelatedPersonCommunication(data);
+    case 'PractitionerCommunication':
+      return new PractitionerCommunication(data);
 
     default:
       throw new Error(`BackboneElement ${backboneType} not supported`);

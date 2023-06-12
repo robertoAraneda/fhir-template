@@ -123,7 +123,7 @@ describe('PatientLink FHIR R5', () => {
   it('should be able to create a new patient_link payload using builder methods [new PatientLinkBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
-      .addPatientLinkParamExtension('type', {
+      .addParamExtension('type', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
@@ -159,7 +159,7 @@ describe('PatientLink FHIR R5', () => {
   it('should be able to create a new patient_link payload using builder methods [Builder.backboneElements.PatientLink()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builderFromFunction
-      .addPatientLinkParamExtension('type', {
+      .addParamExtension('type', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',

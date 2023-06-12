@@ -1,6 +1,5 @@
-import { OrganizationQualificationBuilder, PatientCommunicationBuilder } from '../../../src/r5/builders/backbones';
+import { PatientCommunicationBuilder } from '../../../src/r5/builders/backbones';
 import { IPatientCommunication } from '../../../src/r5/interfaces/backbones';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
 import { PatientCommunication } from '../../../src/r5/models/backbones/PatientCommunication';
 
@@ -136,7 +135,7 @@ describe('PatientCommunication FHIR R5', () => {
           },
         ],
       })
-      .addPatientCommunicationParamExtension('preferred', {
+      .addParamExtension('preferred', {
         extension: [
           {
             url: 'test',
@@ -180,7 +179,7 @@ describe('PatientCommunication FHIR R5', () => {
           },
         ],
       })
-      .addPatientCommunicationParamExtension('preferred', {
+      .addParamExtension('preferred', {
         extension: [
           {
             url: 'test',

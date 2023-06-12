@@ -15,7 +15,7 @@ describe('Address FHIR R5', () => {
   });
 
   it('should be able to validate a new address [createDatatype]', async () => {
-    const address = createDatatype('Address', {
+    const item = createDatatype('Address', {
       id: '123',
       type: 'postal',
       period: {
@@ -30,13 +30,13 @@ describe('Address FHIR R5', () => {
       state: 'AnyState',
     });
 
-    const validateAddress = await Validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(item);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
 
   it('should be able to validate a new address [new Address()]', async () => {
-    const address = new Address({
+    const item = new Address({
       id: '123',
       type: 'postal',
       period: {
@@ -51,13 +51,13 @@ describe('Address FHIR R5', () => {
       state: 'AnyState',
     });
 
-    const validateAddress = await Validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(item);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
 
   it('should be able to validate a new address [IAddress]', async () => {
-    const address: IAddress = {
+    const item: IAddress = {
       id: '123',
       type: 'postal',
       period: {
@@ -74,7 +74,7 @@ describe('Address FHIR R5', () => {
       state: 'AnyState',
     };
 
-    const validateAddress = await Validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(item);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -220,7 +220,7 @@ describe('Address FHIR R5', () => {
   });
 
   it('should be get errors validators if new address has wrong period', async () => {
-    const address: IAddress = {
+    const item: IAddress = {
       id: '123',
       type: 'both',
       period: {
@@ -267,7 +267,7 @@ describe('Address FHIR R5', () => {
       ],
     };
 
-    const validateAddress = await Validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(item);
     expect(validateAddress.isValid).toBeFalsy();
     expect(validateAddress.errors).toBeDefined();
     expect(validateAddress.errors?.length).toBe(2);

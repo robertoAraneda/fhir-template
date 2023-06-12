@@ -1,24 +1,21 @@
 import { IAttachment } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
-import { AddressBuilder, AttachmentBuilder } from '../../../src/r5/builders/datatypes';
+import { AttachmentBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
 import { Attachment } from '../../../src/r5/models/datatypes/Attachment';
 
-describe('Attachment', () => {
-  let validator: IValidatorContext;
+describe('Attachment FHIR R5', () => {
   let builder: AttachmentBuilder;
   let builderFromFunction: AttachmentBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new AttachmentBuilder();
-    builderFromFunction = builders.dataTypes.AttachmentBuilder();
+    builderFromFunction = Builder.dataTypes.Attachment();
   });
 
   it('should be able to create a new attachment and validate with correct data [createDatatype]', async () => {
-    const dataType = createDatatype('Attachment', {
+    const item = createDatatype('Attachment', {
       id: '123',
       url: 'http://hl7.org/fhir/sid/us-npi',
       contentType: 'test',
@@ -43,14 +40,14 @@ describe('Attachment', () => {
       },
     });
 
-    const validate = await validator.dataTypes.Attachment(dataType);
+    const validate = await Validator.dataTypes.Attachment(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new attachment and validate with correct data [new Attachment()]', async () => {
-    const dataType = new Attachment({
+    const item = new Attachment({
       id: '123',
       url: 'http://hl7.org/fhir/sid/us-npi',
       contentType: 'test',
@@ -75,14 +72,14 @@ describe('Attachment', () => {
       },
     });
 
-    const validate = await validator.dataTypes.Attachment(dataType);
+    const validate = await Validator.dataTypes.Attachment(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new attachment and validate with correct data [IAttachment]', async () => {
-    const dataType: IAttachment = {
+    const item: IAttachment = {
       id: '123',
       url: 'http://hl7.org/fhir/sid/us-npi',
       contentType: 'test',
@@ -107,14 +104,14 @@ describe('Attachment', () => {
       },
     };
 
-    const validate = await validator.dataTypes.Attachment(dataType);
+    const validate = await Validator.dataTypes.Attachment(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new attachment and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       url: 'http://hl7.org/fhir/sid/us-npi',
       contentType: 'test',
@@ -128,7 +125,7 @@ describe('Attachment', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Attachment(dataType);
+    const validate = await Validator.dataTypes.Attachment(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -146,7 +143,7 @@ describe('Attachment', () => {
 
   it('should be able to create a new attachment using builder methods [builders.dataTypes.AttachmentBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
+    const item = builderFromFunction
       .setCreation('2020-01-01')
       .setContentType('test')
       .setData('test')
@@ -166,8 +163,8 @@ describe('Attachment', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _pages: {
         extension: [
           {
@@ -190,7 +187,7 @@ describe('Attachment', () => {
 
   it('should be able to create a new attachment using builder methods [new AttachmentBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setCreation('2020-01-01')
       .setContentType('test')
       .setData('test')
@@ -210,8 +207,8 @@ describe('Attachment', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _pages: {
         extension: [
           {

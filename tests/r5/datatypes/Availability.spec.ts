@@ -1,20 +1,17 @@
 import { IAvailability } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import { AvailabilityBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
 import { Availability } from '../../../src/r5/models/datatypes/Availability';
 
 describe('Availability', () => {
-  let validator: IValidatorContext;
   let builder: AvailabilityBuilder;
   let builderFromFunction: AvailabilityBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new AvailabilityBuilder();
-    builderFromFunction = builders.dataTypes.AvailabilityBuilder();
+    builderFromFunction = Builder.dataTypes.Availability();
   });
 
   it('should be able to create a new availability and validate with correct data [createDatatype()]', async () => {
@@ -37,7 +34,7 @@ describe('Availability', () => {
       ],
     });
 
-    const validate = await validator.dataTypes.Availability(dataType);
+    const validate = await Validator.dataTypes.Availability(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -63,7 +60,7 @@ describe('Availability', () => {
       ],
     });
 
-    const validate = await validator.dataTypes.Availability(dataType);
+    const validate = await Validator.dataTypes.Availability(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -89,7 +86,7 @@ describe('Availability', () => {
       ],
     };
 
-    const validate = await validator.dataTypes.Availability(dataType);
+    const validate = await Validator.dataTypes.Availability(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -116,7 +113,7 @@ describe('Availability', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Availability(dataType);
+    const validate = await Validator.dataTypes.Availability(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -134,7 +131,7 @@ describe('Availability', () => {
         keyword: 'pattern',
         message: "The value '/availableTime/0/availableStartTime' does not match with datatype 'time'",
         params: { value: '/availableTime/0/availableStartTime' },
-        schemaPath: 'r4base.schema.json#/definitions/time/pattern',
+        schemaPath: 'base.schema.json#/definitions/time/pattern',
       },
     ]);
   });
@@ -175,7 +172,7 @@ describe('Availability', () => {
     });
   });
 
-  it('should be able to create a new attachment using builder methods [builders.dataTypes.AvailabilityBuilder()]', async () => {
+  it('should be able to create a new attachment using builder methods [Builder.dataTypes.Availability()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builderFromFunction
       .addAvailableTime({

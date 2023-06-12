@@ -1,5 +1,5 @@
 {
-  "$id": "https://example.com/extension.schema.json",
+  "$id": "extension.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Extension",
   "description": "Extension FHIR Data Type",

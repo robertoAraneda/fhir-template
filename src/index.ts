@@ -5,6 +5,7 @@ import { ParseDataTypeR4 as DTR4, DatatypeTypeR4 } from './r4/GlobalDatatypes';
 import { ParseResourceTypeR4 as RTR4, ResourceTypeR4 } from './r4/GlobalResourceTypes';
 import { FhirContextR4 } from './r4';
 import { BackboneElementTypeR4, ParseBackboneElementTypeR4 } from './r4/GlobalBackboneElements';
+import { BackboneElementTypeR5, ParseBackboneElementTypeR5 } from './r5/GlobalBackboneElements';
 
 class FHIRContext {
   forR5() {
@@ -16,6 +17,13 @@ class FHIRContext {
       },
       createDatatype: <T extends DatatypeTypeR5>(datatypeType: T, data: DTR5<T>) => {
         return new FhirContextR5().createDatatype<T>(datatypeType, data);
+      },
+
+      createBackboneElement: <T extends BackboneElementTypeR5>(
+        backboneType: T,
+        data: ParseBackboneElementTypeR5<T>,
+      ) => {
+        return new FhirContextR5().createBackboneElement<T>(backboneType, data);
       },
     };
   }

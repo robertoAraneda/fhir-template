@@ -1,5 +1,5 @@
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { IBuildable, ISerializable, IReference, IElement } from '../../interfaces/base';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IRelatedPerson } from '../../interfaces/resources';
 import {
   IIdentifier,
@@ -9,12 +9,13 @@ import {
   IAttachment,
   IPeriod,
   ICodeableConcept,
+  IReference,
 } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
-import { RelatedPerson } from '../../models/resources/RelatedPerson';
+import { RelatedPerson } from '../../models/resources';
 
 export class RelatedPersonBuilder
   extends DomainResourceBuilder<RelatedPersonBuilder>

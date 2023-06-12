@@ -1,6 +1,6 @@
 import { IOrganizationQualification } from '../../interfaces/backbones';
-import { IBuildable, ISerializable, IReference } from '../../interfaces/base';
-import { ICodeableConcept, IIdentifier, IPeriod } from '../../interfaces/datatypes';
+import { IBuildable, ISerializable } from '../../interfaces/base';
+import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 

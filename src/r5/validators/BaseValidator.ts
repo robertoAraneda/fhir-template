@@ -11,19 +11,15 @@ const ajv = new Ajv({
   strict: false,
   loadSchema: (uri) => {
     return new Promise((resolve, reject) => {
-      if (
-        uri === 'r4base.schema.json' ||
-        uri === 'r4base.schema.json#' ||
-        uri === 'https://example.com/base.schema.json'
-      ) {
+      if (uri === 'base.schema.json') {
         resolve(defSchema);
-      } else if (uri === 'r4datatypes.schema.json' || uri === 'https://example.com/datatypes.schema.json') {
+      } else if (uri === 'datatypes.schema.json') {
         resolve(datatypeSchema);
-      } else if (uri === 'r4extension.schema.json' || uri === 'https://example.com/extension.schema.json') {
+      } else if (uri === 'extension.schema.json') {
         resolve(extensionSchema);
-      } else if (uri === 'r4backbone.schema.json' || uri === 'https://example.com/backbone.schema.json') {
+      } else if (uri === 'backbone.schema.json') {
         resolve(backboneSchema);
-      } else if (uri === 'r4base-resource.schema.json' || uri === 'https://example.com/base-resource.schema.json') {
+      } else if (uri === 'base-resource.schema.json') {
         resolve(baseResourceSchema);
       } else {
         reject(new Error(`Unable to load schema: ${uri}`));

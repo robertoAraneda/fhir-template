@@ -1,5 +1,5 @@
 import { IPeriod } from './IPeriod';
-import { IReference } from '../base/IReference';
+import { IReference } from './IReference';
 import { IAddress } from './IAddress';
 import { IContactPoint } from './IContactPoint';
 import { IHumanName } from './IHumanName';

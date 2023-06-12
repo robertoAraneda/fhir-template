@@ -1,5 +1,5 @@
 import { IPractitioner } from '../../interfaces/resources';
-import { IElement, INarrative, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -8,6 +8,7 @@ import {
   IHumanName,
   IIdentifier,
   IMeta,
+  INarrative,
 } from '../../interfaces/datatypes';
 import { IPractitionerCommunication, IPractitionerQualification } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';

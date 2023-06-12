@@ -1,8 +1,9 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBuildable, ISerializable, IElement, IReference } from '../../interfaces/base';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IPatientLink } from '../../interfaces/backbones';
 import { LinkTypeEnum } from '../../enums';
 import { LinkTypeType } from '../../types';
+import { IReference } from '../../interfaces/datatypes';
 
 export class PatientLinkBuilder
   extends BackboneElementBuilder<PatientLinkBuilder>

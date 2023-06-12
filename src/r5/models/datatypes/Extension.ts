@@ -9,8 +9,9 @@ import {
   IIdentifier,
   IPeriod,
   IQuantity,
+  IReference,
 } from '../../interfaces/datatypes';
-import { IElement, IReference } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 
 export class Extension implements IExtension {
   id?: string;

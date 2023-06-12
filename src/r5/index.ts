@@ -8,6 +8,8 @@ import { DataType, DatatypeTypeR5, IDatatypeValidatorProperties } from './Global
 import { generateInstanceDatatype } from './InstanceBuilderDatatype';
 import { generateInstanceResource } from './InstanceBuilderResource';
 import { IResourceValidatorProperties, ResourceType, ResourceTypeR5 } from './GlobalResourceTypes';
+import { BackboneElementTypeR5, ParseBackboneElementTypeR5 } from './GlobalBackboneElements';
+import { generateInstanceBackboneElement } from './InstanceBuilderBackboneElement';
 
 export interface IBackboneValidatorProperties {
   EndpointPayload: (data: unknown) => Wait;
@@ -47,6 +49,10 @@ export class FhirContextR5 {
 
   createDatatype<T extends DatatypeTypeR5>(datatypeType: T, d: DataType<T>) {
     return generateInstanceDatatype(datatypeType, d) as DataType<T>;
+  }
+
+  createBackboneElement<T extends BackboneElementTypeR5>(backboneType: T, data?: ParseBackboneElementTypeR5<T>) {
+    return generateInstanceBackboneElement(backboneType, data) as ParseBackboneElementTypeR5<T>;
   }
   public getBuilders() {
     return {

@@ -1,5 +1,5 @@
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { IBuildable, ISerializable, IElement, IReference } from '../../interfaces/base';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IPractitionerRole } from '../../interfaces/resources';
 import {
   IIdentifier,
@@ -7,9 +7,10 @@ import {
   ICodeableConcept,
   IExtendedContactDetail,
   IAvailability,
+  IReference,
 } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
-import { PractitionerRole } from '../../models/resources/PractitionerRole';
+import { PractitionerRole } from '../../models/resources';
 
 export class PractitionerRoleBuilder
   extends DomainResourceBuilder<PractitionerRoleBuilder>

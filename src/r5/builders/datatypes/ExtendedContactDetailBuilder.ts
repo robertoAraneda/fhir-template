@@ -1,5 +1,5 @@
 import { ElementBuilder } from '../base/ElementBuilder';
-import { IBuildable, IReference, ISerializable } from '../../interfaces/base';
+import { IBuildable, ISerializable } from '../../interfaces/base';
 import {
   IAddress,
   ICodeableConcept,
@@ -8,6 +8,7 @@ import {
   IExtendedContactDetail,
   IHumanName,
   IPeriod,
+  IReference,
 } from '../../interfaces/datatypes';
 import { ExtendedContactDetail } from '../../models/datatypes/ExtendedContactDetail';
 import { validateReference } from '../../helpers/validateReference';

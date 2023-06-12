@@ -1,6 +1,15 @@
 import { IEndpoint } from '../../interfaces/resources';
-import { ICodeableConcept, IContactPoint, IExtension, IIdentifier, IMeta, IPeriod } from '../../interfaces/datatypes';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import {
+  ICodeableConcept,
+  IContactPoint,
+  IExtension,
+  IIdentifier,
+  IMeta,
+  INarrative,
+  IPeriod,
+  IReference,
+} from '../../interfaces/datatypes';
+import { IElement, IResource } from '../../interfaces/base';
 import { IEndpointPayload } from '../../interfaces/backbones';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
@@ -31,7 +40,7 @@ export class Endpoint implements IEndpoint {
   name?: string;
   payload?: IEndpointPayload[];
   period?: IPeriod;
-  resourceType: string = 'Endpoint';
+  resourceType = 'Endpoint';
   status?: EndpointStatusEnum | EndpointStatusType;
   text?: INarrative;
 

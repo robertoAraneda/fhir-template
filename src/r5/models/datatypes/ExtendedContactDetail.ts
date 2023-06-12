@@ -6,8 +6,8 @@ import {
   IExtension,
   IHumanName,
   IPeriod,
+  IReference,
 } from '../../interfaces/datatypes';
-import { IReference } from '../../interfaces/base';
 
 /**
  * @description Contact information

@@ -1,8 +1,7 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IReference } from '../../interfaces/base';
 import { EncounterLocationStatusEnum } from '../../enums';
 import { EncounterLocationStatusType } from '../../types';
-import { ICodeableConcept, IPeriod } from '../../interfaces/datatypes';
+import { ICodeableConcept, IPeriod, IReference } from '../../interfaces/datatypes';
 
 export class EncounterLocationBuilder extends BackboneElementBuilder<EncounterLocationBuilder> {
   location: IReference;

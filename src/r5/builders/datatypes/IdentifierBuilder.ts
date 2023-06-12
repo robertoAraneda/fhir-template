@@ -1,7 +1,7 @@
-import { IdentifierUseEnum } from '../../enums/IdentifierUseEnum';
-import { IdentifierUseType } from '../../types/IdentifierUseType';
-import { IIdentifier, ICodeableConcept, IPeriod, IHumanName } from '../../interfaces/datatypes';
-import { IElement, ISerializable, IBuildable, IReference } from '../../interfaces/base';
+import { IdentifierUseEnum } from '../../enums';
+import { IdentifierUseType } from '../../types';
+import { IIdentifier, ICodeableConcept, IPeriod, IReference } from '../../interfaces/datatypes';
+import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { validateReference } from '../../helpers/validateReference';
 import { Identifier } from '../../models/datatypes/Identifier';

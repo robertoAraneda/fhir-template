@@ -1,7 +1,7 @@
 import { IOrganizationQualification } from '../../interfaces/backbones';
 import { Organization } from '../../models/resources';
-import { IElement, IReference, IBuildable, ISerializable } from '../../interfaces/base';
-import { IExtendedContactDetail, IIdentifier, ICodeableConcept } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import { IExtendedContactDetail, IIdentifier, ICodeableConcept, IReference } from '../../interfaces/datatypes';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { IOrganization } from '../../interfaces/resources';
 

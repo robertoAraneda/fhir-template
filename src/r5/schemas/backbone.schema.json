@@ -1,5 +1,5 @@
 {
-  "$id": "https://example.com/backbone.schema.json",
+  "$id": "backbone.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "Base FHIR Backbone Elements",
   "definitions": {

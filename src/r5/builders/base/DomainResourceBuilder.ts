@@ -1,6 +1,6 @@
 import { ResourceBuilder } from './ResourceBuilder';
-import { INarrative, IResource, IDomainResource } from '../../interfaces/base';
-import { IExtension } from '../../interfaces/datatypes';
+import { IResource, IDomainResource } from '../../interfaces/base';
+import { IExtension, INarrative } from '../../interfaces/datatypes';
 
 export class DomainResourceBuilder<BuilderClass> extends ResourceBuilder<BuilderClass> {
   private readonly domainResource: IDomainResource;

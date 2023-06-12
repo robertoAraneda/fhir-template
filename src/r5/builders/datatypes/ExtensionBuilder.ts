@@ -1,5 +1,5 @@
 import { ElementBuilder } from '../base/ElementBuilder';
-import { IBuildable, IReference, ISerializable } from '../../interfaces/base';
+import { IBuildable, ISerializable } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -11,6 +11,7 @@ import {
   IIdentifier,
   IPeriod,
   IQuantity,
+  IReference,
 } from '../../interfaces/datatypes';
 import { Extension } from '../../models/datatypes/Extension';
 import { BuildAndSerialize, createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';

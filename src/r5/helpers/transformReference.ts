@@ -1,4 +1,4 @@
-import { IReference, IDomainResource } from '../interfaces/base';
+import { IDomainResource } from '../interfaces/base';
 
 export const transformReference = <T extends IDomainResource>(item: T): string => {
   const _item = item as IDomainResource;

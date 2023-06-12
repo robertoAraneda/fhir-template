@@ -1,7 +1,7 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBuildable, ISerializable, IReference } from '../../interfaces/base';
+import { IBuildable, ISerializable } from '../../interfaces/base';
 import { IPractitionerQualification } from '../../interfaces/backbones';
-import { ICodeableConcept, IIdentifier, IPeriod } from '../../interfaces/datatypes';
+import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 
 export class PractitionerQualificationBuilder

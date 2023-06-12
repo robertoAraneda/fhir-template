@@ -2,7 +2,7 @@ import { IElement } from '../base/IElement';
 import { IAddress } from './IAddress';
 import { ICodeableConcept } from './ICodeableConcept';
 import { IPeriod } from './IPeriod';
-import { IReference } from '../base/IReference';
+import { IReference } from './IReference';
 import { ICodeableReference } from './ICodeableReference';
 import { ICoding } from './ICoding';
 import { IAttachment } from './IAttachment';

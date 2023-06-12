@@ -1,8 +1,16 @@
 import { IEndpointPayload } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IEndpointPayloadBuilder } from '../interfaces';
-import { IElement } from '../../interfaces/base';
+import { IBuildable, IElement, ISerializable } from '../../interfaces/base';
+import { EndpointPayload } from '../../models/backbones/EndpointPayload';
+
+interface IEndpointPayloadBuilder extends ISerializable, IBuildable<IEndpointPayload> {
+  addParamExtension(param: 'mimeType', extension: Element[]): this;
+  addType(type: ICodeableConcept): this;
+  setMultipleType(type: ICodeableConcept[]): this;
+  addMimeType(mimeType: string): this;
+  setMultipleMimeType(mimeType: string[]): this;
+}
 
 export class EndpointPayloadBuilder
   extends BackboneElementBuilder<EndpointPayloadBuilder>
@@ -12,32 +20,32 @@ export class EndpointPayloadBuilder
 
   constructor() {
     super();
-    this.endpointPayload = {} as IEndpointPayload;
+    this.endpointPayload = new EndpointPayload();
   }
 
-  public addEndpointPayloadParamExtension(param: 'mimeType', extension: IElement): EndpointPayloadBuilder {
+  public addParamExtension(param: 'mimeType', extension: IElement[]): this {
     this.endpointPayload[`_${param}`] = extension;
 
     return this;
   }
 
-  public setMultipleType(type: ICodeableConcept[]): EndpointPayloadBuilder {
+  public setMultipleType(type: ICodeableConcept[]): this {
     this.endpointPayload.type = type;
     return this;
   }
 
-  public setMultipleMimeType(mimeType: string[]): EndpointPayloadBuilder {
+  public setMultipleMimeType(mimeType: string[]): this {
     this.endpointPayload.mimeType = mimeType;
     return this;
   }
 
-  public addType(type: ICodeableConcept): EndpointPayloadBuilder {
+  public addType(type: ICodeableConcept): this {
     this.endpointPayload.type = this.endpointPayload.type || [];
     this.endpointPayload.type.push(type);
     return this;
   }
 
-  public addMimeType(mimeType: string): EndpointPayloadBuilder {
+  public addMimeType(mimeType: string): this {
     this.endpointPayload.mimeType = this.endpointPayload.mimeType || [];
     this.endpointPayload.mimeType.push(mimeType);
     return this;

@@ -1,4 +1,4 @@
-import { INarrative } from './INarrative';
+import { INarrative } from '../datatypes/INarrative';
 import { IResource } from './IResource';
 import { IExtension } from '../datatypes';
 

@@ -1,5 +1,5 @@
-import { ICodeableConcept, ICodeableReference } from '../../interfaces/datatypes';
-import { IBuildable, ISerializable, IReference } from '../../interfaces/base';
+import { ICodeableConcept, ICodeableReference, IReference } from '../../interfaces/datatypes';
+import { IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { CodeableReference } from '../../models/datatypes/CodeableReference';
 

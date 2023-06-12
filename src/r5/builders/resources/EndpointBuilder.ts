@@ -1,6 +1,5 @@
-import { IEndpoint } from '../../interfaces/resources';
-import { ICodeableConcept, IContactPoint, IPeriod, IIdentifier } from '../../interfaces/datatypes';
-import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import { ICodeableConcept, IContactPoint, IPeriod, IIdentifier, IReference } from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { IEndpointPayload } from '../../interfaces/backbones';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
@@ -18,14 +17,14 @@ export class EndpointBuilder
     this.endpoint = new Endpoint();
   }
 
-  fromJSON(data: Partial<Endpoint>) {
+  fromJSON(data: Endpoint) {
     if (!data.address) throw new Error('Endpoint.address is required');
     if (!data.connectionType) throw new Error('Endpoint.connectionType is required');
     this.endpoint = {
+      ...data,
       address: data.address,
       connectionType: data.connectionType,
       resourceType: 'Endpoint',
-      ...data,
     };
     return {
       build: () => this.build(),

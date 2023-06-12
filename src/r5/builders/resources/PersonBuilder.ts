@@ -1,8 +1,15 @@
 import { IPersonCommunication, IPersonLink, IPatientCommunication } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
-import { IIdentifier, ICodeableConcept, IHumanName, IAttachment, IContactPoint } from '../../interfaces/datatypes';
-import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import {
+  IIdentifier,
+  ICodeableConcept,
+  IHumanName,
+  IAttachment,
+  IContactPoint,
+  IReference,
+} from '../../interfaces/datatypes';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Person } from '../../models/resources';
 import { IPerson } from '../../interfaces/resources';

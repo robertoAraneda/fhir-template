@@ -1,5 +1,5 @@
-import { IBackboneElement, IReference } from '../base';
-import { ICodeableConcept, IIdentifier, IPeriod } from '../datatypes';
+import { IBackboneElement } from '../base';
+import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../datatypes';
 
 /**
  * A qualification for the organization

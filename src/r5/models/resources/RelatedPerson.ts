@@ -1,5 +1,5 @@
 import { IRelatedPerson } from '../../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
@@ -9,7 +9,9 @@ import {
   IHumanName,
   IIdentifier,
   IMeta,
+  INarrative,
   IPeriod,
+  IReference,
 } from '../../interfaces/datatypes';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';

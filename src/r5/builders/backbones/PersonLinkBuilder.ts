@@ -1,8 +1,9 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBuildable, ISerializable, IElement, IReference } from '../../interfaces/base';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IPersonLink } from '../../interfaces/backbones';
 import { IdentityAssuranceLevelEnum } from '../../enums';
 import { IdentityAssuranceLevelType } from '../../types';
+import { IReference } from '../../interfaces/datatypes';
 
 export class PersonLinkBuilder
   extends BackboneElementBuilder<PersonLinkBuilder>

@@ -16,3 +16,5 @@ export type { INotAvailableTime } from './INotAvailableTime';
 export type { IPeriod } from './IPeriod';
 export type { IQuantity } from './IQuantity';
 export type { IVirtualServiceDetail } from './IVirtualServiceDetail';
+export type { IReference } from './IReference';
+export type { INarrative } from './INarrative';

@@ -1,5 +1,5 @@
-import { IDomainResource, IReference, ISerializable, IBuildable, IElement } from '../../interfaces/base';
-import { IIdentifier } from '../../interfaces/datatypes';
+import { IDomainResource, ISerializable, IBuildable, IElement } from '../../interfaces/base';
+import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { transformReference } from '../../helpers/transformReference';
 import { ElementBuilder } from '../base/ElementBuilder';
 

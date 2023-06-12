@@ -1,23 +1,41 @@
 import { OrganizationQualificationBuilder } from '../../../src/r5/builders/backbones';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
 import { IOrganizationQualification } from '../../../src/r5/interfaces/backbones';
+import { OrganizationQualification } from '../../../src/r5/models/backbones/OrganizationQualification';
 
-describe('OrganizationQualification', () => {
-  let validator: IValidatorContext;
+describe('OrganizationQualification FHIR R5', () => {
+  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
   let builder: OrganizationQualificationBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  let builderFromFunction: OrganizationQualificationBuilder;
 
   // create global
   beforeEach(() => {
     builder = new OrganizationQualificationBuilder();
+    builderFromFunction = Builder.backboneElements.OrganizationQualification();
+  });
+  it('should be able to create a new organization_qualification payload and validate with correct data [new OrganizationQualification()]', async () => {
+    const dataType = new OrganizationQualification({
+      id: '123',
+      issuer: {
+        reference: 'test',
+      },
+      code: {
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+      },
+    });
+
+    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new organization_qualification payload and validate with correct data', async () => {
+  it('should be able to create a new organization_qualification payload and validate with correct data [IOrganizationQualification]', async () => {
     const dataType: IOrganizationQualification = {
       id: '123',
       issuer: {
@@ -33,7 +51,29 @@ describe('OrganizationQualification', () => {
       },
     };
 
-    const validate = await validator.backboneElements.OrganizationQualification(dataType);
+    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new organization_qualification payload and validate with correct data [createBackboneElement]', async () => {
+    const dataType = createBackboneElement('OrganizationQualification', {
+      id: '123',
+      issuer: {
+        reference: 'test',
+      },
+      code: {
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+      },
+    });
+
+    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -60,7 +100,7 @@ describe('OrganizationQualification', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.backboneElements.OrganizationQualification(dataType);
+    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -78,14 +118,71 @@ describe('OrganizationQualification', () => {
         keyword: 'pattern',
         message: "The value '/period/start' does not match with datatype 'dateTime'",
         params: { value: '/period/start' },
-        schemaPath: 'r4base.schema.json#/definitions/dateTime/pattern',
+        schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
       },
     ]);
   });
 
-  it('should be able to create a new organization_qualification payload using builder methods', async () => {
+  it('should be able to create a new organization_qualification payload using builder methods [new OrganizationQualificationBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .setCode({
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+        text: 'test',
+      })
+      .setIssuer({
+        reference: 'Organization/1',
+      })
+      .setCode({
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+        text: 'test',
+      })
+      .addIdentifier({
+        use: 'official',
+        system: 'http://hl7.org/fhir/sid/us-npi',
+        value: '123',
+      })
+      .build();
+
+    expect(dataType).toBeDefined();
+    expect(dataType).toEqual({
+      code: {
+        coding: [
+          {
+            code: 'any',
+            system: 'http://hl7.org/fhir/organization-qualification',
+          },
+        ],
+        text: 'test',
+      },
+      id: '123',
+      identifier: [
+        {
+          system: 'http://hl7.org/fhir/sid/us-npi',
+          use: 'official',
+          value: '123',
+        },
+      ],
+      issuer: {
+        reference: 'Organization/1',
+      },
+    });
+  });
+
+  it('should be able to create a new organization_qualification payload using builder methods [Builder.backboneElements.OrganizationQualification()]', async () => {
+    // build() is a method that returns the object that was built
+    const dataType = builderFromFunction
       .setId('123')
       .setCode({
         coding: [

@@ -1,8 +1,8 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBuildable, ISerializable, IElement, IReference } from '../../interfaces/base';
+import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IOrganizationQualification } from '../../interfaces/backbones';
 import { IPatientContact } from '../../interfaces/backbones';
-import { ICodeableConcept, IHumanName, IContactPoint, IPeriod } from '../../interfaces/datatypes';
+import { ICodeableConcept, IHumanName, IContactPoint, IPeriod, IReference } from '../../interfaces/datatypes';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 

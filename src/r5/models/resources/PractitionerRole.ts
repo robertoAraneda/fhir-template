@@ -1,5 +1,5 @@
 import { IPractitionerRole } from '../../interfaces/resources';
-import { IElement, INarrative, IReference, IResource } from '../../interfaces/base';
+import { IElement, IResource } from '../../interfaces/base';
 import {
   IAvailability,
   ICodeableConcept,
@@ -7,7 +7,9 @@ import {
   IExtension,
   IIdentifier,
   IMeta,
+  INarrative,
   IPeriod,
+  IReference,
 } from '../../interfaces/datatypes';
 
 export class PractitionerRole implements IPractitionerRole {

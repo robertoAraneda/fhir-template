@@ -1,5 +1,4 @@
-import { ICodeableConcept, ICodeableReference, IExtension } from '../../interfaces/datatypes';
-import { IReference } from '../../interfaces/base';
+import { ICodeableConcept, ICodeableReference, IExtension, IReference } from '../../interfaces/datatypes';
 
 /**
  * @description Reference to a resource or a concept.

@@ -5,11 +5,12 @@ import {
   IHumanName,
   IAttachment,
   IContactPoint,
+  IReference,
 } from '../../interfaces/datatypes';
 import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
-import { IReference, IElement, IBuildable, ISerializable } from '../../interfaces/base';
+import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Patient } from '../../models/resources';
 import { IPatient } from '../../interfaces/resources';

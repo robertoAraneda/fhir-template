@@ -2,713 +2,229 @@ import { PatientBuilder } from '../../../src/r4/builders/resources';
 import { IPatient } from '../../../src/r4/interfaces/resources';
 import { Patient } from '../../../src/r4/models/resources';
 import FHIRContext from '../../../src';
-import { IValidatorContext } from '../../../src/r4';
 
-describe('Patient', () => {
-  const context = new FHIRContext();
-  let validator = context.forR4().validators.resources;
+describe('Patient FHIR R4', () => {
   let builder: PatientBuilder;
+  let builderFromFunction: PatientBuilder;
+  const context = new FHIRContext();
+  const { Validator, Builder, createResource } = context.forR4();
 
   // create global
   beforeEach(() => {
     builder = new PatientBuilder();
+    builderFromFunction = Builder.resources.Patient();
   });
 
-  it('should be able to create a new patient and validate with correct data [Example Patient/patient-example-sex-and-gender]', async () => {
+  it('should be able to create a new patient and validate with correct data [new Patient()]', async () => {
     const dataType = new Patient({
       resourceType: 'Patient',
-      id: 'patient-example-sex-and-gender',
+      id: 'example',
       text: {
         status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\t<table>\n\t\t\t\t<tbody>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Name</td>\n\t\t\t\t\t\t<td>Peter James \n              <b>Chalmers</b> (&quot;Jim&quot;)\n            </td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Address</td>\n\t\t\t\t\t\t<td>534 Erewhon, Pleasantville, Vic, 3999</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Contacts</td>\n\t\t\t\t\t\t<td>Home: unknown. Work: (03) 5555 6473</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Id</td>\n\t\t\t\t\t\t<td>MRN: 12345 (Acme Healthcare)</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>',
       },
-      extension: [
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-genderIdentity',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://snomed.info/sct',
-                    code: '446141000124107',
-                    display: 'Identifies as female gender (finding)',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'period',
-              valuePeriod: {
-                start: '2001-05-06',
-              },
-            },
-            {
-              url: 'comment',
-              valueString: 'Patient transitioned from male to female in 2001.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-pronouns',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://loinc.org',
-                    code: 'LA29519-8',
-                    display: 'she/her/her/hers/herself',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'period',
-              valuePeriod: {
-                start: '2001-05-06',
-              },
-            },
-            {
-              url: 'comment',
-              valueString: 'Patient transitioned from male to female in 2001.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://hl7.org/fhir/administrative-gender',
-                    code: 'male',
-                    display: 'Male',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'type',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://loinc.org',
-                    code: '76689-9',
-                    display: 'Sex Assigned At Birth',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'effectivePeriod',
-              valuePeriod: {
-                start: '1974-12-25',
-              },
-            },
-            {
-              url: 'acquisitionDate',
-              valueDateTime: '2005-12-06',
-            },
-            {
-              url: 'sourceDocument',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'DocumentReference/1',
-                },
-              },
-            },
-            {
-              url: 'sourceField',
-              valueString: 'SEX',
-            },
-            {
-              url: 'jurisdiction',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'https://www.usps.com/',
-                    code: 'OH',
-                    display: 'Ohio',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'comment',
-              valueString:
-                'Patient transitioned from male to female in 2001, but their birth certificate still indicates male.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://hl7.org/fhir/administrative-gender',
-                    code: 'male',
-                    display: 'Male',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'type',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://local-code-system.org/recorded-sex-or-gender-type',
-                    code: 'insurance-card',
-                    display: 'Insurance Card',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'effectivePeriod',
-              valuePeriod: {
-                start: '2021-05-25',
-              },
-            },
-            {
-              url: 'acquisitionDate',
-              valueDateTime: '2021-06-06',
-            },
-            {
-              url: 'sourceDocument',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'DocumentReference/2',
-                },
-              },
-            },
-            {
-              url: 'sourceField',
-              valueString: 'SEX',
-            },
-            {
-              url: 'jurisdiction',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://local-code-system.org/recorded-sex-or-gender-jurisdiction',
-                    code: 'ICCA-P',
-                    display: 'Indigo Crucifix Cobalt Aegis Payer',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'comment',
-              valueString:
-                'Patient transitioned from male to female in 2001, but their insurance card still indicates male.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://ohio.example.gov/drivers-license-sex',
-                    code: 'M',
-                    display: 'Male',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'type',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://jurisdiction-specific.example.com/document-type-code-system',
-                    code: 'drivers-license',
-                    display: "Driver's License",
-                  },
-                ],
-              },
-            },
-            {
-              url: 'effectivePeriod',
-              valuePeriod: {
-                start: '1974-12-25',
-              },
-            },
-            {
-              url: 'acquisitionDate',
-              valueDateTime: '2005-12-06',
-            },
-            {
-              url: 'sourceDocument',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'DocumentReference/1',
-                },
-              },
-            },
-            {
-              url: 'jurisdiction',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'https://www.usps.com/',
-                    code: 'OH',
-                    display: 'Ohio',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'comment',
-              valueString:
-                "Patient transitioned from male to female in 2001, but their driver's license still indicates male.",
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/patient-sexParameterForClinicalUse',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://terminology.hl7.org/CodeSystem/sex-parameter-for-clinical-use',
-                    code: 'specified',
-                    display: 'Apply specified setting or reference range',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'period',
-              valuePeriod: {
-                start: '2002-07-13',
-              },
-            },
-            {
-              url: 'comment',
-              valueString: 'Patient transitioned from male to female in 2001.',
-            },
-            {
-              url: 'supportingInfo',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'Observation/1',
-                },
-              },
-            },
-            {
-              url: 'supportingInfo',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'MedicationStatement/2',
-                },
-              },
-            },
-          ],
-        },
-      ],
       identifier: [
         {
           use: 'usual',
+          type: {
+            coding: [
+              {
+                system: 'http://terminology.hl7.org/CodeSystem/v2-0203',
+                code: 'MR',
+              },
+            ],
+          },
           system: 'urn:oid:1.2.36.146.595.217.0.1',
           value: '12345',
+          period: {
+            start: '2001-05-06',
+          },
+          assigner: {
+            display: 'Acme Healthcare',
+          },
         },
       ],
       active: true,
       name: [
         {
           use: 'official',
-          family: 'Roth',
-          given: ['Patrick'],
+          family: 'Chalmers',
+          given: ['Peter', 'James'],
         },
         {
           use: 'usual',
-          family: 'Roth',
-          given: ['Patricia'],
+          given: ['Jim'],
         },
         {
-          use: 'nickname',
-          given: ['Pat'],
+          use: 'maiden',
+          family: 'Windsor',
+          given: ['Peter', 'James'],
+          period: {
+            end: '2002',
+          },
+        },
+      ],
+      telecom: [
+        {
+          use: 'home',
+        },
+        {
+          system: 'phone',
+          value: '(03) 5555 6473',
+          use: 'work',
+          rank: 1,
+        },
+        {
+          system: 'phone',
+          value: '(03) 3410 5613',
+          use: 'mobile',
+          rank: 2,
+        },
+        {
+          system: 'phone',
+          value: '(03) 5555 8834',
+          use: 'old',
+          period: {
+            end: '2014',
+          },
         },
       ],
       gender: 'male',
       birthDate: '1974-12-25',
+      _birthDate: {
+        extension: [
+          {
+            url: 'http://hl7.org/fhir/StructureDefinition/patient-birthTime',
+            valueDateTime: '1974-12-25T14:35:45-05:00',
+          },
+        ],
+      },
       deceasedBoolean: false,
+      address: [
+        {
+          use: 'home',
+          type: 'both',
+          text: '534 Erewhon St PeasantVille, Rainbow, Vic  3999',
+          line: ['534 Erewhon St'],
+          city: 'PleasantVille',
+          district: 'Rainbow',
+          state: 'Vic',
+          postalCode: '3999',
+          period: {
+            start: '1974-12-25',
+          },
+        },
+      ],
+      contact: [
+        {
+          relationship: [
+            {
+              coding: [
+                {
+                  system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
+                  code: 'N',
+                },
+              ],
+            },
+          ],
+          name: {
+            family: 'du Marché',
+            _family: {
+              extension: [
+                {
+                  url: 'http://hl7.org/fhir/StructureDefinition/humanname-own-prefix',
+                  valueString: 'VV',
+                },
+              ],
+            },
+            given: ['Bénédicte'],
+          },
+          telecom: [
+            {
+              system: 'phone',
+              value: '+33 (237) 998327',
+            },
+          ],
+          address: {
+            use: 'home',
+            type: 'both',
+            line: ['534 Erewhon St'],
+            city: 'PleasantVille',
+            district: 'Rainbow',
+            state: 'Vic',
+            postalCode: '3999',
+            period: {
+              start: '1974-12-25',
+            },
+          },
+          gender: 'female',
+          period: {
+            start: '2012',
+          },
+        },
+      ],
       managingOrganization: {
         reference: 'Organization/1',
       },
     });
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new patient and validate with correct data [Example Patient/patient-example-sex-and-gender]', async () => {
+  it('should be able to create a new patient and validate with correct data [IPatient]', async () => {
     const dataType: IPatient = {
       resourceType: 'Patient',
-      id: 'patient-example-sex-and-gender',
+      id: 'pat3',
       text: {
         status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n      \n      <p>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</p>\n    \n    </div>',
       },
-      extension: [
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-genderIdentity',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://snomed.info/sct',
-                    code: '446141000124107',
-                    display: 'Identifies as female gender (finding)',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'period',
-              valuePeriod: {
-                start: '2001-05-06',
-              },
-            },
-            {
-              url: 'comment',
-              valueString: 'Patient transitioned from male to female in 2001.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-pronouns',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://loinc.org',
-                    code: 'LA29519-8',
-                    display: 'she/her/her/hers/herself',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'period',
-              valuePeriod: {
-                start: '2001-05-06',
-              },
-            },
-            {
-              url: 'comment',
-              valueString: 'Patient transitioned from male to female in 2001.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://hl7.org/fhir/administrative-gender',
-                    code: 'male',
-                    display: 'Male',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'type',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://loinc.org',
-                    code: '76689-9',
-                    display: 'Sex Assigned At Birth',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'effectivePeriod',
-              valuePeriod: {
-                start: '1974-12-25',
-              },
-            },
-            {
-              url: 'acquisitionDate',
-              valueDateTime: '2005-12-06',
-            },
-            {
-              url: 'sourceDocument',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'DocumentReference/1',
-                },
-              },
-            },
-            {
-              url: 'sourceField',
-              valueString: 'SEX',
-            },
-            {
-              url: 'jurisdiction',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'https://www.usps.com/',
-                    code: 'OH',
-                    display: 'Ohio',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'comment',
-              valueString:
-                'Patient transitioned from male to female in 2001, but their birth certificate still indicates male.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://hl7.org/fhir/administrative-gender',
-                    code: 'male',
-                    display: 'Male',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'type',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://local-code-system.org/recorded-sex-or-gender-type',
-                    code: 'insurance-card',
-                    display: 'Insurance Card',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'effectivePeriod',
-              valuePeriod: {
-                start: '2021-05-25',
-              },
-            },
-            {
-              url: 'acquisitionDate',
-              valueDateTime: '2021-06-06',
-            },
-            {
-              url: 'sourceDocument',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'DocumentReference/2',
-                },
-              },
-            },
-            {
-              url: 'sourceField',
-              valueString: 'SEX',
-            },
-            {
-              url: 'jurisdiction',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://local-code-system.org/recorded-sex-or-gender-jurisdiction',
-                    code: 'ICCA-P',
-                    display: 'Indigo Crucifix Cobalt Aegis Payer',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'comment',
-              valueString:
-                'Patient transitioned from male to female in 2001, but their insurance card still indicates male.',
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://ohio.example.gov/drivers-license-sex',
-                    code: 'M',
-                    display: 'Male',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'type',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://jurisdiction-specific.example.com/document-type-code-system',
-                    code: 'drivers-license',
-                    display: "Driver's License",
-                  },
-                ],
-              },
-            },
-            {
-              url: 'effectivePeriod',
-              valuePeriod: {
-                start: '1974-12-25',
-              },
-            },
-            {
-              url: 'acquisitionDate',
-              valueDateTime: '2005-12-06',
-            },
-            {
-              url: 'sourceDocument',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'DocumentReference/1',
-                },
-              },
-            },
-            {
-              url: 'jurisdiction',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'https://www.usps.com/',
-                    code: 'OH',
-                    display: 'Ohio',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'comment',
-              valueString:
-                "Patient transitioned from male to female in 2001, but their driver's license still indicates male.",
-            },
-          ],
-        },
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/patient-sexParameterForClinicalUse',
-          extension: [
-            {
-              url: 'value',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://terminology.hl7.org/CodeSystem/sex-parameter-for-clinical-use',
-                    code: 'specified',
-                    display: 'Apply specified setting or reference range',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'period',
-              valuePeriod: {
-                start: '2002-07-13',
-              },
-            },
-            {
-              url: 'comment',
-              valueString: 'Patient transitioned from male to female in 2001.',
-            },
-            {
-              url: 'supportingInfo',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'Observation/1',
-                },
-              },
-            },
-            {
-              url: 'supportingInfo',
-              valueCodeableReference: {
-                reference: {
-                  reference: 'MedicationStatement/2',
-                },
-              },
-            },
-          ],
-        },
-      ],
       identifier: [
         {
           use: 'usual',
-          system: 'urn:oid:1.2.36.146.595.217.0.1',
-          value: '12345',
+          type: {
+            coding: [
+              {
+                system: 'http://terminology.hl7.org/CodeSystem/v2-0203',
+                code: 'MR',
+              },
+            ],
+          },
+          system: 'urn:oid:0.1.2.3.4.5.6.7',
+          value: '123457',
         },
       ],
       active: true,
       name: [
         {
           use: 'official',
-          family: 'Roth',
-          given: ['Patrick'],
-        },
-        {
-          use: 'usual',
-          family: 'Roth',
-          given: ['Patricia'],
-        },
-        {
-          use: 'nickname',
-          given: ['Pat'],
+          family: 'Notsowell',
+          given: ['Simon'],
         },
       ],
       gender: 'male',
-      birthDate: '1974-12-25',
-      deceasedBoolean: false,
+      birthDate: '1982-01-23',
+      deceasedDateTime: '2015-02-14T13:42:00+10:00',
       managingOrganization: {
         reference: 'Organization/1',
+        display: 'ACME Healthcare, Inc',
       },
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/animal]', async function () {
-    const dataType: IPatient = {
+    const item = createResource('Patient', {
       resourceType: 'Patient',
       id: 'animal',
       text: {
         status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml"><p style="border: 1px #661aff solid; background-color: #e6e6ff; padding: 10px;"><b>Kenzi </b> female, DoB: 2010-03-23 ( Dog Tag:\u00a01234123\u00a0(period:\u00a02010-05-31 --&gt; (ongoing)))</p><hr/><table class="grid"><tr><td style="background-color: #f3f5da" title="Record is active">Active:</td><td colspan="3">true</td></tr><tr><td style="background-color: #f3f5da" title="Nominated Contact: Emergency Contact">Emergency Contact:</td><td colspan="3"><ul><li>Peter James Chalmers </li><li>ph: (03) 5555 6473(WORK)</li></ul></td></tr><tr><td style="background-color: #f3f5da" title="Patient Links">Links:</td><td colspan="3"><ul><li>Managing Organization: <span>: Pete\'s Vetinary Services</span></li></ul></td></tr><tr><td style="background-color: #f3f5da" title="This patient is known to be an animal.">Patient Animal:</td><td colspan="3"><ul><li>species: <span title="Codes: {http://hl7.org/fhir/animal-species canislf}">Dog</span></li><li>breed: <span title="Codes: {http://snomed.info/sct 58108001}, {http://example.org/fhir/CodeSystem/animal-breed gret}">Golden retriever</span></li><li>genderStatus: <span title="Codes: {http://hl7.org/fhir/animal-genderstatus neutered}">Neutered</span></li></ul></td></tr></table></div>',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n      \n      <table>\n        \n        <tbody>\n          \n          <tr>\n            \n            <td>Id</td>\n            \n            <td>Kenzi (Dog: Golden Retriever)</td>\n          \n          </tr>\n          \n          <tr>\n            \n            <td>Owner</td>\n            \n            <td>Peter Chalmers, 534 Erewhon, Pleasantville, Vic, 3999</td>\n          \n          </tr>\n          \n          <tr>\n            \n            <td>Contacts</td>\n            \n            <td>Work: (03) 5555 6473</td>\n          \n          </tr>\n          \n          <tr>\n            \n            <td>Id</td>\n            \n            <td>Dog Tag: 1234123 (Maroondah City Council)</td>\n          \n          </tr>\n        \n        </tbody>\n      \n      </table>\n    \n    </div>',
       },
       extension: [
         {
@@ -759,6 +275,9 @@ describe('Patient', () => {
       ],
       identifier: [
         {
+          type: {
+            text: 'Dog Tag',
+          },
           system: 'http://www.maroondah.vic.gov.au/AnimalRegFees.aspx',
           value: '1234123',
           period: {
@@ -806,60 +325,125 @@ describe('Patient', () => {
       managingOrganization: {
         display: "Pete's Vetinary Services",
       },
-    };
+    });
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(item);
+
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new patient and validate with correct data [Example Patient/glossy]', async function () {
-    const dataType: IPatient = {
+  it('should be able to create a new patient and validate with correct data [Patient-example-f001-pieter.json]', async function () {
+    const item: IPatient = {
       resourceType: 'Patient',
-      id: 'glossy',
-      meta: {
-        lastUpdated: '2014-11-13T11:41:00+11:00',
-      },
+      id: 'f001',
       text: {
         status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n      <p>Henry Levin the 7th</p>\n      <p>MRN: 123456. Male, 24-Sept 1932</p>\n    </div>',
+        div: "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: f001</p><p><b>identifier</b>: 738472983 (USUAL), ?? (USUAL)</p><p><b>active</b>: true</p><p><b>name</b>: Pieter van de Heuvel </p><p><b>telecom</b>: ph: 0648352638(MOBILE), p.heuvel@gmail.com(HOME)</p><p><b>gender</b>: male</p><p><b>birthDate</b>: 17/11/1944</p><p><b>deceased</b>: false</p><p><b>address</b>: Van Egmondkade 23 Amsterdam 1024 RJ NLD (HOME)</p><p><b>maritalStatus</b>: Getrouwd <span>(Details : {http://terminology.hl7.org/CodeSystem/v3-MaritalStatus code 'M' = 'Married', given as 'Married'})</span></p><p><b>multipleBirth</b>: true</p><h3>Contacts</h3><table><tr><td>-</td><td><b>Relationship</b></td><td><b>Name</b></td><td><b>Telecom</b></td></tr><tr><td>*</td><td>Emergency Contact <span>(Details : {http://terminology.hl7.org/CodeSystem/v2-0131 code 'C' = 'Emergency Contact)</span></td><td>Sarah Abels </td><td>ph: 0690383372(MOBILE)</td></tr></table><h3>Communications</h3><table><tr><td>-</td><td><b>Language</b></td><td><b>Preferred</b></td></tr><tr><td>*</td><td>Nederlands <span>(Details : {urn:ietf:bcp:47 code 'nl' = 'Dutch', given as 'Dutch'})</span></td><td>true</td></tr></table><p><b>managingOrganization</b>: <a>Burgers University Medical Centre</a></p></div>",
       },
-      extension: [
-        {
-          url: 'http://example.org/StructureDefinition/trials',
-          valueCode: 'renal',
-        },
-      ],
       identifier: [
         {
           use: 'usual',
-          system: 'http://www.goodhealth.org/identifiers/mrn',
-          value: '123456',
+          system: 'urn:oid:2.16.840.1.113883.2.4.6.3',
+          value: '738472983',
+        },
+        {
+          use: 'usual',
+          system: 'urn:oid:2.16.840.1.113883.2.4.6.3',
         },
       ],
       active: true,
       name: [
         {
-          family: 'Levin',
-          given: ['Henry'],
-          suffix: ['The 7th'],
+          use: 'usual',
+          family: 'van de Heuvel',
+          given: ['Pieter'],
+          suffix: ['MSc'],
+        },
+      ],
+      telecom: [
+        {
+          system: 'phone',
+          value: '0648352638',
+          use: 'mobile',
+        },
+        {
+          system: 'email',
+          value: 'p.heuvel@gmail.com',
+          use: 'home',
         },
       ],
       gender: 'male',
-      birthDate: '1932-09-24',
-      generalPractitioner: [
+      birthDate: '1944-11-17',
+      deceasedBoolean: false,
+      address: [
         {
-          reference: 'Practitioner/example',
-          display: 'Dr Adam Careful',
+          use: 'home',
+          line: ['Van Egmondkade 23'],
+          city: 'Amsterdam',
+          postalCode: '1024 RJ',
+          country: 'NLD',
+        },
+      ],
+      maritalStatus: {
+        coding: [
+          {
+            system: 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            code: 'M',
+            display: 'Married',
+          },
+        ],
+        text: 'Getrouwd',
+      },
+      multipleBirthBoolean: true,
+      contact: [
+        {
+          relationship: [
+            {
+              coding: [
+                {
+                  system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
+                  code: 'C',
+                },
+              ],
+            },
+          ],
+          name: {
+            use: 'usual',
+            family: 'Abels',
+            given: ['Sarah'],
+          },
+          telecom: [
+            {
+              system: 'phone',
+              value: '0690383372',
+              use: 'mobile',
+            },
+          ],
+        },
+      ],
+      communication: [
+        {
+          language: {
+            coding: [
+              {
+                system: 'urn:ietf:bcp:47',
+                code: 'nl',
+                display: 'Dutch',
+              },
+            ],
+            text: 'Nederlands',
+          },
+          preferred: true,
         },
       ],
       managingOrganization: {
-        reference: 'Organization/2',
-        display: 'Good Health Clinic',
+        reference: 'Organization/f001',
+        display: 'Burgers University Medical Centre',
       },
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -924,7 +508,7 @@ describe('Patient', () => {
       },
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -954,7 +538,7 @@ describe('Patient', () => {
           value: '123456',
         },
       ],
-      active: 'true',
+      active: 'true', //bad value
       name: [
         {
           use: 'official',
@@ -985,8 +569,9 @@ describe('Patient', () => {
           data: 'base64Data',
         },
       ],
-      managingOrganization: {
-        reference: 'Organization/1',
+      // bad property
+      managingPatient: {
+        reference: 'Patient/1',
         display: 'ACME Healthcare, Inc',
       },
       link: [
@@ -999,25 +584,59 @@ describe('Patient', () => {
       ],
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
+    expect(validate.errors).toHaveLength(2);
     expect(validate.errors).toEqual([
+      {
+        instancePath: '',
+        keyword: 'additionalProperties',
+        message: 'must NOT have additional properties',
+        params: { additionalProperty: 'managingPatient' },
+        schemaPath: '#/additionalProperties',
+      },
       {
         instancePath: '/active',
         keyword: 'type',
         message: 'must be boolean',
-        params: {
-          type: 'boolean',
-        },
+        params: { type: 'boolean' },
         schemaPath: 'r4base.schema.json#/definitions/boolean/type',
       },
     ]);
   });
 
-  it('should be able to create a new patient using builder methods', async () => {
+  it('should be able to create a new patient using builder methods [Builder.resource.PatientBuilder()]', async () => {
+    // build() is a method that returns the object that was built
+    const dataType = builderFromFunction
+      .setId('123')
+      .setText({
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
+      })
+      .setDeceased(false)
+      .setActive(true)
+      .setGender('other')
+      .setBirthDate('1974-12-25')
+      .build();
+
+    expect(dataType).toBeDefined();
+    expect(dataType).toEqual({
+      active: true,
+      birthDate: '1974-12-25',
+      deceasedBoolean: false,
+      gender: 'other',
+      id: '123',
+      resourceType: 'Patient',
+      text: {
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
+        status: 'generated',
+      },
+    });
+  });
+
+  it('should be able to create a new patient using builder methods [new PatientBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
       .setId('123')

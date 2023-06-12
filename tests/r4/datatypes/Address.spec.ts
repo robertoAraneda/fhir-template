@@ -12,7 +12,7 @@ describe('Address FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new AddressBuilder();
-    builderFromFunction = Builder.dataTypes.AddressBuilder();
+    builderFromFunction = Builder.dataTypes.Address();
   });
 
   it('should be able to validate a new address [createDatatype]', async () => {

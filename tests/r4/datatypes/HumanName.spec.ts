@@ -11,7 +11,7 @@ describe('HumanName FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new HumanNameBuilder();
-    builderFromFunction = Builder.dataTypes.HumanNameBuilder();
+    builderFromFunction = Builder.dataTypes.HumanName();
   });
 
   it('should be able to create a new humanname and validate with correct data [new HumanName()]', async () => {

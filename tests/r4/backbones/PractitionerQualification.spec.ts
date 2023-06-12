@@ -11,7 +11,7 @@ describe('PractitionerQualification FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new PractitionerQualificationBuilder();
-    builderFromFunction = Builder.backboneElements.PractitionerQualificationBuilder();
+    builderFromFunction = Builder.backboneElements.PractitionerQualification();
   });
 
   it('should be able to validate a new practitioner_qualification [createBackboneElement]', async () => {

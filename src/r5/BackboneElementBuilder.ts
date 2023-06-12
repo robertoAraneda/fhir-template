@@ -3,12 +3,12 @@ import * as BackboneBuilder from './builders/backbones';
 export const BackboneElementBuilder = {
   EndpointPayloadBuilder: () => new BackboneBuilder.EndpointPayloadBuilder(),
   OrganizationQualificationBuilder: () => new BackboneBuilder.OrganizationQualificationBuilder(),
-  PatientContactBuilder: () => new BackboneBuilder.PatientContactBuilder(),
-  PatientCommunicationBuilder: () => new BackboneBuilder.PatientCommunicationBuilder(),
-  PatientLinkBuilder: () => new BackboneBuilder.PatientLinkBuilder(),
+  PatientContact: () => new BackboneBuilder.PatientContactBuilder(),
+  PatientCommunication: () => new BackboneBuilder.PatientCommunicationBuilder(),
+  PatientLink: () => new BackboneBuilder.PatientLinkBuilder(),
   PersonCommunicationBuilder: () => new BackboneBuilder.PersonCommunicationBuilder(),
-  PersonLinkBuilder: () => new BackboneBuilder.PersonLinkBuilder(),
+  PersonLink: () => new BackboneBuilder.PersonLinkBuilder(),
   PractitionerCommunicationBuilder: () => new BackboneBuilder.PractitionerCommunicationBuilder(),
-  PractitionerQualificationBuilder: () => new BackboneBuilder.PractitionerQualificationBuilder(),
-  RelatedPersonCommunicationBuilder: () => new BackboneBuilder.RelatedPersonCommunicationBuilder(),
+  PractitionerQualification: () => new BackboneBuilder.PractitionerQualificationBuilder(),
+  RelatedPersonCommunication: () => new BackboneBuilder.RelatedPersonCommunicationBuilder(),
 };

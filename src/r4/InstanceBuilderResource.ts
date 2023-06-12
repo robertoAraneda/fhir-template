@@ -1,10 +1,10 @@
-import { Endpoint, Organization, Person, Practitioner, PractitionerRole } from './models/resources';
+import { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole } from './models/resources';
 import { ResourceTypeR4 } from './GlobalResourceTypes';
 
 export const generateInstanceResource = (resourceType: ResourceTypeR4, data: any) => {
   switch (resourceType) {
     case 'Patient':
-      return new Endpoint(data);
+      return new Patient(data);
     case 'Organization':
       return new Organization(data);
     case 'Endpoint':

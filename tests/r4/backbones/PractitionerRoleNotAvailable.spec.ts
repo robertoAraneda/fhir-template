@@ -11,7 +11,7 @@ describe('PractitionerRoleNotAvailable FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new PractitionerRoleNotAvailableBuilder();
-    builderFromFunction = Builder.backboneElements.PractitionerRoleNotAvailableBuilder();
+    builderFromFunction = Builder.backboneElements.PractitionerRoleNotAvailable();
   });
 
   it('should be able to validate a new practitioner_role_not_available [createBackboneElement]', async () => {

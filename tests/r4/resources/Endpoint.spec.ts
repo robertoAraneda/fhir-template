@@ -12,7 +12,7 @@ describe('Endpoint Resource FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new EndpointBuilder();
-    builderFromFunction = Builder.resources.EndpointBuilder();
+    builderFromFunction = Builder.resources.Endpoint();
   });
 
   // create global

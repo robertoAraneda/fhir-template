@@ -12,7 +12,7 @@ describe('Meta FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new MetaBuilder();
-    builderFromFunction = Builder.dataTypes.MetaBuilder();
+    builderFromFunction = Builder.dataTypes.Meta();
   });
 
   it('should be able to create a new meta and validate with correct data [new Meta()]', async () => {

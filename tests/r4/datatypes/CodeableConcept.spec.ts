@@ -11,7 +11,7 @@ describe('CodeableConcept FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new CodeableConceptBuilder();
-    builderFromFunction = Builder.dataTypes.CodeableConceptBuilder();
+    builderFromFunction = Builder.dataTypes.CodeableConcept();
   });
 
   it('should be able to create a new codeable_concept and validate with correct data [new CodeableConcept]', async () => {

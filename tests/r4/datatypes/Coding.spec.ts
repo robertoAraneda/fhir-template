@@ -11,7 +11,7 @@ describe('Coding FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new CodingBuilder();
-    builderFromFunction = Builder.dataTypes.CodingBuilder();
+    builderFromFunction = Builder.dataTypes.Coding();
   });
 
   it('should be able to create a new coding and validate with correct data [createDatatype]', async () => {

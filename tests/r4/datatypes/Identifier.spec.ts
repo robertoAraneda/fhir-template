@@ -12,7 +12,7 @@ describe('Identifier FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new IdentifierBuilder();
-    builderFromFunction = Builder.dataTypes.IdentifierBuilder();
+    builderFromFunction = Builder.dataTypes.Identifier();
   });
 
   it('should be able to create a new identifier and validate with correct data [new Identifier()]', async () => {

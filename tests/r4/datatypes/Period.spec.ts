@@ -11,7 +11,7 @@ describe('Period FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new PeriodBuilder();
-    builderFromFunction = Builder.dataTypes.PeriodBuilder();
+    builderFromFunction = Builder.dataTypes.Period();
   });
 
   it('should be able to create a new period and validate with correct data [IPeriod]', async function () {

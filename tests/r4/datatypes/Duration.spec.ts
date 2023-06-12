@@ -11,7 +11,7 @@ describe('Duration FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new DurationBuilder();
-    builderFromFunction = Builder.dataTypes.DurationBuilder();
+    builderFromFunction = Builder.dataTypes.Duration();
   });
 
   it('should be able to create a new duration and validate with correct data [createDatatype]', async () => {

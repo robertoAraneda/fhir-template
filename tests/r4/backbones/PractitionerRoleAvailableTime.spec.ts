@@ -11,7 +11,7 @@ describe('PractitionerRoleAvailableTime FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new PractitionerRoleAvailableTimeBuilder();
-    builderFromFunction = Builder.backboneElements.PractitionerRoleAvailableTimeBuilder();
+    builderFromFunction = Builder.backboneElements.PractitionerRoleAvailableTime();
   });
 
   it('should be able to validate a new practitioner_role_available_time [createBackboneElement]', async () => {

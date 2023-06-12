@@ -11,7 +11,7 @@ describe('Attachment FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new AttachmentBuilder();
-    builderFromFunction = Builder.dataTypes.AttachmentBuilder();
+    builderFromFunction = Builder.dataTypes.Attachment();
   });
 
   it('should be able to validate a new attachment [createDatatype]', async () => {

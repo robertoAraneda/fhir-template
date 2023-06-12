@@ -12,7 +12,7 @@ describe('PersonLink FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new PersonLinkBuilder();
-    builderFromFunction = Builder.backboneElements.PersonLinkBuilder();
+    builderFromFunction = Builder.backboneElements.PersonLink();
   });
 
   it('should be able to validate a new person_link [createBackboneElement]', async () => {

@@ -12,7 +12,7 @@ describe('Quantity FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new QuantityBuilder();
-    builderFromFunction = Builder.dataTypes.QuantityBuilder();
+    builderFromFunction = Builder.dataTypes.Quantity();
   });
 
   it('should be able to create a new quantity and validate with correct data [createDatatype()]', async () => {

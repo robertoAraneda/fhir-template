@@ -11,7 +11,7 @@ describe('PatientContact FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new PatientContactBuilder();
-    builderFromFunction = Builder.backboneElements.PatientContactBuilder();
+    builderFromFunction = Builder.backboneElements.PatientContact();
   });
 
   it('should be able to validate a new patient_contact [createBackboneElement]', async () => {

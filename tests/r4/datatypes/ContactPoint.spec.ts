@@ -11,7 +11,7 @@ describe('ContactPoint FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new ContactPointBuilder();
-    builderFromFunction = Builder.dataTypes.ContactPointBuilder();
+    builderFromFunction = Builder.dataTypes.ContactPoint();
   });
 
   it('should be able to create a new contact point and validate with correct data [createDatatype]', async () => {

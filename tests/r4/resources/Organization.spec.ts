@@ -12,7 +12,7 @@ describe('Organization Resource FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new OrganizationBuilder();
-    builderFromFunction = Builder.resources.OrganizationBuilder();
+    builderFromFunction = Builder.resources.Organization();
   });
 
   it('should be able to create a new organization and validate with correct data [new Organization() FHIR R4]', async () => {

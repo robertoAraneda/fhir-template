@@ -11,7 +11,7 @@ describe('OrganizationContact FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new OrganizationContactBuilder();
-    builderFromFunction = Builder.backboneElements.OrganizationContactBuilder();
+    builderFromFunction = Builder.backboneElements.OrganizationContact();
   });
 
   it('should be able to validate a new organization_contact [createBackboneElement]', async () => {

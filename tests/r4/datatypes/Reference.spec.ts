@@ -12,7 +12,7 @@ describe('Reference FHIR R4', () => {
   // create global
   beforeEach(() => {
     builder = new ReferenceBuilder();
-    builderFromFunction = Builder.dataTypes.ReferenceBuilder();
+    builderFromFunction = Builder.dataTypes.Reference();
   });
 
   it('should be able to create a new reference and validate with correct data [createDatatype()]', async () => {

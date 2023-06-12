@@ -13,8 +13,9 @@ describe('OrganizationQualification FHIR R5', () => {
     builder = new OrganizationQualificationBuilder();
     builderFromFunction = Builder.backboneElements.OrganizationQualification();
   });
+
   it('should be able to create a new organization_qualification payload and validate with correct data [new OrganizationQualification()]', async () => {
-    const dataType = new OrganizationQualification({
+    const item = new OrganizationQualification({
       id: '123',
       issuer: {
         reference: 'test',
@@ -29,14 +30,14 @@ describe('OrganizationQualification FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
+    const validate = await Validator.backboneElements.OrganizationQualification(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new organization_qualification payload and validate with correct data [IOrganizationQualification]', async () => {
-    const dataType: IOrganizationQualification = {
+    const item: IOrganizationQualification = {
       id: '123',
       issuer: {
         reference: 'test',
@@ -51,14 +52,14 @@ describe('OrganizationQualification FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
+    const validate = await Validator.backboneElements.OrganizationQualification(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new organization_qualification payload and validate with correct data [createBackboneElement]', async () => {
-    const dataType = createBackboneElement('OrganizationQualification', {
+    const item = createBackboneElement('OrganizationQualification', {
       id: '123',
       issuer: {
         reference: 'test',
@@ -73,14 +74,14 @@ describe('OrganizationQualification FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
+    const validate = await Validator.backboneElements.OrganizationQualification(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new organization_qualification payload and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       issuer: {
         reference: 'test',
@@ -100,7 +101,7 @@ describe('OrganizationQualification FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.backboneElements.OrganizationQualification(dataType);
+    const validate = await Validator.backboneElements.OrganizationQualification(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -125,7 +126,7 @@ describe('OrganizationQualification FHIR R5', () => {
 
   it('should be able to create a new organization_qualification payload using builder methods [new OrganizationQualificationBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setCode({
         coding: [
@@ -155,8 +156,8 @@ describe('OrganizationQualification FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       code: {
         coding: [
           {
@@ -182,7 +183,7 @@ describe('OrganizationQualification FHIR R5', () => {
 
   it('should be able to create a new organization_qualification payload using builder methods [Builder.backboneElements.OrganizationQualification()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
+    const item = builderFromFunction
       .setId('123')
       .setCode({
         coding: [
@@ -212,8 +213,8 @@ describe('OrganizationQualification FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       code: {
         coding: [
           {

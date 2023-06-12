@@ -1,20 +1,17 @@
-import { AddressBuilder, CodingBuilder } from '../../../src/r5/builders/datatypes';
+import { AddressBuilder } from '../../../src/r5/builders/datatypes';
 import { IAddress } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
 import { Address } from '../../../src/r5/models/datatypes/Address';
 
-describe('Address', () => {
-  let validator: IValidatorContext;
+describe('Address FHIR R5', () => {
   let builder: AddressBuilder;
   let builderFromFunction: AddressBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new AddressBuilder();
-    builderFromFunction = builders.dataTypes.AddressBuilder();
+    builderFromFunction = Builder.dataTypes.Address();
   });
 
   it('should be able to validate a new address [createDatatype]', async () => {
@@ -33,7 +30,7 @@ describe('Address', () => {
       state: 'AnyState',
     });
 
-    const validateAddress = await validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(address);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -54,7 +51,7 @@ describe('Address', () => {
       state: 'AnyState',
     });
 
-    const validateAddress = await validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(address);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -77,7 +74,7 @@ describe('Address', () => {
       state: 'AnyState',
     };
 
-    const validateAddress = await validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(address);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -152,7 +149,7 @@ describe('Address', () => {
     });
   });
 
-  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
+  it('should be able to create a new address using builder methods [Builder.dataTypes.Address()]', async () => {
     const address: IAddress = builderFromFunction
       .setCity('Anytown')
       .setCountry('USA')
@@ -270,7 +267,7 @@ describe('Address', () => {
       ],
     };
 
-    const validateAddress = await validator.dataTypes.Address(address);
+    const validateAddress = await Validator.dataTypes.Address(address);
     expect(validateAddress.isValid).toBeFalsy();
     expect(validateAddress.errors).toBeDefined();
     expect(validateAddress.errors?.length).toBe(2);

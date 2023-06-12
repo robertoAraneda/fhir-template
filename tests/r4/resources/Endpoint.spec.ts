@@ -3,14 +3,16 @@ import { IEndpoint } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 import { Endpoint } from '../../../src/r4/models/resources';
 
-describe('Endpoint FHIR R4', () => {
+describe('Endpoint Resource FHIR R4', () => {
   let builder: EndpointBuilder;
+  let builderFromFunction: EndpointBuilder;
   const context = new FHIRContext();
   const { Validator, Builder, createResource } = context.forR4();
 
   // create global
   beforeEach(() => {
-    builder = Builder.resources.EndpointBuilder();
+    builder = new EndpointBuilder();
+    builderFromFunction = Builder.resources.EndpointBuilder();
   });
 
   // create global
@@ -229,7 +231,7 @@ describe('Endpoint FHIR R4', () => {
   });
   it('should be able to create a new endpoint using builder methods [Builder.resources.EndpointBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const dataType = builderFromFunction
       .setId('example-wadors')
       .setText({
         status: 'generated',

@@ -23,7 +23,7 @@ export interface IValidatorContext {
 
 export class FhirContextR4 {
   createResource<T extends ResourceTypeR4>(resourceType: T, data?: ParseResourceTypeR4<T>) {
-    return generateInstanceResource(resourceType, data);
+    return generateInstanceResource(resourceType, data) as ParseResourceTypeR4<T>;
   }
 
   createDatatype<T extends DatatypeTypeR4>(datatypeType: T, d: ParseDataTypeR4<T>) {

@@ -44,7 +44,6 @@ export class Organization implements IOrganization {
   // Extensions
   _active?: IElement;
   _alias?: IElement[];
-  _description?: IElement;
   _name?: IElement;
 
   constructor(args?: IOrganization) {

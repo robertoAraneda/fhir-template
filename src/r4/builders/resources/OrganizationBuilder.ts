@@ -8,10 +8,7 @@ import { IOrganizationContact } from '../../interfaces/backbones';
 
 type ParamsType = 'implicitRules' | 'language' | 'active' | 'alias' | 'name';
 interface IOrganizationBuilder extends IBuildable<Organization>, ISerializable {
-  addOrganizationParamExtension<T extends ParamsType>(
-    param: T,
-    extension: T extends 'alias' ? IElement[] : IElement,
-  ): this;
+  addParamExtension<T extends ParamsType>(param: T, extension: T extends 'alias' ? IElement[] : IElement): this;
   setActive(active: boolean): this;
   addIdentifier(identifier: IIdentifier): this;
   setMultipleIdentifier(identifiers: IIdentifier[]): this;
@@ -39,10 +36,7 @@ export class OrganizationBuilder extends DomainResourceBuilder<OrganizationBuild
     this.organization = new Organization();
   }
 
-  addOrganizationParamExtension<T extends ParamsType>(
-    param: T,
-    extension: T extends 'alias' ? IElement[] : IElement,
-  ): this {
+  addParamExtension<T extends ParamsType>(param: T, extension: T extends 'alias' ? IElement[] : IElement): this {
     if (param === 'alias') {
       this.organization._alias = extension as IElement[];
     } else {

@@ -1,23 +1,20 @@
 import { IPersonLink } from '../../../src/r5/interfaces/backbones';
 import { PersonLinkBuilder } from '../../../src/r5/builders/backbones';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
+import { PersonLink } from '../../../src/r5/models/backbones/PersonLink';
 
-describe('PersonLink', () => {
-  let validator: IValidatorContext;
+describe('PersonLink FHIR R5', () => {
+  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
   let builder: PersonLinkBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  let builderFromFunction: PersonLinkBuilder;
 
   // create global
   beforeEach(() => {
     builder = new PersonLinkBuilder();
+    builderFromFunction = Builder.backboneElements.PersonLink();
   });
 
-  it('should be able to create a new person_link payload and validate with correct data', async () => {
+  it('should be able to create a new person_link payload and validate with correct data [IPersonLink]', async () => {
     const dataType: IPersonLink = {
       id: '123',
       target: {
@@ -32,7 +29,49 @@ describe('PersonLink', () => {
       ],
     };
 
-    const validate = await validator.backboneElements.PersonLink(dataType);
+    const validate = await Validator.backboneElements.PersonLink(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new person_link payload and validate with correct data [new PersonLink()]', async () => {
+    const dataType = new PersonLink({
+      id: '123',
+      target: {
+        reference: 'test',
+      },
+      assurance: 'level1', // correct type
+      extension: [
+        {
+          url: 'test',
+          valueString: 'test',
+        },
+      ],
+    });
+
+    const validate = await Validator.backboneElements.PersonLink(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new person_link payload and validate with correct data [createBackboneElement]', async () => {
+    const dataType = createBackboneElement('PersonLink', {
+      id: '123',
+      target: {
+        reference: 'test',
+      },
+      assurance: 'level1', // correct type
+      extension: [
+        {
+          url: 'test',
+          valueString: 'test',
+        },
+      ],
+    });
+
+    const validate = await Validator.backboneElements.PersonLink(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -50,7 +89,7 @@ describe('PersonLink', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.backboneElements.PersonLink(dataType);
+    const validate = await Validator.backboneElements.PersonLink(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -73,9 +112,45 @@ describe('PersonLink', () => {
     ]);
   });
 
-  it('should be able to create a new person_link payload using builder methods', async () => {
+  it('should be able to create a new person_link payload using builder methods [new PersonLinkBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .addPersonLinkParamExtension('assurance', {
+        extension: [
+          {
+            url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+            valueString: 'Jane Doe',
+          },
+        ],
+      })
+      .addExtension({
+        url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+        valueString: 'Jane Doe',
+      })
+      .build();
+
+    expect(dataType).toBeDefined();
+    expect(dataType).toEqual({
+      _assurance: {
+        extension: [
+          {
+            url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+            valueString: 'Jane Doe',
+          },
+        ],
+      },
+      extension: [
+        {
+          url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
+          valueString: 'Jane Doe',
+        },
+      ],
+    });
+  });
+
+  it('should be able to create a new person_link payload using builder methods [Builder.backboneElements.PersonLink()]', async () => {
+    // build() is a method that returns the object that was built
+    const dataType = builderFromFunction
       .addPersonLinkParamExtension('assurance', {
         extension: [
           {

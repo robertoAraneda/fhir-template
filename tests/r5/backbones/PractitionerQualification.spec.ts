@@ -1,23 +1,20 @@
 import { PractitionerQualificationBuilder } from '../../../src/r5/builders/backbones';
 import { IPractitionerQualification } from '../../../src/r5/interfaces/backbones';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
+import { PractitionerQualification } from '../../../src/r5/models/backbones/PractitionerQualification';
 
-describe('PractitionerQualification', () => {
-  let validator: IValidatorContext;
+describe('PractitionerQualification FHIR R5', () => {
+  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
   let builder: PractitionerQualificationBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR5().validators;
-  });
+  let builderFromFunction: PractitionerQualificationBuilder;
 
   // create global
   beforeEach(() => {
     builder = new PractitionerQualificationBuilder();
+    builderFromFunction = Builder.backboneElements.PractitionerQualification();
   });
 
-  it('should be able to create a new practitioner_qualification payload and validate with correct data', async () => {
+  it('should be able to create a new practitioner_qualification payload and validate with correct data [IPractitionerQualification]', async () => {
     const dataType: IPractitionerQualification = {
       id: '123',
       issuer: {
@@ -33,7 +30,51 @@ describe('PractitionerQualification', () => {
       },
     };
 
-    const validate = await validator.backboneElements.PractitionerQualification(dataType);
+    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new practitioner_qualification payload and validate with correct data [new PractitionerQualification()]', async () => {
+    const dataType = new PractitionerQualification({
+      id: '123',
+      issuer: {
+        reference: 'test',
+      },
+      code: {
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+      },
+    });
+
+    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+  });
+
+  it('should be able to create a new practitioner_qualification payload and validate with correct data [createBackboneElement()]', async () => {
+    const dataType = createBackboneElement('PractitionerQualification', {
+      id: '123',
+      issuer: {
+        reference: 'test',
+      },
+      code: {
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+      },
+    });
+
+    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -60,7 +101,7 @@ describe('PractitionerQualification', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.backboneElements.PractitionerQualification(dataType);
+    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -78,14 +119,71 @@ describe('PractitionerQualification', () => {
         keyword: 'pattern',
         message: "The value '/period/start' does not match with datatype 'dateTime'",
         params: { value: '/period/start' },
-        schemaPath: 'r4base.schema.json#/definitions/dateTime/pattern',
+        schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
       },
     ]);
   });
 
-  it('should be able to create a new practitioner_qualification payload using builder methods', async () => {
+  it('should be able to create a new practitioner_qualification payload using builder methods [new PractitionerQualificationBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setId('123')
+      .setCode({
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+        text: 'test',
+      })
+      .setIssuer({
+        reference: 'Organization/1',
+      })
+      .setCode({
+        coding: [
+          {
+            system: 'http://hl7.org/fhir/organization-qualification',
+            code: 'any',
+          },
+        ],
+        text: 'test',
+      })
+      .addIdentifier({
+        use: 'official',
+        system: 'http://hl7.org/fhir/sid/us-npi',
+        value: '123',
+      })
+      .build();
+
+    expect(dataType).toBeDefined();
+    expect(dataType).toEqual({
+      code: {
+        coding: [
+          {
+            code: 'any',
+            system: 'http://hl7.org/fhir/organization-qualification',
+          },
+        ],
+        text: 'test',
+      },
+      id: '123',
+      identifier: [
+        {
+          system: 'http://hl7.org/fhir/sid/us-npi',
+          use: 'official',
+          value: '123',
+        },
+      ],
+      issuer: {
+        reference: 'Organization/1',
+      },
+    });
+  });
+
+  it('should be able to create a new practitioner_qualification payload using builder methods [Builder.backboneElements.PractitionerQualification()]', async () => {
+    // build() is a method that returns the object that was built
+    const dataType = builderFromFunction
       .setId('123')
       .setCode({
         coding: [

@@ -1,12 +1,15 @@
 import { ElementBuilder } from '../base/ElementBuilder';
 import { IBuildable, IElement, ISerializable } from '../../interfaces/base';
 import { IDuration } from '../../interfaces/datatypes';
-import { Duration } from '../../models/datatypes/Duration';
+import { Duration } from '../../models/datatypes';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 
 type ParamType = 'value' | 'comparator' | 'unit' | 'system' | 'code';
-export class DurationBuilder extends ElementBuilder<DurationBuilder> implements IBuildable<IDuration>, ISerializable {
+export default class DurationBuilder
+  extends ElementBuilder<DurationBuilder>
+  implements IBuildable<IDuration>, ISerializable
+{
   private duration: IDuration;
 
   constructor() {

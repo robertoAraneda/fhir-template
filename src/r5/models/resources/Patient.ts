@@ -16,7 +16,7 @@ import { IPatientCommunication, IPatientContact, IPatientLink } from '../../inte
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export class Patient implements IPatient {
+export default class Patient implements IPatient {
   active?: boolean;
   address?: IAddress[];
   birthDate?: string;

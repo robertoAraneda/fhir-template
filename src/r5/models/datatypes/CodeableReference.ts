@@ -10,7 +10,7 @@ import { ICodeableConcept, ICodeableReference, IExtension, IReference } from '..
  * @see https://www.hl7.org/fhir/references.html#CodeableReference CodeableReference
  * @author Roberto Araneda
  */
-export class CodeableReference implements ICodeableReference {
+export default class CodeableReference implements ICodeableReference {
   /**
    * @description Unique id for inter-element referencing
    */

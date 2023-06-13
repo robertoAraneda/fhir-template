@@ -29,7 +29,7 @@ import { AddressTypeType, AddressUseType } from '../../types';
  * @see https://hl7.org/fhir/datatypes.html#Address Address
  * @author Roberto Araneda
  */
-export class Address implements IAddress {
+export default class Address implements IAddress {
   /**
    * @description unique id for the element
    */

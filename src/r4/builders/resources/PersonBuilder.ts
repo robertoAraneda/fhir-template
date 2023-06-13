@@ -29,7 +29,7 @@ interface IPersonBuilder extends IBuildable<IPerson>, ISerializable {
   addLink(link: IPersonLink): this;
   setMultipleLink(links: IPersonLink[]): this;
 }
-export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements IPersonBuilder {
+export default class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements IPersonBuilder {
   private readonly person: IPerson;
   constructor() {
     super();

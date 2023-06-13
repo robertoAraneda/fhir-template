@@ -4,7 +4,7 @@ import { IElement } from '../../interfaces/base';
 import { DaysOfWeekEnum } from '../../enums';
 import { DaysOfWeekType } from '../../types';
 
-export class PractitionerRoleAvailableTime implements IPractitionerRoleAvailableTime {
+export default class PractitionerRoleAvailableTime implements IPractitionerRoleAvailableTime {
   // Element attributes
   id?: string;
   extension?: IExtension[];

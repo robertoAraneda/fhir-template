@@ -1,7 +1,7 @@
 import { PractitionerCommunicationBuilder } from '../../../src/r5/builders/backbones';
 import { IPractitionerCommunication } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { PractitionerCommunication } from '../../../src/r5/models/backbones/PractitionerCommunication';
+import { PractitionerCommunication } from '../../../src/r5/models/backbones';
 
 describe('PractitionerCommunication FHIR R5', () => {
   const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();

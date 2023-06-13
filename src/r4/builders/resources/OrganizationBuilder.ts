@@ -28,7 +28,10 @@ interface IOrganizationBuilder extends IBuildable<Organization>, ISerializable {
   setMultipleEndpoint(endpoints: IReference[]): this;
   setMultipleEndpoint(endpoints: IReference[]): this;
 }
-export class OrganizationBuilder extends DomainResourceBuilder<OrganizationBuilder> implements IOrganizationBuilder {
+export default class OrganizationBuilder
+  extends DomainResourceBuilder<OrganizationBuilder>
+  implements IOrganizationBuilder
+{
   private readonly organization: IOrganization;
 
   constructor() {

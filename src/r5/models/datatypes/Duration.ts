@@ -22,7 +22,7 @@ import { QuantityComparatorType } from '../../types';
  * @author Roberto Araneda
  *
  */
-export class Duration implements IDuration {
+export default class Duration implements IDuration {
   /**
    * @description Unique id for inter-element referencing.
    */

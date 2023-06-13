@@ -6,7 +6,7 @@ import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { IOrganization } from '../../interfaces/resources';
 
 type ParamsType = 'active' | 'alias' | 'description' | 'name';
-export class OrganizationBuilder
+export default class OrganizationBuilder
   extends DomainResourceBuilder<OrganizationBuilder>
   implements IBuildable<Organization>, ISerializable
 {

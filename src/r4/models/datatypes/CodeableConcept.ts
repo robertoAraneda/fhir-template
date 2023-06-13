@@ -17,7 +17,7 @@ import { IElement } from '../../interfaces/base';
  *   "text" : "<string>" // Plain text representation of the concept
  * }
  */
-export class CodeableConcept implements ICodeableConcept {
+export default class CodeableConcept implements ICodeableConcept {
   /**
    * @description Unique id for inter-element referencing
    */

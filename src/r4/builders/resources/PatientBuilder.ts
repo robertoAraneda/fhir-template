@@ -57,7 +57,7 @@ interface IPatientBuilder extends IBuildable<IPatient>, ISerializable {
   addLink(link: IPatientLink): this;
   setMultipleLink(links: IPatientLink[]): this;
 }
-export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implements IPatientBuilder {
+export default class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implements IPatientBuilder {
   private readonly patient: IPatient;
 
   constructor() {

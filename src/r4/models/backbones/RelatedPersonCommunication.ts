@@ -1,6 +1,6 @@
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 
-export class RelatedPersonCommunication implements IRelatedPersonCommunication {
+export default class RelatedPersonCommunication implements IRelatedPersonCommunication {
   // Element attributes
   id?: string;
   extension?: any[];

@@ -7,7 +7,7 @@ import {
 } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 
-export class VirtualServiceDetail implements IVirtualServiceDetail {
+export default class VirtualServiceDetail implements IVirtualServiceDetail {
   // Extends from IElement: id, extension
   id?: string;
   extension?: IExtension[];

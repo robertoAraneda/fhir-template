@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { PractitionerRoleAvailableTime } from '../../../src/r4/models/backbones/PractitionerRoleAvailableTime';
+import { PractitionerRoleAvailableTime } from '../../../src/r4/models/backbones';
 import { PractitionerRoleAvailableTimeBuilder } from '../../../src/r4/builders/backbones';
 import { IPractitionerRoleAvailableTime } from '../../../src/r4/interfaces/backbones';
 

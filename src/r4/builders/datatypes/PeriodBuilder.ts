@@ -1,7 +1,7 @@
 import { IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Period } from '../../models/datatypes/Period';
+import { Period } from '../../models/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 interface IPeriodBuilder extends IBuildable<IPeriod>, ISerializable {
@@ -9,7 +9,7 @@ interface IPeriodBuilder extends IBuildable<IPeriod>, ISerializable {
   setStart(value: string): PeriodBuilder;
   setEnd(value: string): PeriodBuilder;
 }
-export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IPeriodBuilder {
+export default class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IPeriodBuilder {
   private readonly period: IPeriod;
 
   constructor() {

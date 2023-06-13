@@ -1,29 +1,35 @@
 import Address from './Address';
 import Attachment from './Attachment';
+import Availability from './Availability';
 import CodeableConcept from './CodeableConcept';
+import CodeableReference from './CodeableReference';
 import Coding from './Coding';
 import ContactPoint from './ContactPoint';
 import Duration from './Duration';
-import HumanName from './HumanName';
+import ExtendedContactDetail from './ExtendedContactDetail';
 import Extension from './Extension';
+import HumanName from './HumanName';
 import Identifier from './Identifier';
 import Meta from './Meta';
 import Period from './Period';
 import Quantity from './Quantity';
-import Reference from './Reference';
+import VirtualServiceDetail from './VirtualServiceDetail';
 
 export {
-  Address,
+  ExtendedContactDetail,
+  Duration,
+  Coding,
+  Meta,
+  ContactPoint,
+  Availability,
   Attachment,
   CodeableConcept,
-  Coding,
-  ContactPoint,
-  Duration,
-  Extension,
+  Period,
+  VirtualServiceDetail,
+  Quantity,
   HumanName,
   Identifier,
-  Meta,
-  Period,
-  Quantity,
-  Reference,
+  Extension,
+  Address,
+  CodeableReference,
 };

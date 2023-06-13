@@ -8,7 +8,7 @@ import {
   IAddress,
   ICodeableConcept,
 } from '../../interfaces/datatypes';
-import { IPractitionerQualification, IPractitionerCommunication } from '../../interfaces/backbones';
+import { IPractitionerQualification } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
@@ -39,7 +39,10 @@ interface IPractitionerBuilder extends IBuildable<Practitioner>, ISerializable {
   setBirthDate(birthDate: string): this;
 }
 
-export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuilder> implements IPractitionerBuilder {
+export default class PractitionerBuilder
+  extends DomainResourceBuilder<PractitionerBuilder>
+  implements IPractitionerBuilder
+{
   private readonly practitioner: IPractitioner;
 
   constructor() {
@@ -101,7 +104,7 @@ export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuild
     return this;
   }
 
-  addCommunication(communication: IPractitionerCommunication): this {
+  addCommunication(communication: ICodeableConcept): this {
     this.practitioner.communication = this.practitioner.communication || [];
     this.practitioner.communication.push(communication);
     return this;
@@ -137,7 +140,7 @@ export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuild
     return this;
   }
 
-  setMultipleCommunication(communication: IPractitionerCommunication[]): this {
+  setMultipleCommunication(communication: ICodeableConcept[]): this {
     this.practitioner.communication = communication;
     return this;
   }

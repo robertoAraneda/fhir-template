@@ -2,7 +2,7 @@ import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { PractitionerRoleAvailableTime } from '../../models/backbones/PractitionerRoleAvailableTime';
+import { PractitionerRoleAvailableTime } from '../../models/backbones';
 import { DaysOfWeekEnum } from '../../enums';
 import { DaysOfWeekType } from '../../types';
 
@@ -15,7 +15,7 @@ interface IPractitionerRoleAvailableTimeBuilder extends IBuildable<IPractitioner
   setAvailableEndTime(value: string): this;
   addParamExtension(param: ParamType, extension: IElement): this;
 }
-export class PractitionerRoleAvailableTimeBuilder
+export default class PractitionerRoleAvailableTimeBuilder
   extends BackboneElementBuilder<PractitionerRoleAvailableTimeBuilder>
   implements IPractitionerRoleAvailableTimeBuilder
 {

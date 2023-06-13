@@ -43,7 +43,10 @@ interface IRelatedPersonBuilder extends IBuildable<RelatedPerson>, ISerializable
   setMultipleCommunication(communications: IRelatedPersonCommunication[]): this;
 }
 
-export class RelatedPersonBuilder extends DomainResourceBuilder<RelatedPersonBuilder> implements IRelatedPersonBuilder {
+export default class RelatedPersonBuilder
+  extends DomainResourceBuilder<RelatedPersonBuilder>
+  implements IRelatedPersonBuilder
+{
   private readonly relatedPerson: IRelatedPerson;
 
   constructor() {

@@ -15,7 +15,7 @@ import { IPersonLink } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export class Person implements IPerson {
+export default class Person implements IPerson {
   resourceType = 'Person';
 
   // Resource attributes

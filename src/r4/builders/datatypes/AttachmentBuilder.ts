@@ -35,7 +35,7 @@ interface IAttachmentBuilder extends IBuildable<IAttachment>, ISerializable {
   setFrames(frames: number): AttachmentBuilder;
   setPages(pages: number): AttachmentBuilder;
 }
-export class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> implements IAttachmentBuilder {
+export default class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> implements IAttachmentBuilder {
   private readonly attachment: IAttachment;
 
   constructor() {

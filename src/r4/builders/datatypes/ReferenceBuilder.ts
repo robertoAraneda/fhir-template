@@ -3,7 +3,7 @@ import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { transformReference } from '../../../globals/helpers/transformReference';
-import { Reference } from '../../models/datatypes/Reference';
+import { Reference } from '../../models/datatypes';
 
 interface IReferenceBuilder extends IBuildable<IReference>, ISerializable {
   addParamExtension(param: 'display' | 'type' | 'reference', extension: Element): ReferenceBuilder;
@@ -12,7 +12,7 @@ interface IReferenceBuilder extends IBuildable<IReference>, ISerializable {
   setIdentifier(value: IIdentifier): ReferenceBuilder;
   setType(value: string): ReferenceBuilder;
 }
-export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements IReferenceBuilder {
+export default class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements IReferenceBuilder {
   private readonly reference: IReference;
 
   constructor() {

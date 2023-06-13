@@ -15,7 +15,7 @@ import { IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 /**
  * @summary FHIR R4
  */
-export class PractitionerRole implements IPractitionerRole {
+export default class PractitionerRole implements IPractitionerRole {
   resourceType = 'PractitionerRole';
 
   // Resource attributes

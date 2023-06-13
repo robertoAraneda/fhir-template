@@ -14,7 +14,7 @@ import { IEndpointPayload } from '../../interfaces/backbones';
 import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
 
-export class Endpoint implements IEndpoint {
+export default class Endpoint implements IEndpoint {
   _address?: IElement;
   _description?: IElement;
   _header?: IElement;

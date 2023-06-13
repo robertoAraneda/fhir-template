@@ -13,7 +13,7 @@ import {
   IQuantity,
   IReference,
 } from '../../interfaces/datatypes';
-import { Extension } from '../../models/datatypes/Extension';
+import { Extension } from '../../models/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { createBuildAndSerializeMethods } from '../../../globals/helpers/buildAndSerialize';
 
@@ -72,7 +72,7 @@ interface IExtensionBuilder extends IBuildable<IExtension>, ISerializable {
   setValueHumanName(valueHumanName: IHumanName): BuildAndSerialize;
 }
 
-export class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
+export default class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
   private readonly extension: IExtension;
 
   constructor() {

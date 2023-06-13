@@ -1,58 +1,43 @@
 import { DatatypeTypeR5 } from './GlobalDatatypes';
-import { Address } from './models/datatypes/Address';
-import { Availability } from './models/datatypes/Availability';
-import { CodeableConcept } from './models/datatypes/CodeableConcept';
-import { CodeableReference } from './models/datatypes/CodeableReference';
-import { Period } from './models/datatypes/Period';
-import { Coding } from './models/datatypes/Coding';
-import { Meta } from './models/datatypes/Meta';
-import { Extension } from './models/datatypes/Extension';
-import { Identifier } from './models/datatypes/Identifier';
-import { HumanName } from './models/datatypes/HumanName';
-import { ExtendedContactDetail } from './models/datatypes/ExtendedContactDetail';
-import { Quantity } from './models/datatypes/Quantity';
-import { Duration } from './models/datatypes/Duration';
-import { ContactPoint } from './models/datatypes/ContactPoint';
-import { Attachment } from './models/datatypes/Attachment';
-import { VirtualServiceDetail } from './models/datatypes/VirtualServiceDetail';
+import * as datatype from './models/datatypes';
 
 export const generateInstanceDatatype = (resourceType: DatatypeTypeR5, data: any) => {
   switch (resourceType) {
     case 'Address':
-      return new Address(data);
+      return new datatype.Address(data);
     case 'Availability':
-      return new Availability(data);
+      return new datatype.Availability(data);
     case 'CodeableConcept':
-      return new CodeableConcept(data);
+      return new datatype.CodeableConcept(data);
     case 'CodeableReference':
-      return new CodeableReference(data);
+      return new datatype.CodeableReference(data);
     case 'Period':
-      return new Period(data);
+      return new datatype.Period(data);
     case 'Coding':
-      return new Coding(data);
+      return new datatype.Coding(data);
     case 'Meta':
-      return new Meta(data);
+      return new datatype.Meta(data);
     case 'Reference':
       //TODO - this is a hack, but it works for now
-      return new Extension(data);
+      return new datatype.Extension(data);
     case 'Identifier':
-      return new Identifier(data);
+      return new datatype.Identifier(data);
     case 'HumanName':
-      return new HumanName(data);
+      return new datatype.HumanName(data);
     case 'Extension':
-      return new Extension(data);
+      return new datatype.Extension(data);
     case 'ExtendedContactDetail':
-      return new ExtendedContactDetail(data);
+      return new datatype.ExtendedContactDetail(data);
     case 'Quantity':
-      return new Quantity(data);
+      return new datatype.Quantity(data);
     case 'Duration':
-      return new Duration(data);
+      return new datatype.Duration(data);
     case 'ContactPoint':
-      return new ContactPoint(data);
+      return new datatype.ContactPoint(data);
     case 'Attachment':
-      return new Attachment(data);
+      return new datatype.Attachment(data);
     case 'VirtualServiceDetail':
-      return new VirtualServiceDetail(data);
+      return new datatype.VirtualServiceDetail(data);
     default:
       throw new Error(`Datatype ${resourceType} not supported`);
   }

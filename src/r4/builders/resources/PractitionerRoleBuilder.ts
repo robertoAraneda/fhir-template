@@ -36,7 +36,7 @@ interface IPractitionerRoleBuilder extends IBuildable<IPractitionerRole>, ISeria
   setMultipleNotAvailable(notAvailables: IPractitionerRoleNotAvailable[]): this;
 }
 
-export class PractitionerRoleBuilder
+export default class PractitionerRoleBuilder
   extends DomainResourceBuilder<PractitionerRoleBuilder>
   implements IPractitionerRoleBuilder
 {

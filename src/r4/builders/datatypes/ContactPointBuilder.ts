@@ -3,7 +3,7 @@ import { ContactPointSystemType, ContactPointUseType } from '../../types';
 import { IContactPoint, IPeriod, ICodeableConcept } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { ContactPoint } from '../../models/datatypes/ContactPoint';
+import { ContactPoint } from '../../models/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 type ParamType = 'system' | 'value' | 'use' | 'rank';
@@ -16,7 +16,7 @@ interface IContactPointBuilder extends IBuildable<ICodeableConcept>, ISerializab
   setRank(value: number): ContactPointBuilder;
   setPeriod(value: IPeriod): ContactPointBuilder;
 }
-export class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> implements IContactPointBuilder {
+export default class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> implements IContactPointBuilder {
   private readonly contactPoint: IContactPoint;
 
   constructor() {

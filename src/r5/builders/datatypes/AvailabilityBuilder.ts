@@ -1,9 +1,9 @@
 import { ElementBuilder } from '../base/ElementBuilder';
 import { IBuildable, ISerializable } from '../../interfaces/base';
 import { IAvailability, IAvailableTime, INotAvailableTime } from '../../interfaces/datatypes';
-import { Availability } from '../../models/datatypes/Availability';
+import { Availability } from '../../models/datatypes';
 
-export class AvailabilityBuilder
+export default class AvailabilityBuilder
   extends ElementBuilder<AvailabilityBuilder>
   implements IBuildable<IAvailability>, ISerializable
 {

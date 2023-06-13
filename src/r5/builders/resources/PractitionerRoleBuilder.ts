@@ -12,7 +12,7 @@ import {
 import { validateReference } from '../../helpers/validateReference';
 import { PractitionerRole } from '../../models/resources';
 
-export class PractitionerRoleBuilder
+export default class PractitionerRoleBuilder
   extends DomainResourceBuilder<PractitionerRoleBuilder>
   implements IBuildable<IPractitionerRole>, ISerializable
 {

@@ -1,7 +1,7 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
-import { PractitionerRoleNotAvailable } from '../../models/backbones/PractitionerRoleNotAvailable';
+import { PractitionerRoleNotAvailable } from '../../models/backbones';
 import { IElement } from '../../interfaces/base';
 import { IPeriod } from '../../interfaces/datatypes';
 
@@ -11,7 +11,7 @@ interface IPractitionerRoleNotAvailableBuilder extends IBuildable<IPractitionerR
   addParamExtension(param: 'description', extension: IElement): this;
 }
 
-export class PractitionerRoleNotAvailableBuilder
+export default class PractitionerRoleNotAvailableBuilder
   extends BackboneElementBuilder<PractitionerRoleNotAvailableBuilder>
   implements IPractitionerRoleNotAvailableBuilder
 {

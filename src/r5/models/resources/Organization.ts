@@ -11,7 +11,7 @@ import {
 import { IElement, IResource } from '../../interfaces/base';
 import { IOrganizationQualification } from '../../interfaces/backbones';
 
-export class Organization implements IOrganization {
+export default class Organization implements IOrganization {
   _active?: IElement;
   _alias?: IElement[];
   _description?: IElement;

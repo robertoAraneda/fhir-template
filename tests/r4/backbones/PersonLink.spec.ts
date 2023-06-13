@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { PersonLink } from '../../../src/r4/models/backbones/PersonLink';
+import { PersonLink } from '../../../src/r4/models/backbones';
 import { PersonLinkBuilder } from '../../../src/r4/builders/backbones';
 import { IPersonLink } from '../../../src/r4/interfaces/backbones';
 import { IdentityAssuranceLevelEnum } from '../../../src/r4/enums';

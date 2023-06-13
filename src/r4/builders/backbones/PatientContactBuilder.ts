@@ -1,11 +1,10 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { IOrganizationQualification } from '../../interfaces/backbones';
 import { IPatientContact } from '../../interfaces/backbones';
 import { ICodeableConcept, IHumanName, IContactPoint, IPeriod, IReference } from '../../interfaces/datatypes';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
-import { PatientContact } from '../../models/backbones/PatientContact';
+import { PatientContact } from '../../models/backbones';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 interface IPatientContactBuilder extends IBuildable<IPatientContact>, ISerializable {
@@ -20,7 +19,7 @@ interface IPatientContactBuilder extends IBuildable<IPatientContact>, ISerializa
   setPeriod(period: IPeriod): this;
 }
 
-export class PatientContactBuilder
+export default class PatientContactBuilder
   extends BackboneElementBuilder<PatientContactBuilder>
   implements IPatientContactBuilder
 {

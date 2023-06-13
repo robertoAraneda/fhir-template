@@ -9,7 +9,7 @@ import { IAvailability, IAvailableTime, IExtension, INotAvailableTime } from '..
  * @see https://www.hl7.org/fhir/metadatatypes.html#Availability FHIR API
  * @author Roberto Araneda
  */
-export class Availability implements IAvailability {
+export default class Availability implements IAvailability {
   /**
    * @description Unique id for inter-element referencing.
    */

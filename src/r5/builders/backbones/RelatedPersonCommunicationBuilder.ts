@@ -2,14 +2,14 @@ import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
-import { RelatedPersonCommunication } from '../../models/backbones/RelatedPersonCommunication';
+import { RelatedPersonCommunication } from '../../models/backbones';
 
 interface IRelatedPersonCommunicationBuilder extends IBuildable<IRelatedPersonCommunication>, ISerializable {
   addParamExtension(param: 'preferred', extension: IElement): this;
   setLanguage(language: ICodeableConcept): this;
   setPreferred(preferred: boolean): this;
 }
-export class RelatedPersonCommunicationBuilder
+export default class RelatedPersonCommunicationBuilder
   extends BackboneElementBuilder<RelatedPersonCommunicationBuilder>
   implements IRelatedPersonCommunicationBuilder
 {

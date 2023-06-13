@@ -23,7 +23,7 @@ type ParamType =
   | 'multipleBirthInteger'
   | 'deceasedBoolean'
   | 'deceasedDateTime';
-export class PatientBuilder
+export default class PatientBuilder
   extends DomainResourceBuilder<PatientBuilder>
   implements IBuildable<Patient>, ISerializable
 {

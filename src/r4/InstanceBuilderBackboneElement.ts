@@ -1,13 +1,15 @@
 import { BackboneElementTypeR4 } from './GlobalBackboneElements';
-import { OrganizationContact } from './models/backbones/OrganizationContact';
-import { PractitionerRoleNotAvailable } from './models/backbones/PractitionerRoleNotAvailable';
-import { PatientCommunication } from './models/backbones/PatientCommunication';
-import { PatientContact } from './models/backbones/PatientContact';
-import { PatientLink } from './models/backbones/PatientLink';
-import { PractitionerQualification } from './models/backbones/PractitionerQualification';
-import { PractitionerRoleAvailableTime } from './models/backbones/PractitionerRoleAvailableTime';
-import { RelatedPersonCommunication } from './models/backbones/RelatedPersonCommunication';
-import { PersonLink } from './models/backbones/PersonLink';
+import {
+  OrganizationContact,
+  PractitionerRoleNotAvailable,
+  PatientCommunication,
+  PatientContact,
+  PatientLink,
+  PractitionerQualification,
+  PractitionerRoleAvailableTime,
+  RelatedPersonCommunication,
+  PersonLink,
+} from './models/backbones';
 
 export const generateInstanceBackboneElement = (backboneType: BackboneElementTypeR4, data: any) => {
   switch (backboneType) {

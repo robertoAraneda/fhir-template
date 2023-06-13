@@ -3,10 +3,10 @@ import { ContactPointSystemType, ContactPointUseType } from '../../types';
 import { IContactPoint, IPeriod, ICodeableConcept } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { ContactPoint } from '../../models/datatypes/ContactPoint';
+import { ContactPoint } from '../../models/datatypes';
 
 type ParamType = 'system' | 'value' | 'use' | 'rank';
-export class ContactPointBuilder
+export default class ContactPointBuilder
   extends ElementBuilder<ContactPointBuilder>
   implements IBuildable<ICodeableConcept>, ISerializable
 {

@@ -1,7 +1,7 @@
 import { IOrganizationContact } from '../../interfaces/backbones';
 import { IAddress, ICodeableConcept, IContactPoint, IExtension, IHumanName } from '../../interfaces/datatypes';
 
-export class OrganizationContact implements IOrganizationContact {
+export default class OrganizationContact implements IOrganizationContact {
   // Element attributes
   id: string;
   extension: IExtension[];

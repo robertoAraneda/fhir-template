@@ -2,7 +2,7 @@ import { IEndpointPayload } from '../../interfaces/backbones';
 import { ICodeableConcept, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 
-export class EndpointPayload implements IEndpointPayload {
+export default class EndpointPayload implements IEndpointPayload {
   // Element Properties
   id?: string;
   extension?: IExtension[];

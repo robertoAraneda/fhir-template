@@ -1,7 +1,7 @@
 import { PractitionerQualificationBuilder } from '../../../src/r5/builders/backbones';
 import { IPractitionerQualification } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { PractitionerQualification } from '../../../src/r5/models/backbones/PractitionerQualification';
+import { PractitionerQualification } from '../../../src/r5/models/backbones';
 
 describe('PractitionerQualification FHIR R5', () => {
   const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();

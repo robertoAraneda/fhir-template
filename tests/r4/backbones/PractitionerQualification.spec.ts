@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { PractitionerQualification } from '../../../src/r4/models/backbones/PractitionerQualification';
+import { PractitionerQualification } from '../../../src/r4/models/backbones';
 import { PractitionerQualificationBuilder } from '../../../src/r4/builders/backbones';
 import { IPractitionerQualification } from '../../../src/r4/interfaces/backbones';
 

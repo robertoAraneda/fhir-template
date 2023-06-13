@@ -15,7 +15,7 @@ interface IDurationBuilder extends IBuildable<IDuration>, ISerializable {
   setSystem(system: string): IDurationBuilder;
   setCode(code: string): IDurationBuilder;
 }
-export class DurationBuilder extends ElementBuilder<DurationBuilder> implements IDurationBuilder {
+export default class DurationBuilder extends ElementBuilder<DurationBuilder> implements IDurationBuilder {
   private readonly duration: IDuration;
 
   constructor() {

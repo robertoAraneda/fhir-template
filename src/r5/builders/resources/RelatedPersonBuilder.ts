@@ -17,7 +17,7 @@ import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { RelatedPerson } from '../../models/resources';
 
-export class RelatedPersonBuilder
+export default class RelatedPersonBuilder
   extends DomainResourceBuilder<RelatedPersonBuilder>
   implements IBuildable<RelatedPerson>, ISerializable
 {

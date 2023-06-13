@@ -1,6 +1,7 @@
 import { IAttachment } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { Attachment } from '../../models/datatypes';
 
 type ParamType =
   | 'contentType'
@@ -18,7 +19,6 @@ type ParamType =
   | 'width';
 
 interface IAttachmentBuilder extends IBuildable<IAttachment>, ISerializable {
-  fromJSON(json: IAttachment): Pick<IAttachmentBuilder, 'build' | 'serialize'>;
   addAttachmentParamExtension(param: ParamType, extension: IElement): AttachmentBuilder;
   setContentType(contentType: string): AttachmentBuilder;
   setLanguage(language: string): AttachmentBuilder;
@@ -34,20 +34,12 @@ interface IAttachmentBuilder extends IBuildable<IAttachment>, ISerializable {
   setFrames(frames: number): AttachmentBuilder;
   setPages(pages: number): AttachmentBuilder;
 }
-export class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> implements IAttachmentBuilder {
-  private attachment: IAttachment;
+export default class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> implements IAttachmentBuilder {
+  private readonly attachment: IAttachment;
 
   constructor() {
     super();
-    this.attachment = {} as IAttachment;
-  }
-
-  fromJSON(json: IAttachment): Pick<IAttachmentBuilder, 'serialize' | 'build'> {
-    this.attachment = json;
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
+    this.attachment = new Attachment();
   }
 
   addAttachmentParamExtension(param: ParamType, extension: IElement): AttachmentBuilder {

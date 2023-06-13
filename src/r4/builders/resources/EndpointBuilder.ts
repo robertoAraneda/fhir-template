@@ -29,7 +29,7 @@ interface IEndpointBuilder extends IBuildable<IEndpoint>, ISerializable {
   addHeader(header: string): EndpointBuilder;
   setMultipleHeader(header: string[]): EndpointBuilder;
 }
-export class EndpointBuilder extends DomainResourceBuilder<EndpointBuilder> implements IEndpointBuilder {
+export default class EndpointBuilder extends DomainResourceBuilder<EndpointBuilder> implements IEndpointBuilder {
   private endpoint: IEndpoint;
   constructor() {
     super();

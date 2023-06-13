@@ -3,7 +3,7 @@ import { NameUseType } from '../../types';
 import { IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { HumanName } from '../../models/datatypes/HumanName';
+import { HumanName } from '../../models/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
@@ -22,7 +22,7 @@ interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable {
   setMultipleSuffix(value: string[]): HumanNameBuilder;
   setPeriod(value: IPeriod): HumanNameBuilder;
 }
-export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
+export default class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
   private readonly humanName: IHumanName;
 
   constructor() {

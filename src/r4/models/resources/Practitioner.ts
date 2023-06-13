@@ -15,7 +15,7 @@ import { IPractitionerQualification } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export class Practitioner implements IPractitioner {
+export default class Practitioner implements IPractitioner {
   resourceType = 'Practitioner';
 
   // Resource attributes

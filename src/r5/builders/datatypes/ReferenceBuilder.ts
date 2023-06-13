@@ -3,7 +3,7 @@ import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { transformReference } from '../../helpers/transformReference';
 import { ElementBuilder } from '../base/ElementBuilder';
 
-export class ReferenceBuilder
+export default class ReferenceBuilder
   extends ElementBuilder<ReferenceBuilder>
   implements IBuildable<IReference>, ISerializable
 {
@@ -15,7 +15,7 @@ export class ReferenceBuilder
     this.reference = {} as IReference;
   }
 
-  addReferenceParamExtension(param: 'display' | 'type' | 'reference', extension: Element): ReferenceBuilder {
+  addReferenceParamExtension(param: 'display' | 'type' | 'reference', extension: IElement): ReferenceBuilder {
     this.reference[`_${param}`] = extension;
 
     return this;

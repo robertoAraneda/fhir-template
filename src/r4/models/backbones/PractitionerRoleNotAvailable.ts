@@ -1,6 +1,6 @@
 import { IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 
-export class PractitionerRoleNotAvailable implements IPractitionerRoleNotAvailable {
+export default class PractitionerRoleNotAvailable implements IPractitionerRoleNotAvailable {
   // Element attributes
   id?: string;
   extension?: any[];

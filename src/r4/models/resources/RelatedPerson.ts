@@ -17,7 +17,7 @@ import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export class RelatedPerson implements IRelatedPerson {
+export default class RelatedPerson implements IRelatedPerson {
   resourceType = 'RelatedPerson';
 
   // Resource attributes

@@ -1,9 +1,9 @@
 import { ICodeableConcept, ICoding } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { CodeableConcept } from '../../models/datatypes/CodeableConcept';
+import { CodeableConcept } from '../../models/datatypes';
 
-export class CodeableConceptBuilder
+export default class CodeableConceptBuilder
   extends ElementBuilder<CodeableConceptBuilder>
   implements IBuildable<ICodeableConcept>, ISerializable
 {

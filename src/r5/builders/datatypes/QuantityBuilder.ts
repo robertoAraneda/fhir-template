@@ -1,6 +1,6 @@
 import { ElementBuilder } from '../base/ElementBuilder';
 import { IQuantity } from '../../interfaces/datatypes';
-import { Quantity } from '../../models/datatypes/Quantity';
+import { Quantity } from '../../models/datatypes';
 import { IBuildable, ISerializable } from '../../interfaces/base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
@@ -16,8 +16,8 @@ interface IQuantityBuilder extends IBuildable<IQuantity>, ISerializable {
   addQuantityParamExtension(param: QuantityParam, extension: IQuantity): QuantityBuilder;
 }
 
-export class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
-  private quantity: IQuantity;
+export default class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
+  private readonly quantity: IQuantity;
 
   constructor() {
     super();

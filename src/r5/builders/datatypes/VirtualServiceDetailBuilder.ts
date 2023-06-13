@@ -1,7 +1,7 @@
 import { createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
 import { IBuildable, IElement, ISerializable } from '../../interfaces/base';
 import { IExtendedContactDetail, IVirtualServiceDetail } from '../../interfaces/datatypes';
-import { VirtualServiceDetail } from '../../models/datatypes/VirtualServiceDetail';
+import { VirtualServiceDetail } from '../../models/datatypes';
 import { ElementBuilder } from '../base/ElementBuilder';
 
 type ParamsType = 'addressUrl' | 'maxParticipants' | 'sessionKey' | 'additionalInfo' | 'addressString';
@@ -18,7 +18,7 @@ interface IVirtualServiceDetailBuilder extends IBuildable<IVirtualServiceDetail>
   setAddressExtendedContactDetail(extendedContactDetail: IExtendedContactDetail): VirtualServiceDetailBuilder;
 }
 
-export class VirtualServiceDetailBuilder
+export default class VirtualServiceDetailBuilder
   extends ElementBuilder<VirtualServiceDetailBuilder>
   implements IVirtualServiceDetailBuilder
 {

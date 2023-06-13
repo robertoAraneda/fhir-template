@@ -1,7 +1,7 @@
 import { AddressBuilder } from '../../../src/r5/builders/datatypes';
 import { IAddress } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { Address } from '../../../src/r5/models/datatypes/Address';
+import { Address } from '../../../src/r5/models/datatypes';
 
 describe('Address FHIR R5', () => {
   let builder: AddressBuilder;
@@ -94,7 +94,7 @@ describe('Address FHIR R5', () => {
       .setState('AnyState')
       .setType('postal')
       .setUse('home')
-      .addAddressParamExtension('line', [
+      .addParamExtension('line', [
         {
           extension: [
             {
@@ -104,7 +104,7 @@ describe('Address FHIR R5', () => {
           ],
         },
       ])
-      .addAddressParamExtension('city', {
+      .addParamExtension('city', {
         extension: [
           {
             url: 'latitude',
@@ -164,7 +164,7 @@ describe('Address FHIR R5', () => {
       .setState('AnyState')
       .setType('postal')
       .setUse('home')
-      .addAddressParamExtension('line', [
+      .addParamExtension('line', [
         {
           extension: [
             {
@@ -174,7 +174,7 @@ describe('Address FHIR R5', () => {
           ],
         },
       ])
-      .addAddressParamExtension('city', {
+      .addParamExtension('city', {
         extension: [
           {
             url: 'latitude',
@@ -186,7 +186,6 @@ describe('Address FHIR R5', () => {
 
     expect(address).toEqual({
       id: '123',
-      type: 'postal',
       period: {
         start: '2020-01-01',
         end: '2020-01-02',
@@ -207,6 +206,7 @@ describe('Address FHIR R5', () => {
       district: 'Anycounty',
       country: 'USA',
       postalCode: '12345',
+      type: 'postal',
       state: 'AnyState',
       _city: {
         extension: [

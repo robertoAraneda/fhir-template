@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { PatientContact } from '../../../src/r4/models/backbones/PatientContact';
+import { PatientContact } from '../../../src/r4/models/backbones';
 import { PatientContactBuilder } from '../../../src/r4/builders/backbones';
 import { IPatientContact } from '../../../src/r4/interfaces/backbones';
 

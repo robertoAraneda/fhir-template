@@ -3,14 +3,14 @@ import { IElement } from '../../interfaces/base';
 import { IPatientCommunication } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { PatientCommunication } from '../../models/backbones/PatientCommunication';
+import { PatientCommunication } from '../../models/backbones';
 
 interface IPatientCommunicationBuilder extends IBuildable<IPatientCommunication>, ISerializable {
   addParamExtension(param: 'preferred', extension: IElement): this;
   setLanguage(language: ICodeableConcept): this;
   setPreferred(preferred: boolean): this;
 }
-export class PatientCommunicationBuilder
+export default class PatientCommunicationBuilder
   extends BackboneElementBuilder<PatientCommunicationBuilder>
   implements IPatientCommunicationBuilder
 {

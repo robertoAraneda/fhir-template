@@ -1,7 +1,7 @@
 import { RelatedPersonCommunicationBuilder } from '../../../src/r5/builders/backbones';
 import { IRelatedPersonCommunication } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { RelatedPersonCommunication } from '../../../src/r5/models/backbones/RelatedPersonCommunication';
+import { RelatedPersonCommunication } from '../../../src/r5/models/backbones';
 
 describe('RelatedPersonCommunication FHIR R5', () => {
   const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();

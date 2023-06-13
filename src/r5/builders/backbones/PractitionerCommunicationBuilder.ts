@@ -2,7 +2,7 @@ import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IBuildable, ISerializable, IElement } from '../../interfaces/base';
 import { IPractitionerCommunication } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
-import { PractitionerCommunication } from '../../models/backbones/PractitionerCommunication';
+import { PractitionerCommunication } from '../../models/backbones';
 
 interface IPractitionerCommunicationBuilder extends IBuildable<IPractitionerCommunication>, ISerializable {
   addParamExtension(param: 'preferred', extension: IElement): this;
@@ -10,7 +10,7 @@ interface IPractitionerCommunicationBuilder extends IBuildable<IPractitionerComm
   setPreferred(preferred: boolean): this;
 }
 
-export class PractitionerCommunicationBuilder
+export default class PractitionerCommunicationBuilder
   extends BackboneElementBuilder<PractitionerCommunicationBuilder>
   implements IPractitionerCommunicationBuilder
 {

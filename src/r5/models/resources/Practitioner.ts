@@ -14,7 +14,7 @@ import { IPractitionerCommunication, IPractitionerQualification } from '../../in
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export class Practitioner implements IPractitioner {
+export default class Practitioner implements IPractitioner {
   _active?: IElement;
   _birthDate?: IElement;
   _deceasedBoolean?: IElement;

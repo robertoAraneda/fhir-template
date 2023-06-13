@@ -3,13 +3,18 @@ import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { Address } from '../../models/datatypes';
+import { AddressTypeEnum, AddressUseEnum } from '../../enums';
+import { AddressTypeType, AddressUseType } from '../../types';
 
 type AddressParam = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
 interface IAddressBuilder extends IBuildable<IAddress>, ISerializable {
-  addParamExtension(param: AddressParam, extension: IElement): AddressBuilder;
-  setUse(value: string): AddressBuilder;
-  setType(value: string): AddressBuilder;
+  addParamExtension<T extends AddressParam>(
+    param: T,
+    extension: T extends 'line' ? IElement[] : IElement,
+  ): AddressBuilder;
+  setUse(value: AddressUseEnum | AddressUseType): AddressBuilder;
+  setType(value: AddressTypeEnum | AddressTypeType): AddressBuilder;
   setText(value: string): AddressBuilder;
   addLine(value: string): AddressBuilder;
   setMultipleLines(value: string[]): AddressBuilder;
@@ -21,7 +26,7 @@ interface IAddressBuilder extends IBuildable<IAddress>, ISerializable {
   setPeriod(value: IPeriod): AddressBuilder;
 }
 
-export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IAddressBuilder {
+export default class AddressBuilder extends ElementBuilder<AddressBuilder> implements IAddressBuilder {
   private readonly address: IAddress;
 
   constructor() {
@@ -43,12 +48,12 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IA
     return this;
   }
 
-  setUse(value: string): AddressBuilder {
+  setUse(value: AddressUseEnum | AddressUseType): AddressBuilder {
     this.address.use = value;
     return this;
   }
 
-  setType(value: string): AddressBuilder {
+  setType(value: AddressTypeEnum | AddressTypeType): AddressBuilder {
     this.address.type = value;
     return this;
   }

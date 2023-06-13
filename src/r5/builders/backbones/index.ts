@@ -1,15 +1,33 @@
-export { EncounterAdmissionBuilder } from './EncounterAdmissionBuilder';
-export { EncounterDiagnosisBuilder } from './EncounterDiagnosisBuilder';
-export { EncounterLocationBuilder } from './EncounterLocationBuilder';
-export { EncounterParticipantBuilder } from './EncounterParticipantBuilder';
-export { EncounterReasonBuilder } from './EncounterReasonBuilder';
-export { EndpointPayloadBuilder } from './EndpointPayloadBuilder';
-export { OrganizationQualificationBuilder } from './OrganizationQualificationBuilder';
-export { PatientCommunicationBuilder } from './PatientCommunicationBuilder';
-export { PatientContactBuilder } from './PatientContactBuilder';
-export { PatientLinkBuilder } from './PatientLinkBuilder';
-export { PersonCommunicationBuilder } from './PersonCommunicationBuilder';
-export { PersonLinkBuilder } from './PersonLinkBuilder';
-export { PractitionerCommunicationBuilder } from './PractitionerCommunicationBuilder';
-export { PractitionerQualificationBuilder } from './PractitionerQualificationBuilder';
-export { RelatedPersonCommunicationBuilder } from './RelatedPersonCommunicationBuilder';
+import EncounterAdmissionBuilder from './EncounterAdmissionBuilder';
+import EncounterDiagnosisBuilder from './EncounterDiagnosisBuilder';
+import EncounterLocationBuilder from './EncounterLocationBuilder';
+import EncounterParticipantBuilder from './EncounterParticipantBuilder';
+import EncounterReasonBuilder from './EncounterReasonBuilder';
+import EndpointPayloadBuilder from './EndpointPayloadBuilder';
+import OrganizationQualificationBuilder from './OrganizationQualificationBuilder';
+import PatientCommunicationBuilder from './PatientCommunicationBuilder';
+import PatientContactBuilder from './PatientContactBuilder';
+import PatientLinkBuilder from './PatientLinkBuilder';
+import PersonCommunicationBuilder from './PersonCommunicationBuilder';
+import PersonLinkBuilder from './PersonLinkBuilder';
+import PractitionerCommunicationBuilder from './PractitionerCommunicationBuilder';
+import PractitionerQualificationBuilder from './PractitionerQualificationBuilder';
+import RelatedPersonCommunicationBuilder from './RelatedPersonCommunicationBuilder';
+
+export {
+  EncounterReasonBuilder,
+  PersonLinkBuilder,
+  OrganizationQualificationBuilder,
+  PractitionerCommunicationBuilder,
+  PatientLinkBuilder,
+  PractitionerQualificationBuilder,
+  EncounterLocationBuilder,
+  EncounterDiagnosisBuilder,
+  EndpointPayloadBuilder,
+  EncounterParticipantBuilder,
+  EncounterAdmissionBuilder,
+  PersonCommunicationBuilder,
+  PatientCommunicationBuilder,
+  PatientContactBuilder,
+  RelatedPersonCommunicationBuilder,
+};

@@ -2,7 +2,7 @@ import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IOrganizationContact } from '../../interfaces/backbones';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { IAddress, ICodeableConcept, IContactPoint, IHumanName } from '../../interfaces/datatypes';
-import { OrganizationContact } from '../../models/backbones/OrganizationContact';
+import { OrganizationContact } from '../../models/backbones';
 
 interface IOrganizationContactBuilder extends IBuildable<IOrganizationContact>, ISerializable {
   setPurpose(purpose: ICodeableConcept): this;
@@ -12,7 +12,7 @@ interface IOrganizationContactBuilder extends IBuildable<IOrganizationContact>, 
   setAddress(address: IAddress): this;
 }
 
-export class OrganizationContactBuilder
+class OrganizationContactBuilder
   extends BackboneElementBuilder<OrganizationContactBuilder>
   implements IOrganizationContactBuilder
 {
@@ -61,3 +61,5 @@ export class OrganizationContactBuilder
     return this;
   }
 }
+
+export default OrganizationContactBuilder;

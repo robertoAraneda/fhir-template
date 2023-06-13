@@ -19,7 +19,7 @@ import { AdministrativeGenderType } from '../../types';
 /**
  * @description FHIR R4
  */
-export class Patient implements IPatient {
+export default class Patient implements IPatient {
   resourceType = 'Patient';
 
   // Resource attributes

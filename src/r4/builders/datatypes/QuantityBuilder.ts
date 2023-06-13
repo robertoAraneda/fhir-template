@@ -16,7 +16,7 @@ interface IQuantityBuilder extends IBuildable<IQuantity>, ISerializable {
   addParamExtension(param: ParamType, extension: IElement): QuantityBuilder;
 }
 
-export class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
+export default class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
   private readonly quantity: IQuantity;
 
   constructor() {

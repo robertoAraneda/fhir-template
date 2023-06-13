@@ -4,7 +4,7 @@ import { IdentityAssuranceLevelEnum } from '../../enums';
 import { IdentityAssuranceLevelType } from '../../types';
 import { IElement } from '../../interfaces/base';
 
-export class PersonLink implements IPersonLink {
+export default class PersonLink implements IPersonLink {
   // Element attributes
   id: string;
   extension: IExtension[];

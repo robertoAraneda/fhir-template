@@ -23,7 +23,10 @@ type ParamType =
   | 'deceasedBoolean'
   | 'deceasedDateTime';
 
-export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements IBuildable<Person>, ISerializable {
+export default class PersonBuilder
+  extends DomainResourceBuilder<PersonBuilder>
+  implements IBuildable<Person>, ISerializable
+{
   private readonly person: IPerson;
   constructor() {
     super();

@@ -1,8 +1,8 @@
 import { IPersonCommunication } from '../../interfaces/backbones';
-import { Extension } from '../datatypes/Extension';
+import { Extension } from '../datatypes';
 import { ICodeableConcept } from '../../interfaces/datatypes';
 
-export class PersonCommunication implements IPersonCommunication {
+export default class PersonCommunication implements IPersonCommunication {
   // Element Properties
   id?: string;
   extension?: Extension[];

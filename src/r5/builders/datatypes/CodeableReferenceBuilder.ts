@@ -1,9 +1,9 @@
 import { ICodeableConcept, ICodeableReference, IReference } from '../../interfaces/datatypes';
 import { IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { CodeableReference } from '../../models/datatypes/CodeableReference';
+import { CodeableReference } from '../../models/datatypes';
 
-export class CodeableReferenceBuilder
+export default class CodeableReferenceBuilder
   extends ElementBuilder<CodeableReferenceBuilder>
   implements IBuildable<ICodeableReference>, ISerializable
 {

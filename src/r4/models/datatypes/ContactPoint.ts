@@ -30,7 +30,7 @@ import { IElement } from '../../interfaces/base';
  *   "period" : { Period } // Time period when the contact point was/is in use
  * }
  */
-export class ContactPoint implements IContactPoint {
+export default class ContactPoint implements IContactPoint {
   /**
    * @description Unique id for inter-element referencing
    */

@@ -1,7 +1,7 @@
 import { ICoding, IIdentifier, IMeta } from '../../interfaces/datatypes';
 import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Meta } from '../../models/datatypes/Meta';
+import { Meta } from '../../models/datatypes';
 
 type ParamsType = 'lastUpdated' | 'source' | 'versionId';
 
@@ -18,7 +18,7 @@ interface IMetaBuilder extends IBuildable<IMeta>, ISerializable {
   setMultipleSecurity(security: ICoding[]): MetaBuilder;
   fromJSON(json: IIdentifier): Pick<IMetaBuilder, 'build' | 'serialize'>;
 }
-export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBuilder {
+export default class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBuilder {
   private meta: IMeta;
 
   constructor() {

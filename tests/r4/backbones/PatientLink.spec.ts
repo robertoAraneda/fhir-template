@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { PatientLink } from '../../../src/r4/models/backbones/PatientLink';
+import { PatientLink } from '../../../src/r4/models/backbones';
 import { PatientLinkBuilder } from '../../../src/r4/builders/backbones';
 import { IPatientLink } from '../../../src/r4/interfaces/backbones';
 import { LinkTypeEnum } from '../../../src/r4/enums';

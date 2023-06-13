@@ -11,7 +11,7 @@ interface IPersonLinkBuilder extends IBuildable<IPersonLink>, ISerializable {
   setTarget(target: IReference): this;
   setAssurance(assurance: IdentityAssuranceLevelEnum | IdentityAssuranceLevelType): this;
 }
-export class PersonLinkBuilder extends BackboneElementBuilder<PersonLinkBuilder> implements IPersonLinkBuilder {
+export default class PersonLinkBuilder extends BackboneElementBuilder<PersonLinkBuilder> implements IPersonLinkBuilder {
   private readonly personLink: IPersonLink;
 
   constructor() {

@@ -5,16 +5,14 @@ import FHIRContext from '../../../src';
 import { CodeableConcept } from '../../../src/r5/models/datatypes/CodeableConcept';
 
 describe('CodeableConcept', () => {
-  let validator: IValidatorContext;
   let builder: CodeableConceptBuilder;
   let builderFromFunction: CodeableConceptBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new CodeableConceptBuilder();
-    builderFromFunction = builders.dataTypes.CodeableConceptBuilder();
+    builderFromFunction = Builder.dataTypes.CodeableConcept();
   });
 
   it('should be able to create a new codeableconcept and validate with correct data [new CodeableConcept]', async () => {
@@ -30,7 +28,7 @@ describe('CodeableConcept', () => {
       text: 'test',
     });
 
-    const validate = await validator.dataTypes.CodeableConcept(dataType);
+    const validate = await Validator.dataTypes.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -49,7 +47,7 @@ describe('CodeableConcept', () => {
       text: 'test',
     });
 
-    const validate = await validator.dataTypes.CodeableConcept(dataType);
+    const validate = await Validator.dataTypes.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -68,7 +66,7 @@ describe('CodeableConcept', () => {
       text: 'test',
     };
 
-    const validate = await validator.dataTypes.CodeableConcept(dataType);
+    const validate = await Validator.dataTypes.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -88,7 +86,7 @@ describe('CodeableConcept', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.CodeableConcept(dataType);
+    const validate = await Validator.dataTypes.CodeableConcept(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -134,7 +132,7 @@ describe('CodeableConcept', () => {
     });
   });
 
-  it('should be able to create a new codeableconcept using builder methods [builders.dataTypes.CodeableConceptBuilder()]', async () => {
+  it('should be able to create a new codeableconcept using builder methods [Builder.dataTypes.CodeableConcept()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builderFromFunction
       .setId('123')

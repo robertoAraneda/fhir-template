@@ -10,7 +10,7 @@ import {
   IPeriod,
   IReference,
 } from '../../interfaces/datatypes';
-import { ExtendedContactDetail } from '../../models/datatypes/ExtendedContactDetail';
+import { ExtendedContactDetail } from '../../models/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 
 /**
@@ -48,7 +48,7 @@ import { validateReference } from '../../helpers/validateReference';
  * ```
  * @author Roberto Araneda
  */
-export class ExtendedContactDetailBuilder
+export default class ExtendedContactDetailBuilder
   extends ElementBuilder<ExtendedContactDetailBuilder>
   implements IBuildable<IExtendedContactDetail>, ISerializable
 {

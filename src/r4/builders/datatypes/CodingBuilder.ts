@@ -18,7 +18,7 @@ interface ICodingBuilder extends IBuildable<ICoding>, ISerializable {
  * @description Coding builder
  *
  */
-export class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICodingBuilder {
+export default class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICodingBuilder {
   private readonly coding: ICoding;
 
   constructor() {

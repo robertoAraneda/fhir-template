@@ -35,7 +35,7 @@ import { NameUseType } from '../../types';
  *   "period" : { Period } // Time period when name was/is in use
  * }
  */
-export class HumanName implements IHumanName {
+export default class HumanName implements IHumanName {
   /**
    * @description Unique id for inter-element referencing
    */

@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { PractitionerRoleNotAvailable } from '../../../src/r4/models/backbones/PractitionerRoleNotAvailable';
+import { PractitionerRoleNotAvailable } from '../../../src/r4/models/backbones';
 import { PractitionerRoleNotAvailableBuilder } from '../../../src/r4/builders/backbones';
 import { IPractitionerRoleNotAvailable } from '../../../src/r4/interfaces/backbones';
 

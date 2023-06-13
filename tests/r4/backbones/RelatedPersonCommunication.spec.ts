@@ -1,20 +1,16 @@
 import { RelatedPersonCommunicationBuilder } from '../../../src/r4/builders/backbones';
 import { IRelatedPersonCommunication } from '../../../src/r4/interfaces/backbones';
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
 
-describe('RelatedPersonCommunication', () => {
-  let validator: IValidatorContext;
+describe('RelatedPersonCommunication FHIR R4', () => {
   let builder: RelatedPersonCommunicationBuilder;
-
-  beforeAll(() => {
-    const context = new FHIRContext();
-    validator = context.forR4().validators;
-  });
+  let builderFromFunction: RelatedPersonCommunicationBuilder;
+  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
     builder = new RelatedPersonCommunicationBuilder();
+    builderFromFunction = Builder.backboneElements.RelatedPersonCommunication();
   });
 
   it('should be able to create a new related_person_communication payload and validate with correct data', async () => {
@@ -32,7 +28,7 @@ describe('RelatedPersonCommunication', () => {
       },
     };
 
-    const validate = await validator.backboneElements.RelatedPersonCommunication(dataType);
+    const validate = await Validator.backboneElements.RelatedPersonCommunication(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -54,7 +50,7 @@ describe('RelatedPersonCommunication', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.backboneElements.RelatedPersonCommunication(dataType);
+    const validate = await Validator.backboneElements.RelatedPersonCommunication(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -96,7 +92,7 @@ describe('RelatedPersonCommunication', () => {
           },
         ],
       })
-      .addRelatedPersonCommunicationParamExtension('preferred', {
+      .addParamExtension('preferred', {
         extension: [
           {
             url: 'test',

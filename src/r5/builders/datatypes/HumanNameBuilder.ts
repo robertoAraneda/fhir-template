@@ -1,9 +1,9 @@
 import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
-import { IAddress, IHumanName, IPeriod } from '../../interfaces/datatypes';
+import { IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { HumanName } from '../../models/datatypes/HumanName';
+import { HumanName } from '../../models/datatypes';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
 type MultipleParamType = 'given' | 'prefix' | 'suffix';
@@ -22,7 +22,7 @@ interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable {
   setPeriod(value: IPeriod): HumanNameBuilder;
   fromJSON(json: IHumanName): Pick<IHumanNameBuilder, 'build' | 'serialize'>;
 }
-export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
+export default class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
   private humanName: IHumanName;
 
   constructor() {

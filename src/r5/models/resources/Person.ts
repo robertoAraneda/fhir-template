@@ -16,7 +16,7 @@ import { IPersonCommunication, IPersonLink } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export class Person implements IPerson {
+export default class Person implements IPerson {
   _active?: IElement;
   _birthDate?: IElement;
   _deceasedBoolean?: IElement;

@@ -1,7 +1,7 @@
 import { IPractitionerQualification } from '../../interfaces/backbones';
 import { ICodeableConcept, IExtension, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 
-export class PractitionerQualification implements IPractitionerQualification {
+export default class PractitionerQualification implements IPractitionerQualification {
   // Element attributes
   id?: string;
   extension?: IExtension[];

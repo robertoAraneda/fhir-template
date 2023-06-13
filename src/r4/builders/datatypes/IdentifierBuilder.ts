@@ -3,7 +3,7 @@ import { IdentifierUseType } from '../../types';
 import { IIdentifier, ICodeableConcept, IPeriod, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Identifier } from '../../models/datatypes/Identifier';
+import { Identifier } from '../../models/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { validateReference } from '../../../globals/helpers/validateReference';
 
@@ -17,7 +17,7 @@ interface IIdentifierBuilder extends IBuildable<IIdentifier>, ISerializable {
   setAssigner(value: IReference): IdentifierBuilder;
 }
 
-export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
+export default class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
   private readonly identifier: IIdentifier;
 
   constructor() {

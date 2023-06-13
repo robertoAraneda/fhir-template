@@ -1,7 +1,17 @@
-export { EndpointBuilder } from './EndpointBuilder';
-export { OrganizationBuilder } from './OrganizationBuilder';
-export { PatientBuilder } from './PatientBuilder';
-export { PersonBuilder } from './PersonBuilder';
-export { PractitionerBuilder } from './PractitionerBuilder';
-export { PractitionerRoleBuilder } from './PractitionerRoleBuilder';
-export { RelatedPersonBuilder } from './RelatedPersonBuilder';
+import EndpointBuilder from './EndpointBuilder';
+import OrganizationBuilder from './OrganizationBuilder';
+import PatientBuilder from './PatientBuilder';
+import PersonBuilder from './PersonBuilder';
+import PractitionerBuilder from './PractitionerBuilder';
+import PractitionerRoleBuilder from './PractitionerRoleBuilder';
+import RelatedPersonBuilder from './RelatedPersonBuilder';
+
+export {
+  EndpointBuilder,
+  OrganizationBuilder,
+  PatientBuilder,
+  PersonBuilder,
+  PractitionerBuilder,
+  PractitionerRoleBuilder,
+  RelatedPersonBuilder,
+};

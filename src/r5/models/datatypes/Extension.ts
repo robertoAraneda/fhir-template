@@ -13,7 +13,7 @@ import {
 } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 
-export class Extension implements IExtension {
+export default class Extension implements IExtension {
   id?: string;
   url: string;
 

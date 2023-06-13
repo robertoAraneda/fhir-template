@@ -2,7 +2,7 @@ import { IPatientCommunication } from '../../interfaces/backbones';
 import { ICodeableConcept, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 
-export class PatientCommunication implements IPatientCommunication {
+export default class PatientCommunication implements IPatientCommunication {
   // Element attributes
   id: string;
   extension: IExtension[];

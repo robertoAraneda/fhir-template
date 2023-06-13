@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { PatientCommunication } from '../../../src/r4/models/backbones/PatientCommunication';
+import { PatientCommunication } from '../../../src/r4/models/backbones';
 import { PatientCommunicationBuilder } from '../../../src/r4/builders/backbones';
 import { IPatientCommunication } from '../../../src/r4/interfaces/backbones';
 

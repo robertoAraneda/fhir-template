@@ -29,7 +29,7 @@ import { IdentifierUseType } from '../../types';
  *   "assigner" : { Reference(Organization) } // Organization that issued id (may be just text)
  * }
  */
-export class Identifier implements IIdentifier {
+export default class Identifier implements IIdentifier {
   /**
    * @description Unique id for inter-element referencing
    */

@@ -1,8 +1,8 @@
-import { ICoding, ICodeableConcept } from '../../interfaces/datatypes';
+import { ICoding } from '../../interfaces/datatypes';
 import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { Coding } from '../../models/datatypes/Coding';
-import { BuildAndSerialize, createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
+import { Coding } from '../../models/datatypes';
+import { createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
 
 type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
 type BuilderMethod = 'setSystem' | 'setVersion' | 'setCode' | 'setDisplay' | 'setUserSelected' | 'build' | 'serialize';
@@ -19,7 +19,7 @@ type Getters<Type> = {
  * @description Coding builder
  *
  */
-export class CodingBuilder extends ElementBuilder<CodingBuilder> implements IBuildable<ICoding>, ISerializable {
+export default class CodingBuilder extends ElementBuilder<CodingBuilder> implements IBuildable<ICoding>, ISerializable {
   private coding: ICoding;
 
   constructor() {

@@ -29,7 +29,7 @@ import { IElement } from '../../interfaces/base';
  *   "userSelected" : <boolean> // If this coding was chosen directly by the user
  * }
  */
-export class Coding implements ICoding {
+export default class Coding implements ICoding {
   /**
    * @description Unique id for inter-element referencing
    */

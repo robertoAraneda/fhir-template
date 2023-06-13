@@ -14,7 +14,7 @@ import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
 import { IElement, IResource } from '../../interfaces/base';
 
-export class Endpoint implements IEndpoint {
+export default class Endpoint implements IEndpoint {
   resourceType: string = 'Endpoint';
 
   // Resource attributes

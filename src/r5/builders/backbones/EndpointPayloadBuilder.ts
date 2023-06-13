@@ -2,7 +2,7 @@ import { IEndpointPayload } from '../../interfaces/backbones';
 import { ICodeableConcept } from '../../interfaces/datatypes';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IBuildable, IElement, ISerializable } from '../../interfaces/base';
-import { EndpointPayload } from '../../models/backbones/EndpointPayload';
+import { EndpointPayload } from '../../models/backbones';
 
 interface IEndpointPayloadBuilder extends ISerializable, IBuildable<IEndpointPayload> {
   addParamExtension(param: 'mimeType', extension: Element[]): this;
@@ -12,7 +12,7 @@ interface IEndpointPayloadBuilder extends ISerializable, IBuildable<IEndpointPay
   setMultipleMimeType(mimeType: string[]): this;
 }
 
-export class EndpointPayloadBuilder
+export default class EndpointPayloadBuilder
   extends BackboneElementBuilder<EndpointPayloadBuilder>
   implements IEndpointPayloadBuilder
 {

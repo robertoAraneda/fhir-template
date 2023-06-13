@@ -12,7 +12,7 @@ import {
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export class PatientContact implements IPatientContact {
+export default class PatientContact implements IPatientContact {
   // Element attributes
   id: string;
   extension: IExtension[];

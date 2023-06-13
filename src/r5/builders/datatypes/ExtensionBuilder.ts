@@ -13,7 +13,7 @@ import {
   IQuantity,
   IReference,
 } from '../../interfaces/datatypes';
-import { Extension } from '../../models/datatypes/Extension';
+import { Extension } from '../../models/datatypes';
 import { BuildAndSerialize, createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
 
 type ExtensionParamType =
@@ -73,7 +73,7 @@ interface IExtensionBuilder extends IBuildable<IExtension>, ISerializable {
   setValueReference(valueReference: IReference): BuildAndSerialize<IExtension>;
 }
 
-export class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
+export default class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
   private extension: IExtension;
 
   constructor() {

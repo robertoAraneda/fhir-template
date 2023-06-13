@@ -13,7 +13,7 @@ import { IElement } from '../../interfaces/base';
  * @see {@link https://www.hl7.org/fhir/datatypes.html#Period Period}
  * @author Roberto Araneda
  */
-export class Period implements IPeriod {
+export default class Period implements IPeriod {
   /**
    * @description Unique id for inter-element referencing
    */

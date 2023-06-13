@@ -21,7 +21,7 @@ import { IElement } from '../../interfaces/base';
  *   "pages" : "<positiveInt>" // Number of printed pages
  * }
  */
-export class Attachment implements IAttachment {
+export default class Attachment implements IAttachment {
   id?: string;
   extension?: IExtension[];
   contentType?: string;

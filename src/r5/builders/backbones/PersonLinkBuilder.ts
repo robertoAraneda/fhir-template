@@ -4,7 +4,7 @@ import { IPersonLink } from '../../interfaces/backbones';
 import { IdentityAssuranceLevelEnum } from '../../enums';
 import { IdentityAssuranceLevelType } from '../../types';
 import { IReference } from '../../interfaces/datatypes';
-import { PersonLink } from '../../models/backbones/PersonLink';
+import { PersonLink } from '../../models/backbones';
 
 interface IPersonLinkBuilder extends IBuildable<IPersonLink>, ISerializable {
   addParamExtension(param: 'assurance', extension: IElement): this;
@@ -12,7 +12,7 @@ interface IPersonLinkBuilder extends IBuildable<IPersonLink>, ISerializable {
   setAssurance(assurance: IdentityAssuranceLevelEnum | IdentityAssuranceLevelType): this;
 }
 
-export class PersonLinkBuilder extends BackboneElementBuilder<PersonLinkBuilder> implements IPersonLinkBuilder {
+export default class PersonLinkBuilder extends BackboneElementBuilder<PersonLinkBuilder> implements IPersonLinkBuilder {
   private readonly personLink: IPersonLink;
 
   constructor() {

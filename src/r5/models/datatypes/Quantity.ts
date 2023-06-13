@@ -3,7 +3,7 @@ import { IElement } from '../../interfaces/base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 
-export class Quantity implements IQuantity {
+export default class Quantity implements IQuantity {
   // Base Properties from IElement
   id: string;
   extension: IExtension[];

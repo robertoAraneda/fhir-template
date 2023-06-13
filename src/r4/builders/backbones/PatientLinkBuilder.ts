@@ -5,13 +5,16 @@ import { LinkTypeEnum } from '../../enums';
 import { LinkTypeType } from '../../types';
 import { IReference } from '../../interfaces/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { PatientLink } from '../../models/backbones/PatientLink';
+import { PatientLink } from '../../models/backbones';
 interface IPatientLinkBuilder extends IBuildable<IPatientLink>, ISerializable {
   addParamExtension(param: 'type', extension: IElement): this;
   setOther(other: IReference): this;
   setType(type: LinkTypeEnum | LinkTypeType): this;
 }
-export class PatientLinkBuilder extends BackboneElementBuilder<PatientLinkBuilder> implements IPatientLinkBuilder {
+export default class PatientLinkBuilder
+  extends BackboneElementBuilder<PatientLinkBuilder>
+  implements IPatientLinkBuilder
+{
   private readonly patientLink: IPatientLink;
 
   constructor() {

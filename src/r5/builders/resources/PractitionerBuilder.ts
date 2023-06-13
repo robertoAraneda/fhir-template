@@ -6,11 +6,11 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { validateReference } from '../../helpers/validateReference';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { Practitioner } from '../../models/resources/Practitioner';
+import { Practitioner } from '../../models/resources';
 
 type ParamType = 'active' | 'birthDate' | 'deceasedBoolean' | 'deceasedDateTime';
 
-export class PractitionerBuilder
+export default class PractitionerBuilder
   extends DomainResourceBuilder<PractitionerBuilder>
   implements IBuildable<Practitioner>, ISerializable
 {

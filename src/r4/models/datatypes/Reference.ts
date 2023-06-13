@@ -1,7 +1,7 @@
 import { IExtension, IIdentifier, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 
-export class Reference implements IReference {
+export default class Reference implements IReference {
   // Element attributes
   id: string;
   extension: IExtension[];

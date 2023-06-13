@@ -1,7 +1,7 @@
 import { IPersonLink } from '../../../src/r5/interfaces/backbones';
 import { PersonLinkBuilder } from '../../../src/r5/builders/backbones';
 import FHIRContext from '../../../src';
-import { PersonLink } from '../../../src/r5/models/backbones/PersonLink';
+import { PersonLink } from '../../../src/r5/models/backbones';
 
 describe('PersonLink FHIR R5', () => {
   const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();

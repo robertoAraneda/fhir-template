@@ -1,7 +1,7 @@
 import { ICodeableConcept, ICoding } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
-import { CodeableConcept } from '../../models/datatypes/CodeableConcept';
+import { CodeableConcept } from '../../models/datatypes';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 
 interface ICodeableConceptBuilder extends IBuildable<ICodeableConcept>, ISerializable {
@@ -10,7 +10,10 @@ interface ICodeableConceptBuilder extends IBuildable<ICodeableConcept>, ISeriali
   setMultipleCoding(coding: ICoding[]): CodeableConceptBuilder;
   setText(text: string): CodeableConceptBuilder;
 }
-export class CodeableConceptBuilder extends ElementBuilder<CodeableConceptBuilder> implements ICodeableConceptBuilder {
+export default class CodeableConceptBuilder
+  extends ElementBuilder<CodeableConceptBuilder>
+  implements ICodeableConceptBuilder
+{
   private readonly codeableConcept: ICodeableConcept;
 
   constructor() {

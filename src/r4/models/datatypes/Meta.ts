@@ -1,7 +1,7 @@
 import { ICoding, IExtension, IMeta } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 
-export class Meta implements IMeta {
+export default class Meta implements IMeta {
   // Base Properties from IElement
   id?: string;
   extension?: IExtension[];

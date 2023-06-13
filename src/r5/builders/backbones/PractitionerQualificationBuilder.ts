@@ -3,7 +3,7 @@ import { IBuildable, ISerializable } from '../../interfaces/base';
 import { IPractitionerQualification } from '../../interfaces/backbones';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
-import { PractitionerQualification } from '../../models/backbones/PractitionerQualification';
+import { PractitionerQualification } from '../../models/backbones';
 
 interface IPractitionerQualificationBuilder extends IBuildable<IPractitionerQualification>, ISerializable {
   setCode(code: ICodeableConcept): this;
@@ -12,7 +12,7 @@ interface IPractitionerQualificationBuilder extends IBuildable<IPractitionerQual
   setIssuer(issuer: IReference): this;
   setPeriod(period: IPeriod): this;
 }
-export class PractitionerQualificationBuilder
+export default class PractitionerQualificationBuilder
   extends BackboneElementBuilder<PractitionerQualificationBuilder>
   implements IPractitionerQualificationBuilder
 {

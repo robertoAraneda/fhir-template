@@ -33,7 +33,7 @@ import {
  * }
  * ```
  */
-export class ExtendedContactDetail implements IExtendedContactDetail {
+export default class ExtendedContactDetail implements IExtendedContactDetail {
   /**
    * @description Unique id for inter-element referencing
    */

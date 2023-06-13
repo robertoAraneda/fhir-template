@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { EndpointPayloadBuilder } from '../../../src/r5/builders/backbones';
 import { IEndpointPayload } from '../../../src/r5/interfaces/backbones';
-import { EndpointPayload } from '../../../src/r5/models/backbones/EndpointPayload';
+import { EndpointPayload } from '../../../src/r5/models/backbones';
 
 describe('EndpointPayload FHIR R5', () => {
   const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();

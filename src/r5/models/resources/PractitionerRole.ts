@@ -12,7 +12,7 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 
-export class PractitionerRole implements IPractitionerRole {
+export default class PractitionerRole implements IPractitionerRole {
   _active?: IElement;
   _implicitRules?: IElement;
   _language?: IElement;

@@ -1,7 +1,7 @@
 import { OrganizationQualificationBuilder } from '../../../src/r5/builders/backbones';
 import FHIRContext from '../../../src';
 import { IOrganizationQualification } from '../../../src/r5/interfaces/backbones';
-import { OrganizationQualification } from '../../../src/r5/models/backbones/OrganizationQualification';
+import { OrganizationQualification } from '../../../src/r5/models/backbones';
 
 describe('OrganizationQualification FHIR R5', () => {
   const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();

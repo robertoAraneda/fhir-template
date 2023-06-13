@@ -1,8 +1,8 @@
 import { IOrganizationQualification } from '../../interfaces/backbones';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
-import { Extension } from '../datatypes/Extension';
+import { Extension } from '../datatypes';
 
-export class OrganizationQualification implements IOrganizationQualification {
+export default class OrganizationQualification implements IOrganizationQualification {
   // Element Properties
   id?: string;
   extension?: Extension[];

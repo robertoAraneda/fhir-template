@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { OrganizationContact } from '../../../src/r4/models/backbones/OrganizationContact';
+import { OrganizationContact } from '../../../src/r4/models/backbones';
 import { OrganizationContactBuilder } from '../../../src/r4/builders/backbones';
 import { IOrganizationContact } from '../../../src/r4/interfaces/backbones';
 

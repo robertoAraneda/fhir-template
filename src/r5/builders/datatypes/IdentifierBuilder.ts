@@ -4,7 +4,7 @@ import { IIdentifier, ICodeableConcept, IPeriod, IReference } from '../../interf
 import { IElement, ISerializable, IBuildable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { validateReference } from '../../helpers/validateReference';
-import { Identifier } from '../../models/datatypes/Identifier';
+import { Identifier } from '../../models/datatypes';
 
 interface IIdentifierBuilder extends IBuildable<IIdentifier>, ISerializable {
   addIdentifierParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder;
@@ -17,7 +17,7 @@ interface IIdentifierBuilder extends IBuildable<IIdentifier>, ISerializable {
   fromJSON(json: IIdentifier): Pick<IIdentifierBuilder, 'build' | 'serialize'>;
 }
 
-export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
+export default class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
   private identifier: IIdentifier;
 
   constructor() {

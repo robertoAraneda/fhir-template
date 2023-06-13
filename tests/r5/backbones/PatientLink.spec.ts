@@ -1,8 +1,7 @@
-import { PatientContactBuilder, PatientLinkBuilder } from '../../../src/r5/builders/backbones';
+import { PatientLinkBuilder } from '../../../src/r5/builders/backbones';
 import { IPatientLink } from '../../../src/r5/interfaces/backbones';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { PatientLink } from '../../../src/r5/models/backbones/PatientLink';
+import { PatientLink } from '../../../src/r5/models/backbones';
 
 describe('PatientLink FHIR R5', () => {
   const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();

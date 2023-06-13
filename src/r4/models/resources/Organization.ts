@@ -12,7 +12,7 @@ import {
 import { IElement, IResource } from '../../interfaces/base';
 import { IOrganizationContact } from '../../interfaces/backbones';
 
-export class Organization implements IOrganization {
+export default class Organization implements IOrganization {
   resourceType = 'Organization';
 
   // Resource attributes

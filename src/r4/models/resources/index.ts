@@ -1,7 +1,9 @@
-export { Endpoint } from './Endpoint';
-export { Organization } from './Organization';
-export { Patient } from './Patient';
-export { Person } from './Person';
-export { Practitioner } from './Practitioner';
-export { PractitionerRole } from './PractitionerRole';
-export { RelatedPerson } from './RelatedPerson';
+import Endpoint from './Endpoint';
+import Organization from './Organization';
+import Patient from './Patient';
+import Person from './Person';
+import Practitioner from './Practitioner';
+import PractitionerRole from './PractitionerRole';
+import RelatedPerson from './RelatedPerson';
+
+export { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole, RelatedPerson };

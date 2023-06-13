@@ -7,7 +7,7 @@ import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Endpoint } from '../../models/resources';
 
 type ParamType = 'address' | 'description' | 'header' | 'name' | 'status' | 'implicitRules' | 'language';
-export class EndpointBuilder
+export default class EndpointBuilder
   extends DomainResourceBuilder<EndpointBuilder>
   implements IBuildable<Endpoint>, ISerializable
 {

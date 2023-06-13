@@ -3,7 +3,7 @@ import { IBuildable, ISerializable } from '../../interfaces/base';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { validateReference } from '../../helpers/validateReference';
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { OrganizationQualification } from '../../models/backbones/OrganizationQualification';
+import { OrganizationQualification } from '../../models/backbones';
 
 interface IOrganizationQualificationBuilder extends IBuildable<IOrganizationQualification>, ISerializable {
   setCode(code: ICodeableConcept): this;
@@ -13,7 +13,7 @@ interface IOrganizationQualificationBuilder extends IBuildable<IOrganizationQual
   setPeriod(period: IPeriod): this;
 }
 
-export class OrganizationQualificationBuilder
+export default class OrganizationQualificationBuilder
   extends BackboneElementBuilder<OrganizationQualificationBuilder>
   implements IOrganizationQualificationBuilder
 {

@@ -4,7 +4,7 @@ import { LinkTypeEnum } from '../../enums';
 import { LinkTypeType } from '../../types';
 import { IElement } from '../../interfaces/base';
 
-export class PatientLink implements IPatientLink {
+export default class PatientLink implements IPatientLink {
   // Element attributes
   id: string;
   extension: IExtension[];

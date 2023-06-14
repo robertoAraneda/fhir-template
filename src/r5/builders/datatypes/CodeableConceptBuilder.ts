@@ -3,25 +3,22 @@ import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { CodeableConcept } from '../../models/datatypes';
 
+interface ICodeableConceptBuilder extends IBuildable<ICodeableConcept>, ISerializable {
+  addParamExtension(param: 'text', extension: IElement): CodeableConceptBuilder;
+  addCoding(coding: ICoding): CodeableConceptBuilder;
+  setMultipleCoding(coding: ICoding[]): CodeableConceptBuilder;
+  setText(text: string): CodeableConceptBuilder;
+}
 export default class CodeableConceptBuilder
   extends ElementBuilder<CodeableConceptBuilder>
-  implements IBuildable<ICodeableConcept>, ISerializable
+  implements ICodeableConceptBuilder
 {
-  private codeableConcept: ICodeableConcept;
+  private readonly codeableConcept: ICodeableConcept;
 
   constructor() {
     super();
 
     this.codeableConcept = new CodeableConcept();
-  }
-
-  fromJSON(json: ICodeableConcept) {
-    this.codeableConcept = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   /**
@@ -54,7 +51,7 @@ export default class CodeableConceptBuilder
    * }
    * ```
    */
-  addCodeableConceptParamExtension(param: 'text', extension: IElement): CodeableConceptBuilder {
+  addParamExtension(param: 'text', extension: IElement): CodeableConceptBuilder {
     this.codeableConcept[`_${param}`] = extension;
 
     return this;

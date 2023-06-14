@@ -102,25 +102,6 @@ export default class AddressBuilder extends ElementBuilder<AddressBuilder> imple
     return JSON.parse(this.serialize());
   }
 
-  buildx() {
-    const map = new Map<string, any>();
-    map.set('id', this.address.id);
-    map.set('extension', this.address.extension);
-    map.set('use', this.address.use);
-    map.set('type', this.address.type);
-    map.set('text', this.address.text);
-    map.set('line', this.address.line);
-    map.set('city', this.address.city);
-    map.set('district', this.address.district);
-    map.set('state', this.address.state);
-    map.set('postalCode', this.address.postalCode);
-    map.set('country', this.address.country);
-    map.set('period', this.address.period);
-
-    //map to json
-    return Object.fromEntries(map);
-  }
-
   raw(): IAddress {
     return {
       ...this.address,

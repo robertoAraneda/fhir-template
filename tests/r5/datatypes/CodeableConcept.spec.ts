@@ -1,8 +1,7 @@
 import { ICodeableConcept } from '../../../src/r5/interfaces/datatypes';
 import { CodeableConceptBuilder } from '../../../src/r5/builders/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { CodeableConcept } from '../../../src/r5/models/datatypes/CodeableConcept';
+import { CodeableConcept } from '../../../src/r5/models/datatypes';
 
 describe('CodeableConcept', () => {
   let builder: CodeableConceptBuilder;
@@ -107,7 +106,7 @@ describe('CodeableConcept', () => {
     const dataType = builder
       .setId('123')
       .setText('test')
-      .addCodeableConceptParamExtension('text', {
+      .addParamExtension('text', {
         extension: [
           {
             url: 'url',
@@ -137,7 +136,7 @@ describe('CodeableConcept', () => {
     const dataType = builderFromFunction
       .setId('123')
       .setText('test')
-      .addCodeableConceptParamExtension('text', {
+      .addParamExtension('text', {
         extension: [
           {
             url: 'url',

@@ -122,8 +122,8 @@ export default class AttachmentBuilder extends ElementBuilder<AttachmentBuilder>
 
   raw(): IAttachment {
     return {
-      ...super.entity(),
       ...this.attachment,
+      ...super.entity(),
     };
   }
 }

@@ -1,7 +1,7 @@
 import { IAttachment } from '../../../src/r5/interfaces/datatypes';
 import { AttachmentBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
-import { Attachment } from '../../../src/r5/models/datatypes/Attachment';
+import { Attachment } from '../../../src/r5/models/datatypes';
 
 describe('Attachment FHIR R5', () => {
   let builder: AttachmentBuilder;
@@ -144,6 +144,7 @@ describe('Attachment FHIR R5', () => {
   it('should be able to create a new attachment using builder methods [builders.dataTypes.AttachmentBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const item = builderFromFunction
+      .setId('123')
       .setCreation('2020-01-01')
       .setContentType('test')
       .setData('test')
@@ -188,6 +189,7 @@ describe('Attachment FHIR R5', () => {
   it('should be able to create a new attachment using builder methods [new AttachmentBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const item = builder
+      .setId('123')
       .setCreation('2020-01-01')
       .setContentType('test')
       .setData('test')

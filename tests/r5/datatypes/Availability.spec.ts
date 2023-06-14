@@ -1,9 +1,9 @@
 import { IAvailability } from '../../../src/r5/interfaces/datatypes';
 import { AvailabilityBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
-import { Availability } from '../../../src/r5/models/datatypes/Availability';
+import { Availability } from '../../../src/r5/models/datatypes';
 
-describe('Availability', () => {
+describe('Availability FHIR R5', () => {
   let builder: AvailabilityBuilder;
   let builderFromFunction: AvailabilityBuilder;
   const { Validator, createDatatype, Builder } = new FHIRContext().forR5();

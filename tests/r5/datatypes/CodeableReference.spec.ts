@@ -1,20 +1,17 @@
 import { ICodeableReference } from '../../../src/r5/interfaces/datatypes';
 import { CodeableReferenceBuilder } from '../../../src/r5/builders/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { CodeableReference } from '../../../src/r5/models/datatypes/CodeableReference';
+import { CodeableReference } from '../../../src/r5/models/datatypes';
 
 describe('CodeableReference', () => {
-  let validator: IValidatorContext;
   let builder: CodeableReferenceBuilder;
   let builderFromFunction: CodeableReferenceBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new CodeableReferenceBuilder();
-    builderFromFunction = builders.dataTypes.CodeableReferenceBuilder();
+    builderFromFunction = Builder.dataTypes.CodeableReference();
   });
 
   it('should be able to create a new codeableconcept and validate with correct data [new CodeableReference]', async () => {
@@ -35,7 +32,7 @@ describe('CodeableReference', () => {
       },
     });
 
-    const validate = await validator.dataTypes.CodeableReference(dataType);
+    const validate = await Validator.dataTypes.CodeableReference(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -59,7 +56,7 @@ describe('CodeableReference', () => {
       },
     });
 
-    const validate = await validator.dataTypes.CodeableReference(dataType);
+    const validate = await Validator.dataTypes.CodeableReference(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -83,7 +80,7 @@ describe('CodeableReference', () => {
       },
     };
 
-    const validate = await validator.dataTypes.CodeableReference(dataType);
+    const validate = await Validator.dataTypes.CodeableReference(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -108,7 +105,7 @@ describe('CodeableReference', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.CodeableReference(dataType);
+    const validate = await Validator.dataTypes.CodeableReference(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -160,7 +157,7 @@ describe('CodeableReference', () => {
     });
   });
 
-  it('should be able to create a new codeableconcept using builder methods [builders.dataTypes.CodeableReferenceBuilder()]', async () => {
+  it('should be able to create a new codeableconcept using builder methods [Builder.dataTypes.CodeableReference()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builderFromFunction
       .setId('123')

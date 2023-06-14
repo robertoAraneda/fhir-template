@@ -3,24 +3,18 @@ import { IBuildable, ISerializable } from '../../interfaces/base';
 import { IAvailability, IAvailableTime, INotAvailableTime } from '../../interfaces/datatypes';
 import { Availability } from '../../models/datatypes';
 
-export default class AvailabilityBuilder
-  extends ElementBuilder<AvailabilityBuilder>
-  implements IBuildable<IAvailability>, ISerializable
-{
-  private availability: IAvailability;
+interface IAvailabilityBuilder extends IBuildable<IAvailability>, ISerializable {
+  addAvailableTime(value: IAvailableTime): AvailabilityBuilder;
+  setMultipleAvailableTimes(value: IAvailableTime[]): AvailabilityBuilder;
+  addNotAvailableTime(value: INotAvailableTime): AvailabilityBuilder;
+  setMultipleNotAvailableTimes(value: INotAvailableTime[]): AvailabilityBuilder;
+}
+export default class AvailabilityBuilder extends ElementBuilder<AvailabilityBuilder> implements IAvailabilityBuilder {
+  private readonly availability: IAvailability;
 
   constructor() {
     super();
     this.availability = new Availability();
-  }
-
-  fromJSON(json: IAvailability) {
-    this.availability = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   addAvailableTime(value: IAvailableTime): AvailabilityBuilder {

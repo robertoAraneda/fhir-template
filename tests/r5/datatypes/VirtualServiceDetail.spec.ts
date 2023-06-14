@@ -1,20 +1,17 @@
 import { IVirtualServiceDetail } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { VirtualServiceDetail } from '../../../src/r5/models/datatypes/VirtualServiceDetail';
+import VirtualServiceDetail from '../../../src/r5/models/datatypes/VirtualServiceDetail';
 import { VirtualServiceDetailBuilder } from '../../../src/r5/builders/datatypes';
 
 describe('VirtualServiceDetail', () => {
-  let validator: IValidatorContext;
   let builder: VirtualServiceDetailBuilder;
   let builderFromFunction: VirtualServiceDetailBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new VirtualServiceDetailBuilder();
-    builderFromFunction = builders.dataTypes.VirtualServiceDetailBuilder();
+    builderFromFunction = Builder.dataTypes.VirtualServiceDetail();
   });
 
   it('should be able to validate a new virtual_service_detail [createDatatype]', async () => {
@@ -36,7 +33,7 @@ describe('VirtualServiceDetail', () => {
       },
     });
 
-    const validateAddress = await validator.dataTypes.VirtualServiceDetail(dataType);
+    const validateAddress = await Validator.dataTypes.VirtualServiceDetail(dataType);
 
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
@@ -51,7 +48,7 @@ describe('VirtualServiceDetail', () => {
       sessionKey: '123',
     });
 
-    const validateAddress = await validator.dataTypes.VirtualServiceDetail(dataType);
+    const validateAddress = await Validator.dataTypes.VirtualServiceDetail(dataType);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -65,7 +62,7 @@ describe('VirtualServiceDetail', () => {
       sessionKey: '123',
     };
 
-    const validateAddress = await validator.dataTypes.VirtualServiceDetail(dataType);
+    const validateAddress = await Validator.dataTypes.VirtualServiceDetail(dataType);
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -110,7 +107,7 @@ describe('VirtualServiceDetail', () => {
       wrongProperty: 'wrong', // wrong property
     };
 
-    const validateAddress = await validator.dataTypes.VirtualServiceDetail(dataType);
+    const validateAddress = await Validator.dataTypes.VirtualServiceDetail(dataType);
     expect(validateAddress.isValid).toBeFalsy();
     expect(validateAddress.errors).toBeDefined();
     expect(validateAddress.errors?.length).toBe(1);

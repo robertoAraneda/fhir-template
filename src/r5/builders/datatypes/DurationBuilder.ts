@@ -6,30 +6,22 @@ import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 
 type ParamType = 'value' | 'comparator' | 'unit' | 'system' | 'code';
-export default class DurationBuilder
-  extends ElementBuilder<DurationBuilder>
-  implements IBuildable<IDuration>, ISerializable
-{
-  private duration: IDuration;
+
+interface IDurationBuilder extends IBuildable<IDuration>, ISerializable {
+  addParamExtension<T extends ParamType>(param: T, extension: IElement): DurationBuilder;
+  setValue(value: number): DurationBuilder;
+  setComparator(value: QuantityComparatorEnum | QuantityComparatorType): DurationBuilder;
+  setUnit(value: string): DurationBuilder;
+  setSystem(value: string): DurationBuilder;
+  setCode(value: string): DurationBuilder;
+}
+export default class DurationBuilder extends ElementBuilder<DurationBuilder> implements IDurationBuilder {
+  private readonly duration: IDuration;
 
   constructor() {
     super();
 
     this.duration = new Duration();
-  }
-
-  /**
-   * @description Create a new Duration from a JSON representation
-   * @param json
-   * @returns DurationBuilder The builder
-   */
-  fromJSON(json: IDuration) {
-    this.duration = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   /**
@@ -60,7 +52,7 @@ export default class DurationBuilder
    *      }
    *  }
    */
-  addDurationParamExtension(param: ParamType, extension: IElement): DurationBuilder {
+  addParamExtension(param: ParamType, extension: IElement): DurationBuilder {
     this.duration[`_${param}`] = extension;
 
     return this;

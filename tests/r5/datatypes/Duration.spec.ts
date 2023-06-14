@@ -1,20 +1,17 @@
 import { DurationBuilder } from '../../../src/r5/builders/datatypes';
 import { IDuration } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { Duration } from '../../../src/r5/models/datatypes/Duration';
+import Duration from '../../../src/r5/models/datatypes/Duration';
 
 describe('Duration', () => {
-  let validator: IValidatorContext;
   let builder: DurationBuilder;
   let builderFromFunction: DurationBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new DurationBuilder();
-    builderFromFunction = builders.dataTypes.DurationBuilder();
+    builderFromFunction = Builder.dataTypes.Duration();
   });
 
   it('should be able to create a new contact point and validate with correct data [createDatatype]', async () => {
@@ -27,7 +24,7 @@ describe('Duration', () => {
       unit: 'test',
     });
 
-    const validate = await validator.dataTypes.Duration(dataType);
+    const validate = await Validator.dataTypes.Duration(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -43,7 +40,7 @@ describe('Duration', () => {
       unit: 'test',
     });
 
-    const validate = await validator.dataTypes.Duration(dataType);
+    const validate = await Validator.dataTypes.Duration(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -59,7 +56,7 @@ describe('Duration', () => {
       unit: 'test',
     };
 
-    const validate = await validator.dataTypes.Duration(dataType);
+    const validate = await Validator.dataTypes.Duration(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -76,7 +73,7 @@ describe('Duration', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Duration(dataType);
+    const validate = await Validator.dataTypes.Duration(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -101,7 +98,7 @@ describe('Duration', () => {
       .setValue(4)
       .setComparator('<=')
       .setUnit('test')
-      .addDurationParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
+      .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 
     expect(dataType).toBeDefined();
@@ -133,7 +130,7 @@ describe('Duration', () => {
       .setValue(4)
       .setComparator('<=')
       .setUnit('test')
-      .addDurationParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
+      .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 
     expect(dataType).toBeDefined();

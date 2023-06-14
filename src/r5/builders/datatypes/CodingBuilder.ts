@@ -5,38 +5,22 @@ import { Coding } from '../../models/datatypes';
 import { createBuildAndSerializeMethods } from '../../helpers/buildAndSerialize';
 
 type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
-type BuilderMethod = 'setSystem' | 'setVersion' | 'setCode' | 'setDisplay' | 'setUserSelected' | 'build' | 'serialize';
-interface ICodingBuilder {
-  build: () => ICoding;
-  serialize: () => string;
-  setSystem: (value: string) => Getters<ICodingBuilder>;
+
+interface ICodingBuilder extends IBuildable<ICoding>, ISerializable {
+  addParamExtension<T extends ParamType>(param: T, extension: IElement): CodingBuilder;
+  setSystem(value: string): CodingBuilder;
+  setVersion(value: string): CodingBuilder;
+  setCode(value: string): CodingBuilder;
+  setDisplay(value: string): CodingBuilder;
+  setUserSelected(value: boolean): CodingBuilder;
 }
 
-type Getters<Type> = {
-  [Property in keyof Type]: () => Type[Property];
-};
-/**
- * @description Coding builder
- *
- */
-export default class CodingBuilder extends ElementBuilder<CodingBuilder> implements IBuildable<ICoding>, ISerializable {
-  private coding: ICoding;
+export default class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICodingBuilder {
+  private readonly coding: ICoding;
 
   constructor() {
     super();
-
     this.coding = new Coding();
-  }
-
-  /**
-   * @description Create a new Coding from a JSON representation
-   * @param json
-   * @returns build and serialize functions
-   */
-  fromJSON(json: ICoding): Pick<ICodingBuilder, 'build' | 'serialize'> {
-    this.coding = json;
-
-    return createBuildAndSerializeMethods(this.raw());
   }
 
   /**
@@ -68,7 +52,7 @@ export default class CodingBuilder extends ElementBuilder<CodingBuilder> impleme
    *      }
    *    }
    */
-  addCodingParamExtension(param: ParamType, extension: IElement): CodingBuilder {
+  addParamExtension(param: ParamType, extension: IElement): CodingBuilder {
     this.coding[`_${param}`] = extension;
     return this;
   }

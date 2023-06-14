@@ -5,15 +5,14 @@ import { IBuildable, ISerializable } from '../../interfaces/base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 
-type QuantityParam = 'code' | 'system' | 'unit' | 'value' | 'comparator';
+type ParamType = 'code' | 'system' | 'unit' | 'value' | 'comparator';
 interface IQuantityBuilder extends IBuildable<IQuantity>, ISerializable {
-  fromJSON(json: IQuantity): Pick<IQuantityBuilder, 'build' | 'serialize'>;
   setCode(value: string): QuantityBuilder;
   setSystem(value: string): QuantityBuilder;
   setUnit(value: string): QuantityBuilder;
   setValue(value: number): QuantityBuilder;
   setComparator(value: QuantityComparatorEnum | QuantityComparatorType): QuantityBuilder;
-  addQuantityParamExtension(param: QuantityParam, extension: IQuantity): QuantityBuilder;
+  addParamExtension(param: ParamType, extension: IQuantity): QuantityBuilder;
 }
 
 export default class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
@@ -24,7 +23,7 @@ export default class QuantityBuilder extends ElementBuilder<QuantityBuilder> imp
     this.quantity = new Quantity();
   }
 
-  addQuantityParamExtension(param: QuantityParam, extension: IQuantity): QuantityBuilder {
+  addParamExtension(param: ParamType, extension: IQuantity): QuantityBuilder {
     this.quantity[`_${param}`] = extension;
 
     return this;
@@ -32,13 +31,6 @@ export default class QuantityBuilder extends ElementBuilder<QuantityBuilder> imp
 
   build(): IQuantity {
     return JSON.parse(this.serialize());
-  }
-
-  fromJSON(json: IQuantity): Pick<IQuantityBuilder, 'build' | 'serialize'> {
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   raw(): IQuantity {

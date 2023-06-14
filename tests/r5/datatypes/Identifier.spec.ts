@@ -1,20 +1,17 @@
 import { IIdentifier } from '../../../src/r5/interfaces/datatypes';
-import { HumanNameBuilder, IdentifierBuilder } from '../../../src/r5/builders/datatypes';
-import { IValidatorContext } from '../../../src/r5';
+import { IdentifierBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
-import { Identifier } from '../../../src/r5/models/datatypes/Identifier';
+import Identifier from '../../../src/r5/models/datatypes/Identifier';
 
-describe('Identifier', () => {
-  let validator: IValidatorContext;
+describe('Identifier FHIR R5', () => {
   let builder: IdentifierBuilder;
   let builderFromFunction: IdentifierBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new IdentifierBuilder();
-    builderFromFunction = builders.dataTypes.IdentifierBuilder();
+    builderFromFunction = Builder.dataTypes.Identifier();
   });
 
   it('should be able to create a new identifier and validate with correct data [new Identifier()]', async () => {
@@ -32,7 +29,7 @@ describe('Identifier', () => {
       },
     });
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -52,7 +49,7 @@ describe('Identifier', () => {
       },
     });
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -72,7 +69,7 @@ describe('Identifier', () => {
       },
     };
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -93,7 +90,7 @@ describe('Identifier', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -195,7 +192,7 @@ describe('Identifier', () => {
       value: '1234567890',
     });
 
-    const validate = await validator.dataTypes.Identifier(dataType);
+    const validate = await Validator.dataTypes.Identifier(dataType);
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors).toHaveLength(1);
@@ -206,7 +203,7 @@ describe('Identifier', () => {
           instancePath: '/period/start',
           message: "The value '/period/start' does not match with datatype 'dateTime'",
           params: { value: '/period/start' },
-          schemaPath: 'r4base.schema.json#/definitions/dateTime/pattern',
+          schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
         },
       ]);
     }

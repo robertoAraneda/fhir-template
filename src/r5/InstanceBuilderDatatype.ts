@@ -18,8 +18,7 @@ export const generateInstanceDatatype = (resourceType: DatatypeTypeR5, data: any
     case 'Meta':
       return new datatype.Meta(data);
     case 'Reference':
-      //TODO - this is a hack, but it works for now
-      return new datatype.Extension(data);
+      return new datatype.Reference(data);
     case 'Identifier':
       return new datatype.Identifier(data);
     case 'HumanName':

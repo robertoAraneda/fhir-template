@@ -14,6 +14,7 @@ import Meta from './Meta';
 import Period from './Period';
 import Quantity from './Quantity';
 import VirtualServiceDetail from './VirtualServiceDetail';
+import Reference from './Reference';
 
 export {
   ExtendedContactDetail,
@@ -32,4 +33,5 @@ export {
   Extension,
   Address,
   CodeableReference,
+  Reference,
 };

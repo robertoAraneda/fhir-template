@@ -2,20 +2,25 @@ import { IDomainResource, ISerializable, IBuildable, IElement } from '../../inte
 import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { transformReference } from '../../helpers/transformReference';
 import { ElementBuilder } from '../base/ElementBuilder';
+import { Reference } from '../../models/datatypes';
 
-export default class ReferenceBuilder
-  extends ElementBuilder<ReferenceBuilder>
-  implements IBuildable<IReference>, ISerializable
-{
+interface IReferenceBuilder extends IBuildable<IReference>, ISerializable {
+  addParamExtension(param: 'display' | 'type' | 'reference', extension: IElement): ReferenceBuilder;
+  setReference<T extends IDomainResource | string>(value: T): ReferenceBuilder;
+  setDisplay(value: string): ReferenceBuilder;
+  setIdentifier(value: IIdentifier): ReferenceBuilder;
+  setType(value: string): ReferenceBuilder;
+}
+
+export default class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements IReferenceBuilder {
   private readonly reference: IReference;
 
   constructor() {
     super();
-
-    this.reference = {} as IReference;
+    this.reference = new Reference();
   }
 
-  addReferenceParamExtension(param: 'display' | 'type' | 'reference', extension: IElement): ReferenceBuilder {
+  addParamExtension(param: 'display' | 'type' | 'reference', extension: IElement): ReferenceBuilder {
     this.reference[`_${param}`] = extension;
 
     return this;

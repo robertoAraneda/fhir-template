@@ -1,20 +1,17 @@
 import { ExtendedContactDetailBuilder } from '../../../src/r5/builders/datatypes';
 import { IExtendedContactDetail } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { ExtendedContactDetail } from '../../../src/r5/models/datatypes/ExtendedContactDetail';
+import ExtendedContactDetail from '../../../src/r5/models/datatypes/ExtendedContactDetail';
 
-describe('ExtendedContactDetail', () => {
-  let validator: IValidatorContext;
+describe('ExtendedContactDetail FHIR R5', () => {
   let builder: ExtendedContactDetailBuilder;
   let builderFromFunction: ExtendedContactDetailBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new ExtendedContactDetailBuilder();
-    builderFromFunction = builders.dataTypes.ExtendedContactDetailBuilder();
+    builderFromFunction = Builder.dataTypes.ExtendedContactDetail();
   });
 
   it('should be able to create a new contact point and validate with correct data [createDatatype]', async () => {
@@ -44,7 +41,7 @@ describe('ExtendedContactDetail', () => {
       },
     });
 
-    const validate = await validator.dataTypes.ExtendedContactDetail(dataType);
+    const validate = await Validator.dataTypes.ExtendedContactDetail(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -77,7 +74,7 @@ describe('ExtendedContactDetail', () => {
       },
     });
 
-    const validate = await validator.dataTypes.ExtendedContactDetail(dataType);
+    const validate = await Validator.dataTypes.ExtendedContactDetail(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -110,7 +107,7 @@ describe('ExtendedContactDetail', () => {
       },
     };
 
-    const validate = await validator.dataTypes.ExtendedContactDetail(dataType);
+    const validate = await Validator.dataTypes.ExtendedContactDetail(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -144,7 +141,7 @@ describe('ExtendedContactDetail', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.ExtendedContactDetail(dataType);
+    const validate = await Validator.dataTypes.ExtendedContactDetail(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

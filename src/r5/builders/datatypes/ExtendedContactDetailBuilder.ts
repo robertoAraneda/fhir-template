@@ -48,29 +48,26 @@ import { validateReference } from '../../helpers/validateReference';
  * ```
  * @author Roberto Araneda
  */
+
+interface IExtendedContactDetailBuilder extends IBuildable<IExtendedContactDetail>, ISerializable {
+  setPurpose(purpose: ICodeableConcept): ExtendedContactDetailBuilder;
+  addName(name: IHumanName): ExtendedContactDetailBuilder;
+  setMultipleName(names: IHumanName[]): ExtendedContactDetailBuilder;
+  addTelecom(telecom: IContactPoint): ExtendedContactDetailBuilder;
+  setMultipleTelecom(telecoms: IContactPoint[]): ExtendedContactDetailBuilder;
+  setAddress(address: IAddress): ExtendedContactDetailBuilder;
+  setPeriod(period: IPeriod): ExtendedContactDetailBuilder;
+  setOrganization(organization: IReference): ExtendedContactDetailBuilder;
+}
 export default class ExtendedContactDetailBuilder
   extends ElementBuilder<ExtendedContactDetailBuilder>
-  implements IBuildable<IExtendedContactDetail>, ISerializable
+  implements IExtendedContactDetailBuilder
 {
-  private extendedContactDetail: IExtendedContactDetail;
+  private readonly extendedContactDetail: IExtendedContactDetail;
 
   constructor() {
     super();
     this.extendedContactDetail = new ExtendedContactDetail();
-  }
-
-  /**
-   * @description Create a new Duration from a JSON representation
-   * @param json
-   * @returns DurationBuilder The builder
-   */
-  fromJSON(json: IExtendedContactDetail) {
-    this.extendedContactDetail = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   /**

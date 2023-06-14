@@ -1,20 +1,17 @@
 import { MetaBuilder } from '../../../src/r5/builders/datatypes';
 import { IMeta } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { Meta } from '../../../src/r5/models/datatypes/Meta';
+import Meta from '../../../src/r5/models/datatypes/Meta';
 
-describe('Meta', () => {
-  let validator: IValidatorContext;
+describe('Meta FHIR R5', () => {
   let builder: MetaBuilder;
   let builderFromFunction: MetaBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new MetaBuilder();
-    builderFromFunction = builders.dataTypes.MetaBuilder();
+    builderFromFunction = Builder.dataTypes.Meta();
   });
 
   it('should be able to create a new meta and validate with correct data [new Meta()]', async () => {
@@ -33,7 +30,7 @@ describe('Meta', () => {
       versionId: 'test',
     });
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -54,7 +51,7 @@ describe('Meta', () => {
       versionId: 'test',
     });
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -74,7 +71,7 @@ describe('Meta', () => {
       versionId: 'test',
     };
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -95,7 +92,7 @@ describe('Meta', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.dataTypes.Meta(dataType);
+    const validate = await Validator.dataTypes.Meta(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -113,7 +110,7 @@ describe('Meta', () => {
         keyword: 'pattern',
         message: "The value '/lastUpdated' does not match with datatype 'instant'",
         params: { value: '/lastUpdated' },
-        schemaPath: 'r4base.schema.json#/definitions/instant/pattern',
+        schemaPath: 'base.schema.json#/definitions/instant/pattern',
       },
     ]);
   });

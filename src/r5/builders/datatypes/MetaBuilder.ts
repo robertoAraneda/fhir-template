@@ -6,7 +6,7 @@ import { Meta } from '../../models/datatypes';
 type ParamsType = 'lastUpdated' | 'source' | 'versionId';
 
 interface IMetaBuilder extends IBuildable<IMeta>, ISerializable {
-  addMetaParamExtension(param: ParamsType, extension: IElement[] | IElement): MetaBuilder;
+  addParamExtension<T extends ParamsType>(param: T, extension: IElement): MetaBuilder;
   setSource(source: string): MetaBuilder;
   setVersionId(versionId: string | number): MetaBuilder;
   setLastUpdated(lastUpdated: string): MetaBuilder;
@@ -16,27 +16,16 @@ interface IMetaBuilder extends IBuildable<IMeta>, ISerializable {
   setMultipleTag(tag: ICoding[]): MetaBuilder;
   setMultipleProfile(profile: string[]): MetaBuilder;
   setMultipleSecurity(security: ICoding[]): MetaBuilder;
-  fromJSON(json: IIdentifier): Pick<IMetaBuilder, 'build' | 'serialize'>;
 }
 export default class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBuilder {
-  private meta: IMeta;
+  private readonly meta: IMeta;
 
   constructor() {
     super();
-
     this.meta = new Meta();
   }
 
-  fromJSON(json: IIdentifier): Pick<IMetaBuilder, 'build' | 'serialize'> {
-    this.meta = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
-  }
-
-  addMetaParamExtension<T extends ParamsType>(param: T, extension: IElement): MetaBuilder {
+  addParamExtension<T extends ParamsType>(param: T, extension: IElement): MetaBuilder {
     this.meta[`_${param}`] = extension as IElement;
 
     return this;

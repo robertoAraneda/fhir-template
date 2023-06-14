@@ -1,20 +1,17 @@
-import { AvailabilityBuilder, PeriodBuilder } from '../../../src/r5/builders/datatypes';
-import { IValidatorContext } from '../../../src/r5';
+import { PeriodBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
-import { Period } from '../../../src/r5/models/datatypes/Period';
+import Period from '../../../src/r5/models/datatypes/Period';
 import { IPeriod } from '../../../src/r5/interfaces/datatypes';
 
-describe('Period', () => {
-  let validator: IValidatorContext;
+describe('Period FHIR R5', () => {
   let builder: PeriodBuilder;
   let builderFromFunction: PeriodBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new PeriodBuilder();
-    builderFromFunction = builders.dataTypes.PeriodBuilder();
+    builderFromFunction = Builder.dataTypes.Period();
   });
 
   it('should be able to create a new attachment and validate with correct data [IPeriod]', async function () {
@@ -23,7 +20,7 @@ describe('Period', () => {
       end: '2020-01-02',
     };
 
-    const validate = await validator.dataTypes.Period(dataType);
+    const validate = await Validator.dataTypes.Period(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -35,7 +32,7 @@ describe('Period', () => {
       end: '2020-01-02',
     });
 
-    const validate = await validator.dataTypes.Period(dataType);
+    const validate = await Validator.dataTypes.Period(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -47,7 +44,7 @@ describe('Period', () => {
       end: '2020-01-02',
     });
 
-    const validate = await validator.dataTypes.Period(dataType);
+    const validate = await Validator.dataTypes.Period(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -58,7 +55,7 @@ describe('Period', () => {
       .setId('id')
       .setStart('2020-01-01')
       .setEnd('2020-01-02')
-      .addPeriodParamExtension('start', {
+      .addParamExtension('start', {
         id: 'start',
         extension: [
           {
@@ -67,7 +64,7 @@ describe('Period', () => {
           },
         ],
       })
-      .addPeriodParamExtension('end', {
+      .addParamExtension('end', {
         extension: [
           {
             url: 'test',
@@ -100,7 +97,7 @@ describe('Period', () => {
       },
     });
 
-    const validate = await validator.dataTypes.Period(dataType);
+    const validate = await Validator.dataTypes.Period(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -113,7 +110,7 @@ describe('Period', () => {
       notExist: 'not exist',
     } as any;
 
-    const validate = await validator.dataTypes.Period(dataType);
+    const validate = await Validator.dataTypes.Period(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toHaveLength(1);

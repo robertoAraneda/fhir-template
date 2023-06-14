@@ -3,22 +3,17 @@ import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { ElementBuilder } from '../base/ElementBuilder';
 import { Period } from '../../models/datatypes';
 
-export default class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IBuildable<IPeriod>, ISerializable {
-  private period: IPeriod;
+interface IPeriodBuilder extends IBuildable<IPeriod>, ISerializable {
+  addParamExtension(param: 'start' | 'end', extension: IElement): PeriodBuilder;
+  setStart(value: string): PeriodBuilder;
+  setEnd(value: string): PeriodBuilder;
+}
+export default class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IPeriodBuilder {
+  private readonly period: IPeriod;
 
   constructor() {
     super();
-
     this.period = new Period();
-  }
-
-  fromJSON(json: IPeriod) {
-    this.period = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   setStart(value: string): PeriodBuilder {
@@ -33,7 +28,7 @@ export default class PeriodBuilder extends ElementBuilder<PeriodBuilder> impleme
     return this;
   }
 
-  addPeriodParamExtension(param: 'start' | 'end', extension: IElement): PeriodBuilder {
+  addParamExtension(param: 'start' | 'end', extension: IElement): PeriodBuilder {
     this.period[`_${param}`] = extension;
 
     return this;

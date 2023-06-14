@@ -7,7 +7,7 @@ import { BackboneElementBuilder } from './BackboneElementBuilder';
 import { DataType, DatatypeTypeR5, IDatatypeValidatorProperties } from './GlobalDatatypes';
 import { generateInstanceDatatype } from './InstanceBuilderDatatype';
 import { generateInstanceResource } from './InstanceBuilderResource';
-import { IResourceValidatorProperties, ResourceType, ResourceTypeR5 } from './GlobalResourceTypes';
+import { IResourceValidatorProperties, ParseResourceTypeR5, ResourceTypeR5 } from './GlobalResourceTypes';
 import { BackboneElementTypeR5, ParseBackboneElementTypeR5 } from './GlobalBackboneElements';
 import { generateInstanceBackboneElement } from './InstanceBuilderBackboneElement';
 
@@ -43,8 +43,8 @@ export type BackboneTypeR5 =
   | 'EndpointPayload';
 
 export class FhirContextR5 {
-  createResource<T extends ResourceTypeR5>(resourceType: T, data?: ResourceType<T>) {
-    return generateInstanceResource(resourceType, data);
+  createResource<T extends ResourceTypeR5>(resourceType: T, data?: ParseResourceTypeR5<T>) {
+    return generateInstanceResource(resourceType, data) as ParseResourceTypeR5<T>;
   }
 
   createDatatype<T extends DatatypeTypeR5>(datatypeType: T, d: DataType<T>) {

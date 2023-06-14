@@ -198,7 +198,7 @@ describe('Organization FHIR R5', () => {
       .setActive(true)
       .setId('123')
       .setDescription('test')
-      .addOrganizationParamExtension('active', {
+      .addParamExtension('active', {
         extension: [
           {
             url: 'active',
@@ -206,7 +206,7 @@ describe('Organization FHIR R5', () => {
           },
         ],
       })
-      .addOrganizationParamExtension('alias', [
+      .addParamExtension('alias', [
         {
           extension: [
             {

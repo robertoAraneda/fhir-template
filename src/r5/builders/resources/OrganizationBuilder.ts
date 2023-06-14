@@ -4,11 +4,35 @@ import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { IExtendedContactDetail, IIdentifier, ICodeableConcept, IReference } from '../../interfaces/datatypes';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { IOrganization } from '../../interfaces/resources';
+import { validateReference } from '../../../globals/helpers/validateReference';
 
 type ParamsType = 'active' | 'alias' | 'description' | 'name';
+
+interface IOrganizationBuilder extends IBuildable<Organization>, ISerializable {
+  addParamExtension<T extends ParamsType>(
+    param: T,
+    extension: T extends 'alias' ? IElement[] : IElement,
+  ): OrganizationBuilder;
+  addIdentifier(identifier: IIdentifier): OrganizationBuilder;
+  setMultipleIdentifier(identifiers: IIdentifier[]): OrganizationBuilder;
+  setActive(active: boolean): OrganizationBuilder;
+  addType(type: ICodeableConcept): OrganizationBuilder;
+  setMultipleType(types: ICodeableConcept[]): OrganizationBuilder;
+  setName(name: string): OrganizationBuilder;
+  addAlias(alias: string): OrganizationBuilder;
+  setMultipleAlias(aliases: string[]): OrganizationBuilder;
+  setDescription(description: string): OrganizationBuilder;
+  addContact(contact: IExtendedContactDetail): OrganizationBuilder;
+  setMultipleContact(contacts: IExtendedContactDetail[]): OrganizationBuilder;
+  setPartOf(partOf: IReference): OrganizationBuilder;
+  addEndpoint(endpoint: IReference): OrganizationBuilder;
+  setMultipleEndpoint(endpoints: IReference[]): OrganizationBuilder;
+  addQualification(qualification: IOrganizationQualification): OrganizationBuilder;
+  setMultipleQualification(qualifications: IOrganizationQualification[]): OrganizationBuilder;
+}
 export default class OrganizationBuilder
   extends DomainResourceBuilder<OrganizationBuilder>
-  implements IBuildable<Organization>, ISerializable
+  implements IOrganizationBuilder
 {
   private readonly organization: IOrganization;
 
@@ -17,7 +41,7 @@ export default class OrganizationBuilder
     this.organization = new Organization();
   }
 
-  addOrganizationParamExtension<T extends ParamsType>(
+  addParamExtension<T extends ParamsType>(
     param: T,
     extension: T extends 'alias' ? IElement[] : IElement,
   ): OrganizationBuilder {
@@ -38,6 +62,9 @@ export default class OrganizationBuilder
    * @returns {OrganizationBuilder}
    */
   addIdentifier(identifier: IIdentifier): OrganizationBuilder {
+    if (identifier.assigner?.reference) {
+      validateReference(identifier.assigner.reference, ['Organization']);
+    }
     this.organization.identifier = this.organization.identifier || [];
     this.organization.identifier.push(identifier);
 
@@ -50,6 +77,11 @@ export default class OrganizationBuilder
    * @returns {OrganizationBuilder} OrganizationBuilder
    */
   setMultipleIdentifier(identifiers: IIdentifier[]): OrganizationBuilder {
+    for (const identifier of identifiers) {
+      if (identifier.assigner?.reference) {
+        validateReference(identifier.assigner.reference, ['Organization']);
+      }
+    }
     this.organization.identifier = identifiers;
 
     return this;
@@ -118,6 +150,9 @@ export default class OrganizationBuilder
   }
 
   setPartOf(partOf: IReference): OrganizationBuilder {
+    if (partOf.reference) {
+      validateReference(partOf.reference, ['Organization']);
+    }
     this.organization.partOf = partOf;
 
     return this;

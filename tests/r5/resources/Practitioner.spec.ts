@@ -1,16 +1,18 @@
 import { PractitionerBuilder } from '../../../src/r5/builders/resources';
 import { IPractitioner } from '../../../src/r5/interfaces/resources';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
+import { Practitioner } from '../../../src/r5/models/resources';
 
-describe('Practitioner', () => {
+describe('Practitioner FHIR R5', () => {
   let builder: PractitionerBuilder;
+  let builderFromFunction: PractitionerBuilder;
   const context = new FHIRContext();
-  let validator = context.forR5().validators.resources;
+  const { Validator, Builder, createResource } = context.forR5();
 
   // create global
   beforeEach(() => {
     builder = new PractitionerBuilder();
+    builderFromFunction = Builder.resources.Practitioner();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/example]', async () => {
@@ -72,13 +74,13 @@ describe('Practitioner', () => {
       ],
     };
 
-    const validate = await validator.Practitioner(dataType);
+    const validate = await Validator.resources.Practitioner(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f001]', async () => {
-    const dataType: IPractitioner = {
+    const dataType = createResource('Practitioner', {
       resourceType: 'Practitioner',
       id: 'f001',
       text: {
@@ -133,15 +135,15 @@ describe('Practitioner', () => {
           country: 'NLD',
         },
       ],
-    };
+    });
 
-    const validate = await validator.Practitioner(dataType);
+    const validate = await Validator.resources.Practitioner(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/prac4]', async () => {
-    const dataType: IPractitioner = {
+    const dataType = new Practitioner({
       resourceType: 'Practitioner',
       id: 'prac4',
       text: {
@@ -159,9 +161,9 @@ describe('Practitioner', () => {
       gender: 'female',
       birthDate: '1982-08-02',
       deceasedDateTime: '2021-12-12',
-    };
+    });
 
-    const validate = await validator.Practitioner(dataType);
+    const validate = await Validator.resources.Practitioner(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -238,7 +240,7 @@ describe('Practitioner', () => {
       ],
     };
 
-    const validate = await validator.Practitioner(dataType);
+    const validate = await Validator.resources.Practitioner(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -285,7 +287,7 @@ describe('Practitioner', () => {
       ],
     };
 
-    const validate = await validator.Practitioner(dataType);
+    const validate = await Validator.resources.Practitioner(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -321,7 +323,7 @@ describe('Practitioner', () => {
         },
       ],
     };
-    const validate = await validator.Practitioner(dataType);
+    const validate = await Validator.resources.Practitioner(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -351,7 +353,7 @@ describe('Practitioner', () => {
         given: ['Sandy'],
         use: 'official',
       })
-      .addPractitionerParamExtension('active', {
+      .addParamExtension('active', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',

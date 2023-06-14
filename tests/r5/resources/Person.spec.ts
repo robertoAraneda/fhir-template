@@ -1,20 +1,22 @@
 import { IPerson } from '../../../src/r5/interfaces/resources';
-import { IValidatorContext } from '../../../src/r5';
-import { PatientBuilder, PersonBuilder } from '../../../src/r5/builders/resources';
+import { PersonBuilder } from '../../../src/r5/builders/resources';
 import FHIRContext from '../../../src';
+import { Person } from '../../../src/r5/models/resources';
 
-describe('Person', () => {
+describe('Person FHIR R5', () => {
   let builder: PersonBuilder;
+  let builderFromFunction: PersonBuilder;
   const context = new FHIRContext();
-  let validator = context.forR5().validators.resources;
+  const { Validator, Builder, createResource } = context.forR5();
 
   // create global
   beforeEach(() => {
     builder = new PersonBuilder();
+    builderFromFunction = Builder.resources.Person();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/example]', async () => {
-    const dataType: IPerson = {
+    const dataType = new Person({
       resourceType: 'Person',
       id: 'example',
       text: {
@@ -86,7 +88,7 @@ describe('Person', () => {
           },
         },
       ],
-    };
+    });
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/grahame]', async () => {
@@ -148,13 +150,13 @@ describe('Person', () => {
       },
     };
 
-    const validate = await validator.Person(dataType);
+    const validate = await Validator.resources.Person(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/pp]', async () => {
-    const dataType: IPerson = {
+    const dataType = createResource('Person', {
       resourceType: 'Person',
       id: 'pp',
       text: {
@@ -221,9 +223,10 @@ describe('Person', () => {
           assurance: 'level2',
         },
       ],
-    };
+    });
 
-    const validate = await validator.Person(dataType);
+    const validate = await Validator.resources.Person(dataType);
+
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -268,7 +271,7 @@ describe('Person', () => {
       ],
     };
 
-    const validate = await validator.Person(dataType);
+    const validate = await Validator.resources.Person(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -314,7 +317,7 @@ describe('Person', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await validator.Person(dataType);
+    const validate = await Validator.resources.Person(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -332,7 +335,7 @@ describe('Person', () => {
         keyword: 'pattern',
         message: "The value '/birthDate' does not match with datatype 'date'",
         params: { value: '/birthDate' },
-        schemaPath: 'r4base.schema.json#/definitions/date/pattern',
+        schemaPath: 'base.schema.json#/definitions/date/pattern',
       },
     ]);
   });
@@ -340,7 +343,7 @@ describe('Person', () => {
   it('should be able to create a new person using builder methods', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
-      .addPersonParamExtension('active', {
+      .addParamExtension('active', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',

@@ -1,17 +1,18 @@
-import { PatientBuilder } from '../../../src/r5/builders/resources';
+import { OrganizationBuilder, PatientBuilder } from '../../../src/r5/builders/resources';
 import { IPatient } from '../../../src/r5/interfaces/resources';
 import { Patient } from '../../../src/r5/models/resources';
 import FHIRContext from '../../../src';
-import { IValidatorContext } from '../../../src/r5';
 
-describe('Patient', () => {
-  const context = new FHIRContext();
-  let validator = context.forR5().validators.resources;
+describe('Patient FHIR R5', () => {
   let builder: PatientBuilder;
+  let builderFromFunction: PatientBuilder;
+  const context = new FHIRContext();
+  const { Validator, Builder, createResource } = context.forR5();
 
   // create global
   beforeEach(() => {
     builder = new PatientBuilder();
+    builderFromFunction = Builder.resources.Patient();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/patient-example-sex-and-gender]', async () => {
@@ -353,7 +354,7 @@ describe('Patient', () => {
       },
     });
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -697,13 +698,13 @@ describe('Patient', () => {
       },
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/animal]', async function () {
-    const dataType: IPatient = {
+    const dataType = createResource('Patient', {
       resourceType: 'Patient',
       id: 'animal',
       text: {
@@ -806,9 +807,9 @@ describe('Patient', () => {
       managingOrganization: {
         display: "Pete's Vetinary Services",
       },
-    };
+    });
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -859,7 +860,7 @@ describe('Patient', () => {
       },
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -924,7 +925,7 @@ describe('Patient', () => {
       },
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -999,7 +1000,7 @@ describe('Patient', () => {
       ],
     };
 
-    const validate = await validator.Patient(dataType);
+    const validate = await Validator.resources.Patient(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -1012,7 +1013,7 @@ describe('Patient', () => {
         params: {
           type: 'boolean',
         },
-        schemaPath: 'r4base.schema.json#/definitions/boolean/type',
+        schemaPath: 'base.schema.json#/definitions/boolean/type',
       },
     ]);
   });

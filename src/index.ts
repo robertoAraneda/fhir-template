@@ -1,6 +1,6 @@
 import { FhirContextR5 } from './r5';
 import { DataType as DTR5, DatatypeTypeR5 } from './r5/GlobalDatatypes';
-import { ResourceType as RTR5, ResourceTypeR5 } from './r5/GlobalResourceTypes';
+import { ParseResourceTypeR5 as RTR5, ResourceTypeR5 } from './r5/GlobalResourceTypes';
 import { ParseDataTypeR4 as DTR4, DatatypeTypeR4 } from './r4/GlobalDatatypes';
 import { ParseResourceTypeR4 as RTR4, ResourceTypeR4 } from './r4/GlobalResourceTypes';
 import { FhirContextR4 } from './r4';

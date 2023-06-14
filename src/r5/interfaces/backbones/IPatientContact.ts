@@ -1,5 +1,5 @@
-import { IBackboneElement, IElement, IReference } from '../base';
-import { ICodeableConcept, IContactPoint, IHumanName, IPeriod } from '../datatypes';
+import { IBackboneElement, IElement } from '../base';
+import { ICodeableConcept, IContactPoint, IHumanName, IPeriod, IReference } from '../datatypes';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 

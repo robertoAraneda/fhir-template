@@ -7,32 +7,36 @@ import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Endpoint } from '../../models/resources';
 
 type ParamType = 'address' | 'description' | 'header' | 'name' | 'status' | 'implicitRules' | 'language';
-export default class EndpointBuilder
-  extends DomainResourceBuilder<EndpointBuilder>
-  implements IBuildable<Endpoint>, ISerializable
-{
-  private endpoint: Endpoint;
+
+interface IEndpointBuilder extends IBuildable<Endpoint>, ISerializable {
+  addParamExtension(param: ParamType, extension: IElement): EndpointBuilder;
+  setAddress(address: string): EndpointBuilder;
+  setMultipleConnectionType(connectionType: ICodeableConcept[]): EndpointBuilder;
+  setMultipleContact(contact: IContactPoint[]): EndpointBuilder;
+  setDescription(description: string): EndpointBuilder;
+  setMultipleEnvironmentType(environmentType: ICodeableConcept[]): EndpointBuilder;
+  setMultipleHeader(header: string[]): EndpointBuilder;
+  setMultipleIdentifier(identifier: IIdentifier[]): EndpointBuilder;
+  setManagingOrganization(managingOrganization: IReference): EndpointBuilder;
+  setName(name: string): EndpointBuilder;
+  setMultiplePayload(payload: IEndpointPayload[]): EndpointBuilder;
+  setPeriod(period: IPeriod): EndpointBuilder;
+  setStatus(status: EndpointStatusType): EndpointBuilder;
+  addConnectionType(contentType: ICodeableConcept): EndpointBuilder;
+  addContact(contact: IContactPoint): EndpointBuilder;
+  addEnvironmentType(environmentType: ICodeableConcept): EndpointBuilder;
+  addHeader(header: string): EndpointBuilder;
+  addIdentifier(identifier: IIdentifier): EndpointBuilder;
+  addPayload(payload: IEndpointPayload): EndpointBuilder;
+}
+export default class EndpointBuilder extends DomainResourceBuilder<EndpointBuilder> implements IEndpointBuilder {
+  private readonly endpoint: Endpoint;
   constructor() {
     super();
     this.endpoint = new Endpoint();
   }
 
-  fromJSON(data: Endpoint) {
-    if (!data.address) throw new Error('Endpoint.address is required');
-    if (!data.connectionType) throw new Error('Endpoint.connectionType is required');
-    this.endpoint = {
-      ...data,
-      address: data.address,
-      connectionType: data.connectionType,
-      resourceType: 'Endpoint',
-    };
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
-  }
-
-  addEndpointParamExtension(param: ParamType, extension: IElement): EndpointBuilder {
+  addParamExtension(param: ParamType, extension: IElement): EndpointBuilder {
     this.endpoint[`_${param}`] = extension;
 
     return this;

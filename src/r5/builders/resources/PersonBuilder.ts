@@ -13,27 +13,39 @@ import { IElement, IBuildable, ISerializable } from '../../interfaces/base';
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Person } from '../../models/resources';
 import { IPerson } from '../../interfaces/resources';
+import { validateReference } from '../../../globals/helpers/validateReference';
 
-type ParamType =
-  | 'active'
-  | 'birthDate'
-  | 'gender'
-  | 'multipleBirthBoolean'
-  | 'multipleBirthInteger'
-  | 'deceasedBoolean'
-  | 'deceasedDateTime';
+type ParamType = 'active' | 'birthDate' | 'gender' | 'deceasedBoolean' | 'deceasedDateTime';
 
-export default class PersonBuilder
-  extends DomainResourceBuilder<PersonBuilder>
-  implements IBuildable<Person>, ISerializable
-{
+interface IPersonBuilder extends IBuildable<Person>, ISerializable {
+  addParamExtension(param: ParamType, extension: IElement): PersonBuilder;
+  addName(name: IHumanName): PersonBuilder;
+  addMultipleName(names: IHumanName[]): PersonBuilder;
+  setActive(active: boolean): PersonBuilder;
+  addIdentifier(identifier: IIdentifier): PersonBuilder;
+  setMultipleIdentifier(identifiers: IIdentifier[]): PersonBuilder;
+  addTelecom(telecom: IContactPoint): PersonBuilder;
+  setMultipleTelecom(telecoms: IContactPoint[]): PersonBuilder;
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PersonBuilder;
+  setBirthDate(birthDate: string): PersonBuilder;
+  setMaritalStatus(maritalStatus: ICodeableConcept): PersonBuilder;
+  addLink(link: IPersonLink): PersonBuilder;
+  setMultipleLink(links: IPersonLink[]): PersonBuilder;
+  setManagingOrganization(managingOrganization: IReference): PersonBuilder;
+  addCommunication(communication: IPersonCommunication): PersonBuilder;
+  setMultipleCommunication(communications: IPersonCommunication[]): PersonBuilder;
+  addPhoto(photo: IAttachment): PersonBuilder;
+  setMultiplePhoto(photos: IAttachment[]): PersonBuilder;
+}
+
+export default class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implements IPersonBuilder {
   private readonly person: IPerson;
   constructor() {
     super();
     this.person = new Person();
   }
 
-  addPersonParamExtension(param: ParamType, extension: IElement): PersonBuilder {
+  addParamExtension(param: ParamType, extension: IElement): PersonBuilder {
     this.person[`_${param}`] = extension;
     return this;
   }
@@ -55,12 +67,21 @@ export default class PersonBuilder
   }
 
   addIdentifier(identifier: IIdentifier): PersonBuilder {
+    if (identifier.assigner?.reference) {
+      validateReference(identifier.assigner.reference, ['Organization']);
+    }
+
     this.person.identifier = this.person.identifier || [];
     this.person.identifier.push(identifier);
     return this;
   }
 
   setMultipleIdentifier(identifiers: IIdentifier[]): PersonBuilder {
+    for (const identifier of identifiers) {
+      if (identifier.assigner?.reference) {
+        validateReference(identifier.assigner.reference, ['Organization']);
+      }
+    }
     this.person.identifier = identifiers;
     return this;
   }
@@ -92,16 +113,8 @@ export default class PersonBuilder
   }
 
   addLink(link: IPersonLink): PersonBuilder {
-    if (typeof link.target.reference === 'string') {
-      const target = link.target.reference as string;
-      if (
-        !target.startsWith('Patient/') &&
-        !target.startsWith('Practitioner/') &&
-        !target.startsWith('RelatedPerson/') &&
-        !target.startsWith('Person/')
-      ) {
-        throw new Error('Link.other.reference must start with Patient/ or Practitioner/ or RelatedPerson/ or Person/');
-      }
+    if (link.target?.reference) {
+      validateReference(link.target.reference, ['Patient', 'Practitioner', 'RelatedPerson', 'Person']);
     }
 
     this.person.link = this.person.link || [];
@@ -109,27 +122,15 @@ export default class PersonBuilder
     return this;
   }
 
-  setMultipleLinks(links: IPersonLink[]): PersonBuilder {
+  setMultipleLink(links: IPersonLink[]): PersonBuilder {
     this.person.link = links;
 
     return this;
   }
 
-  setMultipleBirth<T extends boolean | number>(multipleBirth: T): PersonBuilder {
-    if (typeof multipleBirth === 'boolean') {
-      this.person.multipleBirthBoolean = multipleBirth;
-      this.person.multipleBirthInteger = undefined;
-    } else {
-      this.person.multipleBirthInteger = multipleBirth;
-      this.person.multipleBirthBoolean = undefined;
-    }
-
-    return this;
-  }
-
   setManagingOrganization(args: IReference): PersonBuilder {
-    if (typeof args.reference === 'string' && !args.reference.startsWith('Organization/')) {
-      throw new Error('Managing organization reference must start with Organization/');
+    if (args.reference) {
+      validateReference(args.reference, ['Organization']);
     }
 
     this.person.managingOrganization = args;
@@ -142,7 +143,7 @@ export default class PersonBuilder
     return this;
   }
 
-  setMultipleCommunications(communications: IPersonCommunication[]): PersonBuilder {
+  setMultipleCommunication(communications: IPersonCommunication[]): PersonBuilder {
     this.person.communication = communications;
     return this;
   }
@@ -162,7 +163,7 @@ export default class PersonBuilder
     return JSON.stringify(this.raw(), null, 2);
   }
 
-  build() {
+  build(): Person {
     return JSON.parse(this.serialize());
   }
 

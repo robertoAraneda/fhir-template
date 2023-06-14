@@ -588,6 +588,10 @@
           },
           "type": "array"
         },
+        "maritalStatus": {
+            "description": "Marital (civil) status of a person.",
+            "$ref": "datatypes.schema.json#/definitions/CodeableConcept"
+        },
         "managingOrganization": {
           "description": "The organization that is the custodian of the person record.",
           "$ref": "datatypes.schema.json#/definitions/Reference"

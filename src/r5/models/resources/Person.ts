@@ -24,8 +24,6 @@ export default class Person implements IPerson {
   _gender?: IElement;
   _implicitRules?: IElement;
   _language?: IElement;
-  _multipleBirthBoolean?: IElement;
-  _multipleBirthInteger?: IElement;
   active?: boolean;
   address?: IAddress[];
   birthDate?: string;
@@ -44,8 +42,6 @@ export default class Person implements IPerson {
   maritalStatus?: ICodeableConcept;
   meta?: IMeta;
   modifierExtension?: IExtension[];
-  multipleBirthBoolean?: boolean;
-  multipleBirthInteger?: number;
   name?: IHumanName[];
   photo?: IAttachment[];
   resourceType: string = 'Person';

@@ -10,9 +10,31 @@ import { Practitioner } from '../../models/resources';
 
 type ParamType = 'active' | 'birthDate' | 'deceasedBoolean' | 'deceasedDateTime';
 
+interface IPractitionerBuilder extends IBuildable<IPractitioner>, ISerializable {
+  addParamExtension(param: ParamType, extension: IElement): IPractitionerBuilder;
+  addIdentifier(identifier: IIdentifier): IPractitionerBuilder;
+  addName(name: IHumanName): IPractitionerBuilder;
+  addTelecom(telecom: IContactPoint): IPractitionerBuilder;
+  addAddress(address: IAddress): IPractitionerBuilder;
+  addPhoto(photo: IAttachment): IPractitionerBuilder;
+  addQualification(qualification: IPractitionerQualification): IPractitionerBuilder;
+  addCommunication(communication: IPractitionerCommunication): IPractitionerBuilder;
+  setMultipleIdentifier(identifiers: IIdentifier[]): IPractitionerBuilder;
+  setMultipleName(names: IHumanName[]): IPractitionerBuilder;
+  setMultipleTelecom(telecoms: IContactPoint[]): IPractitionerBuilder;
+  setMultipleAddress(addresses: IAddress[]): IPractitionerBuilder;
+  setMultiplePhoto(photos: IAttachment[]): IPractitionerBuilder;
+  setMultipleQualification(qualifications: IPractitionerQualification[]): IPractitionerBuilder;
+  setMultipleCommunication(communications: IPractitionerCommunication[]): IPractitionerBuilder;
+  setDeceased<R extends boolean | string>(deceased: R): IPractitionerBuilder;
+  setActive(active: boolean): IPractitionerBuilder;
+  setBirthDate(birthDate: string): IPractitionerBuilder;
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): IPractitionerBuilder;
+}
+
 export default class PractitionerBuilder
   extends DomainResourceBuilder<PractitionerBuilder>
-  implements IBuildable<Practitioner>, ISerializable
+  implements IPractitionerBuilder
 {
   private readonly practitioner: IPractitioner;
 
@@ -22,7 +44,7 @@ export default class PractitionerBuilder
     this.practitioner = new Practitioner();
   }
 
-  addPractitionerParamExtension(param: ParamType, extension: IElement): PractitionerBuilder {
+  addParamExtension(param: ParamType, extension: IElement): PractitionerBuilder {
     this.practitioner[`_${param}`] = extension;
     return this;
   }

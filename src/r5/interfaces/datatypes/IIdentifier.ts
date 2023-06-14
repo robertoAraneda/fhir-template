@@ -1,8 +1,9 @@
 import { IdentifierUseEnum } from '../../enums';
 import { IdentifierUseType } from '../../types';
-import { IElement, IReference } from '../base';
+import { IElement } from '../base';
 import { IPeriod } from './IPeriod';
 import { ICodeableConcept } from './ICodeableConcept';
+import { IReference } from './IReference';
 
 /**
  * @description An identifier intended for computation

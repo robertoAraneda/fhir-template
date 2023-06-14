@@ -2,20 +2,18 @@ import { EndpointBuilder } from '../../../src/r5/builders/resources';
 import { IEndpoint } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import { Endpoint } from '../../../src/r5/models/resources';
-import { IValidatorContext } from '../../../src/r5';
 
-describe('Endpoint', () => {
+describe('Endpoint FHIR R5', () => {
   let builder: EndpointBuilder;
+  let builderFromFunction: EndpointBuilder;
   const context = new FHIRContext();
-  const { validators: val, builders, createResource } = context.forR5();
-
-  const validators: IValidatorContext = val;
+  const { Validator, Builder, createResource } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = builders.resources.EndpointBuilder();
+    builder = new EndpointBuilder();
+    builderFromFunction = Builder.resources.Endpoint();
   });
-
   // create global
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
@@ -95,7 +93,7 @@ describe('Endpoint', () => {
       header: ['bearer-code BASGS534s4'],
     });
 
-    const validate = await validators.resources.Endpoint(resource);
+    const validate = await Validator.resources.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -177,7 +175,7 @@ describe('Endpoint', () => {
       address: 'http://fhir3.healthintersections.com.au/open/CarePlan',
       header: ['bearer-code BASGS534s4'],
     });
-    const validate = await validators.resources.Endpoint(resource);
+    const validate = await Validator.resources.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -260,7 +258,7 @@ describe('Endpoint', () => {
       header: ['bearer-code BASGS534s4'],
     };
 
-    const validate = await validators.resources.Endpoint(resource);
+    const validate = await Validator.resources.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -299,7 +297,7 @@ describe('Endpoint', () => {
       address: 'https://pacs.hospital.org/wado-rs',
     };
 
-    const validate = await validators.resources.Endpoint(resource);
+    const validate = await Validator.resources.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -345,7 +343,7 @@ describe('Endpoint', () => {
       address: 'mailto:MARTIN.SMIETANKA@directnppes.com',
     };
 
-    const validate = await validators.resources.Endpoint(resource);
+    const validate = await Validator.resources.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -385,7 +383,7 @@ describe('Endpoint', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await validators.resources.Endpoint(dataType);
+    const validate = await Validator.resources.Endpoint(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();

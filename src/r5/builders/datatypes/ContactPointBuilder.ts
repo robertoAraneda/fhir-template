@@ -6,30 +6,20 @@ import { ElementBuilder } from '../base/ElementBuilder';
 import { ContactPoint } from '../../models/datatypes';
 
 type ParamType = 'system' | 'value' | 'use' | 'rank';
-export default class ContactPointBuilder
-  extends ElementBuilder<ContactPointBuilder>
-  implements IBuildable<ICodeableConcept>, ISerializable
-{
-  private contactPoint: IContactPoint;
+
+interface IContactPointBuilder extends IBuildable<IContactPoint>, ISerializable {
+  addParamExtension<T extends ParamType>(param: T, extension: IElement): ContactPointBuilder;
+  setSystem(value: ContactPointSystemEnum | ContactPointSystemType): ContactPointBuilder;
+  setValue(value: string): ContactPointBuilder;
+  setUse(value: ContactPointUseEnum | ContactPointUseType): ContactPointBuilder;
+  setRank(value: number): ContactPointBuilder;
+}
+export default class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> implements IContactPointBuilder {
+  private readonly contactPoint: IContactPoint;
 
   constructor() {
     super();
-
     this.contactPoint = new ContactPoint();
-  }
-
-  /**
-   * @description Create a new ContactPoint from a JSON representation
-   * @param json
-   * @returns build and serialize functions
-   */
-  fromJSON(json: IContactPoint) {
-    this.contactPoint = json;
-
-    return {
-      build: () => this.build(),
-      serialize: () => this.serialize(),
-    };
   }
 
   /**
@@ -60,7 +50,7 @@ export default class ContactPointBuilder
    *   }
    * }
    */
-  addContactPointParamExtension(param: ParamType, extension: IElement): ContactPointBuilder {
+  addParamExtension(param: ParamType, extension: IElement): ContactPointBuilder {
     this.contactPoint[`_${param}`] = extension;
 
     return this;

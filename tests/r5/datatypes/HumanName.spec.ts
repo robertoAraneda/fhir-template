@@ -2,19 +2,17 @@ import { HumanNameBuilder } from '../../../src/r5/builders/datatypes';
 import { IHumanName } from '../../../src/r5/interfaces/datatypes';
 import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import { HumanName } from '../../../src/r5/models/datatypes/HumanName';
+import HumanName from '../../../src/r5/models/datatypes/HumanName';
 
-describe('HumanName', () => {
-  let validator: IValidatorContext;
+describe('HumanName FHIR R5', () => {
   let builder: HumanNameBuilder;
   let builderFromFunction: HumanNameBuilder;
-  const { validators: val, createDatatype, builders } = new FHIRContext().forR5();
-  validator = val;
+  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new HumanNameBuilder();
-    builderFromFunction = builders.dataTypes.HumanNameBuilder();
+    builderFromFunction = Builder.dataTypes.HumanName();
   });
 
   it('should be able to create a new humanname and validate with correct data [new HumanName()]', async () => {
@@ -36,7 +34,7 @@ describe('HumanName', () => {
       },
     });
 
-    const validate = await validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -60,7 +58,7 @@ describe('HumanName', () => {
       },
     });
 
-    const validate = await validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -84,7 +82,7 @@ describe('HumanName', () => {
       },
     };
 
-    const validate = await validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -109,7 +107,7 @@ describe('HumanName', () => {
       },
     };
 
-    const validate = await validator.dataTypes.HumanName(dataType);
+    const validate = await Validator.dataTypes.HumanName(dataType);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -140,7 +138,7 @@ describe('HumanName', () => {
       .addGiven('James')
       .setFamily('Windsor')
       .setPeriod({ end: '2002' })
-      .addHumanNameParamExtension('given', [
+      .addParamExtension('given', [
         {
           extension: [
             {
@@ -150,7 +148,7 @@ describe('HumanName', () => {
           ],
         },
       ])
-      .addHumanNameParamExtension('family', {
+      .addParamExtension('family', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/humanname-mothers-family',
@@ -197,7 +195,7 @@ describe('HumanName', () => {
       .addGiven('James')
       .setFamily('Windsor')
       .setPeriod({ end: '2002' })
-      .addHumanNameParamExtension('given', [
+      .addParamExtension('given', [
         {
           extension: [
             {
@@ -207,7 +205,7 @@ describe('HumanName', () => {
           ],
         },
       ])
-      .addHumanNameParamExtension('family', {
+      .addParamExtension('family', {
         extension: [
           {
             url: 'http://hl7.org/fhir/StructureDefinition/humanname-mothers-family',

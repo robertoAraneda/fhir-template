@@ -3,15 +3,16 @@ import { Organization } from '../../../src/r5/models/resources';
 import { IOrganization } from '../../../src/r5/interfaces/resources';
 import { OrganizationBuilder } from '../../../src/r5/builders/resources';
 
-describe('Organization', () => {
-  const context = new FHIRContext();
-  const { validators: val } = context.forR5();
-  let validators = val.resources;
+describe('Organization FHIR R5', () => {
   let builder: OrganizationBuilder;
+  let builderFromFunction: OrganizationBuilder;
+  const context = new FHIRContext();
+  const { Validator, Builder, createResource } = context.forR5();
 
   // create global
   beforeEach(() => {
     builder = new OrganizationBuilder();
+    builderFromFunction = Builder.resources.Organization();
   });
 
   it('should be able to create a new organization and validate with correct data [Example Organization/1]', async () => {
@@ -47,7 +48,7 @@ describe('Organization', () => {
       ],
     });
 
-    const validate = await validators.Organization(resource);
+    const validate = await Validator.resources.Organization(resource);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -85,14 +86,13 @@ describe('Organization', () => {
       ],
     };
 
-    const validate = await validators.Organization(resource);
+    const validate = await Validator.resources.Organization(resource);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new organization and validate with correct data [Example Organization/f203]', async () => {
-    const resource: IOrganization = {
-      meta: {},
+    const resource = createResource('Organization', {
       resourceType: 'Organization',
       id: 'f203',
       text: {
@@ -141,9 +141,9 @@ describe('Organization', () => {
           },
         },
       ],
-    };
+    });
 
-    const validate = await validators.Organization(resource);
+    const validate = await Validator.resources.Organization(resource);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -168,7 +168,7 @@ describe('Organization', () => {
       ],
     };
 
-    const validate = await validators.Organization(resource);
+    const validate = await Validator.resources.Organization(resource);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -186,7 +186,7 @@ describe('Organization', () => {
         keyword: 'type',
         message: 'must be boolean',
         params: { type: 'boolean' },
-        schemaPath: 'r4base.schema.json#/definitions/boolean/type',
+        schemaPath: 'base.schema.json#/definitions/boolean/type',
       },
     ]);
   });

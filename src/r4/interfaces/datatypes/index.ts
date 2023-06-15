@@ -12,3 +12,5 @@ export type { IIdentifier } from './IIdentifier';
 export type { IMeta } from './IMeta';
 export type { IPeriod } from './IPeriod';
 export type { IQuantity } from './IQuantity';
+export type { IRange } from './IRange';
+export type { ISimpleQuantity } from './ISimpleQuantity';

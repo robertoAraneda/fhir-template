@@ -7,3 +7,5 @@ export type { IRelatedPersonCommunication } from './IRelatedPersonCommunication'
 export type { IPractitionerRoleAvailableTime } from './IPractitionerRoleAvailableTime';
 export type { IPractitionerRoleNotAvailable } from './IPractitionerRoleNotAvailable';
 export type { IOrganizationContact } from './IOrganizationContact';
+export type { IGroupCharacteristic } from './IGroupCharacteristic';
+export type { IGroupMember } from './IGroupMember';

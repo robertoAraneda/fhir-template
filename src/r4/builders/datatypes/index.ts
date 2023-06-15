@@ -11,6 +11,8 @@ import ReferenceBuilder from './ReferenceBuilder';
 import DurationBuilder from './DurationBuilder';
 import ExtensionBuilder from './ExtensionBuilder';
 import QuantityBuilder from './QuantityBuilder';
+import RangeBuilder from './RangeBuilder';
+import SimpleQuantityBuilder from './SimpleQuantityBuilder';
 
 export {
   AddressBuilder,
@@ -26,4 +28,6 @@ export {
   QuantityBuilder,
   IdentifierBuilder,
   DurationBuilder,
+  SimpleQuantityBuilder,
+  RangeBuilder,
 };

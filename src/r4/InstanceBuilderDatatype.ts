@@ -12,7 +12,9 @@ import {
   Meta,
   Period,
   Quantity,
+  Range,
   Reference,
+  SimpleQuantity,
 } from './models/datatypes';
 export const generateInstanceDatatype = (resourceType: DatatypeTypeR4, data: any) => {
   switch (resourceType) {
@@ -42,6 +44,10 @@ export const generateInstanceDatatype = (resourceType: DatatypeTypeR4, data: any
       return new ContactPoint(data);
     case 'Attachment':
       return new Attachment(data);
+    case 'Range':
+      return new Range(data);
+    case 'SimpleQuantity':
+      return new SimpleQuantity(data);
     default:
       throw new Error(`Datatype ${resourceType} not supported`);
   }

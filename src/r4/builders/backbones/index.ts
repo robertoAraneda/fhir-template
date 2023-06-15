@@ -7,6 +7,8 @@ import PractitionerQualificationBuilder from './PractitionerQualificationBuilder
 import PractitionerRoleAvailableTimeBuilder from './PractitionerRoleAvailableTimeBuilder';
 import PractitionerRoleNotAvailableBuilder from './PractitionerRoleNotAvailableBuilder';
 import RelatedPersonCommunicationBuilder from './RelatedPersonCommunicationBuilder';
+import GroupMemberBuilder from './GroupMemberBuilder';
+import GroupCharacteristicBuilder from './GroupCharacteristicBuilder';
 
 export {
   OrganizationContactBuilder,
@@ -18,4 +20,6 @@ export {
   PractitionerRoleAvailableTimeBuilder,
   PractitionerRoleNotAvailableBuilder,
   RelatedPersonCommunicationBuilder,
+  GroupCharacteristicBuilder,
+  GroupMemberBuilder,
 };

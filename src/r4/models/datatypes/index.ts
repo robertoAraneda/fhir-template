@@ -11,6 +11,8 @@ import Meta from './Meta';
 import Period from './Period';
 import Quantity from './Quantity';
 import Reference from './Reference';
+import Range from './Range';
+import SimpleQuantity from './SimpleQuantity';
 
 export {
   Address,
@@ -26,4 +28,6 @@ export {
   Period,
   Quantity,
   Reference,
+  SimpleQuantity,
+  Range,
 };

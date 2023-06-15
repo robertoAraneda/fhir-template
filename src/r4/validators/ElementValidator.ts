@@ -16,6 +16,9 @@ const Reference = async (item: unknown): Wait => _validateDataType(item, 'Refere
 const Duration = async (item: unknown): Wait => _validateDataType(item, 'Duration');
 const Extension = async (item: unknown): Wait => _validateDataType(item, 'Extension');
 const Quantity = async (item: unknown): Wait => _validateDataType(item, 'Quantity');
+const Range = async (item: unknown): Wait => _validateDataType(item, 'Range');
+const Ratio = async (item: unknown): Wait => _validateDataType(item, 'Ratio');
+const SimpleQuantity = async (item: unknown): Wait => _validateDataType(item, 'SimpleQuantity');
 
 export const DataTypesValidator = {
   Address,
@@ -31,4 +34,7 @@ export const DataTypesValidator = {
   Duration,
   Extension,
   Quantity,
+  Range,
+  SimpleQuantity,
+  Ratio,
 };

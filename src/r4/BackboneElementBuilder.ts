@@ -10,4 +10,6 @@ export const BackboneElementBuilder = {
   PractitionerRoleAvailableTime: () => new BackboneBuilder.PractitionerRoleAvailableTimeBuilder(),
   PractitionerRoleNotAvailable: () => new BackboneBuilder.PractitionerRoleNotAvailableBuilder(),
   RelatedPersonCommunication: () => new BackboneBuilder.RelatedPersonCommunicationBuilder(),
+  GroupCharacteristic: () => new BackboneBuilder.GroupCharacteristicBuilder(),
+  GroupMember: () => new BackboneBuilder.GroupMemberBuilder(),
 };

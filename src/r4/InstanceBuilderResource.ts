@@ -8,6 +8,7 @@ import {
   RelatedPerson,
 } from './models/resources';
 import { ResourceTypeR4 } from './GlobalResourceTypes';
+import Group from './models/resources/Group';
 
 export const generateInstanceResource = (resourceType: ResourceTypeR4, data: any) => {
   switch (resourceType) {
@@ -23,6 +24,8 @@ export const generateInstanceResource = (resourceType: ResourceTypeR4, data: any
       return new Practitioner(data);
     case 'PractitionerRole':
       return new PractitionerRole(data);
+    case 'Group':
+      return new Group(data);
     case 'RelatedPerson':
       return new RelatedPerson(data);
     default:

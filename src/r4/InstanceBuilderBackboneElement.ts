@@ -9,6 +9,8 @@ import {
   PractitionerRoleAvailableTime,
   RelatedPersonCommunication,
   PersonLink,
+  GroupMember,
+  GroupCharacteristic,
 } from './models/backbones';
 
 export const generateInstanceBackboneElement = (backboneType: BackboneElementTypeR4, data: any) => {
@@ -31,6 +33,10 @@ export const generateInstanceBackboneElement = (backboneType: BackboneElementTyp
       return new PractitionerRoleAvailableTime(data);
     case 'RelatedPersonCommunication':
       return new RelatedPersonCommunication(data);
+    case 'GroupMember':
+      return new GroupMember(data);
+    case 'GroupCharacteristic':
+      return new GroupCharacteristic(data);
 
     default:
       throw new Error(`BackboneElement ${backboneType} not supported`);

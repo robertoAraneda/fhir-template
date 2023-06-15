@@ -16,3 +16,7 @@ export { QuantityComparatorType } from './QuantityComparatorType';
 export { ResourceType } from './ResourceType';
 export { DatatypeType } from './DatatypeType';
 export { BackboneElementType } from './BackboneElementType';
+
+import GroupType from './GroupType';
+
+export { GroupType };

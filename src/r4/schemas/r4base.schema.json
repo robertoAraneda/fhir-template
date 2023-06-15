@@ -23,6 +23,9 @@
     },
     {
       "$ref": "r4base-resource.schema.json#/definitions/RelatedPerson"
+    },
+    {
+      "$ref": "r4base-resource.schema.json#/definitions/Group"
     }
   ],
   "definitions": {
@@ -48,6 +51,9 @@
         },
         {
           "$ref": "r4base-resource.schema.json#/definitions/RelatedPerson"
+        },
+        {
+          "$ref": "r4base-resource.schema.json#/definitions/Group"
         }
       ]
     },

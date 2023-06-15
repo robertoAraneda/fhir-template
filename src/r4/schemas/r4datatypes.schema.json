@@ -1,7 +1,7 @@
 {
   "$id": "r4datatypes.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Base FHIR Data Types",
+  "description": "Base FHIR Data Types for R4",
   "definitions": {
     "Element": {
       "description": "Base definition for all elements in a resource.",
@@ -787,6 +787,55 @@
       },
       "additionalProperties": false
     },
+    "SimpleQuantity": {
+      "description": "A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "The value of the measured amount. The value includes an implicit precision in the presentation of the value.",
+          "$ref": "r4base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "unit": {
+          "description": "A human-readable form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "_unit": {
+          "description": "Extensions for unit",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "The identification of the system that provides the coded form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A computer processable form of the unit in some unit representation system.",
+          "$ref": "r4base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
     "Duration": {
       "description": "A length of time.",
       "properties": {
@@ -840,6 +889,235 @@
         "_code": {
           "description": "Extensions for code",
           "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Distance": {
+      "description": "A length - a value with a unit that is a physical distance.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "The value of the measured amount. The value includes an implicit precision in the presentation of the value.",
+          "$ref": "r4base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "comparator": {
+          "description": "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is \"\u003c\" , then the real value is \u003c stated value.",
+          "enum": ["\u003c", "\u003c\u003d", "\u003e\u003d", "\u003e"]
+        },
+        "_comparator": {
+          "description": "Extensions for comparator",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "unit": {
+          "description": "A human-readable form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "_unit": {
+          "description": "Extensions for unit",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "The identification of the system that provides the coded form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A computer processable form of the unit in some unit representation system.",
+          "$ref": "r4base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Count": {
+      "description": "A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "The value of the measured amount. The value includes an implicit precision in the presentation of the value.",
+          "$ref": "r4base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "comparator": {
+          "description": "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is \"\u003c\" , then the real value is \u003c stated value.",
+          "enum": ["\u003c", "\u003c\u003d", "\u003e\u003d", "\u003e"]
+        },
+        "_comparator": {
+          "description": "Extensions for comparator",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "unit": {
+          "description": "A human-readable form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "_unit": {
+          "description": "Extensions for unit",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "The identification of the system that provides the coded form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A computer processable form of the unit in some unit representation system.",
+          "$ref": "r4base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Money": {
+      "description": "An amount of economic utility in some recognized currency.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "Numerical value (with implicit precision).",
+          "$ref": "r4base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "currency": {
+          "description": "ISO 4217 Currency Code.",
+          "$ref": "r4base.schema.json#/definitions/code"
+        },
+        "_currency": {
+          "description": "Extensions for currency",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Age": {
+      "description": "A duration of time during which an organism (or a process) has existed.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "The value of the measured amount. The value includes an implicit precision in the presentation of the value.",
+          "$ref": "r4base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "comparator": {
+          "description": "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is \"\u003c\" , then the real value is \u003c stated value.",
+          "enum": ["\u003c", "\u003c\u003d", "\u003e\u003d", "\u003e"]
+        },
+        "_comparator": {
+          "description": "Extensions for comparator",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "unit": {
+          "description": "A human-readable form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "_unit": {
+          "description": "Extensions for unit",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "The identification of the system that provides the coded form of the unit.",
+          "$ref": "r4base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A computer processable form of the unit in some unit representation system.",
+          "$ref": "r4base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Range": {
+      "description": "A set of ordered Quantities defined by a low and high limit.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "low": {
+          "description": "The low limit. The boundary is inclusive.",
+          "$ref": "r4datatypes.schema.json#/definitions/SimpleQuantity"
+        },
+        "high": {
+          "description": "The high limit. The boundary is inclusive.",
+          "$ref": "r4datatypes.schema.json#/definitions/SimpleQuantity"
         }
       },
       "additionalProperties": false

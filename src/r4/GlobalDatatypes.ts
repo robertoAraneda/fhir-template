@@ -11,7 +11,9 @@ import {
   IMeta,
   IPeriod,
   IQuantity,
+  IRange,
   IReference,
+  ISimpleQuantity,
 } from './interfaces/datatypes';
 import { Wait } from './validators/BackboneElementValidator';
 export interface IDatatypeValidatorProperties {
@@ -27,6 +29,8 @@ export interface IDatatypeValidatorProperties {
   Reference: (data: unknown) => Wait;
   Duration: (data: unknown) => Wait;
   Quantity: (data: unknown) => Wait;
+  Range: (data: unknown) => Wait;
+  SimpleQuantity: (data: unknown) => Wait;
 }
 
 export type DatatypeTypeR4 =
@@ -42,6 +46,8 @@ export type DatatypeTypeR4 =
   | 'Duration'
   | 'Extension'
   | 'Quantity'
+  | 'Range'
+  | 'SimpleQuantity'
   | 'Reference';
 
 export type ParseDataTypeR4<T> = T extends 'Address'
@@ -70,4 +76,8 @@ export type ParseDataTypeR4<T> = T extends 'Address'
   ? IReference
   : T extends 'Quantity'
   ? IQuantity
+  : T extends 'Range'
+  ? IRange
+  : T extends 'SimpleQuantity'
+  ? ISimpleQuantity
   : unknown;

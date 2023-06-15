@@ -14,4 +14,6 @@ export const ElementBuilder = {
   Duration: () => new DataTypesBuilder.DurationBuilder(),
   Extension: () => new DataTypesBuilder.ExtensionBuilder(),
   Quantity: () => new DataTypesBuilder.QuantityBuilder(),
+  Range: () => new DataTypesBuilder.RangeBuilder(),
+  SimpleQuantity: () => new DataTypesBuilder.SimpleQuantityBuilder(),
 };

@@ -11,6 +11,7 @@ const Practitioner = async (practitioner: unknown): Wait => _validateBaseResourc
 const PractitionerRole = async (practitionerRole: unknown): Wait =>
   _validateBaseResource(practitionerRole, 'PractitionerRole');
 const RelatedPerson = async (relatedPerson: unknown): Wait => _validateBaseResource(relatedPerson, 'RelatedPerson');
+const Group = async (group: unknown): Wait => _validateBaseResource(group, 'Group');
 
 export const ResourceValidator = {
   Patient,
@@ -20,4 +21,5 @@ export const ResourceValidator = {
   Practitioner,
   PractitionerRole,
   RelatedPerson,
+  Group,
 };

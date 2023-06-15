@@ -13,6 +13,8 @@ const PractitionerRoleAvailableTime = (data: unknown): Wait =>
   _validateBackbone(data, 'PractitionerRole_AvailableTime');
 const PractitionerRoleNotAvailable = (data: unknown): Wait => _validateBackbone(data, 'PractitionerRole_NotAvailable');
 const RelatedPersonCommunication = (data: unknown): Wait => _validateBackbone(data, 'RelatedPerson_Communication');
+const GroupCharacteristic = (data: unknown): Wait => _validateBackbone(data, 'Group_Characteristic');
+const GroupMember = (data: unknown): Wait => _validateBackbone(data, 'Group_Member');
 
 export const BackboneElementValidator = {
   OrganizationContact,
@@ -24,4 +26,6 @@ export const BackboneElementValidator = {
   PractitionerRoleAvailableTime,
   PractitionerRoleNotAvailable,
   RelatedPersonCommunication,
+  GroupMember,
+  GroupCharacteristic,
 };

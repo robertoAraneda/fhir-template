@@ -5,6 +5,7 @@ import PersonBuilder from './PersonBuilder';
 import PractitionerBuilder from './PractitionerBuilder';
 import PractitionerRoleBuilder from './PractitionerRoleBuilder';
 import RelatedPersonBuilder from './RelatedPersonBuilder';
+import GroupBuilder from './GroupBuilder';
 
 export {
   EndpointBuilder,
@@ -14,4 +15,5 @@ export {
   PractitionerBuilder,
   PractitionerRoleBuilder,
   RelatedPersonBuilder,
+  GroupBuilder,
 };

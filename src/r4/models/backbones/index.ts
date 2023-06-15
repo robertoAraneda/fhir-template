@@ -7,6 +7,8 @@ import PractitionerQualification from './PractitionerQualification';
 import PractitionerRoleAvailableTime from './PractitionerRoleAvailableTime';
 import PractitionerRoleNotAvailable from './PractitionerRoleNotAvailable';
 import RelatedPersonCommunication from './RelatedPersonCommunication';
+import GroupCharacteristic from './GroupCharacteristic';
+import GroupMember from './GroupMember';
 
 export {
   OrganizationContact,
@@ -18,4 +20,6 @@ export {
   PractitionerRoleAvailableTime,
   PractitionerRoleNotAvailable,
   RelatedPersonCommunication,
+  GroupCharacteristic,
+  GroupMember,
 };

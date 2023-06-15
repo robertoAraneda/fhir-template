@@ -1,9 +1,9 @@
 import { PractitionerRoleBuilder } from '../../../src/r5/builders/resources';
 import { IPractitionerRole } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
-import { Practitioner, PractitionerRole } from '../../../src/r5/models/resources';
+import { PractitionerRole } from '../../../src/r5/models/resources';
 
-describe('PractitionerRole', () => {
+describe('PractitionerRole FHIR R5', () => {
   let builder: PractitionerRoleBuilder;
   let builderFromFunction: PractitionerRoleBuilder;
   const context = new FHIRContext();

@@ -1,16 +1,18 @@
 import { RelatedPersonBuilder } from '../../../src/r5/builders/resources';
 import { IRelatedPerson } from '../../../src/r5/interfaces/resources';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
+import { RelatedPerson } from '../../../src/r5/models/resources';
 
-describe('RelatedPerson', () => {
-  const context = new FHIRContext();
-  let validator = context.forR5().validators.resources;
+describe('RelatedPerson FHIR R5', () => {
   let builder: RelatedPersonBuilder;
+  let builderFromFunction: RelatedPersonBuilder;
+  const context = new FHIRContext();
+  const { Validator, Builder, createResource } = context.forR5();
 
   // create global
   beforeEach(() => {
     builder = new RelatedPersonBuilder();
+    builderFromFunction = Builder.resources.RelatedPerson();
   });
 
   it('should be able to create a new coding and validate with correct data [Example RelatedPerson/benedicte]', async () => {
@@ -86,13 +88,13 @@ describe('RelatedPerson', () => {
       ],
     };
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/peter]', async () => {
-    const dataType: IRelatedPerson = {
+    const dataType = createResource('RelatedPerson', {
       resourceType: 'RelatedPerson',
       id: 'peter',
       text: {
@@ -145,16 +147,16 @@ describe('RelatedPerson', () => {
       period: {
         start: '2012-03-11',
       },
-    };
+    });
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/f001]', async () => {
-    const dataType: IRelatedPerson = {
+    const dataType = new RelatedPerson({
       resourceType: 'RelatedPerson',
       id: 'f001',
       text: {
@@ -203,9 +205,9 @@ describe('RelatedPerson', () => {
         },
       ],
       gender: 'female',
-    };
+    });
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -273,15 +275,60 @@ describe('RelatedPerson', () => {
       ],
     };
 
-    const validate = await validator.RelatedPerson(dataType);
+    const validate = await Validator.resources.RelatedPerson(dataType);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new coding using builder methods', async () => {
+  it('should be able to create a new coding using builder methods [new RelatedPersonBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .addName({
+        use: 'official',
+        family: 'Chalmers',
+        given: ['Peter', 'James'],
+      })
+      .addIdentifier({
+        use: 'official',
+        type: {
+          text: 'BSN',
+        },
+        system: 'urn:oid:2.16.840.1.113883.23',
+        value: '123456789',
+      })
+      .setGender('male')
+      .setBirthDate('1974-12-25')
+      .build();
+
+    expect(dataType).toBeDefined();
+    expect(dataType).toEqual({
+      birthDate: '1974-12-25',
+      gender: 'male',
+      identifier: [
+        {
+          system: 'urn:oid:2.16.840.1.113883.23',
+          type: {
+            text: 'BSN',
+          },
+          use: 'official',
+          value: '123456789',
+        },
+      ],
+      name: [
+        {
+          family: 'Chalmers',
+          given: ['Peter', 'James'],
+          use: 'official',
+        },
+      ],
+      resourceType: 'RelatedPerson',
+    });
+  });
+
+  it('should be able to create a new coding using builder methods [Builder.resource.RelatedPerson()]', async () => {
+    // build() is a method that returns the object that was built
+    const dataType = builderFromFunction
       .addName({
         use: 'official',
         family: 'Chalmers',

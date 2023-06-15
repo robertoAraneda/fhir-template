@@ -1,4 +1,12 @@
-import { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole } from './models/resources';
+import {
+  Endpoint,
+  Organization,
+  Patient,
+  Person,
+  Practitioner,
+  PractitionerRole,
+  RelatedPerson,
+} from './models/resources';
 import { ResourceTypeR5 } from './GlobalResourceTypes';
 
 export const generateInstanceResource = (resourceType: ResourceTypeR5, data: any) => {
@@ -16,6 +24,6 @@ export const generateInstanceResource = (resourceType: ResourceTypeR5, data: any
     case 'PractitionerRole':
       return new PractitionerRole(data);
     case 'RelatedPerson':
-      return new Endpoint(data);
+      return new RelatedPerson(data);
   }
 };

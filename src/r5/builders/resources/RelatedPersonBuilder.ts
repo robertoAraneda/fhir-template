@@ -17,9 +17,31 @@ import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { RelatedPerson } from '../../models/resources';
 
+interface IRelatedPersonBuilder extends IBuildable<RelatedPerson>, ISerializable {
+  addParamExtension(param: 'active' | 'gender' | 'birthDate', extension: IElement): RelatedPersonBuilder;
+  addIdentifier(identifier: IIdentifier): RelatedPersonBuilder;
+  addName(name: IHumanName): RelatedPersonBuilder;
+  addTelecom(telecom: IContactPoint): RelatedPersonBuilder;
+  addAddress(address: IAddress): RelatedPersonBuilder;
+  addPhoto(photo: IAttachment): RelatedPersonBuilder;
+  addCommunication(communication: IRelatedPersonCommunication): RelatedPersonBuilder;
+  addRelationship(relationship: ICodeableConcept): RelatedPersonBuilder;
+  setMultipleIdentifier(identifiers: IIdentifier[]): RelatedPersonBuilder;
+  setMultipleName(names: IHumanName[]): RelatedPersonBuilder;
+  setMultipleTelecom(telecoms: IContactPoint[]): RelatedPersonBuilder;
+  setMultipleAddress(addresses: IAddress[]): RelatedPersonBuilder;
+  setMultiplePhoto(photos: IAttachment[]): RelatedPersonBuilder;
+  setMultipleCommunication(communications: IRelatedPersonCommunication[]): RelatedPersonBuilder;
+  setMultipleRelationship(relationships: ICodeableConcept[]): RelatedPersonBuilder;
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): RelatedPersonBuilder;
+  setBirthDate(birthDate: string): RelatedPersonBuilder;
+  setPeriod(period: IPeriod): RelatedPersonBuilder;
+  setActive(active: boolean): RelatedPersonBuilder;
+  setPatient(patient: IReference): RelatedPersonBuilder;
+}
 export default class RelatedPersonBuilder
   extends DomainResourceBuilder<RelatedPersonBuilder>
-  implements IBuildable<RelatedPerson>, ISerializable
+  implements IRelatedPersonBuilder
 {
   private readonly relatedPerson: IRelatedPerson;
 
@@ -28,7 +50,7 @@ export default class RelatedPersonBuilder
     this.relatedPerson = new RelatedPerson();
   }
 
-  addRelatedPersonParamExtension(param: 'active' | 'gender' | 'birthDate', extension: IElement): RelatedPersonBuilder {
+  addParamExtension(param: 'active' | 'gender' | 'birthDate', extension: IElement): RelatedPersonBuilder {
     this.relatedPerson[`_${param}`] = extension;
     return this;
   }

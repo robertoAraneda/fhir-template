@@ -1,5 +1,6 @@
-import { IElement, IReference } from '../base';
+import { IElement } from '../base';
 import { ICodeableConcept } from './ICodeableConcept';
+import { IReference } from './IReference';
 
 /**
  * @description Reference to a resource or a concept.

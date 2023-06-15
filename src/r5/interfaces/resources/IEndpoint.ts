@@ -1,7 +1,7 @@
-import { EndpointStatusEnum } from '../../enums/EndpointStatusEnum';
+import { EndpointStatusEnum } from '../../enums';
 import { EndpointStatusType } from '../../types';
-import { IDomainResource, IElement, IReference } from '../base';
-import { ICodeableConcept, IContactPoint, IIdentifier, IPeriod } from '../datatypes';
+import { IDomainResource, IElement } from '../base';
+import { ICodeableConcept, IContactPoint, IIdentifier, IPeriod, IReference } from '../datatypes';
 import { IEndpointPayload } from '../backbones';
 
 export interface IEndpoint extends IDomainResource {

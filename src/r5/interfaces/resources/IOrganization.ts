@@ -1,5 +1,5 @@
-import { IDomainResource, IElement, IReference } from '../base';
-import { IIdentifier, ICodeableConcept, IExtendedContactDetail } from '../datatypes';
+import { IDomainResource, IElement } from '../base';
+import { IIdentifier, ICodeableConcept, IExtendedContactDetail, IReference } from '../datatypes';
 import { IOrganizationQualification } from '../backbones';
 
 /**

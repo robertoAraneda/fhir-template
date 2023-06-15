@@ -1,5 +1,5 @@
-import { ICodeableConcept, IIdentifier, IPeriod } from '../datatypes';
-import { IReference, IBackboneElement } from '../base';
+import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../datatypes';
+import { IBackboneElement } from '../base';
 
 /**
  * Qualifications, certifications, accreditations, licenses, training, etc. pertaining to the provision of care.

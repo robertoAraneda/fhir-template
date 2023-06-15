@@ -1,5 +1,12 @@
-import { IDomainResource, IElement, IReference } from '../base';
-import { IIdentifier, IPeriod, ICodeableConcept, IExtendedContactDetail, IAvailability } from '../datatypes';
+import { IDomainResource, IElement } from '../base';
+import {
+  IIdentifier,
+  IPeriod,
+  ICodeableConcept,
+  IExtendedContactDetail,
+  IAvailability,
+  IReference,
+} from '../datatypes';
 
 export interface IPractitionerRole extends IDomainResource {
   identifier?: IIdentifier[];

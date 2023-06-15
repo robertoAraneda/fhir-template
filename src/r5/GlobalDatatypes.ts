@@ -14,9 +14,9 @@ import {
   IMeta,
   IPeriod,
   IQuantity,
+  IReference,
   IVirtualServiceDetail,
 } from './interfaces/datatypes';
-import { IReference } from './interfaces/base';
 import { Wait } from './validators/BackboneElementValidator';
 export interface IDatatypeValidatorProperties {
   Address: (data: unknown) => Wait;

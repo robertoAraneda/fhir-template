@@ -5,3 +5,4 @@ export { IPractitionerRole } from './IPractitionerRole';
 export { IOrganization } from './IOrganization';
 export { IRelatedPerson } from './IRelatedPerson';
 export { IPerson } from './IPerson';
+export { IGroup } from './IGroup';

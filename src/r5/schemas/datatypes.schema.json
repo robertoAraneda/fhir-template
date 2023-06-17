@@ -1082,6 +1082,80 @@
         }
       },
       "additionalProperties": false
+    },
+    "Range": {
+      "description": "A set of ordered Quantities defined by a low and high limit.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "low": {
+          "description": "The low limit. The boundary is inclusive.",
+          "$ref": "datatypes.schema.json#/definitions/SimpleQuantity"
+        },
+        "high": {
+          "description": "The high limit. The boundary is inclusive.",
+          "$ref": "datatypes.schema.json#/definitions/SimpleQuantity"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimpleQuantity": {
+      "description": "A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "value": {
+          "description": "The value of the measured amount. The value includes an implicit precision in the presentation of the value.",
+          "$ref": "base.schema.json#/definitions/decimal"
+        },
+        "_value": {
+          "description": "Extensions for value",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "unit": {
+          "description": "A human-readable form of the unit.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "_unit": {
+          "description": "Extensions for unit",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "system": {
+          "description": "The identification of the system that provides the coded form of the unit.",
+          "$ref": "base.schema.json#/definitions/uri"
+        },
+        "_system": {
+          "description": "Extensions for system",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A computer processable form of the unit in some unit representation system.",
+          "$ref": "base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

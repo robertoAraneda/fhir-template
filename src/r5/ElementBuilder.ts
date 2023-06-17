@@ -18,4 +18,6 @@ export const ElementBuilder = {
   Extension: () => new DataTypesBuilder.ExtensionBuilder(),
   Quantity: () => new DataTypesBuilder.QuantityBuilder(),
   VirtualServiceDetail: () => new DataTypesBuilder.VirtualServiceDetailBuilder(),
+  SimpleQuantity: () => new DataTypesBuilder.SimpleQuantityBuilder(),
+  Range: () => new DataTypesBuilder.RangeBuilder(),
 };

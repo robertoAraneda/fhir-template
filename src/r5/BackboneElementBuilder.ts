@@ -11,4 +11,6 @@ export const BackboneElementBuilder = {
   PractitionerCommunication: () => new BackboneBuilder.PractitionerCommunicationBuilder(),
   PractitionerQualification: () => new BackboneBuilder.PractitionerQualificationBuilder(),
   RelatedPersonCommunication: () => new BackboneBuilder.RelatedPersonCommunicationBuilder(),
+  GroupMember: () => new BackboneBuilder.GroupMemberBuilder(),
+  GroupCharacteristic: () => new BackboneBuilder.GroupCharacteristicBuilder(),
 };

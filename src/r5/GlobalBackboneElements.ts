@@ -1,6 +1,8 @@
 import { Wait } from './validators/BackboneElementValidator';
 import {
   IEndpointPayload,
+  IGroupCharacteristic,
+  IGroupMember,
   IOrganizationQualification,
   IPatientCommunication,
   IPatientContact,
@@ -23,6 +25,8 @@ export interface IBackboneElementValidatorProperties {
   PractitionerCommunication: (data: unknown) => Wait;
   PractitionerQualification: (data: unknown) => Wait;
   RelatedPersonCommunication: (data: unknown) => Wait;
+  GroupMember: (data: unknown) => Wait;
+  GroupCharacteristic: (data: unknown) => Wait;
 }
 
 export type BackboneElementTypeR5 =
@@ -35,6 +39,8 @@ export type BackboneElementTypeR5 =
   | 'PersonLink'
   | 'PractitionerCommunication'
   | 'PractitionerQualification'
+  | 'GroupMember'
+  | 'GroupCharacteristic'
   | 'RelatedPersonCommunication';
 
 export type ParseBackboneElementTypeR5<T> = T extends 'PatientCommunication'
@@ -57,4 +63,8 @@ export type ParseBackboneElementTypeR5<T> = T extends 'PatientCommunication'
   ? IPractitionerQualification
   : T extends 'RelatedPersonCommunication'
   ? IRelatedPersonCommunication
+  : T extends 'GroupMember'
+  ? IGroupMember
+  : T extends 'GroupCharacteristic'
+  ? IGroupCharacteristic
   : never;

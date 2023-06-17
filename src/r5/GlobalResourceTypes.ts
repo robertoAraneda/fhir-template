@@ -1,6 +1,7 @@
 import { Wait } from './validators/BackboneElementValidator';
 import {
   IEndpoint,
+  IGroup,
   IOrganization,
   IPatient,
   IPerson,
@@ -17,6 +18,7 @@ export interface IResourceValidatorProperties {
   Practitioner: (data: unknown) => Wait;
   PractitionerRole: (data: unknown) => Wait;
   RelatedPerson: (data: unknown) => Wait;
+  Group: (data: unknown) => Wait;
 }
 
 export type ResourceTypeR5 =
@@ -26,6 +28,7 @@ export type ResourceTypeR5 =
   | 'Person'
   | 'Practitioner'
   | 'PractitionerRole'
+  | 'Group'
   | 'RelatedPerson';
 
 export type ParseResourceTypeR5<T> = T extends 'Patient'
@@ -42,4 +45,6 @@ export type ParseResourceTypeR5<T> = T extends 'Patient'
   ? IPractitionerRole
   : T extends 'RelatedPerson'
   ? IRelatedPerson
+  : T extends 'Group'
+  ? IGroup
   : never;

@@ -1,15 +1,15 @@
 import { BackboneElementValidator, Wait } from './validators/BackboneElementValidator';
-import { DataTypesValidator } from './validators/ElementValidator';
 import { ResourceValidator } from './validators/ResourceValidator';
 import { ResourceBuilder } from './ResourceBuilder';
 import { ElementBuilder } from './ElementBuilder';
 import { BackboneElementBuilder } from './BackboneElementBuilder';
-import { DataType, DatatypeTypeR5, IDatatypeValidatorProperties } from './GlobalDatatypes';
+import { ParseDataTypeR5, DataTypeR5, IDatatypeValidatorProperties } from './GlobalDatatypes';
 import { generateInstanceDatatype } from './InstanceBuilderDatatype';
 import { generateInstanceResource } from './InstanceBuilderResource';
 import { IResourceValidatorProperties, ParseResourceTypeR5, ResourceTypeR5 } from './GlobalResourceTypes';
 import { BackboneElementTypeR5, ParseBackboneElementTypeR5 } from './GlobalBackboneElements';
 import { generateInstanceBackboneElement } from './InstanceBuilderBackboneElement';
+import * as DataTypesValidator from './validators/ElementValidator';
 
 export interface IBackboneValidatorProperties {
   EndpointPayload: (data: unknown) => Wait;
@@ -22,6 +22,8 @@ export interface IBackboneValidatorProperties {
   PractitionerCommunication: (data: unknown) => Wait;
   PractitionerQualification: (data: unknown) => Wait;
   RelatedPersonCommunication: (data: unknown) => Wait;
+  GroupMember: (data: unknown) => Wait;
+  GroupCharacteristic: (data: unknown) => Wait;
 }
 
 export interface IValidatorContext {
@@ -30,25 +32,13 @@ export interface IValidatorContext {
   resources: IResourceValidatorProperties;
 }
 
-export type BackboneTypeR5 =
-  | 'PatientContact'
-  | 'PatientCommunication'
-  | 'PatientLink'
-  | 'PersonCommunication'
-  | 'PersonLink'
-  | 'PractitionerCommunication'
-  | 'PractitionerQualification'
-  | 'RelatedPersonCommunication'
-  | 'OrganizationQualification'
-  | 'EndpointPayload';
-
 export class FhirContextR5 {
   createResource<T extends ResourceTypeR5>(resourceType: T, data?: ParseResourceTypeR5<T>) {
     return generateInstanceResource(resourceType, data) as ParseResourceTypeR5<T>;
   }
 
-  createDatatype<T extends DatatypeTypeR5>(datatypeType: T, d: DataType<T>) {
-    return generateInstanceDatatype(datatypeType, d) as DataType<T>;
+  createDatatype<T extends DataTypeR5>(datatypeType: T, d: ParseDataTypeR5<T>) {
+    return generateInstanceDatatype(datatypeType, d) as ParseDataTypeR5<T>;
   }
 
   createBackboneElement<T extends BackboneElementTypeR5>(backboneType: T, data?: ParseBackboneElementTypeR5<T>) {

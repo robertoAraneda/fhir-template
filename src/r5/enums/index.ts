@@ -16,3 +16,7 @@ export { EndpointStatusEnum } from './EndpointStatusEnum';
 export { ResourceEnum } from './ResourceEnum';
 export { DatatypeEnum } from './DatatypeEnum';
 export { BackboneElementEnum } from './BackboneElementEnum';
+import GroupTypeEnum from './GroupTypeEnum';
+import GroupMembershipBasisEnum from './GroupMembershipBasisEnum';
+
+export { GroupTypeEnum, GroupMembershipBasisEnum };

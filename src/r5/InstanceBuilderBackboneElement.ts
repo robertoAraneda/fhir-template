@@ -23,6 +23,10 @@ export const generateInstanceBackboneElement = (backboneType: BackboneElementTyp
       return new backbones.RelatedPersonCommunication(data);
     case 'PractitionerCommunication':
       return new backbones.PractitionerCommunication(data);
+    case 'GroupMember':
+      return new backbones.GroupMember(data);
+    case 'GroupCharacteristic':
+      return new backbones.GroupCharacteristic(data);
 
     default:
       throw new Error(`BackboneElement ${backboneType} not supported`);

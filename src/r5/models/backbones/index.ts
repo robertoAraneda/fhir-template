@@ -8,6 +8,8 @@ import PersonLink from './PersonLink';
 import PractitionerQualification from './PractitionerQualification';
 import PractitionerCommunication from './PractitionerCommunication';
 import RelatedPersonCommunication from './RelatedPersonCommunication';
+import GroupCharacteristic from './GroupCharacteristic';
+import GroupMember from './GroupMember';
 
 export {
   PersonCommunication,
@@ -20,4 +22,6 @@ export {
   PatientContact,
   PractitionerQualification,
   RelatedPersonCommunication,
+  GroupMember,
+  GroupCharacteristic,
 };

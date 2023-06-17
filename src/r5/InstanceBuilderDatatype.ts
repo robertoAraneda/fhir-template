@@ -1,7 +1,7 @@
-import { DatatypeTypeR5 } from './GlobalDatatypes';
+import { DataTypeR5 } from './GlobalDatatypes';
 import * as datatype from './models/datatypes';
 
-export const generateInstanceDatatype = (resourceType: DatatypeTypeR5, data: any) => {
+export const generateInstanceDatatype = (resourceType: DataTypeR5, data: any) => {
   switch (resourceType) {
     case 'Address':
       return new datatype.Address(data);
@@ -37,6 +37,10 @@ export const generateInstanceDatatype = (resourceType: DatatypeTypeR5, data: any
       return new datatype.Attachment(data);
     case 'VirtualServiceDetail':
       return new datatype.VirtualServiceDetail(data);
+    case 'Range':
+      return new datatype.Range(data);
+    case 'SimpleQuantity':
+      return new datatype.SimpleQuantity(data);
     default:
       throw new Error(`Datatype ${resourceType} not supported`);
   }

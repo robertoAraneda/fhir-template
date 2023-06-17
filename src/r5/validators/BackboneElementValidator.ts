@@ -13,6 +13,8 @@ const PersonLink = (data: unknown): Wait => _validateBackbone(data, 'Person_Link
 const PractitionerCommunication = (data: unknown): Wait => _validateBackbone(data, 'Practitioner_Communication');
 const PractitionerQualification = (data: unknown): Wait => _validateBackbone(data, 'Practitioner_Qualification');
 const RelatedPersonCommunication = (data: unknown): Wait => _validateBackbone(data, 'RelatedPerson_Communication');
+const GroupCharacteristic = (data: unknown): Wait => _validateBackbone(data, 'Group_Characteristic');
+const GroupMember = (data: unknown): Wait => _validateBackbone(data, 'Group_Member');
 
 export const BackboneElementValidator = {
   EndpointPayload,
@@ -25,4 +27,6 @@ export const BackboneElementValidator = {
   PractitionerCommunication,
   PractitionerQualification,
   RelatedPersonCommunication,
+  GroupMember,
+  GroupCharacteristic,
 };

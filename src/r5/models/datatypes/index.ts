@@ -15,6 +15,8 @@ import Period from './Period';
 import Quantity from './Quantity';
 import VirtualServiceDetail from './VirtualServiceDetail';
 import Reference from './Reference';
+import Range from './Range';
+import SimpleQuantity from './SimpleQuantity';
 
 export {
   ExtendedContactDetail,
@@ -34,4 +36,6 @@ export {
   Address,
   CodeableReference,
   Reference,
+  Range,
+  SimpleQuantity,
 };

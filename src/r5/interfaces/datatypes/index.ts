@@ -18,3 +18,5 @@ export type { IQuantity } from './IQuantity';
 export type { IVirtualServiceDetail } from './IVirtualServiceDetail';
 export type { IReference } from './IReference';
 export type { INarrative } from './INarrative';
+export type { IRange } from './IRange';
+export type { ISimpleQuantity } from './ISimpleQuantity';

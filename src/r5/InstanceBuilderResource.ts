@@ -1,29 +1,25 @@
-import {
-  Endpoint,
-  Organization,
-  Patient,
-  Person,
-  Practitioner,
-  PractitionerRole,
-  RelatedPerson,
-} from './models/resources';
+import * as resource from './models/resources';
 import { ResourceTypeR5 } from './GlobalResourceTypes';
 
 export const generateInstanceResource = (resourceType: ResourceTypeR5, data: any) => {
   switch (resourceType) {
     case 'Patient':
-      return new Patient(data);
+      return new resource.Patient(data);
     case 'Organization':
-      return new Organization(data);
+      return new resource.Organization(data);
     case 'Endpoint':
-      return new Endpoint(data);
+      return new resource.Endpoint(data);
     case 'Person':
-      return new Person(data);
+      return new resource.Person(data);
     case 'Practitioner':
-      return new Practitioner(data);
+      return new resource.Practitioner(data);
     case 'PractitionerRole':
-      return new PractitionerRole(data);
+      return new resource.PractitionerRole(data);
     case 'RelatedPerson':
-      return new RelatedPerson(data);
+      return new resource.RelatedPerson(data);
+    case 'Group':
+      return new resource.Group(data);
+    default:
+      throw new Error(`Resource ${resourceType} not supported`);
   }
 };

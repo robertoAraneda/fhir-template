@@ -8,3 +8,5 @@ export type { IPersonLink as IPersonLink } from './IPersonLink';
 export type { IPractitionerQualification } from './IPractitionerQualification';
 export type { IPractitionerCommunication } from './IPractitionerCommunication';
 export type { IRelatedPersonCommunication } from './IRelatedPersonCommunication';
+export type { IGroupCharacteristic } from './IGroupCharacteristic';
+export type { IGroupMember } from './IGroupMember';

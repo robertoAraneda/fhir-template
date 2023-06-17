@@ -1,8 +1,8 @@
 import { FhirContextR5 } from './r5';
-import { DataType as DTR5, DatatypeTypeR5 } from './r5/GlobalDatatypes';
-import { ParseResourceTypeR5 as RTR5, ResourceTypeR5 } from './r5/GlobalResourceTypes';
-import { ParseDataTypeR4 as DTR4, DatatypeTypeR4 } from './r4/GlobalDatatypes';
-import { ParseResourceTypeR4 as RTR4, ResourceTypeR4 } from './r4/GlobalResourceTypes';
+import { ParseDataTypeR5, DataTypeR5 } from './r5/GlobalDatatypes';
+import { ParseResourceTypeR5, ResourceTypeR5 } from './r5/GlobalResourceTypes';
+import { ParseDataTypeR4, DatatypeTypeR4 } from './r4/GlobalDatatypes';
+import { ParseResourceTypeR4, ResourceTypeR4 } from './r4/GlobalResourceTypes';
 import { FhirContextR4 } from './r4';
 import { BackboneElementTypeR4, ParseBackboneElementTypeR4 } from './r4/GlobalBackboneElements';
 import { BackboneElementTypeR5, ParseBackboneElementTypeR5 } from './r5/GlobalBackboneElements';
@@ -12,10 +12,10 @@ class FHIRContext {
     return {
       Builder: new FhirContextR5().getBuilders(),
       Validator: new FhirContextR5().getValidator(),
-      createResource: <T extends ResourceTypeR5>(resourceType: T, data: RTR5<T>) => {
+      createResource: <T extends ResourceTypeR5>(resourceType: T, data: ParseResourceTypeR5<T>) => {
         return new FhirContextR5().createResource<T>(resourceType, data);
       },
-      createDatatype: <T extends DatatypeTypeR5>(datatypeType: T, data: DTR5<T>) => {
+      createDatatype: <T extends DataTypeR5>(datatypeType: T, data: ParseDataTypeR5<T>) => {
         return new FhirContextR5().createDatatype<T>(datatypeType, data);
       },
 
@@ -31,10 +31,10 @@ class FHIRContext {
     return {
       Builder: new FhirContextR4().getBuilders(),
       Validator: new FhirContextR4().getValidator(),
-      createResource: <T extends ResourceTypeR4>(resourceType: T, data: RTR4<T>) => {
+      createResource: <T extends ResourceTypeR4>(resourceType: T, data: ParseResourceTypeR4<T>) => {
         return new FhirContextR4().createResource<T>(resourceType, data);
       },
-      createDatatype: <T extends DatatypeTypeR4>(datatypeType: T, data: DTR4<T>) => {
+      createDatatype: <T extends DatatypeTypeR4>(datatypeType: T, data: ParseDataTypeR4<T>) => {
         return new FhirContextR4().createDatatype<T>(datatypeType, data);
       },
 

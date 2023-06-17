@@ -15,6 +15,8 @@ import ExtendedContactDetailBuilder from './ExtendedContactDetailBuilder';
 import ExtensionBuilder from './ExtensionBuilder';
 import QuantityBuilder from './QuantityBuilder';
 import VirtualServiceDetailBuilder from './VirtualServiceDetailBuilder';
+import SimpleQuantityBuilder from './SimpleQuantityBuilder';
+import RangeBuilder from './RangeBuilder';
 
 export {
   CodingBuilder,
@@ -34,4 +36,6 @@ export {
   ExtendedContactDetailBuilder,
   VirtualServiceDetailBuilder,
   DurationBuilder,
+  SimpleQuantityBuilder,
+  RangeBuilder,
 };

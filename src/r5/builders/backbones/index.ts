@@ -13,6 +13,8 @@ import PersonLinkBuilder from './PersonLinkBuilder';
 import PractitionerCommunicationBuilder from './PractitionerCommunicationBuilder';
 import PractitionerQualificationBuilder from './PractitionerQualificationBuilder';
 import RelatedPersonCommunicationBuilder from './RelatedPersonCommunicationBuilder';
+import GroupMemberBuilder from './GroupMemberBuilder';
+import GroupCharacteristicBuilder from './GroupCharacteristicBuilder';
 
 export {
   EncounterReasonBuilder,
@@ -30,4 +32,6 @@ export {
   PatientCommunicationBuilder,
   PatientContactBuilder,
   RelatedPersonCommunicationBuilder,
+  GroupMemberBuilder,
+  GroupCharacteristicBuilder,
 };

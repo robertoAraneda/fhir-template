@@ -120,7 +120,7 @@ export default class GroupBuilder extends DomainResourceBuilder<GroupBuilder> im
   }
 
   setMultipleCharacteristic(characteristics: IGroupCharacteristic[]): this {
-    //TODO Validate references
+    // TODO Validate references
     this.group.characteristic = characteristics;
     return this;
   }

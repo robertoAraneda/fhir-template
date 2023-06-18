@@ -36,7 +36,7 @@ export default class GroupBuilder extends DomainResourceBuilder<GroupBuilder> im
   }
 
   addCharacteristic(characteristic: IGroupCharacteristic): this {
-    //TODO Validate references
+    // TODO Validate references
     this.group.characteristic = this.group.characteristic || [];
     this.group.characteristic.push(characteristic);
     return this;

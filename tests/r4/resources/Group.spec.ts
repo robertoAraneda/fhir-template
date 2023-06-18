@@ -246,6 +246,7 @@ describe('Group FHIR R4', () => {
       .build();
 
     expect(group).toEqual({
+      resourceType: 'Group',
       active: true,
       member: [
         {
@@ -272,6 +273,7 @@ describe('Group FHIR R4', () => {
       .build();
 
     expect(group).toEqual({
+      resourceType: 'Group',
       active: true,
       member: [
         {

@@ -7,7 +7,7 @@ import { GroupMembershipBasisType, GroupType } from '../../types';
 
 export default class Group implements IGroup {
   // Resource Attributes
-  resourceType: string;
+  resourceType: string = 'Group';
   id?: number | string;
   meta?: IMeta;
   implicitRules?: string;

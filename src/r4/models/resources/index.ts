@@ -6,5 +6,6 @@ import Practitioner from './Practitioner';
 import PractitionerRole from './PractitionerRole';
 import RelatedPerson from './RelatedPerson';
 import Group from './Group';
+import Location from './Location';
 
-export { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole, RelatedPerson, Group };
+export { Endpoint, Organization, Patient, Person, Practitioner, PractitionerRole, RelatedPerson, Group, Location };

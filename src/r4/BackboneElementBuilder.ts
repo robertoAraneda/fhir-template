@@ -12,4 +12,6 @@ export const BackboneElementBuilder = {
   RelatedPersonCommunication: () => new BackboneBuilder.RelatedPersonCommunicationBuilder(),
   GroupCharacteristic: () => new BackboneBuilder.GroupCharacteristicBuilder(),
   GroupMember: () => new BackboneBuilder.GroupMemberBuilder(),
+  LocationPosition: () => new BackboneBuilder.LocationPositionBuilder(),
+  LocationHoursOfOperation: () => new BackboneBuilder.LocationHoursOfOperationBuilder(),
 };

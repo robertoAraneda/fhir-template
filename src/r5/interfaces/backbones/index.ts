@@ -10,3 +10,4 @@ export type { IPractitionerCommunication } from './IPractitionerCommunication';
 export type { IRelatedPersonCommunication } from './IRelatedPersonCommunication';
 export type { IGroupCharacteristic } from './IGroupCharacteristic';
 export type { IGroupMember } from './IGroupMember';
+export type { ILocationPosition } from './ILocationPosition';

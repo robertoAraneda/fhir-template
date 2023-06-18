@@ -18,5 +18,7 @@ export { DatatypeType } from './DatatypeType';
 export { BackboneElementType } from './BackboneElementType';
 
 import GroupType from './GroupType';
+import LocationStatusType from './LocationStatusType';
+import LocationModeType from './LocationModeType';
 
-export { GroupType };
+export { GroupType, LocationStatusType, LocationModeType };

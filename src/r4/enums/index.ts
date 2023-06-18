@@ -16,6 +16,9 @@ export { EndpointStatusEnum } from './EndpointStatusEnum';
 export { ResourceEnum } from './ResourceEnum';
 export { DatatypeEnum } from './DatatypeEnum';
 export { BackboneElementEnum } from './BackboneElementEnum';
-import GroupTypeEnum from './GroupTypeEnum';
 
-export { GroupTypeEnum };
+import GroupTypeEnum from './GroupTypeEnum';
+import LocationStatusEnum from './LocationStatusEnum';
+import LocationModeEnum from './LocationModeEnum';
+
+export { GroupTypeEnum, LocationStatusEnum, LocationModeEnum };

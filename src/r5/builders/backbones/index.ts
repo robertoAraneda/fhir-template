@@ -15,6 +15,7 @@ import PractitionerQualificationBuilder from './PractitionerQualificationBuilder
 import RelatedPersonCommunicationBuilder from './RelatedPersonCommunicationBuilder';
 import GroupMemberBuilder from './GroupMemberBuilder';
 import GroupCharacteristicBuilder from './GroupCharacteristicBuilder';
+import LocationPositionBuilder from './LocationPositionBuilder';
 
 export {
   EncounterReasonBuilder,
@@ -34,4 +35,5 @@ export {
   RelatedPersonCommunicationBuilder,
   GroupMemberBuilder,
   GroupCharacteristicBuilder,
+  LocationPositionBuilder,
 };

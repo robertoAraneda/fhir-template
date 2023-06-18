@@ -3,6 +3,7 @@ import {
   IEndpointPayload,
   IGroupCharacteristic,
   IGroupMember,
+  ILocationPosition,
   IOrganizationQualification,
   IPatientCommunication,
   IPatientContact,
@@ -27,6 +28,7 @@ export interface IBackboneElementValidatorProperties {
   RelatedPersonCommunication: (data: unknown) => Wait;
   GroupMember: (data: unknown) => Wait;
   GroupCharacteristic: (data: unknown) => Wait;
+  LocationPosition: (data: unknown) => Wait;
 }
 
 export type BackboneElementTypeR5 =
@@ -41,6 +43,7 @@ export type BackboneElementTypeR5 =
   | 'PractitionerQualification'
   | 'GroupMember'
   | 'GroupCharacteristic'
+  | 'LocationPosition'
   | 'RelatedPersonCommunication';
 
 export type ParseBackboneElementTypeR5<T> = T extends 'PatientCommunication'
@@ -67,4 +70,6 @@ export type ParseBackboneElementTypeR5<T> = T extends 'PatientCommunication'
   ? IGroupMember
   : T extends 'GroupCharacteristic'
   ? IGroupCharacteristic
+  : T extends 'LocationPosition'
+  ? ILocationPosition
   : never;

@@ -9,3 +9,5 @@ export type { IPractitionerRoleNotAvailable } from './IPractitionerRoleNotAvaila
 export type { IOrganizationContact } from './IOrganizationContact';
 export type { IGroupCharacteristic } from './IGroupCharacteristic';
 export type { IGroupMember } from './IGroupMember';
+export type { ILocationPosition } from './ILocationPosition';
+export type { ILocationHoursOfOperation } from './ILocationHoursOfOperation';

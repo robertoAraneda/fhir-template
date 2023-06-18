@@ -24,6 +24,7 @@ export interface IBackboneValidatorProperties {
   RelatedPersonCommunication: (data: unknown) => Wait;
   GroupMember: (data: unknown) => Wait;
   GroupCharacteristic: (data: unknown) => Wait;
+  LocationPosition: (data: unknown) => Wait;
 }
 
 export interface IValidatorContext {

@@ -9,6 +9,8 @@ import PractitionerRoleNotAvailableBuilder from './PractitionerRoleNotAvailableB
 import RelatedPersonCommunicationBuilder from './RelatedPersonCommunicationBuilder';
 import GroupMemberBuilder from './GroupMemberBuilder';
 import GroupCharacteristicBuilder from './GroupCharacteristicBuilder';
+import LocationHoursOfOperationBuilder from './LocationHoursOfOperationBuilder';
+import LocationPositionBuilder from './LocationPositionBuilder';
 
 export {
   OrganizationContactBuilder,
@@ -22,4 +24,6 @@ export {
   RelatedPersonCommunicationBuilder,
   GroupCharacteristicBuilder,
   GroupMemberBuilder,
+  LocationPositionBuilder,
+  LocationHoursOfOperationBuilder,
 };

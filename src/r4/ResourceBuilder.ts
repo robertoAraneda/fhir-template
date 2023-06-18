@@ -9,4 +9,5 @@ export const ResourceBuilder = {
   PractitionerRole: () => new ResourceBuilders.PractitionerRoleBuilder(),
   RelatedPerson: () => new ResourceBuilders.RelatedPersonBuilder(),
   Group: () => new ResourceBuilders.GroupBuilder(),
+  Location: () => new ResourceBuilders.LocationBuilder(),
 };

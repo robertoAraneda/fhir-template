@@ -26,6 +26,9 @@
     },
     {
       "$ref": "r4base-resource.schema.json#/definitions/Group"
+    },
+    {
+      "$ref": "r4base-resource.schema.json#/definitions/Location"
     }
   ],
   "definitions": {
@@ -54,6 +57,9 @@
         },
         {
           "$ref": "r4base-resource.schema.json#/definitions/Group"
+        },
+        {
+          "$ref": "r4base-resource.schema.json#/definitions/Location"
         }
       ]
     },

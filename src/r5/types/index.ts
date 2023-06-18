@@ -19,5 +19,7 @@ export { BackboneElementType } from './BackboneElementType';
 
 import GroupType from './GroupType';
 import GroupMembershipBasisType from './GroupMembershipBasisType';
+import LocationStatusType from './LocationStatusType';
+import LocationModeType from './LocationModeType';
 
-export { GroupType, GroupMembershipBasisType };
+export { GroupType, GroupMembershipBasisType, LocationStatusType, LocationModeType };

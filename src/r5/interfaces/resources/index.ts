@@ -6,3 +6,4 @@ export { IOrganization } from './IOrganization';
 export { IRelatedPerson } from './IRelatedPerson';
 export { IPerson } from './IPerson';
 export { IGroup } from './IGroup';
+export { ILocation } from './ILocation';

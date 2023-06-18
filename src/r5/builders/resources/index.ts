@@ -6,6 +6,7 @@ import PractitionerBuilder from './PractitionerBuilder';
 import PractitionerRoleBuilder from './PractitionerRoleBuilder';
 import RelatedPersonBuilder from './RelatedPersonBuilder';
 import GroupBuilder from './GroupBuilder';
+import LocationBuilder from './LocationBuilder';
 
 export {
   PatientBuilder,
@@ -16,4 +17,5 @@ export {
   RelatedPersonBuilder,
   EndpointBuilder,
   GroupBuilder,
+  LocationBuilder,
 };

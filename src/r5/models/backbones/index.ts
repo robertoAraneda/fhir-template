@@ -10,6 +10,7 @@ import PractitionerCommunication from './PractitionerCommunication';
 import RelatedPersonCommunication from './RelatedPersonCommunication';
 import GroupCharacteristic from './GroupCharacteristic';
 import GroupMember from './GroupMember';
+import LocationPosition from './LocationPosition';
 
 export {
   PersonCommunication,
@@ -24,4 +25,5 @@ export {
   RelatedPersonCommunication,
   GroupMember,
   GroupCharacteristic,
+  LocationPosition,
 };

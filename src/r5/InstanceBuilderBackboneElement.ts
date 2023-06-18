@@ -27,6 +27,8 @@ export const generateInstanceBackboneElement = (backboneType: BackboneElementTyp
       return new backbones.GroupMember(data);
     case 'GroupCharacteristic':
       return new backbones.GroupCharacteristic(data);
+    case 'LocationPosition':
+      return new backbones.LocationPosition(data);
 
     default:
       throw new Error(`BackboneElement ${backboneType} not supported`);

@@ -3,6 +3,54 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "Base FHIR Backbone Elements",
   "definitions": {
+    "Location_Position": {
+      "description": "Details and position information for a physical place where services are provided and resources and participants may be stored, found, contained, or accommodated.",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "longitude": {
+          "description": "Longitude. The value domain and the interpretation are the same as for the text of the longitude element in KML (see notes below).",
+          "$ref": "base.schema.json#/definitions/decimal"
+        },
+        "_longitude": {
+          "description": "Extensions for longitude",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "latitude": {
+          "description": "Latitude. The value domain and the interpretation are the same as for the text of the latitude element in KML (see notes below).",
+          "$ref": "base.schema.json#/definitions/decimal"
+        },
+        "_latitude": {
+          "description": "Extensions for latitude",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        },
+        "altitude": {
+          "description": "Altitude. The value domain and the interpretation are the same as for the text of the altitude element in KML (see notes below).",
+          "$ref": "base.schema.json#/definitions/decimal"
+        },
+        "_altitude": {
+          "description": "Extensions for altitude",
+          "$ref": "datatypes.schema.json#/definitions/Element"
+        }
+      },
+      "additionalProperties": false
+    },
     "Group_Characteristic": {
       "description": "Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively, and are not formally or legally recognized; i.e. a collection of entities that isn\u0027t an Organization.",
       "properties": {

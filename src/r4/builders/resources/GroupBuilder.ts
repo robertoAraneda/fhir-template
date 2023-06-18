@@ -1,6 +1,6 @@
 import { DomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { IGroup } from '../../interfaces/resources/IGroup';
+import { IGroup } from '../../interfaces/resources';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, IIdentifier, IReference } from '../../interfaces/datatypes';
 import { GroupTypeEnum } from '../../enums';

@@ -29,6 +29,16 @@ export const generateInstanceBackboneElement = (backboneType: BackboneElementTyp
       return new backbone.LocationHoursOfOperation(data);
     case 'LocationPosition':
       return new backbone.LocationPosition(data);
+    case 'BundleEntryRequest':
+      return new backbone.BundleEntryRequest(data);
+    case 'BundleEntryResponse':
+      return new backbone.BundleEntryResponse(data);
+    case 'BundleEntrySearch':
+      return new backbone.BundleEntrySearch(data);
+    case 'BundleEntry':
+      return new backbone.BundleEntry(data);
+    case 'BundleLink':
+      return new backbone.BundleLink(data);
 
     default:
       throw new Error(`BackboneElement ${backboneType} not supported`);

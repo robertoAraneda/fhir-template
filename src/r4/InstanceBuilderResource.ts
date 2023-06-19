@@ -21,6 +21,8 @@ export const generateInstanceResource = (resourceType: ResourceTypeR4, data: any
       return new resource.RelatedPerson(data);
     case 'Location':
       return new resource.Location(data);
+    case 'Bundle':
+      return new resource.Bundle(data);
 
     default:
       throw new Error(`Resource ${resourceType} not supported`);

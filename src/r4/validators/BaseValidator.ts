@@ -1,4 +1,4 @@
-import Ajv, { ErrorObject, SchemaObject, ValidateFunction } from 'ajv';
+import Ajv, { SchemaObject } from 'ajv';
 import * as defSchema from '../schemas/r4base.schema.json';
 import * as extensionSchema from '../schemas/r4extension.schema.json';
 import * as datatypeSchema from '../schemas/r4datatypes.schema.json';
@@ -43,6 +43,8 @@ const extractSchemaFromDefinition = (definition: string, schemaName: string) => 
     schema = backboneSchema;
   } else if (schemaName === 'BaseResource') {
     schema = baseResourceSchema;
+  } else if (schemaName === 'Extension') {
+    schema = extensionSchema;
   }
 
   return schema.definitions[definition];
@@ -90,7 +92,11 @@ export const _validateDataType = async (data: any, entity: string): Promise<IVal
     throw new Error('Data must be a JSON object');
   }
 
-  const schema = extractSchemaFromDefinition(entity, 'DataType');
+  let schema = extractSchemaFromDefinition(entity, 'DataType');
+
+  if (entity === 'Extension') {
+    schema = extractSchemaFromDefinition(entity, 'Extension');
+  }
 
   return _validate(schema, data);
 };

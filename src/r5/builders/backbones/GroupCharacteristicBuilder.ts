@@ -46,18 +46,18 @@ export default class GroupCharacteristicBuilder
     if (!this.groupCharacteristic.exclude && !this.groupCharacteristic._exclude) {
       throw Error('GroupCharacteristicBuilder - build(): requires exclude or _exclude');
     }
-    return JSON.parse(this.serialize());
+    return JSON.parse(this.buildAsString());
   }
 
-  raw(): IGroupCharacteristic {
+  compileAsDefault(): IGroupCharacteristic {
     return {
       ...this.groupCharacteristic,
       ...super.entity(),
     };
   }
 
-  serialize(): string {
-    return JSON.stringify(this.raw());
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
   }
 
   setCode(code: ICodeableConcept): this {

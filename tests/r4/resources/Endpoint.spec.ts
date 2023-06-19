@@ -1,74 +1,15 @@
-import { EndpointBuilder } from '../../../src/r4/builders/resources';
 import { IEndpoint } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { Endpoint } from '../../../src/r4/models/resources';
+import { IEndpointBuilder } from '../../../src/r4/models/resources/Endpoint';
 
 describe('Endpoint Resource FHIR R4', () => {
-  let builder: EndpointBuilder;
-  let builderFromFunction: EndpointBuilder;
+  let builder: IEndpointBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR4();
+  const { Endpoint, Validator } = context.forR4();
 
   // create global
   beforeEach(() => {
-    builder = new EndpointBuilder();
-    builderFromFunction = Builder.resources.Endpoint();
-  });
-
-  // create global
-
-  it('should be able to create a new endpoint and validate with correct data [Endpoint-example.json]', async () => {
-    const resource = createResource('Endpoint', {
-      resourceType: 'Endpoint',
-      id: 'example',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tHealth Intersections CarePlan Hub<br/>\n\t\t\tCarePlans can be uploaded to/from this loccation\n\t\t</div>',
-      },
-      identifier: [
-        {
-          system: 'http://example.org/enpoint-identifier',
-          value: 'epcp12',
-        },
-      ],
-      status: 'active',
-      connectionType: {
-        system: 'http://terminology.hl7.org/CodeSystem/endpoint-connection-type',
-        code: 'hl7-fhir-rest',
-      },
-      name: 'Health Intersections CarePlan Hub',
-      managingOrganization: {
-        reference: 'Organization/hl7',
-      },
-      contact: [
-        {
-          system: 'email',
-          value: 'endpointmanager@example.org',
-          use: 'work',
-        },
-      ],
-      period: {
-        start: '2014-09-01',
-      },
-      payloadType: [
-        {
-          coding: [
-            {
-              system: 'http://hl7.org/fhir/resource-types',
-              code: 'CarePlan',
-            },
-          ],
-        },
-      ],
-      payloadMimeType: ['application/fhir+xml'],
-      address: 'http://fhir3.healthintersections.com.au/open/CarePlan',
-      header: ['bearer-code BASGS534s4'],
-    });
-
-    const validate = await Validator.resources.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = Endpoint.builder();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Endpoint-example-iid.json]', async () => {
@@ -92,7 +33,7 @@ describe('Endpoint Resource FHIR R4', () => {
       ],
       address: 'https://pacs.hospital.org/IHEInvokeImageDisplay',
     });
-    const validate = await Validator.resources.Endpoint(resource);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -120,8 +61,7 @@ describe('Endpoint Resource FHIR R4', () => {
       payloadMimeType: ['application/dicom'],
       address: 'https://pacs.hospital.org/wado-rs',
     };
-
-    const validate = await Validator.resources.Endpoint(resource);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -156,14 +96,14 @@ describe('Endpoint Resource FHIR R4', () => {
       address: 'mailto:MARTIN.SMIETANKA@directnppes.com',
     };
 
-    const validate = await Validator.resources.Endpoint(resource);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new endpoint and validate with wrong data', async () => {
-    const dataType = {
+    const resource = {
       resourceType: 'Endpoint',
       id: 'example-wadors',
       text: {
@@ -185,7 +125,7 @@ describe('Endpoint Resource FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.resources.Endpoint(dataType);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -229,52 +169,23 @@ describe('Endpoint Resource FHIR R4', () => {
       },
     ]);
   });
-  it('should be able to create a new endpoint using builder methods [Builder.resources.EndpointBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setId('example-wadors')
-      .setText({
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tExample of an Imaging DICOM WADO-RS type endpoint\n\t\t</div>',
-      })
-
-      .setAddress('https://pacs.hospital.org/wado-rs')
-      .setStatus('active')
-      .setName('PACS Hospital DICOM WADO-RS endpoint')
-      .setConnectionType({
-        system: 'http://terminology.hl7.org/CodeSystem/endpoint-connection-type',
-        code: 'dicom-wado-rs',
-      })
-      .setAddress('https://pacs.hospital.org/wado-rs')
-      .build();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      address: 'https://pacs.hospital.org/wado-rs',
-      connectionType: {
-        code: 'dicom-wado-rs',
-        system: 'http://terminology.hl7.org/CodeSystem/endpoint-connection-type',
-      },
-      id: 'example-wadors',
-      name: 'PACS Hospital DICOM WADO-RS endpoint',
-      resourceType: 'Endpoint',
-      status: 'active',
-      text: {
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tExample of an Imaging DICOM WADO-RS type endpoint\n\t\t</div>',
-        status: 'generated',
-      },
-    });
-  });
 
   it('should be able to create a new endpoint using builder methods [new EndpointBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const resource = builder
       .setId('example-wadors')
       .setText({
         status: 'generated',
         div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tExample of an Imaging DICOM WADO-RS type endpoint\n\t\t</div>',
       })
-
+      .addPayloadType({
+        coding: [
+          {
+            code: 'application/dicom',
+            system: 'urn:dicom:uid',
+          },
+        ],
+      })
       .setAddress('https://pacs.hospital.org/wado-rs')
       .setStatus('active')
       .setName('PACS Hospital DICOM WADO-RS endpoint')
@@ -285,8 +196,12 @@ describe('Endpoint Resource FHIR R4', () => {
       .setAddress('https://pacs.hospital.org/wado-rs')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    const validate = await Validator.Endpoint(resource);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+    expect(resource).toBeDefined();
+    expect(resource).toEqual({
       address: 'https://pacs.hospital.org/wado-rs',
       connectionType: {
         code: 'dicom-wado-rs',
@@ -294,6 +209,16 @@ describe('Endpoint Resource FHIR R4', () => {
       },
       id: 'example-wadors',
       name: 'PACS Hospital DICOM WADO-RS endpoint',
+      payloadType: [
+        {
+          coding: [
+            {
+              code: 'application/dicom',
+              system: 'urn:dicom:uid',
+            },
+          ],
+        },
+      ],
       resourceType: 'Endpoint',
       status: 'active',
       text: {

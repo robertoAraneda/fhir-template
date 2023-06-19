@@ -13,6 +13,7 @@ import Quantity from './Quantity';
 import Reference from './Reference';
 import Range from './Range';
 import SimpleQuantity from './SimpleQuantity';
+import Signature from './Signature';
 
 export {
   Address,
@@ -30,4 +31,5 @@ export {
   Reference,
   SimpleQuantity,
   Range,
+  Signature,
 };

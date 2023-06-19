@@ -29,6 +29,9 @@
     },
     {
       "$ref": "r4base-resource.schema.json#/definitions/Location"
+    },
+    {
+      "$ref": "r4base-resource.schema.json#/definitions/Bundle"
     }
   ],
   "definitions": {
@@ -60,6 +63,9 @@
         },
         {
           "$ref": "r4base-resource.schema.json#/definitions/Location"
+        },
+        {
+          "$ref": "r4base-resource.schema.json#/definitions/Bundle"
         }
       ]
     },

@@ -11,3 +11,8 @@ export type { IGroupCharacteristic } from './IGroupCharacteristic';
 export type { IGroupMember } from './IGroupMember';
 export type { ILocationPosition } from './ILocationPosition';
 export type { ILocationHoursOfOperation } from './ILocationHoursOfOperation';
+export type { IBundleEntry } from './IBundleEntry';
+export type { IBundleLink } from './IBundleLink';
+export type { IBundleEntrySearch } from './IBundleEntrySearch';
+export type { IBundleEntryRequest } from './IBundleEntryRequest';
+export type { IBundleEntryResponse } from './IBundleEntryResponse';

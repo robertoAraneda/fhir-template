@@ -1,30 +1,15 @@
 import FHIRContext from '../../../src';
-import { LocationPosition } from '../../../src/r4/models/backbones';
-import { LocationPositionBuilder } from '../../../src/r4/builders/backbones';
 import { ILocationPosition } from '../../../src/r4/interfaces/backbones';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { ILocationPositionBuilder } from '../../../src/r4/models/backbones/LocationPosition';
 
 describe('LocationPosition FHIR R4', () => {
-  let builder: LocationPositionBuilder;
-  let builderFromFunction: LocationPositionBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: ILocationPositionBuilder;
+  const { LocationPosition } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new LocationPositionBuilder();
-    builderFromFunction = Builder.backboneElements.LocationPosition();
-  });
-
-  it('should be able to validate a new location_position [createBackboneElement]', async () => {
-    const item = createBackboneElement('LocationPosition', {
-      id: '123',
-      altitude: 123,
-      latitude: 123,
-      longitude: 123,
-    });
-
-    const validate = await Validator.backboneElements.LocationPosition(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = LocationPosition.builder();
   });
 
   it('should be able to validate a new location_position [new LocationPosition()]', async () => {
@@ -35,9 +20,9 @@ describe('LocationPosition FHIR R4', () => {
       longitude: 123,
     });
 
-    const validateAddress = await Validator.backboneElements.LocationPosition(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Location_Position');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new location_position [ILocationPosition]', async () => {
@@ -48,13 +33,13 @@ describe('LocationPosition FHIR R4', () => {
       longitude: 123,
     };
 
-    const validate = await Validator.backboneElements.LocationPosition(item);
+    const validate = await _validateBackbone(item, 'Location_Position');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new location_position using builder methods [new LocationPositionBuilder()]', async () => {
+  it('should be able to create a new location_position using builder methods [LocationPosition.builder()]', async () => {
     const item = builder
       .setId('123')
       .setLatitude(123)
@@ -70,37 +55,10 @@ describe('LocationPosition FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      _latitude: {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      },
-      altitude: 123,
-      id: '123',
-      latitude: 123,
-      longitude: 123,
-    });
-  });
+    const validate = await _validateBackbone(item, 'Location_Position');
 
-  it('should be able to create a new location_position using builder methods [Builder.backboneElements.LocationPosition()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setLatitude(123)
-      .setLongitude(123)
-      .setAltitude(123)
-      .addParamExtension('latitude', {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _latitude: {
@@ -124,7 +82,7 @@ describe('LocationPosition FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await Validator.backboneElements.LocationPosition(item);
+    const validate = await _validateBackbone(item, 'Location_Position');
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(1);

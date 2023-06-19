@@ -1,38 +1,15 @@
 import FHIRContext from '../../../src';
-import { PractitionerQualification } from '../../../src/r4/models/backbones';
-import { PractitionerQualificationBuilder } from '../../../src/r4/builders/backbones';
 import { IPractitionerQualification } from '../../../src/r4/interfaces/backbones';
+import { IPractitionerQualificationBuilder } from '../../../src/r4/models/backbones/PractitionerQualification';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 
 describe('PractitionerQualification FHIR R4', () => {
-  let builder: PractitionerQualificationBuilder;
-  let builderFromFunction: PractitionerQualificationBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: IPractitionerQualificationBuilder;
+  const { PractitionerQualification } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PractitionerQualificationBuilder();
-    builderFromFunction = Builder.backboneElements.PractitionerQualification();
-  });
-
-  it('should be able to validate a new practitioner_qualification [createBackboneElement]', async () => {
-    const backboneElement = createBackboneElement('PractitionerQualification', {
-      id: '123',
-      code: {
-        coding: [
-          {
-            code: '123',
-            system: 'system',
-          },
-        ],
-      },
-      issuer: {
-        reference: 'Organization/123',
-      },
-    });
-
-    const validate = await Validator.backboneElements.PractitionerQualification(backboneElement);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = PractitionerQualification.builder();
   });
 
   it('should be able to validate a new practitioner_qualification [new PractitionerQualification()]', async () => {
@@ -51,9 +28,9 @@ describe('PractitionerQualification FHIR R4', () => {
       },
     });
 
-    const validateAddress = await Validator.backboneElements.PractitionerQualification(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new practitioner_qualification [IPractitionerQualification]', async () => {
@@ -72,8 +49,7 @@ describe('PractitionerQualification FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.PractitionerQualification(item);
-
+    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -98,45 +74,9 @@ describe('PractitionerQualification FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      code: {
-        coding: [
-          {
-            code: '123',
-            system: 'system',
-          },
-        ],
-      },
-      id: '123',
-      issuer: {
-        reference: 'Organization/123',
-      },
-      period: {
-        end: '2020-01-01',
-        start: '2020-01-01',
-      },
-    });
-  });
-
-  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setCode({
-        coding: [
-          {
-            code: '123',
-            system: 'system',
-          },
-        ],
-      })
-      .setIssuer({
-        reference: 'Organization/123',
-      })
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-01',
-      })
-      .build();
+    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       code: {
@@ -164,7 +104,8 @@ describe('PractitionerQualification FHIR R4', () => {
       wrongProperty: '123',
     };
 
-    const validate = await Validator.backboneElements.PractitionerQualification(item);
+    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
+
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(2);

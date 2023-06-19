@@ -98,18 +98,18 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   build(): Location {
-    return JSON.parse(this.serialize());
+    return JSON.parse(this.buildAsString());
   }
 
-  raw(): Location {
+  compileAsDefault(): Location {
     return {
       ...this.location,
       ...super.entity(),
     };
   }
 
-  serialize(): string {
-    return JSON.stringify(this.raw());
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
   }
 
   setAddress(address: IAddress): this {

@@ -1,36 +1,15 @@
 import FHIRContext from '../../../src';
-import { PatientCommunication } from '../../../src/r4/models/backbones';
-import { PatientCommunicationBuilder } from '../../../src/r4/builders/backbones';
 import { IPatientCommunication } from '../../../src/r4/interfaces/backbones';
+import { IPatientCommunicationBuilder } from '../../../src/r4/models/backbones/PatientCommunication';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 
 describe('PatientCommunication FHIR R4', () => {
-  let builder: PatientCommunicationBuilder;
-  let builderFromFunction: PatientCommunicationBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: IPatientCommunicationBuilder;
+  const { PatientCommunication } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PatientCommunicationBuilder();
-    builderFromFunction = Builder.backboneElements.PatientCommunication();
-  });
-
-  it('should be able to validate a new patient_communication [createBackboneElement]', async () => {
-    const backboneElement = createBackboneElement('PatientCommunication', {
-      id: '123',
-      preferred: true,
-      language: {
-        coding: [
-          {
-            code: '123',
-            system: 'system',
-          },
-        ],
-      },
-    });
-
-    const validate = await Validator.backboneElements.PatientCommunication(backboneElement);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = PatientCommunication.builder();
   });
 
   it('should be able to validate a new patient_communication [new PatientCommunication()]', async () => {
@@ -47,9 +26,9 @@ describe('PatientCommunication FHIR R4', () => {
       },
     });
 
-    const validateAddress = await Validator.backboneElements.PatientCommunication(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Patient_Communication');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new patient_communication [IPatientCommunication]', async () => {
@@ -66,7 +45,7 @@ describe('PatientCommunication FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.PatientCommunication(item);
+    const validate = await _validateBackbone(item, 'Patient_Communication');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -76,6 +55,14 @@ describe('PatientCommunication FHIR R4', () => {
     const item = builder
       .setId('123')
       .setPreferred(true)
+      .setLanguage({
+        coding: [
+          {
+            code: '123',
+            system: 'system',
+          },
+        ],
+      })
       .addParamExtension('preferred', {
         extension: [
           {
@@ -85,6 +72,11 @@ describe('PatientCommunication FHIR R4', () => {
         ],
       })
       .build();
+
+    const validate = await _validateBackbone(item, 'Patient_Communication');
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _preferred: {
@@ -96,34 +88,14 @@ describe('PatientCommunication FHIR R4', () => {
         ],
       },
       id: '123',
-      preferred: true,
-    });
-  });
-
-  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setPreferred(true)
-      .addParamExtension('preferred', {
-        extension: [
+      language: {
+        coding: [
           {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      })
-      .build();
-
-    expect(item).toEqual({
-      _preferred: {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
+            code: '123',
+            system: 'system',
           },
         ],
       },
-      id: '123',
       preferred: true,
     });
   });
@@ -141,7 +113,8 @@ describe('PatientCommunication FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.PatientCommunication(item);
+    const validate = await _validateBackbone(item, 'Patient_Communication');
+
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(2);

@@ -11,6 +11,11 @@ import GroupCharacteristic from './GroupCharacteristic';
 import GroupMember from './GroupMember';
 import LocationPosition from './LocationPosition';
 import LocationHoursOfOperation from './LocationHoursOfOperation';
+import BundleEntry from './BundleEntry';
+import BundleLink from './BundleLink';
+import BundleEntryRequest from './BundleEntryRequest';
+import BundleEntryResponse from './BundleEntryResponse';
+import BundleEntrySearch from './BundleEntrySearch';
 
 export {
   OrganizationContact,
@@ -26,4 +31,9 @@ export {
   GroupMember,
   LocationPosition,
   LocationHoursOfOperation,
+  BundleEntryRequest,
+  BundleEntryResponse,
+  BundleEntrySearch,
+  BundleEntry,
+  BundleLink,
 };

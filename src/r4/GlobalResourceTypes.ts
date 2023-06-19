@@ -8,8 +8,9 @@ import {
   IPractitioner,
   IPractitionerRole,
   IRelatedPerson,
+  IGroup,
 } from './interfaces/resources';
-import { IGroup } from './interfaces/resources/IGroup';
+import { IBundle } from './interfaces/resources/IBundle';
 
 export interface IResourceValidatorProperties {
   Patient: (data: unknown) => Wait;
@@ -21,6 +22,7 @@ export interface IResourceValidatorProperties {
   RelatedPerson: (data: unknown) => Wait;
   Group: (data: unknown) => Wait;
   Location: (data: unknown) => Wait;
+  Bundle: (data: unknown) => Wait;
 }
 
 export type ResourceTypeR4 =
@@ -32,6 +34,7 @@ export type ResourceTypeR4 =
   | 'PractitionerRole'
   | 'Group'
   | 'Location'
+  | 'Bundle'
   | 'RelatedPerson';
 
 export type ParseResourceTypeR4<T> = T extends 'Patient'
@@ -52,4 +55,6 @@ export type ParseResourceTypeR4<T> = T extends 'Patient'
   ? IGroup
   : T extends 'Location'
   ? ILocation
+  : T extends 'Bundle'
+  ? IBundle
   : never;

@@ -2,7 +2,7 @@ import { ResourceBuilder } from './ResourceBuilder';
 import { IDomainResource, IResource } from '../../interfaces/base';
 import { INarrative, IExtension } from '../../interfaces/datatypes';
 
-interface IDomainResourceBuilder<BuilderClass> {
+export interface IDomainResourceBuilder<BuilderClass> {
   setText(text: INarrative): BuilderClass;
   addContained(contained: IResource): BuilderClass;
   setMultipleContained(contained: IResource[]): BuilderClass;
@@ -35,13 +35,15 @@ export class DomainResourceBuilder<BuilderClass>
     return this as unknown as BuilderClass;
   }
 
-  addContained(contained: IResource): BuilderClass {
+  // TODO: This should be a generic type
+  addContained(contained: any): BuilderClass {
     this.domainResource.contained = this.domainResource.contained || [];
     this.domainResource.contained.push(contained);
     return this as unknown as BuilderClass;
   }
 
-  setMultipleContained(contained: IResource[]): BuilderClass {
+  // TODO: This should be a generic type
+  setMultipleContained(contained: any[]): BuilderClass {
     this.domainResource.contained = contained;
     return this as unknown as BuilderClass;
   }

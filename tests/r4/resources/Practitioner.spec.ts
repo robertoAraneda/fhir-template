@@ -1,18 +1,15 @@
-import { PractitionerBuilder } from '../../../src/r4/builders/resources';
 import { IPractitioner } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { Practitioner } from '../../../src/r4/models/resources';
+import { IPractitionerBuilder } from '../../../src/r4/models/resources/Practitioner';
 
 describe('Practitioner FHIR R4', () => {
-  let builder: PractitionerBuilder;
-  let builderFromFunction: PractitionerBuilder;
+  let builder: IPractitionerBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR4();
+  const { Validator, Practitioner } = context.forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PractitionerBuilder();
-    builderFromFunction = Builder.resources.Practitioner();
+    builder = Practitioner.builder();
   });
 
   it('should be able to create a new practitioner and validate with correct data [IPractitioner]', async () => {
@@ -74,7 +71,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.Practitioner(item);
+    const validate = await Validator.Practitioner(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -137,33 +134,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     });
 
-    const validate = await Validator.resources.Practitioner(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new practitioner and validate with correct data [createResource]', async () => {
-    const item = createResource('Practitioner', {
-      resourceType: 'Practitioner',
-      id: 'prac4',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      active: true,
-      name: [
-        {
-          use: 'official',
-          family: 'Notsowell',
-          given: ['Sandy'],
-        },
-      ],
-      gender: 'female',
-      birthDate: '1982-08-02',
-    });
-
-    const validate = await Validator.resources.Practitioner(item);
-
+    const validate = await Validator.Practitioner(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -226,7 +197,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.Practitioner(item);
+    const validate = await Validator.Practitioner(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -273,7 +244,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.Practitioner(item);
+    const validate = await Validator.Practitioner(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -309,7 +280,7 @@ describe('Practitioner FHIR R4', () => {
         },
       ],
     };
-    const validate = await Validator.resources.Practitioner(item);
+    const validate = await Validator.Practitioner(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -332,7 +303,7 @@ describe('Practitioner FHIR R4', () => {
   });
 
   it('should be able to create a new practitioner with builder methods [new PractitionerBuilder()]', async () => {
-    const practitioner = builder
+    const item = builder
       .setActive(true)
       .addName({
         family: 'Notsowell',
@@ -353,56 +324,12 @@ describe('Practitioner FHIR R4', () => {
       })
       .build();
 
-    expect(practitioner).toEqual({
-      extension: [
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
-          valueCode: 'unknown',
-        },
-      ],
-      resourceType: 'Practitioner',
-      active: true,
-      name: [
-        {
-          family: 'Notsowell',
-          given: ['Sandy'],
-          use: 'official',
-        },
-      ],
-      _active: {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
-            valueCode: 'unknown',
-          },
-        ],
-      },
-    });
-  });
+    const validate = await Validator.Practitioner(item);
 
-  it('should be able to create a new practitioner with builder methods [Builder.resources.Practitioner()]', async () => {
-    const practitioner = builderFromFunction
-      .setActive(true)
-      .addName({
-        family: 'Notsowell',
-        given: ['Sandy'],
-        use: 'official',
-      })
-      .addParamExtension('active', {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
-            valueCode: 'unknown',
-          },
-        ],
-      })
-      .addExtension({
-        url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
-        valueCode: 'unknown',
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
-    expect(practitioner).toEqual({
+    expect(item).toEqual({
       extension: [
         {
           url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',

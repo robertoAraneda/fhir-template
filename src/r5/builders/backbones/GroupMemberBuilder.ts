@@ -23,18 +23,18 @@ export default class GroupMemberBuilder
   }
 
   build(): IGroupMember {
-    return JSON.parse(this.serialize());
+    return JSON.parse(this.buildAsString());
   }
 
-  raw(): IGroupMember {
+  compileAsDefault(): IGroupMember {
     return {
       ...this.groupMember,
       ...super.entity(),
     };
   }
 
-  serialize(): string {
-    return JSON.stringify(this.raw());
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
   }
 
   setEntity(entity: IReference): this {

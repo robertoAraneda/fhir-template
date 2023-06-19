@@ -15,18 +15,18 @@ export default class RangeBuilder extends ElementBuilder<RangeBuilder> implement
   }
 
   build(): IRange {
-    return JSON.parse(this.serialize());
+    return JSON.parse(this.buildAsString());
   }
 
-  raw(): IRange {
+  compileAsDefault(): IRange {
     return {
       ...this.range,
       ...super.entity(),
     };
   }
 
-  serialize(): string {
-    return JSON.stringify(this.raw());
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
   }
 
   setHigh(high: ISimpleQuantity): this {

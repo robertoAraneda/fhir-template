@@ -1,32 +1,16 @@
 import FHIRContext from '../../../src';
-import { PersonLink } from '../../../src/r4/models/backbones';
-import { PersonLinkBuilder } from '../../../src/r4/builders/backbones';
 import { IPersonLink } from '../../../src/r4/interfaces/backbones';
 import { IdentityAssuranceLevelEnum } from '../../../src/r4/enums';
+import { IPersonLinkBuilder } from '../../../src/r4/models/backbones/PersonLink';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 
 describe('PersonLink FHIR R4', () => {
-  let builder: PersonLinkBuilder;
-  let builderFromFunction: PersonLinkBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: IPersonLinkBuilder;
+  const { PersonLink } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PersonLinkBuilder();
-    builderFromFunction = Builder.backboneElements.PersonLink();
-  });
-
-  it('should be able to validate a new person_link [createBackboneElement]', async () => {
-    const backboneElement = createBackboneElement('PersonLink', {
-      id: '123',
-      target: {
-        reference: 'Patient/123',
-      },
-      assurance: 'level4',
-    });
-
-    const validate = await Validator.backboneElements.PersonLink(backboneElement);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = PersonLink.builder();
   });
 
   it('should be able to validate a new person_link [new PersonLink()]', async () => {
@@ -38,9 +22,9 @@ describe('PersonLink FHIR R4', () => {
       assurance: 'level4',
     });
 
-    const validateAddress = await Validator.backboneElements.PersonLink(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Person_Link');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new person_link [IPersonLink]', async () => {
@@ -52,7 +36,7 @@ describe('PersonLink FHIR R4', () => {
       assurance: 'level4',
     };
 
-    const validate = await Validator.backboneElements.PersonLink(item);
+    const validate = await _validateBackbone(item, 'Person_Link');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -76,41 +60,10 @@ describe('PersonLink FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      _assurance: {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      },
-      assurance: 'level1',
-      id: '123',
-      target: {
-        reference: 'Patient/123',
-        type: 'Patient',
-      },
-    });
-  });
+    const validate = await _validateBackbone(item, 'Person_Link');
 
-  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setAssurance(IdentityAssuranceLevelEnum.LEVEL1)
-      .setTarget({
-        type: 'Patient',
-        reference: 'Patient/123',
-      })
-      .addParamExtension('assurance', {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _assurance: {
@@ -136,7 +89,8 @@ describe('PersonLink FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await Validator.backboneElements.PersonLink(item);
+    const validate = await _validateBackbone(item, 'Person_Link');
+
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(2);

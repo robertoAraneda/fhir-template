@@ -1,6 +1,6 @@
 import { IResource } from '../../interfaces/base';
 
-interface IResourceBuilder<ClassBuilder> {
+export interface IResourceBuilder<ClassBuilder> {
   setId(id: string): ClassBuilder;
   setMeta(meta: any): ClassBuilder;
   setImplicitRules(implicitRules: string): ClassBuilder;

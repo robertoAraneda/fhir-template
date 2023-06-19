@@ -24,18 +24,18 @@ export default class SimpleQuantityBuilder
   }
 
   build(): ISimpleQuantity {
-    return JSON.parse(this.serialize());
+    return JSON.parse(this.buildAsString());
   }
 
-  raw(): ISimpleQuantity {
+  compileAsDefault(): ISimpleQuantity {
     return {
       ...this.simpleQuantity,
       ...super.entity(),
     };
   }
 
-  serialize(): string {
-    return JSON.stringify(this.raw());
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
   }
 
   setCode(code: string): this {

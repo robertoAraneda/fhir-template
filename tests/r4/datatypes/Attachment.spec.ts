@@ -1,32 +1,15 @@
 import FHIRContext from '../../../src';
-import { AttachmentBuilder } from '../../../src/r4/builders/datatypes';
-import { Attachment } from '../../../src/r4/models/datatypes';
 import { IAttachment } from '../../../src/r4/interfaces/datatypes';
+import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IAttachmentBuilder } from '../../../src/r4/models/datatypes/Attachment';
 
 describe('Attachment FHIR R4', () => {
-  let builder: AttachmentBuilder;
-  let builderFromFunction: AttachmentBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
+  let builder: IAttachmentBuilder;
+  const { Attachment } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new AttachmentBuilder();
-    builderFromFunction = Builder.dataTypes.Attachment();
-  });
-
-  it('should be able to validate a new attachment [createDatatype]', async () => {
-    const item = createDatatype('Attachment', {
-      id: '123',
-      url: 'http://example.com',
-      data: 'data',
-      title: 'title',
-      language: 'en',
-      contentType: 'application/pdf',
-    });
-
-    const validate = await Validator.dataTypes.Attachment(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = Attachment.builder();
   });
 
   it('should be able to validate a new attachment [new Attachment()]', async () => {
@@ -39,7 +22,7 @@ describe('Attachment FHIR R4', () => {
       contentType: 'application/pdf',
     });
 
-    const validate = await Validator.dataTypes.Attachment(item);
+    const validate = await _validateDataType(item, 'Attachment');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -54,8 +37,7 @@ describe('Attachment FHIR R4', () => {
       contentType: 'application/pdf',
     };
 
-    const validate = await Validator.dataTypes.Attachment(item);
-
+    const validate = await _validateDataType(item, 'Attachment');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -77,40 +59,12 @@ describe('Attachment FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      _pages: {
-        extension: [
-          {
-            url: 'pages',
-            valueString: 'pages',
-          },
-        ],
-      },
-      contentType: 'application/pdf',
-      creation: '2020-01-01',
-      data: 'data',
-      url: 'http://example.com',
-    });
-  });
-
-  it('should be able to create a new attachment using builder methods [builders.dataTypes.AttachmentBuilder()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setData('data')
-      .setContentType('application/pdf')
-      .setCreation('2020-01-01')
-      .setUrl('http://example.com')
-      .addParamExtension('pages', {
-        extension: [
-          {
-            url: 'pages',
-            valueString: 'pages',
-          },
-        ],
-      })
-      .build();
+    const validate = await _validateDataType(item, 'Attachment');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
+      id: '123',
       _pages: {
         extension: [
           {
@@ -132,7 +86,8 @@ describe('Attachment FHIR R4', () => {
       wrongProperty: 'wrong',
     };
 
-    const validate = await Validator.dataTypes.Attachment(item);
+    const validate = await _validateDataType(item, 'Attachment');
+
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(1);

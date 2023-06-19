@@ -1,18 +1,15 @@
 import { IPerson } from '../../../src/r4/interfaces/resources';
-import { PersonBuilder } from '../../../src/r4/builders/resources';
 import FHIRContext from '../../../src';
-import { Person } from '../../../src/r4/models/resources';
+import { IPersonBuilder } from '../../../src/r4/models/resources/Person';
 
 describe('Person Resource FHIR R4', () => {
-  let builder: PersonBuilder;
-  let builderFromFunction: PersonBuilder;
+  let builder: IPersonBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR4();
+  const { Validator, Person } = context.forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PersonBuilder();
-    builderFromFunction = Builder.resources.Person();
+    builder = Person.builder();
   });
 
   it('should be able to create a new person and validate with correct data [IPerson]', async () => {
@@ -90,7 +87,7 @@ describe('Person Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.Person(item);
+    const validate = await Validator.Person(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -154,82 +151,7 @@ describe('Person Resource FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.resources.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new person and validate with correct data [Example Person/pp]', async () => {
-    const item = createResource('Person', {
-      resourceType: 'Person',
-      id: 'pp',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      identifier: [
-        {
-          use: 'official',
-          system: 'urn:oid:2.16.840.1.113883.4.3.39',
-          value: 'TL545786',
-          period: {
-            start: '2041-09-23',
-          },
-          assigner: {
-            display: 'Ohio Bureau of Motor Vehicles',
-          },
-        },
-      ],
-      active: true,
-      name: [
-        {
-          use: 'official',
-          family: 'Everywoman',
-          given: ['Eve', 'Marie'],
-        },
-      ],
-      telecom: [
-        {
-          system: 'phone',
-          value: '(621)-479-9743',
-          use: 'home',
-        },
-      ],
-      gender: 'female',
-      birthDate: '1974-03-07',
-      address: [
-        {
-          use: 'home',
-          line: ['2086 College St'],
-          city: 'Sandusky',
-          state: 'OH',
-          postalCode: '44870',
-          country: 'USA',
-        },
-      ],
-      managingOrganization: {
-        reference: 'http://www.goodhealth.com/Organization/12',
-        display: 'Goodhealth Person Portal',
-      },
-      link: [
-        {
-          target: {
-            reference: 'http://www.goodhealth.com/Person/98574',
-            display: 'Eve Everywoman',
-          },
-          assurance: 'level3',
-        },
-        {
-          target: {
-            reference: 'http://www.acme-medical.com/Person/ab34d',
-            display: 'Eve Marie Everywoman',
-          },
-          assurance: 'level2',
-        },
-      ],
-    });
-
-    const validate = await Validator.resources.Person(item);
+    const validate = await Validator.Person(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -273,7 +195,7 @@ describe('Person Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.Person(item);
+    const validate = await Validator.Person(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -320,7 +242,7 @@ describe('Person Resource FHIR R4', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.resources.Person(item);
+    const validate = await Validator.Person(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -363,32 +285,9 @@ describe('Person Resource FHIR R4', () => {
       })
       .build();
 
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      resourceType: 'Person',
-      _active: {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
-            valueCode: 'unknown',
-          },
-        ],
-      },
-    });
-  });
-
-  it('should be able to create a new person using builder methods [Builder.resources.Person()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .addParamExtension('active', {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
-            valueCode: 'unknown',
-          },
-        ],
-      })
-      .build();
+    const validate = await Validator.Person(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

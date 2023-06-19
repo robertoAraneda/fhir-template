@@ -6,8 +6,23 @@ import { ParseResourceTypeR4, ResourceTypeR4 } from './r4/GlobalResourceTypes';
 import { FhirContextR4 } from './r4';
 import { BackboneElementTypeR4, ParseBackboneElementTypeR4 } from './r4/GlobalBackboneElements';
 import { BackboneElementTypeR5, ParseBackboneElementTypeR5 } from './r5/GlobalBackboneElements';
+import { IBundle } from './r4/interfaces/resources/IBundle';
+import { Bundle, Patient, Person, Practitioner } from './r4/models/resources';
+import { IPatient, IPerson } from './r4/interfaces/resources';
+
+import { IBundleEntry, IBundleEntryRequest, IBundleEntryResponse, IBundleEntrySearch } from './r4/interfaces/backbones';
+import { IAddress, IContactPoint } from './r4/interfaces/datatypes';
+import { BundleEntry, BundleEntryRequest, BundleEntryResponse, BundleEntrySearch } from './r4/models/backbones';
+import { Address, ContactPoint } from './r4/models/datatypes';
 
 class FHIRContext {
+  private r4: FhirContextR4;
+  private r5: FhirContextR5;
+
+  constructor() {
+    this.r4 = new FhirContextR4();
+    this.r5 = new FhirContextR5();
+  }
   forR5() {
     return {
       Builder: new FhirContextR5().getBuilders(),
@@ -29,8 +44,9 @@ class FHIRContext {
   }
   forR4() {
     return {
-      Builder: new FhirContextR4().getBuilders(),
-      Validator: new FhirContextR4().getValidator(),
+      Validator: this.r4.getValidator(),
+      ...this.r4.getInstances(),
+
       createResource: <T extends ResourceTypeR4>(resourceType: T, data: ParseResourceTypeR4<T>) => {
         return new FhirContextR4().createResource<T>(resourceType, data);
       },

@@ -1,36 +1,15 @@
 import FHIRContext from '../../../src';
-import { GroupCharacteristic } from '../../../src/r4/models/backbones';
-import { GroupCharacteristicBuilder } from '../../../src/r4/builders/backbones';
 import { IGroupCharacteristic } from '../../../src/r4/interfaces/backbones';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IGroupCharacteristicBuilder } from '../../../src/r4/models/backbones/GroupCharacteristic';
 
 describe('GroupCharacteristic FHIR R4', () => {
-  let builder: GroupCharacteristicBuilder;
-  let builderFromFunction: GroupCharacteristicBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: IGroupCharacteristicBuilder;
+  const { GroupCharacteristic } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new GroupCharacteristicBuilder();
-    builderFromFunction = Builder.backboneElements.GroupCharacteristic();
-  });
-
-  it('should be able to validate a new group_characteristic [createBackboneElement]', async () => {
-    const item = createBackboneElement('GroupCharacteristic', {
-      id: '123',
-      code: {
-        coding: [
-          {
-            code: '123',
-            system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-          },
-        ],
-      },
-      exclude: false,
-    });
-
-    const validate = await Validator.backboneElements.GroupCharacteristic(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = GroupCharacteristic.builder();
   });
 
   it('should be able to validate a new group_characteristic [new GroupCharacteristic()]', async () => {
@@ -47,9 +26,9 @@ describe('GroupCharacteristic FHIR R4', () => {
       exclude: false,
     });
 
-    const validateAddress = await Validator.backboneElements.GroupCharacteristic(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Group_Characteristic');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new group_characteristic [IGroupCharacteristic]', async () => {
@@ -66,7 +45,7 @@ describe('GroupCharacteristic FHIR R4', () => {
       exclude: false,
     };
 
-    const validate = await Validator.backboneElements.GroupCharacteristic(item);
+    const validate = await _validateBackbone(item, 'Group_Characteristic');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -94,49 +73,10 @@ describe('GroupCharacteristic FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      _exclude: {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      },
-      code: {
-        coding: [
-          {
-            code: '123',
-            system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-          },
-        ],
-      },
-      id: '123',
-      valueBoolean: true,
-    });
-  });
+    const validate = await _validateBackbone(item, 'Group_Characteristic');
 
-  it('should be able to create a new group_characteristic using builder methods [Builder.backboneElements.GroupCharacteristic()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setCode({
-        coding: [
-          {
-            code: '123',
-            system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-          },
-        ],
-      })
-      .setValueBoolean(true)
-      .setParamExtension('exclude', {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _exclude: {
@@ -166,7 +106,8 @@ describe('GroupCharacteristic FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await Validator.backboneElements.GroupCharacteristic(item);
+    const validate = await _validateBackbone(item, 'Group_Characteristic');
+
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(2);

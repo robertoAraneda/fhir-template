@@ -19,6 +19,7 @@ const Quantity = async (item: unknown): Wait => _validateDataType(item, 'Quantit
 const Range = async (item: unknown): Wait => _validateDataType(item, 'Range');
 const Ratio = async (item: unknown): Wait => _validateDataType(item, 'Ratio');
 const SimpleQuantity = async (item: unknown): Wait => _validateDataType(item, 'SimpleQuantity');
+const Signature = async (item: unknown): Wait => _validateDataType(item, 'Signature');
 
 export const DataTypesValidator = {
   Address,
@@ -37,4 +38,5 @@ export const DataTypesValidator = {
   Range,
   SimpleQuantity,
   Ratio,
+  Signature,
 };

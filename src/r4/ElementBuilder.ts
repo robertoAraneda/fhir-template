@@ -16,4 +16,5 @@ export const ElementBuilder = {
   Quantity: () => new DataTypesBuilder.QuantityBuilder(),
   Range: () => new DataTypesBuilder.RangeBuilder(),
   SimpleQuantity: () => new DataTypesBuilder.SimpleQuantityBuilder(),
+  Signature: () => new DataTypesBuilder.SignatureBuilder(),
 };

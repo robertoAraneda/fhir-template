@@ -5,33 +5,21 @@ import {
   ICodeableConcept,
   ICoding,
   IContactPoint,
-  IExtension,
   IIdentifier,
-  IMeta,
-  INarrative,
   IReference,
 } from '../../interfaces/datatypes';
 import { ILocationHoursOfOperation, ILocationPosition } from '../../interfaces/backbones';
 import { LocationModeEnum, LocationStatusEnum } from '../../enums';
 import { LocationModeType, LocationStatusType } from '../../types';
+import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { DomainResourceBuilder, IDomainResourceBuilder } from '../../builders/base/DomainResourceBuilder';
+import { validateReference } from '../../../globals/helpers/validateReference';
+import { IResourceBuilder } from '../../builders/base/ResourceBuilder';
+import DomainResource from './DomainResource';
 
-export default class Location implements ILocation {
+export default class Location extends DomainResource implements ILocation {
   // Resource Attributes
-  resourceType: string = 'Location';
-  id?: number | string;
-  meta?: IMeta;
-  implicitRules?: string;
-  language?: string;
-
-  // Extension Resource Attributes
-  _language?: IElement;
-  _implicitRules?: IElement;
-
-  // DomainResource Attributes
-  text?: INarrative;
-  contained?: IResource[];
-  extension?: IExtension[];
-  modifierExtension?: IExtension[];
+  resourceType = 'Location';
 
   // Location Attributes
   identifier?: IIdentifier[];
@@ -60,32 +48,215 @@ export default class Location implements ILocation {
   _name?: IElement;
   _status?: IElement;
 
+  static builder(): ILocationBuilder {
+    return new LocationBuilder();
+  }
+
+  static get resourceType(): string {
+    return 'Location';
+  }
+
   constructor(args?: ILocation) {
-    if (args) {
-      this.resourceType = 'Location';
-      this.identifier = args.identifier;
-      this.status = args.status;
-      this.operationalStatus = args.operationalStatus;
-      this.name = args.name;
-      this.alias = args.alias;
-      this.description = args.description;
-      this.mode = args.mode;
-      this.type = args.type;
-      this.telecom = args.telecom;
-      this.address = args.address;
-      this.physicalType = args.physicalType;
-      this.position = args.position;
-      this.managingOrganization = args.managingOrganization;
-      this.partOf = args.partOf;
-      this.hoursOfOperation = args.hoursOfOperation;
-      this.availabilityExceptions = args.availabilityExceptions;
-      this.endpoint = args.endpoint;
-      this._alias = args._alias;
-      this._availabilityExceptions = args._availabilityExceptions;
-      this._description = args._description;
-      this._mode = args._mode;
-      this._name = args._name;
-      this._status = args._status;
+    super();
+    Object.assign(this, args);
+  }
+}
+
+type ParamType = 'status' | 'alias' | 'name' | 'description' | 'mode' | 'availabilityExceptions';
+type MultipleParamType = 'alias';
+
+export interface ILocationBuilder
+  extends IBuildable<Location>,
+    ISerializable,
+    IDomainResourceBuilder<ILocationBuilder>,
+    IResourceBuilder<ILocationBuilder> {
+  addParamExtension<T extends ParamType>(param: T, extension: T extends 'alias' ? IElement[] : IElement): this;
+  addIdentifier(identifier: IIdentifier): this;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this;
+  setStatus(status: LocationStatusEnum | LocationStatusType): this;
+  setOperationalStatus(operationalStatus: ICoding): this;
+  setName(name: string): this;
+  addAlias(alias: string): this;
+  setMultipleAlias(aliases: string[]): this;
+  setDescription(description: string): this;
+  setMode(mode: LocationModeEnum | LocationModeType): this;
+  addType(type: ICodeableConcept): this;
+  setMultipleType(types: ICodeableConcept[]): this;
+  addTelecom(telecom: IContactPoint): this;
+  setMultipleTelecom(telecoms: IContactPoint[]): this;
+  setAddress(address: IAddress): this;
+  setPhysicalType(physicalType: ICodeableConcept): this;
+  setPosition(position: ILocationPosition): this;
+  setManagingOrganization(managingOrganization: IReference): this;
+  setPartOf(partOf: IReference): this;
+  addHoursOfOperation(hoursOfOperation: ILocationHoursOfOperation): this;
+  setMultipleHoursOfOperation(hoursOfOperations: ILocationHoursOfOperation[]): this;
+  setAvailabilityExceptions(availabilityExceptions: string): this;
+  addEndpoint(endpoint: IReference): this;
+  setMultipleEndpoint(endpoints: IReference[]): this;
+}
+
+class LocationBuilder extends DomainResourceBuilder<LocationBuilder> implements ILocationBuilder {
+  private readonly location: ILocation;
+
+  constructor() {
+    super();
+    this.location = new Location();
+  }
+
+  addAlias(alias: string): this {
+    this.location.alias = this.location.alias || [];
+    this.location.alias.push(alias);
+    return this;
+  }
+
+  addEndpoint(endpoint: IReference): this {
+    if (endpoint.reference) validateReference(endpoint.reference, ['Endpoint']);
+    this.location.endpoint = this.location.endpoint || [];
+    this.location.endpoint.push(endpoint);
+    return this;
+  }
+
+  addHoursOfOperation(hoursOfOperation: ILocationHoursOfOperation): this {
+    this.location.hoursOfOperation = this.location.hoursOfOperation || [];
+    this.location.hoursOfOperation.push(hoursOfOperation);
+    return this;
+  }
+
+  addIdentifier(identifier: IIdentifier): this {
+    this.location.identifier = this.location.identifier || [];
+    this.location.identifier.push(identifier);
+    return this;
+  }
+
+  addParamExtension<T extends ParamType>(param: T, extension: T extends 'alias' ? IElement[] : IElement): this {
+    const includes = ['alias'];
+    if (includes.includes(param)) {
+      const localMultipleParam = param as MultipleParamType;
+      this.location[`_${localMultipleParam}`] = extension as IElement[];
+    } else {
+      const localParam = param as Exclude<ParamType, 'alias'>;
+      this.location[`_${localParam}`] = extension as IElement;
     }
+    return this;
+  }
+
+  addTelecom(telecom: IContactPoint): this {
+    this.location.telecom = this.location.telecom || [];
+    this.location.telecom.push(telecom);
+    return this;
+  }
+
+  build(): Location {
+    return JSON.parse(this.buildAsString());
+  }
+
+  compileAsDefault(): Location {
+    return {
+      ...this.location,
+      ...super.entity(),
+    };
+  }
+
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
+  }
+
+  setAddress(address: IAddress): this {
+    this.location.address = address;
+    return this;
+  }
+
+  setAvailabilityExceptions(availabilityExceptions: string): this {
+    this.location.availabilityExceptions = availabilityExceptions;
+    return this;
+  }
+
+  setDescription(description: string): this {
+    this.location.description = description;
+    return this;
+  }
+
+  setManagingOrganization(managingOrganization: IReference): this {
+    if (managingOrganization.reference) {
+      validateReference(managingOrganization.reference, ['Organization']);
+    }
+    this.location.managingOrganization = managingOrganization;
+    return this;
+  }
+
+  setMode(mode: LocationModeEnum | LocationModeType): this {
+    this.location.mode = mode;
+    return this;
+  }
+
+  setMultipleAlias(aliases: string[]): this {
+    this.location.alias = aliases;
+    return this;
+  }
+
+  setMultipleEndpoint(endpoints: IReference[]): this {
+    endpoints.forEach((endpoint) => {
+      if (endpoint.reference) validateReference(endpoint.reference, ['Endpoint']);
+    });
+    this.location.endpoint = endpoints;
+    return this;
+  }
+
+  setMultipleHoursOfOperation(hoursOfOperations: ILocationHoursOfOperation[]): this {
+    this.location.hoursOfOperation = hoursOfOperations;
+    return this;
+  }
+
+  setMultipleIdentifier(identifiers: IIdentifier[]): this {
+    this.location.identifier = identifiers;
+    return this;
+  }
+
+  setMultipleTelecom(telecoms: IContactPoint[]): this {
+    this.location.telecom = telecoms;
+    return this;
+  }
+
+  setName(name: string): this {
+    this.location.name = name;
+    return this;
+  }
+
+  setOperationalStatus(operationalStatus: ICoding): this {
+    this.location.operationalStatus = operationalStatus;
+    return this;
+  }
+
+  setPartOf(partOf: IReference): this {
+    if (partOf.reference) validateReference(partOf.reference, ['Location']);
+    this.location.partOf = partOf;
+    return this;
+  }
+
+  setPhysicalType(physicalType: ICodeableConcept): this {
+    this.location.physicalType = physicalType;
+    return this;
+  }
+
+  setPosition(position: ILocationPosition): this {
+    this.location.position = position;
+    return this;
+  }
+
+  setStatus(status: LocationStatusEnum | LocationStatusType): this {
+    this.location.status = status;
+    return this;
+  }
+
+  addType(type: ICodeableConcept): this {
+    this.location.type = this.location.type || [];
+    this.location.type.push(type);
+    return this;
+  }
+
+  setMultipleType(types: ICodeableConcept[]): this {
+    this.location.type = types;
+    return this;
   }
 }

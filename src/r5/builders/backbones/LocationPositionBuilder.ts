@@ -22,18 +22,18 @@ export default class LocationPositionBuilder
   }
 
   build(): ILocationPosition {
-    return JSON.parse(this.serialize());
+    return JSON.parse(this.buildAsString());
   }
 
-  raw(): ILocationPosition {
+  compileAsDefault(): ILocationPosition {
     return {
       ...this.locationPosition,
       ...super.entity(),
     };
   }
 
-  serialize(): string {
-    return JSON.stringify(this.raw());
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
   }
 
   setAltitude(altitude: number): this {

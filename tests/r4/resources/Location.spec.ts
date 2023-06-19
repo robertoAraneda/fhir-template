@@ -1,18 +1,16 @@
-import { LocationBuilder } from '../../../src/r4/builders/resources';
 import { ILocation } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { Location } from '../../../src/r4/models/resources';
+import { ILocationBuilder } from '../../../src/r4/models/resources/Location';
+import { _validateBaseResource } from '../../../src/r4/validators/BaseValidator';
 
 describe('Location FHIR R4', () => {
-  let builder: LocationBuilder;
-  let builderFromFunction: LocationBuilder;
+  let builder: ILocationBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR4();
+  const { Location, Validator } = context.forR4();
 
   // create global
   beforeEach(() => {
-    builder = new LocationBuilder();
-    builderFromFunction = Builder.resources.Location();
+    builder = Location.builder();
   });
 
   it('should be able to create a new location and validate with correct data [ILocation]', async () => {
@@ -85,7 +83,7 @@ describe('Location FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.Location(item);
+    const validate = await Validator.Location(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -147,58 +145,7 @@ describe('Location FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.resources.Location(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new location and validate with correct data [createResource]', async () => {
-    const item = createResource('Location', {
-      resourceType: 'Location',
-      id: 'amb',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Mobile Clinic</div>',
-      },
-      status: 'active',
-      name: 'BUMC Ambulance',
-      description: 'Ambulance provided by Burgers University Medical Center',
-      mode: 'kind',
-      type: [
-        {
-          coding: [
-            {
-              system: 'http://terminology.hl7.org/CodeSystem/v3-RoleCode',
-              code: 'AMB',
-              display: 'Ambulance',
-            },
-          ],
-        },
-      ],
-      telecom: [
-        {
-          system: 'phone',
-          value: '2329',
-          use: 'mobile',
-        },
-      ],
-      physicalType: {
-        coding: [
-          {
-            system: 'http://terminology.hl7.org/CodeSystem/location-physical-type',
-            code: 've',
-            display: 'Vehicle',
-          },
-        ],
-      },
-      managingOrganization: {
-        reference: 'Organization/f001',
-      },
-    });
-
-    const validate = await Validator.resources.Location(item);
-
+    const validate = await Validator.Location(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -240,8 +187,7 @@ describe('Location FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.resources.Location(item);
-
+    const validate = await Validator.Location(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -252,7 +198,8 @@ describe('Location FHIR R4', () => {
       id: 'xcda1',
       wrongProperty: 'wrong', // wrong property
     };
-    const validate = await Validator.resources.Location(item);
+
+    const validate = await Validator.Location(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -268,7 +215,7 @@ describe('Location FHIR R4', () => {
   });
 
   it('should be able to create a new location with builder methods [new LocationBuilder()]', async () => {
-    const location = builder
+    const item = builder
       .setAddress({
         use: 'work',
         type: 'both',
@@ -279,32 +226,11 @@ describe('Location FHIR R4', () => {
       .setDescription('Old South Wing, Neuro Radiology Operation Room 1 on second floor')
       .build();
 
-    expect(location).toEqual({
-      address: {
-        text: '534 Erewhon St PeasantVille, Rainbow, Vic  3999',
-        type: 'both',
-        use: 'work',
-      },
-      alias: ['South Wing OR 5', 'Main Wing OR 2'],
-      description: 'Old South Wing, Neuro Radiology Operation Room 1 on second floor',
-      name: 'South Wing Neuro OR 1',
-      resourceType: 'Location',
-    });
-  });
+    const validate = await Validator.Location(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
-  it('should be able to create a new location with builder methods [Builder.resources.Location()]', async () => {
-    const location = builderFromFunction
-      .setAddress({
-        use: 'work',
-        type: 'both',
-        text: '534 Erewhon St PeasantVille, Rainbow, Vic  3999',
-      })
-      .setName('South Wing Neuro OR 1')
-      .setMultipleAlias(['South Wing OR 5', 'Main Wing OR 2'])
-      .setDescription('Old South Wing, Neuro Radiology Operation Room 1 on second floor')
-      .build();
-
-    expect(location).toEqual({
+    expect(item).toEqual({
       address: {
         text: '534 Erewhon St PeasantVille, Rainbow, Vic  3999',
         type: 'both',

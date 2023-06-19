@@ -76,18 +76,18 @@ export default class GroupBuilder extends DomainResourceBuilder<GroupBuilder> im
   }
 
   build(): Group {
-    return JSON.parse(this.serialize());
+    return JSON.parse(this.buildAsString());
   }
 
-  raw(): Group {
+  compileAsDefault(): Group {
     return {
       ...this.group,
       ...super.entity(),
     };
   }
 
-  serialize(): string {
-    return JSON.stringify(this.raw());
+  buildAsString(): string {
+    return JSON.stringify(this.compileAsDefault());
   }
 
   setActive(active: boolean): this {

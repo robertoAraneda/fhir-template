@@ -1,37 +1,5 @@
-import {
-  IAddress,
-  IAttachment,
-  ICodeableConcept,
-  ICoding,
-  IContactPoint,
-  IDuration,
-  IExtension,
-  IHumanName,
-  IIdentifier,
-  IMeta,
-  IPeriod,
-  IQuantity,
-  IRange,
-  IReference,
-  ISimpleQuantity,
-} from './interfaces/datatypes';
+import * as datatype from './interfaces/datatypes';
 import { Wait } from './validators/BackboneElementValidator';
-export interface IDatatypeValidatorProperties {
-  Address: (data: unknown) => Wait;
-  Attachment: (data: unknown) => Wait;
-  CodeableConcept: (data: unknown) => Wait;
-  Coding: (data: unknown) => Wait;
-  ContactPoint: (data: unknown) => Wait;
-  HumanName: (data: unknown) => Wait;
-  Identifier: (data: unknown) => Wait;
-  Meta: (data: unknown) => Wait;
-  Period: (data: unknown) => Wait;
-  Reference: (data: unknown) => Wait;
-  Duration: (data: unknown) => Wait;
-  Quantity: (data: unknown) => Wait;
-  Range: (data: unknown) => Wait;
-  SimpleQuantity: (data: unknown) => Wait;
-}
 
 export type DatatypeTypeR4 =
   | 'Address'
@@ -48,36 +16,39 @@ export type DatatypeTypeR4 =
   | 'Quantity'
   | 'Range'
   | 'SimpleQuantity'
+  | 'Signature'
   | 'Reference';
 
 export type ParseDataTypeR4<T> = T extends 'Address'
-  ? IAddress
+  ? datatype.IAddress
   : T extends 'Attachment'
-  ? IAttachment
+  ? datatype.IAttachment
   : T extends 'CodeableConcept'
-  ? ICodeableConcept
+  ? datatype.ICodeableConcept
   : T extends 'Coding'
-  ? ICoding
+  ? datatype.ICoding
   : T extends 'ContactPoint'
-  ? IContactPoint
+  ? datatype.IContactPoint
   : T extends 'HumanName'
-  ? IHumanName
+  ? datatype.IHumanName
   : T extends 'Identifier'
-  ? IIdentifier
+  ? datatype.IIdentifier
   : T extends 'Meta'
-  ? IMeta
+  ? datatype.IMeta
   : T extends 'Period'
-  ? IPeriod
+  ? datatype.IPeriod
   : T extends 'Duration'
-  ? IDuration
+  ? datatype.IDuration
   : T extends 'Extension'
-  ? IExtension
+  ? datatype.IExtension
   : T extends 'Reference'
-  ? IReference
+  ? datatype.IReference
   : T extends 'Quantity'
-  ? IQuantity
+  ? datatype.IQuantity
   : T extends 'Range'
-  ? IRange
+  ? datatype.IRange
   : T extends 'SimpleQuantity'
-  ? ISimpleQuantity
+  ? datatype.ISimpleQuantity
+  : T extends 'Signature'
+  ? datatype.ISignature
   : unknown;

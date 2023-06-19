@@ -1,31 +1,16 @@
 import { IReference } from '../../../src/r4/interfaces/datatypes';
-import { ReferenceBuilder } from '../../../src/r4/builders/datatypes';
 import FHIRContext from '../../../src';
-import { Reference } from '../../../src/r4/models/datatypes';
-import { Patient } from '../../../src/r4/models/resources';
+import { IReferenceBuilder } from '../../../src/r4/models/datatypes/Reference';
+import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 
 describe('Reference FHIR R4', () => {
-  let builder: ReferenceBuilder;
-  let builderFromFunction: ReferenceBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
+  let builder: IReferenceBuilder;
+
+  const { Reference } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new ReferenceBuilder();
-    builderFromFunction = Builder.dataTypes.Reference();
-  });
-
-  it('should be able to create a new reference and validate with correct data [createDatatype()]', async () => {
-    const item = createDatatype('Reference', {
-      reference: 'Patient/1',
-      display: 'test',
-      type: 'Patient',
-    });
-
-    const validate = await Validator.dataTypes.Reference(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = Reference.builder();
   });
 
   it('should be able to create a new reference and validate with correct data [new Reference()]', async () => {
@@ -35,7 +20,7 @@ describe('Reference FHIR R4', () => {
       type: 'Patient',
     });
 
-    const validate = await Validator.dataTypes.Reference(item);
+    const validate = await _validateDataType(item, 'Reference');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -48,7 +33,7 @@ describe('Reference FHIR R4', () => {
       type: 'Patient',
     };
 
-    const validate = await Validator.dataTypes.Reference(item);
+    const validate = await _validateDataType(item, 'Reference');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -62,7 +47,7 @@ describe('Reference FHIR R4', () => {
       wrongProperty: 'test',
     };
 
-    const validate = await Validator.dataTypes.Reference(item);
+    const validate = await _validateDataType(item, 'Reference');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -82,31 +67,15 @@ describe('Reference FHIR R4', () => {
     // build() is a method that returns the object that was built
     const item = builder.setType('Patient').setDisplay('test').setReference('Patient/1').build();
 
+    const validate = await _validateDataType(item, 'Reference');
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+
     expect(item).toBeDefined();
     expect(item).toEqual({
       display: 'test',
       reference: 'Patient/1',
-      type: 'Patient',
-    });
-  });
-
-  it('should be able to create a new attachment using builder methods [Builder.dataTypes.ReferenceBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .setType('Patient')
-      .setDisplay('test')
-      .setReference(
-        new Patient({
-          id: '2',
-          resourceType: 'Patient',
-        }),
-      )
-      .build();
-
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      display: 'test',
-      reference: 'Patient/2',
       type: 'Patient',
     });
   });

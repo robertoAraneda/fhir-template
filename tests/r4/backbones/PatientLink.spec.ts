@@ -1,33 +1,17 @@
 import FHIRContext from '../../../src';
-import { PatientLink } from '../../../src/r4/models/backbones';
-import { PatientLinkBuilder } from '../../../src/r4/builders/backbones';
 import { IPatientLink } from '../../../src/r4/interfaces/backbones';
 import { LinkTypeEnum } from '../../../src/r4/enums';
+import { IPatientLinkBuilder } from '../../../src/r4/models/backbones/PatientLink';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 
 describe('PatientLink FHIR R4', () => {
-  let builder: PatientLinkBuilder;
-  let builderFromFunction: PatientLinkBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: IPatientLinkBuilder;
+
+  const { PatientLink } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PatientLinkBuilder();
-    builderFromFunction = Builder.backboneElements.PatientLink();
-  });
-
-  it('should be able to validate a new patient_link [createBackboneElement]', async () => {
-    const backboneElement = createBackboneElement('PatientLink', {
-      id: '123',
-      other: {
-        reference: 'Patient/123',
-        type: 'Patient',
-      },
-      type: 'replaced-by',
-    });
-
-    const validate = await Validator.backboneElements.PatientLink(backboneElement);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = PatientLink.builder();
   });
 
   it('should be able to validate a new patient_link [new PatientLink()]', async () => {
@@ -40,9 +24,9 @@ describe('PatientLink FHIR R4', () => {
       type: 'replaced-by',
     });
 
-    const validateAddress = await Validator.backboneElements.PatientLink(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Patient_Link');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new patient_link [IPatientLink]', async () => {
@@ -55,7 +39,7 @@ describe('PatientLink FHIR R4', () => {
       type: 'replaced-by',
     };
 
-    const validate = await Validator.backboneElements.PatientLink(item);
+    const validate = await _validateBackbone(item, 'Patient_Link');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -78,39 +62,10 @@ describe('PatientLink FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      _type: {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      },
-      id: '123',
-      other: {
-        reference: 'Patient/123',
-      },
-      type: 'replaces',
-    });
-  });
+    const validate = await _validateBackbone(item, 'Patient_Link');
 
-  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setType(LinkTypeEnum.REPLACES)
-      .setOther({
-        reference: 'Patient/123',
-      })
-      .addParamExtension('type', {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _type: {
@@ -135,7 +90,8 @@ describe('PatientLink FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await Validator.backboneElements.PatientLink(item);
+    const validate = await _validateBackbone(item, 'Patient_Link');
+
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(2);

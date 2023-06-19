@@ -17,8 +17,13 @@ const GroupCharacteristic = (data: unknown): Wait => _validateBackbone(data, 'Gr
 const GroupMember = (data: unknown): Wait => _validateBackbone(data, 'Group_Member');
 const LocationPosition = (data: unknown): Wait => _validateBackbone(data, 'Location_Position');
 const LocationHoursOfOperation = (data: unknown): Wait => _validateBackbone(data, 'Location_HoursOfOperation');
+const BundleEntrySearch = (data: unknown): Wait => _validateBackbone(data, 'Bundle_Search');
+const BundleEntryRequest = (data: unknown): Wait => _validateBackbone(data, 'Bundle_Request');
+const BundleEntryResponse = (data: unknown): Wait => _validateBackbone(data, 'Bundle_Response');
+const BundleLink = (data: unknown): Wait => _validateBackbone(data, 'Bundle_Link');
+const BundleEntry = (data: unknown): Wait => _validateBackbone(data, 'Bundle_Entry');
 
-export const BackboneElementValidator = {
+export default {
   OrganizationContact,
   PatientContact,
   PatientCommunication,
@@ -32,4 +37,9 @@ export const BackboneElementValidator = {
   GroupCharacteristic,
   LocationPosition,
   LocationHoursOfOperation,
+  BundleEntry,
+  BundleLink,
+  BundleEntryResponse,
+  BundleEntrySearch,
+  BundleEntryRequest,
 };

@@ -1,34 +1,16 @@
 import { IRange } from '../../../src/r4/interfaces/datatypes';
-import { RangeBuilder } from '../../../src/r4/builders/datatypes';
 import FHIRContext from '../../../src';
-import { Range } from '../../../src/r4/models/datatypes';
+import { IRangeBuilder } from '../../../src/r4/models/datatypes/Range';
+import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 
 describe('Range FHIR R4', () => {
-  let builder: RangeBuilder;
-  let builderFromFunction: RangeBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
+  let builder: IRangeBuilder;
+
+  const { Range } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new RangeBuilder();
-    builderFromFunction = Builder.dataTypes.Range();
-  });
-
-  it('should be able to create a new range and validate with correct data [createDatatype()]', async () => {
-    const item = createDatatype('Range', {
-      id: 'test',
-      low: {
-        code: 'test',
-      },
-      high: {
-        code: 'test',
-      },
-    });
-
-    const validate = await Validator.dataTypes.Range(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = Range.builder();
   });
 
   it('should be able to create a new range and validate with correct data [new Range()]', async () => {
@@ -42,7 +24,7 @@ describe('Range FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.Range(item);
+    const validate = await _validateDataType(item, 'Range');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -59,7 +41,7 @@ describe('Range FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.Range(item);
+    const validate = await _validateDataType(item, 'Range');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -77,7 +59,7 @@ describe('Range FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Range(item);
+    const validate = await _validateDataType(item, 'Range');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -97,21 +79,10 @@ describe('Range FHIR R4', () => {
     // build() is a method that returns the object that was built
     const item = builder.setId('123').setLow({ code: 'code' }).setHigh({ code: 'code' }).build();
 
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      high: {
-        code: 'code',
-      },
-      id: '123',
-      low: {
-        code: 'code',
-      },
-    });
-  });
+    const validate = await _validateDataType(item, 'Range');
 
-  it('should be able to create a new attachment using builder methods [Builder.dataTypes.RangeBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction.setId('123').setLow({ code: 'code' }).setHigh({ code: 'code' }).build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

@@ -1,7 +1,7 @@
 import { IElement } from '../../interfaces/base';
 import { IExtension } from '../../interfaces/datatypes';
 
-interface IElementBuilder<BuilderClass> {
+export interface IElementBuilder<BuilderClass> {
   setId(id: string): BuilderClass;
   addExtension(extension: IExtension): BuilderClass;
   setMultipleExtension(extension: IExtension[]): BuilderClass;

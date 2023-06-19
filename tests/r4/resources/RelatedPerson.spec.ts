@@ -1,18 +1,15 @@
 import FHIRContext from '../../../src';
-import { RelatedPersonBuilder } from '../../../src/r4/builders/resources';
 import { IRelatedPerson } from '../../../src/r4/interfaces/resources';
-import { RelatedPerson } from '../../../src/r4/models/resources';
+import { IRelatedPersonBuilder } from '../../../src/r4/models/resources/RelatedPerson';
 
 describe('RelatedPerson Resource FHIR R4', () => {
-  let builder: RelatedPersonBuilder;
-  let builderFromFunction: RelatedPersonBuilder;
+  let builder: IRelatedPersonBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR4();
+  const { Validator, RelatedPerson } = context.forR4();
 
   // create global
   beforeEach(() => {
-    builder = new RelatedPersonBuilder();
-    builderFromFunction = Builder.resources.RelatedPerson();
+    builder = RelatedPerson.builder();
   });
 
   it('should be able to create a new related_person and validate [IRelatedPerson]', async () => {
@@ -88,7 +85,7 @@ describe('RelatedPerson Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.RelatedPerson(item);
+    const validate = await Validator.RelatedPerson(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -149,65 +146,7 @@ describe('RelatedPerson Resource FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.resources.RelatedPerson(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to validate a new related_person and validate [createResource()]', async () => {
-    const item = createResource('RelatedPerson', {
-      resourceType: 'RelatedPerson',
-      id: 'f001',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      identifier: [
-        {
-          use: 'official',
-          type: {
-            text: 'BSN',
-          },
-          system: 'urn:oid:2.16.840.1.113883.2.4.6.3',
-        },
-      ],
-      patient: {
-        reference: 'Patient/f001',
-      },
-      relationship: [
-        {
-          coding: [
-            {
-              system: 'http://terminology.hl7.org/CodeSystem/v3-RoleCode',
-              code: 'SIGOTHR',
-            },
-          ],
-        },
-      ],
-      name: [
-        {
-          use: 'usual',
-          family: 'Abels',
-          given: ['Sarah'],
-        },
-      ],
-      telecom: [
-        {
-          system: 'phone',
-          value: '0690383372',
-          use: 'mobile',
-        },
-        {
-          system: 'email',
-          value: 's.abels@kpn.nl',
-          use: 'home',
-        },
-      ],
-      gender: 'female',
-    });
-
-    const validate = await Validator.resources.RelatedPerson(item);
+    const validate = await Validator.RelatedPerson(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -275,7 +214,7 @@ describe('RelatedPerson Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.RelatedPerson(item);
+    const validate = await Validator.RelatedPerson(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -306,7 +245,7 @@ describe('RelatedPerson Resource FHIR R4', () => {
       wrongProperty: 'wrong',
     };
 
-    const validate = await Validator.resources.RelatedPerson(item);
+    const validate = await Validator.RelatedPerson(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -342,6 +281,9 @@ describe('RelatedPerson Resource FHIR R4', () => {
         family: 'Chalmers',
         given: ['Peter', 'James'],
       })
+      .setPatient({
+        reference: 'Patient/animal',
+      })
       .addIdentifier({
         use: 'official',
         type: {
@@ -353,6 +295,12 @@ describe('RelatedPerson Resource FHIR R4', () => {
       .setGender('male')
       .setBirthDate('1974-12-25')
       .build();
+
+    const validate = await Validator.RelatedPerson(item);
+    console.log(JSON.stringify(validate, null, 2));
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({
@@ -375,51 +323,9 @@ describe('RelatedPerson Resource FHIR R4', () => {
           use: 'official',
         },
       ],
-      resourceType: 'RelatedPerson',
-    });
-  });
-
-  it('should be able to create a new related_person using builder methods [Builder.resources.RelatedPerson()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .addName({
-        use: 'official',
-        family: 'Chalmers',
-        given: ['Peter', 'James'],
-      })
-      .addIdentifier({
-        use: 'official',
-        type: {
-          text: 'BSN',
-        },
-        system: 'urn:oid:2.16.840.1.113883.23',
-        value: '123456789',
-      })
-      .setGender('male')
-      .setBirthDate('1974-12-25')
-      .build();
-
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      birthDate: '1974-12-25',
-      gender: 'male',
-      identifier: [
-        {
-          system: 'urn:oid:2.16.840.1.113883.23',
-          type: {
-            text: 'BSN',
-          },
-          use: 'official',
-          value: '123456789',
-        },
-      ],
-      name: [
-        {
-          family: 'Chalmers',
-          given: ['Peter', 'James'],
-          use: 'official',
-        },
-      ],
+      patient: {
+        reference: 'Patient/animal',
+      },
       resourceType: 'RelatedPerson',
     });
   });

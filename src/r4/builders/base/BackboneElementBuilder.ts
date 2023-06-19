@@ -2,7 +2,7 @@ import { ElementBuilder } from './ElementBuilder';
 import { IBackboneElement } from '../../interfaces/base';
 import { IExtension } from '../../interfaces/datatypes';
 
-interface IBackboneElementBuilder<BuilderClass> {
+export interface IBackboneElementBuilder<BuilderClass> {
   setMultipleModifierExtension(modifierExtension: IExtension[]): BuilderClass;
   addModifierExtension(modifierExtension: IExtension): BuilderClass;
 }

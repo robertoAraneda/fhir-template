@@ -1,35 +1,15 @@
 import FHIRContext from '../../../src';
-import { OrganizationContact } from '../../../src/r4/models/backbones';
-import { OrganizationContactBuilder } from '../../../src/r4/builders/backbones';
 import { IOrganizationContact } from '../../../src/r4/interfaces/backbones';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IOrganizationContactBuilder } from '../../../src/r4/models/backbones/OrganizationContact';
 
 describe('OrganizationContact FHIR R4', () => {
-  let builder: OrganizationContactBuilder;
-  let builderFromFunction: OrganizationContactBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: IOrganizationContactBuilder;
+  const { OrganizationContact } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new OrganizationContactBuilder();
-    builderFromFunction = Builder.backboneElements.OrganizationContact();
-  });
-
-  it('should be able to validate a new organization_contact [createBackboneElement]', async () => {
-    const backboneElement = createBackboneElement('OrganizationContact', {
-      id: '123',
-      address: {
-        id: '123',
-        type: 'both',
-        period: {
-          start: '2020-01-01',
-          end: '2020-01-02',
-        },
-      },
-    });
-
-    const validate = await Validator.backboneElements.OrganizationContact(backboneElement);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = OrganizationContact.builder();
   });
 
   it('should be able to validate a new organization_contact [new OrganizationContact()]', async () => {
@@ -45,9 +25,9 @@ describe('OrganizationContact FHIR R4', () => {
       },
     });
 
-    const validateAddress = await Validator.backboneElements.OrganizationContact(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Organization_Contact');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new organization_contact [IOrganizationContact]', async () => {
@@ -63,7 +43,7 @@ describe('OrganizationContact FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.OrganizationContact(item);
+    const validate = await _validateBackbone(item, 'Organization_Contact');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -84,37 +64,10 @@ describe('OrganizationContact FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      address: {
-        city: 'Anytown',
-        type: 'postal',
-        use: 'home',
-      },
-      id: '123',
-      telecom: [
-        {
-          system: 'url',
-          use: 'old',
-          value: '123-456-7890',
-        },
-      ],
-    });
-  });
+    const validate = await _validateBackbone(item, 'Organization_Contact');
 
-  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setAddress({
-        city: 'Anytown',
-        use: 'home',
-        type: 'postal',
-      })
-      .addTelecom({
-        use: 'old',
-        system: 'url',
-        value: '123-456-7890',
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       address: {
@@ -146,7 +99,8 @@ describe('OrganizationContact FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.OrganizationContact(item);
+    const validate = await _validateBackbone(item, 'Organization_Contact');
+
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(1);

@@ -1,18 +1,15 @@
-import { PractitionerRoleBuilder } from '../../../src/r4/builders/resources';
 import { IPractitionerRole } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { PractitionerRole } from '../../../src/r4/models/resources';
+import { IPractitionerRoleBuilder } from '../../../src/r4/models/resources/PractitionerRole';
 
 describe('PractitionerRole Resource FHIR R4', () => {
-  let builder: PractitionerRoleBuilder;
-  let builderFromFunction: PractitionerRoleBuilder;
+  let builder: IPractitionerRoleBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR4();
+  const { Validator, PractitionerRole } = context.forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PractitionerRoleBuilder();
-    builderFromFunction = Builder.resources.PractitionerRole();
+    builder = PractitionerRole.builder();
   });
 
   it('should be able to create a new practitioner role and validate with correct data [IPractitionerRole]', async () => {
@@ -112,13 +109,13 @@ describe('PractitionerRole Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.resources.PractitionerRole(item);
+    const validate = await Validator.PractitionerRole(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to validate a new contact point and validate with wrong data [new PractitionerRole()]', async () => {
+  it('should be able to create a new practitioner role and validate with correct data [new PractitionerRole()]', async () => {
     const item = new PractitionerRole({
       resourceType: 'PractitionerRole',
       id: 'f007-0',
@@ -158,53 +155,7 @@ describe('PractitionerRole Resource FHIR R4', () => {
       ],
     });
 
-    const validate = await Validator.resources.PractitionerRole(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to validate a new contact point and validate with wrong data [createResource()]', async () => {
-    const item = createResource('PractitionerRole', {
-      resourceType: 'PractitionerRole',
-      id: 'f007-0',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      practitioner: {
-        reference: 'Practitioner/f007',
-        display: 'Simone Heps',
-      },
-      organization: {
-        reference: 'Organization/f001',
-        display: 'BMC',
-      },
-      code: [
-        {
-          coding: [
-            {
-              system: 'http://snomed.info/sct',
-              code: '59058001',
-              display: 'General physician',
-            },
-          ],
-        },
-      ],
-      specialty: [
-        {
-          coding: [
-            {
-              system: 'http://snomed.info/sct',
-              code: '394814009',
-              display: 'General practice',
-            },
-          ],
-        },
-      ],
-    });
-
-    const validate = await Validator.resources.PractitionerRole(item);
+    const validate = await Validator.PractitionerRole(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -235,6 +186,11 @@ describe('PractitionerRole Resource FHIR R4', () => {
       })
       .build();
 
+    const validate = await Validator.PractitionerRole(item);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
+
     expect(item).toBeDefined();
     expect(item).toEqual({
       _active: {
@@ -265,58 +221,55 @@ describe('PractitionerRole Resource FHIR R4', () => {
     });
   });
 
-  it('should be able to create a new contact point using builder methods [Builder.resources.PractitionerRole()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .addCode({
-        coding: [
-          {
-            system: 'http://snomed.info/sct',
-            code: '59058001',
-          },
-        ],
-      })
-      .addParamExtension('active', {
-        extension: [
-          {
-            url: 'active',
-            valueBoolean: true,
-          },
-        ],
-      })
-      .setActive(true)
-      .addHealthcareService({
-        reference: 'HealthcareService/example',
-      })
-      .build();
-
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      _active: {
-        extension: [
-          {
-            url: 'active',
-            valueBoolean: true,
-          },
-        ],
+  it('should be able to create a new practitioner and validate with wrong data', async () => {
+    const item = {
+      resourceType: 'Practitioner',
+      id: 'xcda1',
+      wrongProperty: 'wrong', // wrong property
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
       },
-      active: true,
-      code: [
+      identifier: [
         {
-          coding: [
-            {
-              code: '59058001',
-              system: 'http://snomed.info/sct',
-            },
-          ],
+          use: 'official',
+          system: 'http://healthcare.example.org/identifiers/staff',
+          value: 'D234123',
         },
       ],
-      healthcareService: [
+      name: [
         {
-          reference: 'HealthcareService/example',
+          use: 'wrong', // wrong use
+          family: 'Dopplemeyer',
+          given: ['Sherry'],
         },
       ],
-      resourceType: 'PractitionerRole',
-    });
+      telecom: [
+        {
+          system: 'email',
+          value: 'john.doe@healthcare.example.org',
+        },
+      ],
+    };
+    const validate = await Validator.Practitioner(item);
+
+    expect(validate.isValid).toBeFalsy();
+    expect(validate.errors).toBeDefined();
+    expect(validate.errors).toEqual([
+      {
+        instancePath: '',
+        schemaPath: '#/additionalProperties',
+        keyword: 'additionalProperties',
+        params: { additionalProperty: 'wrongProperty' },
+        message: 'must NOT have additional properties',
+      },
+      {
+        instancePath: '/name/0/use',
+        schemaPath: '#/properties/use/enum',
+        keyword: 'enum',
+        params: { allowedValues: ['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'] },
+        message: 'must be equal to one of the allowed values',
+      },
+    ]);
   });
 });

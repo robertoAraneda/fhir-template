@@ -14,3 +14,4 @@ export type { IPeriod } from './IPeriod';
 export type { IQuantity } from './IQuantity';
 export type { IRange } from './IRange';
 export type { ISimpleQuantity } from './ISimpleQuantity';
+export type { ISignature } from './ISignature';

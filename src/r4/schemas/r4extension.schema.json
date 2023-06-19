@@ -203,10 +203,6 @@
           "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
           "$ref": "r4datatypes.schema.json#/definitions/Address"
         },
-        "valueReference": {
-          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
-          "$ref": "r4datatypes.schema.json#/definitions/Reference"
-        },
         "valueAttachment": {
           "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
           "$ref": "r4datatypes.schema.json#/definitions/Attachment"
@@ -215,10 +211,6 @@
           "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
           "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
         },
-        "valueCodeableReference": {
-          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
-          "$ref": "r4datatypes.schema.json#/definitions/CodeableReference"
-        },
         "valueCoding": {
           "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
           "$ref": "r4datatypes.schema.json#/definitions/Coding"
@@ -226,6 +218,14 @@
         "valueContactPoint": {
           "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
           "$ref": "r4datatypes.schema.json#/definitions/ContactPoint"
+        },
+        "valueDuration": {
+          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
+          "$ref": "r4datatypes.schema.json#/definitions/Duration"
+        },
+        "valueHumanName": {
+          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
+          "$ref": "r4datatypes.schema.json#/definitions/HumanName"
         },
         "valueIdentifier": {
           "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
@@ -238,6 +238,22 @@
         "valueQuantity": {
           "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
           "$ref": "r4datatypes.schema.json#/definitions/Quantity"
+        },
+        "valueRange": {
+          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
+          "$ref": "r4datatypes.schema.json#/definitions/Range"
+        },
+        "valueReference": {
+          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        },
+        "valueSignature": {
+          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
+          "$ref": "r4datatypes.schema.json#/definitions/Signature"
+        },
+        "valueMeta": {
+          "description": "Value of extension - must be one of a constrained set of the data types (see [Extensibility](extensibility.html) for a list).",
+          "$ref": "r4datatypes.schema.json#/definitions/Meta"
         }
       },
       "additionalProperties": false,

@@ -7,5 +7,5 @@ type IBuildableClass = IDomainResourceR4 | IBackboneElementR4 | IDomainResourceR
 
 export interface IBuildable<Class extends IBuildableClass> {
   build(): Class;
-  raw(): Class;
+  compileAsDefault(): Class;
 }

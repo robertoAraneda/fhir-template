@@ -1,18 +1,15 @@
-import { MetaBuilder } from '../../../src/r4/builders/datatypes';
 import { IMeta } from '../../../src/r4/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r4';
 import FHIRContext from '../../../src';
-import { Meta } from '../../../src/r4/models/datatypes';
+import { IMetaBuilder } from '../../../src/r4/models/datatypes/Meta';
+import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 
 describe('Meta FHIR R4', () => {
-  let builder: MetaBuilder;
-  let builderFromFunction: MetaBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
+  let builder: IMetaBuilder;
+  const { Meta } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new MetaBuilder();
-    builderFromFunction = Builder.dataTypes.Meta();
+    builder = Meta.builder();
   });
 
   it('should be able to create a new meta and validate with correct data [new Meta()]', async () => {
@@ -31,28 +28,8 @@ describe('Meta FHIR R4', () => {
       versionId: 'test',
     });
 
-    const validate = await Validator.dataTypes.Meta(item);
+    const validate = await _validateDataType(item, 'Meta');
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new meta and validate with correct data [createDatatype()]', async () => {
-    const item = createDatatype('Meta', {
-      id: '123',
-      tag: [
-        {
-          code: '123',
-          system: 'http://hl7.org/fhir/sid/us-npi',
-        },
-      ],
-      source: 'test',
-      security: [{ system: 'test', code: 'test' }],
-      lastUpdated: '2030-06-02T12:00:00.000Z',
-      versionId: 'test',
-    });
-
-    const validate = await Validator.dataTypes.Meta(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -72,7 +49,7 @@ describe('Meta FHIR R4', () => {
       versionId: 'test',
     };
 
-    const validate = await Validator.dataTypes.Meta(item);
+    const validate = await _validateDataType(item, 'Meta');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -93,7 +70,7 @@ describe('Meta FHIR R4', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Meta(item);
+    const validate = await _validateDataType(item, 'Meta');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -127,37 +104,9 @@ describe('Meta FHIR R4', () => {
       .setVersionId('test')
       .build();
 
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      source: 'test',
-      tag: [
-        {
-          code: '123',
-          system: 'http://hl7.org/fhir/sid/us-npi',
-        },
-      ],
-      versionId: 'test',
-      lastUpdated: '2030-06-02T12:00:00.000Z',
-      profile: ['http://hl7.org/fhir/us/core/StructureDefinition/patient'],
-      security: [
-        {
-          system: 'test',
-          code: 'test',
-        },
-      ],
-    });
-  });
-
-  it('should be able to create a new meta using builder methods [builders.item.MetaBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .addProfile('http://hl7.org/fhir/us/core/StructureDefinition/patient')
-      .addSecurity({ system: 'test', code: 'test' })
-      .addTag({ code: '123', system: 'http://hl7.org/fhir/sid/us-npi' })
-      .setLastUpdated('2030-06-02T12:00:00.000Z')
-      .setSource('test')
-      .setVersionId('test')
-      .build();
+    const validate = await _validateDataType(item, 'Meta');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

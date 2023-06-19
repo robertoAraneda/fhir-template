@@ -1,5 +1,9 @@
-import { Wait } from './validators/BackboneElementValidator';
 import {
+  IBundleEntry,
+  IBundleEntryRequest,
+  IBundleEntryResponse,
+  IBundleEntrySearch,
+  IBundleLink,
   IGroupCharacteristic,
   IGroupMember,
   ILocationHoursOfOperation,
@@ -15,22 +19,6 @@ import {
   IRelatedPersonCommunication,
 } from './interfaces/backbones';
 
-export interface IBackboneElementValidatorProperties {
-  OrganizationContact: (data: unknown) => Wait;
-  PatientContact: (data: unknown) => Wait;
-  PatientCommunication: (data: unknown) => Wait;
-  PatientLink: (data: unknown) => Wait;
-  PersonLink: (data: unknown) => Wait;
-  PractitionerQualification: (data: unknown) => Wait;
-  PractitionerRoleAvailableTime: (data: unknown) => Wait;
-  PractitionerRoleNotAvailable: (data: unknown) => Wait;
-  RelatedPersonCommunication: (data: unknown) => Wait;
-  GroupCharacteristic: (data: unknown) => Wait;
-  GroupMember: (data: unknown) => Wait;
-  LocationPosition: (data: unknown) => Wait;
-  LocationHoursOfOperation: (data: unknown) => Wait;
-}
-
 export type BackboneElementTypeR4 =
   | 'OrganizationContact'
   | 'PatientCommunication'
@@ -44,6 +32,11 @@ export type BackboneElementTypeR4 =
   | 'GroupMember'
   | 'LocationPosition'
   | 'LocationHoursOfOperation'
+  | 'BundleEntryRequest'
+  | 'BundleEntryResponse'
+  | 'BundleEntrySearch'
+  | 'BundleEntry'
+  | 'BundleLink'
   | 'RelatedPersonCommunication';
 
 export type ParseBackboneElementTypeR4<T> = T extends 'OrganizationContact'
@@ -72,4 +65,14 @@ export type ParseBackboneElementTypeR4<T> = T extends 'OrganizationContact'
   ? ILocationPosition
   : T extends 'LocationHoursOfOperation'
   ? ILocationHoursOfOperation
+  : T extends 'BundleEntryRequest'
+  ? IBundleEntryRequest
+  : T extends 'BundleEntryResponse'
+  ? IBundleEntryResponse
+  : T extends 'BundleEntrySearch'
+  ? IBundleEntrySearch
+  : T extends 'BundleEntry'
+  ? IBundleEntry
+  : T extends 'BundleLink'
+  ? IBundleLink
   : never;

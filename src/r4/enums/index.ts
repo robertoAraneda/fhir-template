@@ -20,5 +20,15 @@ export { BackboneElementEnum } from './BackboneElementEnum';
 import GroupTypeEnum from './GroupTypeEnum';
 import LocationStatusEnum from './LocationStatusEnum';
 import LocationModeEnum from './LocationModeEnum';
+import BundleTypeEnum from './BundleTypeEnum';
+import BundleEntryRequestMethodEnum from './BundleEntryRequestMethodEnum';
+import BundleEntrySearchModeEnum from './BundleEntrySearchModeEnum';
 
-export { GroupTypeEnum, LocationStatusEnum, LocationModeEnum };
+export {
+  GroupTypeEnum,
+  LocationStatusEnum,
+  LocationModeEnum,
+  BundleTypeEnum,
+  BundleEntrySearchModeEnum,
+  BundleEntryRequestMethodEnum,
+};

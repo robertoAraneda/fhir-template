@@ -1,40 +1,16 @@
 import FHIRContext from '../../../src';
-import { PatientContact } from '../../../src/r4/models/backbones';
-import { PatientContactBuilder } from '../../../src/r4/builders/backbones';
 import { IPatientContact } from '../../../src/r4/interfaces/backbones';
+import { IPatientContactBuilder } from '../../../src/r4/models/backbones/PatientContact';
+import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 
 describe('PatientContact FHIR R4', () => {
-  let builder: PatientContactBuilder;
-  let builderFromFunction: PatientContactBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR4();
+  let builder: IPatientContactBuilder;
+
+  const { PatientContact } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new PatientContactBuilder();
-    builderFromFunction = Builder.backboneElements.PatientContact();
-  });
-
-  it('should be able to validate a new patient_contact [createBackboneElement]', async () => {
-    const backboneElement = createBackboneElement('PatientContact', {
-      id: '123',
-      gender: 'male',
-      _gender: {
-        extension: [
-          {
-            url: 'url',
-            valueString: 'valueString',
-          },
-        ],
-      },
-      organization: {
-        reference: 'Organization/123',
-        display: 'display',
-      },
-    });
-
-    const validate = await Validator.backboneElements.PatientContact(backboneElement);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = PatientContact.builder();
   });
 
   it('should be able to validate a new patient_contact [new PatientContact()]', async () => {
@@ -55,9 +31,9 @@ describe('PatientContact FHIR R4', () => {
       },
     });
 
-    const validateAddress = await Validator.backboneElements.PatientContact(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Patient_Contact');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new patient_contact [IPatientContact]', async () => {
@@ -78,7 +54,7 @@ describe('PatientContact FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.PatientContact(item);
+    const validate = await _validateBackbone(item, 'Patient_Contact');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -109,57 +85,10 @@ describe('PatientContact FHIR R4', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      _gender: {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      },
-      id: '123',
-      period: {
-        end: '2020-01-01',
-        start: '2020-01-01',
-      },
-      relationship: [
-        {
-          coding: [
-            {
-              code: '123',
-              system: 'system',
-            },
-          ],
-        },
-      ],
-    });
-  });
+    const validate = await _validateBackbone(item, 'Patient_Contact');
 
-  it('should be able to create a new address using builder methods [builders.dataTypes.AddressBuilder()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .addRelationship({
-        coding: [
-          {
-            code: '123',
-            system: 'system',
-          },
-        ],
-      })
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-01',
-      })
-      .addParamExtension('gender', {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _gender: {
@@ -194,7 +123,7 @@ describe('PatientContact FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await Validator.backboneElements.PatientContact(item);
+    const validate = await _validateBackbone(item, 'Patient_Contact');
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(1);

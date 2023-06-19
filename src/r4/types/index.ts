@@ -20,5 +20,15 @@ export { BackboneElementType } from './BackboneElementType';
 import GroupType from './GroupType';
 import LocationStatusType from './LocationStatusType';
 import LocationModeType from './LocationModeType';
+import BundleTypeType from './BundleTypeType';
+import BundleEntryRequestMethodType from './BundleEntryRequestMethodType';
+import BundleEntrySearchModeType from './BundleEntrySearchModeType';
 
-export { GroupType, LocationStatusType, LocationModeType };
+export {
+  GroupType,
+  LocationStatusType,
+  LocationModeType,
+  BundleTypeType,
+  BundleEntrySearchModeType,
+  BundleEntryRequestMethodType,
+};

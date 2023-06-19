@@ -1,3 +1,3 @@
 export interface ISerializable {
-  serialize(): string;
+  buildAsString(): string;
 }

@@ -1,33 +1,15 @@
-import { DurationBuilder } from '../../../src/r4/builders/datatypes';
 import { IDuration } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { Duration } from '../../../src/r4/models/datatypes';
+import { IDurationBuilder } from '../../../src/r4/models/datatypes/Duration';
+import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 
 describe('Duration FHIR R4', () => {
-  let builder: DurationBuilder;
-  let builderFromFunction: DurationBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR4();
+  let builder: IDurationBuilder;
+  const { Duration } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = new DurationBuilder();
-    builderFromFunction = Builder.dataTypes.Duration();
-  });
-
-  it('should be able to create a new duration and validate with correct data [createDatatype]', async () => {
-    const item = createDatatype('Duration', {
-      id: '123',
-      value: 45,
-      system: 'url',
-      comparator: '>',
-      code: 'test',
-      unit: 'test',
-    });
-
-    const validate = await Validator.dataTypes.Duration(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = Duration.builder();
   });
 
   it('should be able to create a new duration and validate with correct data [new Duration()]', async () => {
@@ -40,7 +22,7 @@ describe('Duration FHIR R4', () => {
       unit: 'test',
     });
 
-    const validate = await Validator.dataTypes.Duration(item);
+    const validate = await _validateDataType(item, 'Duration');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -56,7 +38,7 @@ describe('Duration FHIR R4', () => {
       unit: 'test',
     };
 
-    const validate = await Validator.dataTypes.Duration(item);
+    const validate = await _validateDataType(item, 'Duration');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -73,7 +55,7 @@ describe('Duration FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Duration(item);
+    const validate = await _validateDataType(item, 'Duration');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -101,37 +83,10 @@ describe('Duration FHIR R4', () => {
       .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      _system: {
-        extension: [
-          {
-            id: '123',
-            url: 'url',
-            valueDate: '2022-06-12',
-          },
-        ],
-      },
-      code: 'test',
-      comparator: '<=',
-      id: '123',
-      system: 'url',
-      unit: 'test',
-      value: 4,
-    });
-  });
+    const validate = await _validateDataType(item, 'Duration');
 
-  it('should be able to create a new duration using builder methods', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .setId('123')
-      .setCode('test')
-      .setSystem('url')
-      .setValue(4)
-      .setComparator('<=')
-      .setUnit('test')
-      .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

@@ -1,5 +1,4 @@
 import * as datatype from './interfaces/datatypes';
-import { Wait } from './validators/BackboneElementValidator';
 
 export type DatatypeTypeR4 =
   | 'Address'

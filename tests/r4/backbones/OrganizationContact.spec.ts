@@ -1,11 +1,10 @@
 import FHIRContext from '../../../src';
 import { IOrganizationContact } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-
-import { IOrganizationContactBuilder } from '../../../src/r4/models/backbones/OrganizationContactBuilder';
+import { OrganizationContactBuilder } from '../../../src/r4/models/backbones/OrganizationContactBuilder';
 
 describe('OrganizationContact FHIR R4', () => {
-  let builder: IOrganizationContactBuilder;
+  let builder: OrganizationContactBuilder;
   const { OrganizationContact } = new FHIRContext().forR4();
 
   // create global

@@ -1,13 +1,14 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { IAddress, IPeriod } from '../../interfaces/datatypes';
+import { IBuildable } from '../../../globals/interfaces';
+import { IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { AddressTypeEnum, AddressUseEnum } from '../../enums';
 import { AddressTypeType, AddressUseType } from '../../types';
+import Address from './Address';
 
 type ParamExtensionType = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
-export interface IAddressBuilder extends IBuildable<IAddress>, ISerializable, IElementBuilder<IAddressBuilder> {
+export interface IAddressBuilder extends IBuildable<Address>, IElementBuilder<AddressBuilder> {
   addParamExtension<T extends ParamExtensionType>(
     param: T,
     extension: T extends 'line' ? IElement[] : IElement,
@@ -37,11 +38,11 @@ export interface IAddressBuilder extends IBuildable<IAddress>, ISerializable, IE
 }
 
 export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IAddressBuilder {
-  private readonly address: IAddress;
+  private readonly address: Address;
 
   constructor() {
     super();
-    this.address = {} as IAddress;
+    this.address = new Address();
   }
 
   addParamExtension<T extends ParamExtensionType>(
@@ -114,18 +115,8 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IA
     return this;
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault());
-  }
-
-  build(): IAddress {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IAddress {
-    return {
-      ...this.address,
-      ...super.entity(),
-    };
+  build(): Address {
+    Object.assign(this.address, { ...super.entity() });
+    return this.address.toJson();
   }
 }

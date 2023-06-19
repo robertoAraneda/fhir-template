@@ -1,7 +1,7 @@
 import { ICoding, IMeta } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { IMetaBuilder, MetaBuilder } from './MetaBuilder';
+import { MetaBuilder } from './MetaBuilder';
 
 export default class Meta extends Element implements IMeta {
   // Meta Properties
@@ -17,7 +17,19 @@ export default class Meta extends Element implements IMeta {
   _lastUpdated?: IElement;
   _source?: IElement;
 
-  static builder(): IMetaBuilder {
+  toJson(): Meta {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Meta${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Meta${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): MetaBuilder {
     return new MetaBuilder();
   }
 

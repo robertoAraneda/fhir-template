@@ -8,91 +8,84 @@ import {
 } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { ParseResourceTypeR4, ResourceTypeR4 } from '../../GlobalResourceTypes';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
+import BundleEntry from './BundleEntry';
 
 export interface IBundleEntryBuilder
-  extends IBuildable<IBundleEntry>,
-    ISerializable,
-    IBackboneElementBuilder<IBundleEntryBuilder>,
-    IElementBuilder<IBundleEntryBuilder> {
-  addParamExtension(param: 'fullUrl', extension: IElement): this;
+  extends IBuildable<BundleEntry>,
+    IBackboneElementBuilder<BundleEntryBuilder>,
+    IElementBuilder<BundleEntryBuilder> {
+  addParamExtension(param: 'fullUrl', extension: IElement): BundleEntryBuilder;
 
-  addLink(link: IBundleLink): this;
+  addLink(link: IBundleLink): BundleEntryBuilder;
 
-  setMultipleLink(links: IBundleLink[]): this;
+  setMultipleLink(links: IBundleLink[]): BundleEntryBuilder;
 
-  setFullUrl(fullUrl: string): this;
+  setFullUrl(fullUrl: string): BundleEntryBuilder;
 
-  setResource<T extends ResourceTypeR4>(resourceType: ResourceTypeR4, resourceData: ParseResourceTypeR4<T>): this;
+  setResource<T extends ResourceTypeR4>(
+    resourceType: ResourceTypeR4,
+    resourceData: ParseResourceTypeR4<T>,
+  ): BundleEntryBuilder;
 
-  setSearch(search: IBundleEntrySearch): this;
+  setSearch(search: IBundleEntrySearch): BundleEntryBuilder;
 
-  setRequest(request: IBundleEntryRequest): this;
+  setRequest(request: IBundleEntryRequest): BundleEntryBuilder;
 
-  setResponse(response: IBundleEntryResponse): this;
+  setResponse(response: IBundleEntryResponse): BundleEntryBuilder;
 }
 
 export class BundleEntryBuilder extends BackboneElementBuilder<BundleEntryBuilder> implements IBundleEntryBuilder {
-  private readonly bundleEntry: IBundleEntry;
+  private readonly bundleEntry: BundleEntry;
 
   constructor() {
     super();
-    this.bundleEntry = {} as IBundleEntry;
+    this.bundleEntry = new BundleEntry();
   }
 
-  addLink(link: IBundleLink): this {
+  addLink(link: IBundleLink): BundleEntryBuilder {
     this.bundleEntry.link = this.bundleEntry.link || [];
     this.bundleEntry.link.push(link);
     return this;
   }
 
-  addParamExtension(param: 'fullUrl', extension: IElement): this {
+  addParamExtension(param: 'fullUrl', extension: IElement): BundleEntryBuilder {
     this.bundleEntry[`_${param}`] = extension;
     return this;
   }
 
-  build(): IBundleEntry {
-    return JSON.parse(this.buildAsString());
+  build(): BundleEntry {
+    Object.assign(this.bundleEntry, { ...super.entity() });
+    return this.bundleEntry.toJson();
   }
 
-  compileAsDefault(): IBundleEntry {
-    return {
-      ...this.bundleEntry,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  setFullUrl(fullUrl: string): this {
+  setFullUrl(fullUrl: string): BundleEntryBuilder {
     this.bundleEntry.fullUrl = fullUrl;
     return this;
   }
 
-  setMultipleLink(links: IBundleLink[]): this {
+  setMultipleLink(links: IBundleLink[]): BundleEntryBuilder {
     this.bundleEntry.link = links;
     return this;
   }
 
-  setRequest(request: IBundleEntryRequest): this {
+  setRequest(request: IBundleEntryRequest): BundleEntryBuilder {
     this.bundleEntry.request = request;
     return this;
   }
 
-  setResource<T extends ResourceTypeR4>(resourceType: T, resourceData: ParseResourceTypeR4<T>): this {
+  setResource<T extends ResourceTypeR4>(resourceType: T, resourceData: ParseResourceTypeR4<T>): BundleEntryBuilder {
     this.bundleEntry.resource = resourceData;
     return this;
   }
 
-  setResponse(response: IBundleEntryResponse): this {
+  setResponse(response: IBundleEntryResponse): BundleEntryBuilder {
     this.bundleEntry.response = response;
     return this;
   }
 
-  setSearch(search: IBundleEntrySearch): this {
+  setSearch(search: IBundleEntrySearch): BundleEntryBuilder {
     this.bundleEntry.search = search;
     return this;
   }

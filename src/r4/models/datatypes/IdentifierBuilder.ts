@@ -5,11 +5,9 @@ import { IElement } from '../../interfaces/base';
 import { IdentifierUseEnum } from '../../enums';
 import { IdentifierUseType } from '../../types';
 import { validateReference } from '../../../globals/helpers/validateReference';
+import Identifier from './Identifier';
 
-export interface IIdentifierBuilder
-  extends IBuildable<IIdentifier>,
-    ISerializable,
-    IElementBuilder<IIdentifierBuilder> {
+export interface IIdentifierBuilder extends IBuildable<Identifier>, IElementBuilder<IdentifierBuilder> {
   addParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder;
 
   setType(value: ICodeableConcept): IdentifierBuilder;
@@ -26,12 +24,12 @@ export interface IIdentifierBuilder
 }
 
 export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
-  private readonly identifier: IIdentifier;
+  private readonly identifier: Identifier;
 
   constructor() {
     super();
 
-    this.identifier = {} as IIdentifier;
+    this.identifier = new Identifier();
   }
 
   addParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder {
@@ -80,18 +78,8 @@ export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> impleme
     return this;
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  build(): IIdentifier {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IIdentifier {
-    return {
-      ...this.identifier,
-      ...super.entity(),
-    };
+  build(): Identifier {
+    Object.assign(this.identifier, { ...super.entity() });
+    return this.identifier.toJson();
   }
 }

@@ -1,10 +1,10 @@
 import { IDuration } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IDurationBuilder } from '../../../src/r4/models/datatypes/DurationBuilder';
+import { DurationBuilder } from '../../../src/r4/models/datatypes/DurationBuilder';
 
 describe('Duration FHIR R4', () => {
-  let builder: IDurationBuilder;
+  let builder: DurationBuilder;
   const { Duration } = new FHIRContext().forR4();
 
   // create global

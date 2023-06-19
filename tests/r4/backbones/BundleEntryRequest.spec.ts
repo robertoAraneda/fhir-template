@@ -2,9 +2,9 @@ import FHIRContext from '../../../src';
 import { IBundleEntryRequest } from '../../../src/r4/interfaces/backbones';
 import BundleEntryRequestMethodEnum from '../../../src/r4/enums/BundleEntryRequestMethodEnum';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IBundleEntryRequestBuilder } from '../../../src/r4/models/backbones/BundleEntryRequestBuilder';
+import { BundleEntryRequestBuilder } from '../../../src/r4/models/backbones/BundleEntryRequestBuilder';
 describe('BundleEntryRequest FHIR R4', () => {
-  let builder: IBundleEntryRequestBuilder;
+  let builder: BundleEntryRequestBuilder;
   const { BundleEntryRequest } = new FHIRContext().forR4();
 
   // create global

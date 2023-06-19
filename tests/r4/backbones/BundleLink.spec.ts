@@ -1,10 +1,10 @@
 import FHIRContext from '../../../src';
 import { IBundleLink } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IBundleLinkBuilder } from '../../../src/r4/models/backbones/BundleLinkBuilder';
+import { BundleLinkBuilder } from '../../../src/r4/models/backbones/BundleLinkBuilder';
 
 describe('BundleLink FHIR R4', () => {
-  let builder: IBundleLinkBuilder;
+  let builder: BundleLinkBuilder;
   const { BundleLink } = new FHIRContext().forR4();
 
   // create global

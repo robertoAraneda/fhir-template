@@ -1,10 +1,9 @@
 import { IGroup } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-
-import { IGroupBuilder } from '../../../src/r4/models/resources/GroupBuilder';
+import { GroupBuilder } from '../../../src/r4/models/resources/GroupBuilder';
 
 describe('Group FHIR R4', () => {
-  let builder: IGroupBuilder;
+  let builder: GroupBuilder;
 
   const context = new FHIRContext();
   const { Group, Validator } = context.forR4();
@@ -59,7 +58,6 @@ describe('Group FHIR R4', () => {
 
     const validate = await Validator.Group(item);
 
-    console.log(JSON.stringify(validate, null, 2));
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });

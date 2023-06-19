@@ -2,7 +2,7 @@ import { IGroupMember } from '../../interfaces/backbones';
 import { IPeriod, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
-import { GroupMemberBuilder, IGroupMemberBuilder } from './GroupMemberBuilder';
+import { GroupMemberBuilder } from './GroupMemberBuilder';
 
 export default class GroupMember extends BackboneElement implements IGroupMember {
   // GroupMember attributes
@@ -13,7 +13,19 @@ export default class GroupMember extends BackboneElement implements IGroupMember
   // Extensions
   _inactive?: IElement;
 
-  static builder(): IGroupMemberBuilder {
+  toJson(): GroupMember {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `GroupMember${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `GroupMember${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): GroupMemberBuilder {
     return new GroupMemberBuilder();
   }
 

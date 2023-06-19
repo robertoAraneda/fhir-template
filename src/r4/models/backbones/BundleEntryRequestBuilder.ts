@@ -1,90 +1,79 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBundleEntryRequest } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { BundleEntryRequestMethodEnum } from '../../enums';
 import { BundleEntryRequestMethodType } from '../../types';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
+import BundleEntryRequest from './BundleEntryRequest';
 
 type ParamExtensionType = 'method' | 'url' | 'ifNoneMatch' | 'ifModifiedSince' | 'ifMatch' | 'ifNoneExist';
 
 export interface IBundleEntryRequestBuilder
-  extends IBuildable<IBundleEntryRequest>,
-    ISerializable,
-    IBackboneElementBuilder<IBundleEntryRequestBuilder>,
-    IElementBuilder<IBundleEntryRequestBuilder> {
-  addParamExtension(param: ParamExtensionType, extension: IElement): this;
+  extends IBuildable<BundleEntryRequest>,
+    IBackboneElementBuilder<BundleEntryRequestBuilder>,
+    IElementBuilder<BundleEntryRequestBuilder> {
+  addParamExtension(param: ParamExtensionType, extension: IElement): BundleEntryRequestBuilder;
 
-  setMethod(method: string): this;
+  setMethod(method: string): BundleEntryRequestBuilder;
 
-  setUrl(url: string): this;
+  setUrl(url: string): BundleEntryRequestBuilder;
 
-  setIfNoneMatch(ifNoneMatch: string): this;
+  setIfNoneMatch(ifNoneMatch: string): BundleEntryRequestBuilder;
 
-  setIfModifiedSince(ifModifiedSince: string): this;
+  setIfModifiedSince(ifModifiedSince: string): BundleEntryRequestBuilder;
 
-  setIfMatch(ifMatch: string): this;
+  setIfMatch(ifMatch: string): BundleEntryRequestBuilder;
 
-  setIfNoneExist(ifNoneExist: string): this;
+  setIfNoneExist(ifNoneExist: string): BundleEntryRequestBuilder;
 }
 
 export class BundleEntryRequestBuilder
   extends BackboneElementBuilder<BundleEntryRequestBuilder>
   implements IBundleEntryRequestBuilder
 {
-  private readonly bundleEntryRequest: IBundleEntryRequest;
+  private readonly bundleEntryRequest: BundleEntryRequest;
 
   constructor() {
     super();
-    this.bundleEntryRequest = {} as IBundleEntryRequest;
+    this.bundleEntryRequest = new BundleEntryRequest();
   }
 
-  addParamExtension(param: ParamExtensionType, extension: IElement): this {
+  addParamExtension(param: ParamExtensionType, extension: IElement): BundleEntryRequestBuilder {
     this.bundleEntryRequest[`_${param}`] = extension;
     return this;
   }
 
-  build(): IBundleEntryRequest {
-    return JSON.parse(this.buildAsString());
+  build(): BundleEntryRequest {
+    Object.assign(this.bundleEntryRequest, { ...super.entity() });
+    return this.bundleEntryRequest.toJson();
   }
 
-  compileAsDefault(): IBundleEntryRequest {
-    return {
-      ...this.bundleEntryRequest,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  setIfMatch(ifMatch: string): this {
+  setIfMatch(ifMatch: string): BundleEntryRequestBuilder {
     this.bundleEntryRequest.ifMatch = ifMatch;
     return this;
   }
 
-  setIfModifiedSince(ifModifiedSince: string): this {
+  setIfModifiedSince(ifModifiedSince: string): BundleEntryRequestBuilder {
     this.bundleEntryRequest.ifModifiedSince = ifModifiedSince;
     return this;
   }
 
-  setIfNoneExist(ifNoneExist: string): this {
+  setIfNoneExist(ifNoneExist: string): BundleEntryRequestBuilder {
     this.bundleEntryRequest.ifNoneExist = ifNoneExist;
     return this;
   }
 
-  setIfNoneMatch(ifNoneMatch: string): this {
+  setIfNoneMatch(ifNoneMatch: string): BundleEntryRequestBuilder {
     this.bundleEntryRequest.ifNoneMatch = ifNoneMatch;
     return this;
   }
 
-  setMethod(method: BundleEntryRequestMethodEnum | BundleEntryRequestMethodType): this {
+  setMethod(method: BundleEntryRequestMethodEnum | BundleEntryRequestMethodType): BundleEntryRequestBuilder {
     this.bundleEntryRequest.method = method;
     return this;
   }
 
-  setUrl(url: string): this {
+  setUrl(url: string): BundleEntryRequestBuilder {
     this.bundleEntryRequest.url = url;
     return this;
   }

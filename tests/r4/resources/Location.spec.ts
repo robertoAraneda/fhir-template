@@ -1,10 +1,9 @@
 import { ILocation } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { _validateBaseResource } from '../../../src/r4/validators/BaseValidator';
-import { ILocationBuilder } from '../../../src/r4/models/resources/LocationBuilder';
+import { LocationBuilder } from '../../../src/r4/models/resources/LocationBuilder';
 
 describe('Location FHIR R4', () => {
-  let builder: ILocationBuilder;
+  let builder: LocationBuilder;
   const context = new FHIRContext();
   const { Location, Validator } = context.forR4();
 

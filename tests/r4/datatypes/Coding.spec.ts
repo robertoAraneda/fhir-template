@@ -1,9 +1,9 @@
 import { ICoding } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { ICodingBuilder } from '../../../src/r4/models/datatypes/CodingBuilder';
+import { CodingBuilder } from '../../../src/r4/models/datatypes/CodingBuilder';
 describe('Coding FHIR R4', () => {
-  let builder: ICodingBuilder;
+  let builder: CodingBuilder;
   const { Coding } = new FHIRContext().forR4();
 
   // create global

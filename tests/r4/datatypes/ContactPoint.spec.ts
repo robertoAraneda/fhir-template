@@ -1,10 +1,10 @@
 import { IContactPoint } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IContactPointBuilder } from '../../../src/r4/models/datatypes/ContactPointBuilder';
+import { ContactPointBuilder } from '../../../src/r4/models/datatypes/ContactPointBuilder';
 
 describe('ContactPoint FHIR R4', () => {
-  let builder: IContactPointBuilder;
+  let builder: ContactPointBuilder;
   const { ContactPoint } = new FHIRContext().forR4();
 
   // create global

@@ -15,7 +15,19 @@ export default class Reference extends Element implements IReference {
   _reference: IElement;
   _type: IElement;
 
-  static builder(): IReferenceBuilder {
+  toJson(): Reference {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Reference${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Reference${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): ReferenceBuilder {
     return new ReferenceBuilder();
   }
 

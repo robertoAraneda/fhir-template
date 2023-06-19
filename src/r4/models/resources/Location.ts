@@ -45,12 +45,20 @@ export default class Location extends DomainResource implements ILocation {
   _name?: IElement;
   _status?: IElement;
 
-  static builder(): ILocationBuilder {
-    return new LocationBuilder();
+  toJson(): Location {
+    return JSON.parse(JSON.stringify(this));
   }
 
-  static get resourceType(): string {
-    return 'Location';
+  toPrettyString(): string {
+    return `Location${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Location${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): LocationBuilder {
+    return new LocationBuilder();
   }
 
   constructor(args?: ILocation) {

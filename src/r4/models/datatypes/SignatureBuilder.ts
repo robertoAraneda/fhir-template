@@ -1,12 +1,13 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { ICoding, IReference, ISignature } from '../../interfaces/datatypes';
+import { IBuildable } from '../../../globals/interfaces';
+import { ICoding, IReference } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
+import Signature from './Signature';
 
 type ParamExtensionType = 'when' | 'targetFormat' | 'sigFormat' | 'data';
 
-export interface ISignatureBuilder extends IBuildable<ISignature>, ISerializable, IElementBuilder<ISignatureBuilder> {
-  addParamExtension(param: ParamExtensionType, extension: IElement): this;
+export interface ISignatureBuilder extends IBuildable<Signature>, IElementBuilder<SignatureBuilder> {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this;
 
   addType(type: ICoding): this;
 
@@ -26,14 +27,14 @@ export interface ISignatureBuilder extends IBuildable<ISignature>, ISerializable
 }
 
 export class SignatureBuilder extends ElementBuilder<SignatureBuilder> implements ISignatureBuilder {
-  private readonly signature: ISignature;
+  private readonly signature: Signature;
 
   constructor() {
     super();
-    this.signature = {} as ISignature;
+    this.signature = new Signature();
   }
 
-  addParamExtension(param: ParamExtensionType, extension: IElement): this {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this {
     this.signature[`_${param}`] = extension;
     return this;
   }
@@ -44,19 +45,9 @@ export class SignatureBuilder extends ElementBuilder<SignatureBuilder> implement
     return this;
   }
 
-  build(): ISignature {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): ISignature {
-    return {
-      ...this.signature,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
+  build(): Signature {
+    Object.assign(this.signature, { ...super.entity() });
+    return this.signature.toJson();
   }
 
   setData(data: string): this {

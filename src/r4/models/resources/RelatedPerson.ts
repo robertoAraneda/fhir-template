@@ -37,15 +37,23 @@ export default class RelatedPerson extends DomainResource implements IRelatedPer
   _birthDate?: IElement;
   _gender?: IElement;
 
-  static get resourceType(): string {
-    return 'RelatedPerson';
+  toJson(): RelatedPerson {
+    return JSON.parse(JSON.stringify(this));
   }
 
-  static builder(): IRelatedPersonBuilder {
+  toPrettyString(): string {
+    return `RelatedPerson${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `RelatedPerson${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): RelatedPersonBuilder {
     return new RelatedPersonBuilder();
   }
 
-  constructor(args?: RelatedPerson) {
+  constructor(args?: IRelatedPerson) {
     super();
     Object.assign(this, args);
   }

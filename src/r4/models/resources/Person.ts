@@ -25,16 +25,24 @@ export default class Person extends DomainResource implements IPerson {
   // Extensions
   _birthDate?: IElement;
   _gender?: IElement;
+  _active?: IElement;
 
-  static get resourceType(): string {
-    return 'Person';
+  toJson(): Person {
+    return JSON.parse(JSON.stringify(this));
   }
 
-  static builder(): IPersonBuilder {
+  toPrettyString(): string {
+    return `Person${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Person${JSON.stringify(this.toJson())}`;
+  }
+  static builder(): PersonBuilder {
     return new PersonBuilder();
   }
 
-  constructor(args?: Person) {
+  constructor(args?: IPerson) {
     super();
     Object.assign(this, args);
   }

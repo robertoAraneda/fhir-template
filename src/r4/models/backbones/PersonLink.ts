@@ -12,7 +12,19 @@ export default class PersonLink extends BackboneElement implements IPersonLink {
   target: IReference;
   _assurance: IElement;
 
-  static builder(): IPersonLinkBuilder {
+  toJson(): PersonLink {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `PersonLink${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `PersonLink${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PersonLinkBuilder {
     return new PersonLinkBuilder();
   }
 

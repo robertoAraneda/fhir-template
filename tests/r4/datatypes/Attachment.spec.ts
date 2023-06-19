@@ -2,10 +2,10 @@ import FHIRContext from '../../../src';
 import { IAttachment } from '../../../src/r4/interfaces/datatypes';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 
-import { IAttachmentBuilder } from '../../../src/r4/models/datatypes/AttachmentBuilder';
+import { AttachmentBuilder } from '../../../src/r4/models/datatypes/AttachmentBuilder';
 
 describe('Attachment FHIR R4', () => {
-  let builder: IAttachmentBuilder;
+  let builder: AttachmentBuilder;
   const { Attachment } = new FHIRContext().forR4();
 
   // create global

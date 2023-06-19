@@ -16,7 +16,19 @@ export default class SimpleQuantity extends Element implements ISimpleQuantity {
   _unit?: IElement;
   _system?: IElement;
 
-  static builder(): ISimpleQuantityBuilder {
+  toJson(): SimpleQuantity {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `SimpleQuantity${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `SimpleQuantity${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): SimpleQuantityBuilder {
     return new SimpleQuantityBuilder();
   }
   constructor(args?: ISimpleQuantity) {

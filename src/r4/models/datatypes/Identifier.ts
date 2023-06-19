@@ -77,7 +77,19 @@ export default class Identifier extends Element implements IIdentifier {
    */
   _value?: IElement;
 
-  static builder(): IIdentifierBuilder {
+  toJson(): Identifier {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Identifier${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Identifier${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): IdentifierBuilder {
     return new IdentifierBuilder();
   }
 

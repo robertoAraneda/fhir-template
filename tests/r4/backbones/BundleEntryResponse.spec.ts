@@ -1,11 +1,10 @@
 import FHIRContext from '../../../src';
 import { IBundleEntryResponse } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IBundleEntryResponseBuilder } from '../../../src/r4/models/backbones/BundleEntryResponseBuilder';
+import { BundleEntryResponseBuilder } from '../../../src/r4/models/backbones/BundleEntryResponseBuilder';
 
 describe('BundleEntryResponse FHIR R4', () => {
-  let builder: IBundleEntryResponseBuilder;
-  let builderFromFunction: IBundleEntryResponseBuilder;
+  let builder: BundleEntryResponseBuilder;
   const { BundleEntryResponse } = new FHIRContext().forR4();
 
   // create global

@@ -1,12 +1,12 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
-import { IIdentifier, IReference } from '../../interfaces/datatypes';
+import { IIdentifier } from '../../interfaces/datatypes';
 import Element from '../base/Element';
 import { IDomainResource } from '../../interfaces/base';
 import { transformReference } from '../../../globals/helpers/transformReference';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import Reference from './Reference';
 
-export interface IReferenceBuilder extends IBuildable<IReference>, ISerializable, IElementBuilder<IReferenceBuilder> {
+export interface IReferenceBuilder extends IBuildable<Reference>, IElementBuilder<ReferenceBuilder> {
   addParamExtension(param: 'display' | 'type' | 'reference', extension: Element): ReferenceBuilder;
 
   setReference<T extends IDomainResource | string>(value: T): ReferenceBuilder;
@@ -19,7 +19,7 @@ export interface IReferenceBuilder extends IBuildable<IReference>, ISerializable
 }
 
 export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements IReferenceBuilder {
-  private readonly reference: IReference;
+  private readonly reference: Reference;
 
   constructor() {
     super();
@@ -57,18 +57,8 @@ export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implement
     return this;
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  compileAsDefault(): IReference {
-    return {
-      ...this.reference,
-      ...super.entity(),
-    };
-  }
-
-  build(): IReference {
-    return JSON.parse(this.buildAsString());
+  build(): Reference {
+    Object.assign(this.reference, { ...super.entity() });
+    return this.reference.toJson();
   }
 }

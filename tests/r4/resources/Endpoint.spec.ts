@@ -1,10 +1,10 @@
 import { IEndpoint } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
-import { IEndpointBuilder } from '../../../src/r4/models/resources/EndpointBuilder';
+import { EndpointBuilder } from '../../../src/r4/models/resources/EndpointBuilder';
 
 describe('Endpoint Resource FHIR R4', () => {
-  let builder: IEndpointBuilder;
+  let builder: EndpointBuilder;
   const context = new FHIRContext();
   const { Endpoint, Validator } = context.forR4();
 

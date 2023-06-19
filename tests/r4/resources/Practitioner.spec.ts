@@ -1,10 +1,10 @@
 import { IPractitioner } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
-import { IPractitionerBuilder } from '../../../src/r4/models/resources/PractitionerBuilder';
+import { PractitionerBuilder } from '../../../src/r4/models/resources/PractitionerBuilder';
 
 describe('Practitioner FHIR R4', () => {
-  let builder: IPractitionerBuilder;
+  let builder: PractitionerBuilder;
   const context = new FHIRContext();
   const { Validator, Practitioner } = context.forR4();
 

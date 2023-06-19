@@ -1,10 +1,10 @@
 import { IPatient } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
-import { IPatientBuilder } from '../../../src/r4/models/resources/PatientBuilder';
+import { PatientBuilder } from '../../../src/r4/models/resources/PatientBuilder';
 
 describe('Patient FHIR R4', () => {
-  let builder: IPatientBuilder;
+  let builder: PatientBuilder;
   const context = new FHIRContext();
   const { Validator, Patient } = context.forR4();
 

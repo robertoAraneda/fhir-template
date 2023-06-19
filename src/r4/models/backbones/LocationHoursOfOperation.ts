@@ -2,7 +2,7 @@ import { ILocationHoursOfOperation } from '../../interfaces/backbones';
 import { DaysOfWeekEnum } from '../../enums';
 import { DaysOfWeekType } from '../../types';
 import BackboneElement from '../base/BackboneElement';
-import { ILocationHoursOfOperationBuilder, LocationHoursOfOperationBuilder } from './LocationHoursOfOperationBuilder';
+import { LocationHoursOfOperationBuilder } from './LocationHoursOfOperationBuilder';
 
 export default class LocationHoursOfOperation extends BackboneElement implements ILocationHoursOfOperation {
   daysOfWeek?: DaysOfWeekEnum[] | DaysOfWeekType[];
@@ -10,7 +10,19 @@ export default class LocationHoursOfOperation extends BackboneElement implements
   openingTime?: string;
   closingTime?: string;
 
-  static builder(): ILocationHoursOfOperationBuilder {
+  toJson(): LocationHoursOfOperation {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `LocationHoursOfOperation${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `LocationHoursOfOperation${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): LocationHoursOfOperationBuilder {
     return new LocationHoursOfOperationBuilder();
   }
 

@@ -1,10 +1,10 @@
 import FHIRContext from '../../../src';
 import { IPatientCommunication } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IPatientCommunicationBuilder } from '../../../src/r4/models/backbones/PatientCommunicationBuilder';
+import { PatientCommunicationBuilder } from '../../../src/r4/models/backbones/PatientCommunicationBuilder';
 
 describe('PatientCommunication FHIR R4', () => {
-  let builder: IPatientCommunicationBuilder;
+  let builder: PatientCommunicationBuilder;
   const { PatientCommunication } = new FHIRContext().forR4();
 
   // create global

@@ -1,10 +1,10 @@
 import { IReference } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IReferenceBuilder } from '../../../src/r4/models/datatypes/ReferenceBuilder';
+import { ReferenceBuilder } from '../../../src/r4/models/datatypes/ReferenceBuilder';
 
 describe('Reference FHIR R4', () => {
-  let builder: IReferenceBuilder;
+  let builder: ReferenceBuilder;
 
   const { Reference } = new FHIRContext().forR4();
 

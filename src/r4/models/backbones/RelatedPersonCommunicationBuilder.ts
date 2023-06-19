@@ -1,15 +1,14 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept } from '../../interfaces/datatypes';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
+import RelatedPersonCommunication from './RelatedPersonCommunication';
 
 export interface IRelatedPersonCommunicationBuilder
-  extends IBuildable<IRelatedPersonCommunication>,
-    ISerializable,
-    IBackboneElementBuilder<IRelatedPersonCommunicationBuilder>,
-    IElementBuilder<IRelatedPersonCommunicationBuilder> {
+  extends IBuildable<RelatedPersonCommunication>,
+    IBackboneElementBuilder<RelatedPersonCommunicationBuilder>,
+    IElementBuilder<RelatedPersonCommunicationBuilder> {
   addParamExtension(param: 'preferred', extension: IElement): RelatedPersonCommunicationBuilder;
 
   setLanguage(language: ICodeableConcept): RelatedPersonCommunicationBuilder;
@@ -21,11 +20,11 @@ export class RelatedPersonCommunicationBuilder
   extends BackboneElementBuilder<RelatedPersonCommunicationBuilder>
   implements IRelatedPersonCommunicationBuilder
 {
-  private readonly relatedPersonCommunication: IRelatedPersonCommunication;
+  private readonly relatedPersonCommunication: RelatedPersonCommunication;
 
   constructor() {
     super();
-    this.relatedPersonCommunication = {} as IRelatedPersonCommunication;
+    this.relatedPersonCommunication = new RelatedPersonCommunication();
   }
 
   addParamExtension(param: 'preferred', extension: IElement): RelatedPersonCommunicationBuilder {
@@ -43,18 +42,8 @@ export class RelatedPersonCommunicationBuilder
     return this;
   }
 
-  build(): IRelatedPersonCommunication {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IRelatedPersonCommunication {
-    return {
-      ...this.relatedPersonCommunication,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
+  build(): RelatedPersonCommunication {
+    Object.assign(this.relatedPersonCommunication, { ...super.entity() });
+    return this.relatedPersonCommunication.toJson();
   }
 }

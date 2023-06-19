@@ -1,10 +1,10 @@
 import FHIRContext from '../../../src';
 import { IPractitionerQualification } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IPractitionerQualificationBuilder } from '../../../src/r4/models/backbones/PractitionerQualificationBuilder';
+import { PractitionerQualificationBuilder } from '../../../src/r4/models/backbones/PractitionerQualificationBuilder';
 
 describe('PractitionerQualification FHIR R4', () => {
-  let builder: IPractitionerQualificationBuilder;
+  let builder: PractitionerQualificationBuilder;
   const { PractitionerQualification } = new FHIRContext().forR4();
 
   // create global

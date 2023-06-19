@@ -1,10 +1,10 @@
 import { IRange } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IRangeBuilder } from '../../../src/r4/models/datatypes/RangeBuilder';
+import { RangeBuilder } from '../../../src/r4/models/datatypes/RangeBuilder';
 
 describe('Range FHIR R4', () => {
-  let builder: IRangeBuilder;
+  let builder: RangeBuilder;
 
   const { Range } = new FHIRContext().forR4();
 

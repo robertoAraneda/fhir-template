@@ -1,9 +1,10 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
+import Period from './Period';
 
-export interface IPeriodBuilder extends IBuildable<IPeriod>, ISerializable, IElementBuilder<IPeriodBuilder> {
+export interface IPeriodBuilder extends IBuildable<Period>, IElementBuilder<PeriodBuilder> {
   addParamExtension(param: 'start' | 'end', extension: IElement): PeriodBuilder;
 
   setStart(value: string): PeriodBuilder;
@@ -12,11 +13,11 @@ export interface IPeriodBuilder extends IBuildable<IPeriod>, ISerializable, IEle
 }
 
 export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IPeriodBuilder {
-  private readonly period: IPeriod;
+  private readonly period: Period;
 
   constructor() {
     super();
-    this.period = {} as IPeriod;
+    this.period = new Period();
   }
 
   addParamExtension(param: 'start' | 'end', extension: IElement): PeriodBuilder {
@@ -37,18 +38,8 @@ export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IPer
     return this;
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  build(): IPeriod {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IPeriod {
-    return {
-      ...this.period,
-      ...super.entity(),
-    };
+  build(): Period {
+    Object.assign(this.period, { ...super.entity() });
+    return this.period.toJson();
   }
 }

@@ -1,74 +1,63 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { ILocationHoursOfOperation } from '../../interfaces/backbones';
+import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { DaysOfWeekEnum } from '../../enums';
 import { DaysOfWeekType } from '../../types';
+import LocationHoursOfOperation from './LocationHoursOfOperation';
 
 export interface ILocationHoursOfOperationBuilder
-  extends IBuildable<ILocationHoursOfOperation>,
-    ISerializable,
-    IBackboneElementBuilder<ILocationHoursOfOperationBuilder>,
-    IElementBuilder<ILocationHoursOfOperationBuilder> {
-  addDaysOfWeek(daysOfWeek: DaysOfWeekEnum | DaysOfWeekType): this;
+  extends IBuildable<LocationHoursOfOperation>,
+    IBackboneElementBuilder<LocationHoursOfOperationBuilder>,
+    IElementBuilder<LocationHoursOfOperationBuilder> {
+  addDaysOfWeek(daysOfWeek: DaysOfWeekEnum | DaysOfWeekType): LocationHoursOfOperationBuilder;
 
-  setAllDay(allDay: boolean): this;
+  setAllDay(allDay: boolean): LocationHoursOfOperationBuilder;
 
-  setOpeningTime(openingTime: string): this;
+  setOpeningTime(openingTime: string): LocationHoursOfOperationBuilder;
 
-  setClosingTime(closingTime: string): this;
+  setClosingTime(closingTime: string): LocationHoursOfOperationBuilder;
 
-  setMultipleDaysOfWeek(daysOfWeek: string[]): this;
+  setMultipleDaysOfWeek(daysOfWeek: string[]): LocationHoursOfOperationBuilder;
 }
 
 export class LocationHoursOfOperationBuilder
   extends BackboneElementBuilder<LocationHoursOfOperationBuilder>
   implements ILocationHoursOfOperationBuilder
 {
-  private readonly locationHoursOfOperation: ILocationHoursOfOperation;
+  private readonly locationHoursOfOperation: LocationHoursOfOperation;
 
   constructor() {
     super();
-    this.locationHoursOfOperation = {} as ILocationHoursOfOperation;
+    this.locationHoursOfOperation = new LocationHoursOfOperation();
   }
 
-  addDaysOfWeek(daysOfWeek: DaysOfWeekEnum | DaysOfWeekType): this {
+  addDaysOfWeek(daysOfWeek: DaysOfWeekEnum | DaysOfWeekType): LocationHoursOfOperationBuilder {
     this.locationHoursOfOperation.daysOfWeek = this.locationHoursOfOperation.daysOfWeek || [];
     this.locationHoursOfOperation.daysOfWeek.push(daysOfWeek);
     return this;
   }
 
-  build(): ILocationHoursOfOperation {
-    return JSON.parse(this.buildAsString());
+  build(): LocationHoursOfOperation {
+    Object.assign(this.locationHoursOfOperation, { ...super.entity() });
+    return this.locationHoursOfOperation.toJson();
   }
 
-  compileAsDefault(): ILocationHoursOfOperation {
-    return {
-      ...this.locationHoursOfOperation,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault());
-  }
-
-  setAllDay(allDay: boolean): this {
+  setAllDay(allDay: boolean): LocationHoursOfOperationBuilder {
     this.locationHoursOfOperation.allDay = allDay;
     return this;
   }
 
-  setClosingTime(closingTime: string): this {
+  setClosingTime(closingTime: string): LocationHoursOfOperationBuilder {
     this.locationHoursOfOperation.closingTime = closingTime;
     return this;
   }
 
-  setMultipleDaysOfWeek(daysOfWeek: DaysOfWeekEnum[] | DaysOfWeekType[]): this {
+  setMultipleDaysOfWeek(daysOfWeek: DaysOfWeekEnum[] | DaysOfWeekType[]): LocationHoursOfOperationBuilder {
     this.locationHoursOfOperation.daysOfWeek = daysOfWeek;
     return this;
   }
 
-  setOpeningTime(openingTime: string): this {
+  setOpeningTime(openingTime: string): LocationHoursOfOperationBuilder {
     this.locationHoursOfOperation.openingTime = openingTime;
     return this;
   }

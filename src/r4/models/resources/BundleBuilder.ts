@@ -1,17 +1,16 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder, ResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
 import { IIdentifier, ISignature } from '../../interfaces/datatypes';
 import { BundleTypeEnum } from '../../enums';
 import { BundleTypeType } from '../../types';
 import { IBundleEntry, IBundleLink } from '../../interfaces/backbones';
-import { IBundle } from '../../interfaces/resources/IBundle';
 import Bundle from './Bundle';
 
 type ParamExtensionType = 'type' | 'timestamp' | 'total';
 
-export interface IBundleBuilder extends IBuildable<Bundle>, ISerializable, IResourceBuilder<IBundleBuilder> {
-  addParamExtension(param: ParamExtensionType, extension: IElement): BundleBuilder;
+export interface IBundleBuilder extends IBuildable<Bundle>, IResourceBuilder<BundleBuilder> {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): BundleBuilder;
 
   setIdentifier(identifier: IIdentifier): BundleBuilder;
 
@@ -33,7 +32,7 @@ export interface IBundleBuilder extends IBuildable<Bundle>, ISerializable, IReso
 }
 
 export class BundleBuilder extends ResourceBuilder<BundleBuilder> implements IBundleBuilder {
-  private readonly bundle: IBundle;
+  private readonly bundle: Bundle;
 
   constructor() {
     super();
@@ -52,24 +51,14 @@ export class BundleBuilder extends ResourceBuilder<BundleBuilder> implements IBu
     return this;
   }
 
-  addParamExtension(param: ParamExtensionType, extension: IElement): BundleBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): BundleBuilder {
     this.bundle[`_${param}`] = extension;
     return this;
   }
 
   build(): Bundle {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): Bundle {
-    return {
-      ...this.bundle,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
+    Object.assign(this.bundle, { ...super.entity() });
+    return this.bundle.toJson();
   }
 
   setIdentifier(identifier: IIdentifier): BundleBuilder {

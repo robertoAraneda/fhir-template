@@ -1,9 +1,6 @@
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import BackboneElement from '../base/BackboneElement';
-import {
-  IRelatedPersonCommunicationBuilder,
-  RelatedPersonCommunicationBuilder,
-} from './RelatedPersonCommunicationBuilder';
+import { RelatedPersonCommunicationBuilder } from './RelatedPersonCommunicationBuilder';
 
 export default class RelatedPersonCommunication extends BackboneElement implements IRelatedPersonCommunication {
   // RelatedPersonCommunication attributes
@@ -11,11 +8,23 @@ export default class RelatedPersonCommunication extends BackboneElement implemen
   preferred?: boolean;
   _preferred?: any;
 
-  static builder(): IRelatedPersonCommunicationBuilder {
+  toJson(): RelatedPersonCommunication {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `RelatedPersonCommunication${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `RelatedPersonCommunication${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): RelatedPersonCommunicationBuilder {
     return new RelatedPersonCommunicationBuilder();
   }
 
-  constructor(args?: RelatedPersonCommunication) {
+  constructor(args?: IRelatedPersonCommunication) {
     super();
     Object.assign(this, args);
   }

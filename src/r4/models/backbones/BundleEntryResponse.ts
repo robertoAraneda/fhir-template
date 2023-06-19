@@ -1,7 +1,7 @@
 import BackboneElement from '../base/BackboneElement';
 import { IBundleEntryResponse } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { BundleEntryResponseBuilder, IBundleEntryResponseBuilder } from './BundleEntryResponseBuilder';
+import { BundleEntryResponseBuilder } from './BundleEntryResponseBuilder';
 
 export default class BundleEntryResponse extends BackboneElement implements IBundleEntryResponse {
   // BundleEntryResponse attributes
@@ -17,7 +17,19 @@ export default class BundleEntryResponse extends BackboneElement implements IBun
   _location?: IElement;
   _status: IElement;
 
-  static builder(): IBundleEntryResponseBuilder {
+  toJson(): BundleEntryResponse {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `BundleEntryResponse${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `BundleEntryResponse${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): BundleEntryResponseBuilder {
     return new BundleEntryResponseBuilder();
   }
 

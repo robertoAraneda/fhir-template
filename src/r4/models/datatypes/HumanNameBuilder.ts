@@ -1,14 +1,15 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
+import HumanName from './HumanName';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
 type MultipleParamType = 'given' | 'prefix' | 'suffix';
 
-export interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable, IElementBuilder<IHumanNameBuilder> {
+export interface IHumanNameBuilder extends IBuildable<IHumanName>, IElementBuilder<HumanNameBuilder> {
   addParamExtension(param: ParamType, extension: IElement | IElement[]): HumanNameBuilder;
 
   setUse(value: NameUseEnum | NameUseType): HumanNameBuilder;
@@ -33,12 +34,12 @@ export interface IHumanNameBuilder extends IBuildable<IHumanName>, ISerializable
 }
 
 export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
-  private readonly humanName: IHumanName;
+  private readonly humanName: HumanName;
 
   constructor() {
     super();
 
-    this.humanName = {} as IHumanName;
+    this.humanName = new HumanName();
   }
 
   addParamExtension<T extends ParamType>(
@@ -110,18 +111,8 @@ export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implement
     return this;
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  compileAsDefault(): IHumanName {
-    return {
-      ...this.humanName,
-      ...super.entity(),
-    };
-  }
-
-  build(): IHumanName {
-    return JSON.parse(this.buildAsString());
+  build(): HumanName {
+    Object.assign(this.humanName, { ...super.entity() });
+    return this.humanName.toJson();
   }
 }

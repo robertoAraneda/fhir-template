@@ -19,7 +19,19 @@ export default class Signature extends Element implements ISignature {
   _targetFormat: IElement;
   _when: IElement;
 
-  static builder(): ISignatureBuilder {
+  toJson(): Signature {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Signature${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Signature${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): SignatureBuilder {
     return new SignatureBuilder();
   }
 

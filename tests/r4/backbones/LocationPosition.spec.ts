@@ -1,12 +1,11 @@
 import FHIRContext from '../../../src';
 import { ILocationPosition } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-
-import { ILocationPositionBuilder } from '../../../src/r4/models/backbones/LocationPositionBuilder';
+import { LocationPositionBuilder } from '../../../src/r4/models/backbones/LocationPositionBuilder';
 
 describe('LocationPosition FHIR R4', () => {
-  let builder: ILocationPositionBuilder;
-  const { LocationPosition } = new FHIRContext().forR4();
+  let builder: LocationPositionBuilder;
+  const { LocationPosition, Extension } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
@@ -41,6 +40,7 @@ describe('LocationPosition FHIR R4', () => {
   });
 
   it('should be able to create a new location_position using builder methods [LocationPosition.builder()]', async () => {
+    const extension = Extension.builder().setUrl('preferred').setValueTime('12:00:00').build();
     const item = builder
       .setId('123')
       .setLatitude(123)
@@ -53,6 +53,9 @@ describe('LocationPosition FHIR R4', () => {
             valueDate: '2020-01-01',
           },
         ],
+      })
+      .addParamExtension('longitude', {
+        extension: [extension],
       })
       .build();
 
@@ -67,6 +70,14 @@ describe('LocationPosition FHIR R4', () => {
           {
             url: 'preferred',
             valueDate: '2020-01-01',
+          },
+        ],
+      },
+      _longitude: {
+        extension: [
+          {
+            url: 'preferred',
+            valueTime: '12:00:00',
           },
         ],
       },

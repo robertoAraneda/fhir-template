@@ -33,15 +33,23 @@ export default class Practitioner extends DomainResource implements IPractitione
   _birthDate?: IElement;
   _gender?: IElement;
 
-  static get resourceType(): string {
-    return 'Practitioner';
+  toJson(): Practitioner {
+    return JSON.parse(JSON.stringify(this));
   }
 
-  static builder(): IPractitionerBuilder {
+  toPrettyString(): string {
+    return `Practitioner${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Practitioner${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PractitionerBuilder {
     return new PractitionerBuilder();
   }
 
-  constructor(args?: Practitioner) {
+  constructor(args?: IPractitioner) {
     super();
     Object.assign(this, args);
   }

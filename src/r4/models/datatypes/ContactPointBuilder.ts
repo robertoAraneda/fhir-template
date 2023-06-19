@@ -1,17 +1,16 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { ICodeableConcept, IContactPoint, IPeriod } from '../../interfaces/datatypes';
+import { IBuildable } from '../../../globals/interfaces';
+import { IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
 import { ContactPointSystemType, ContactPointUseType } from '../../types';
+import CodeableConcept from './CodeableConcept';
+import ContactPoint from './ContactPoint';
 
-type ParamType = 'system' | 'value' | 'use' | 'rank';
+type ParamExtensionType = 'system' | 'value' | 'use' | 'rank';
 
-export interface IContactPointBuilder
-  extends IBuildable<ICodeableConcept>,
-    ISerializable,
-    IElementBuilder<IContactPointBuilder> {
-  addParamExtension(param: ParamType, extension: IElement): ContactPointBuilder;
+export interface IContactPointBuilder extends IBuildable<CodeableConcept>, IElementBuilder<ContactPointBuilder> {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): ContactPointBuilder;
 
   setSystem(value: ContactPointSystemEnum | ContactPointSystemType): ContactPointBuilder;
 
@@ -25,12 +24,12 @@ export interface IContactPointBuilder
 }
 
 export class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> implements IContactPointBuilder {
-  private readonly contactPoint: IContactPoint;
+  private readonly contactPoint: ContactPoint;
 
   constructor() {
     super();
 
-    this.contactPoint = {} as IContactPoint;
+    this.contactPoint = new ContactPoint();
   }
 
   /**
@@ -61,7 +60,7 @@ export class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> imp
    *   }
    * }
    */
-  addParamExtension(param: ParamType, extension: IElement): ContactPointBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): ContactPointBuilder {
     this.contactPoint[`_${param}`] = extension;
 
     return this;
@@ -124,26 +123,10 @@ export class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> imp
   }
 
   /**
-   * @description Create a string representation of the contactPoint
-   */
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  /**
    * @description Build a ContactPoint
    */
-  build(): IContactPoint {
-    return JSON.parse(this.buildAsString());
-  }
-
-  /**
-   * @description Raw object representation of the contactPoint
-   */
-  compileAsDefault(): IContactPoint {
-    return {
-      ...this.contactPoint,
-      ...super.entity(),
-    };
+  build(): ContactPoint {
+    Object.assign(this.contactPoint, { ...super.entity() });
+    return this.contactPoint.toJson();
   }
 }

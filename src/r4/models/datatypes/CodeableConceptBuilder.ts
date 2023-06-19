@@ -1,24 +1,21 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { ICodeableConcept, ICoding } from '../../interfaces/datatypes';
+import { IBuildable } from '../../../globals/interfaces';
+import { ICoding } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import CodeableConcept from './CodeableConcept';
 
-export interface ICodeableConceptBuilder
-  extends IBuildable<ICodeableConcept>,
-    ISerializable,
-    IElementBuilder<ICodeableConceptBuilder> {
-  addCodeableConceptParamExtension(param: 'text', extension: IElement): CodeableConceptBuilder;
+export interface ICodeableConceptBuilder extends IBuildable<CodeableConcept>, IElementBuilder<CodeableConceptBuilder> {
+  addCodeableConceptParamExtension: (param: 'text', extension: IElement) => CodeableConceptBuilder;
 
-  addCoding(coding: ICoding): CodeableConceptBuilder;
+  addCoding: (coding: ICoding) => CodeableConceptBuilder;
 
-  setMultipleCoding(coding: ICoding[]): CodeableConceptBuilder;
+  setMultipleCoding: (coding: ICoding[]) => CodeableConceptBuilder;
 
-  setText(text: string): CodeableConceptBuilder;
+  setText: (text: string) => CodeableConceptBuilder;
 }
 
 export class CodeableConceptBuilder extends ElementBuilder<CodeableConceptBuilder> implements ICodeableConceptBuilder {
-  private readonly codeableConcept: ICodeableConcept;
+  private readonly codeableConcept: CodeableConcept;
 
   constructor() {
     super();
@@ -79,18 +76,8 @@ export class CodeableConceptBuilder extends ElementBuilder<CodeableConceptBuilde
     return this;
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  build(): ICodeableConcept {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): ICodeableConcept {
-    return {
-      ...this.codeableConcept,
-      ...super.entity(),
-    };
+  build(): CodeableConcept {
+    Object.assign(this.codeableConcept, { ...super.entity() });
+    return this.codeableConcept.toJson();
   }
 }

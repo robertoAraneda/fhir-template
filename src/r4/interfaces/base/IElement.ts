@@ -1,4 +1,5 @@
 import { IExtension } from '../datatypes';
+import Element from '../../models/base/Element';
 
 /**
  * @summary FHIR R4

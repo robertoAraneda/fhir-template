@@ -1,10 +1,10 @@
 import FHIRContext from '../../../src';
 import { IPeriod } from '../../../src/r4/interfaces/datatypes';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IPeriodBuilder } from '../../../src/r4/models/datatypes/PeriodBuilder';
+import { PeriodBuilder } from '../../../src/r4/models/datatypes/PeriodBuilder';
 
 describe('Period FHIR R4', () => {
-  let builder: IPeriodBuilder;
+  let builder: PeriodBuilder;
   const { Period } = new FHIRContext().forR4();
 
   // create global

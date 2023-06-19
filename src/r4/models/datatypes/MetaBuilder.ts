@@ -2,11 +2,12 @@ import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { ICoding, IMeta } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
+import Meta from './Meta';
 
-type ParamsType = 'lastUpdated' | 'source' | 'versionId';
+type ParamsExtensionType = 'lastUpdated' | 'source' | 'versionId';
 
-export interface IMetaBuilder extends IBuildable<IMeta>, ISerializable, IElementBuilder<IMetaBuilder> {
-  addParamExtension(param: ParamsType, extension: IElement): MetaBuilder;
+export interface IMetaBuilder extends IBuildable<Meta>, IElementBuilder<MetaBuilder> {
+  addParamExtension(param: ParamsExtensionType, extension: IElement): MetaBuilder;
 
   setSource(source: string): MetaBuilder;
 
@@ -28,15 +29,15 @@ export interface IMetaBuilder extends IBuildable<IMeta>, ISerializable, IElement
 }
 
 export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBuilder {
-  private readonly meta: IMeta;
+  private readonly meta: Meta;
 
   constructor() {
     super();
 
-    this.meta = {} as IMeta;
+    this.meta = new Meta();
   }
 
-  addParamExtension<T extends ParamsType>(param: T, extension: IElement): MetaBuilder {
+  addParamExtension<T extends ParamsExtensionType>(param: T, extension: IElement): MetaBuilder {
     this.meta[`_${param}`] = extension as IElement;
 
     return this;
@@ -90,18 +91,8 @@ export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBui
     return this;
   }
 
-  compileAsDefault(): IMeta {
-    return {
-      ...this.meta,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  build(): IMeta {
-    return JSON.parse(this.buildAsString());
+  build(): Meta {
+    Object.assign(this.meta, { ...super.entity() });
+    return this.meta.toJson();
   }
 }

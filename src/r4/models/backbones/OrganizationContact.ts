@@ -1,7 +1,7 @@
 import { IOrganizationContact } from '../../interfaces/backbones';
 import { IAddress, ICodeableConcept, IContactPoint, IHumanName } from '../../interfaces/datatypes';
 import BackboneElement from '../base/BackboneElement';
-import { IOrganizationContactBuilder, OrganizationContactBuilder } from './OrganizationContactBuilder';
+import { OrganizationContactBuilder } from './OrganizationContactBuilder';
 
 export default class OrganizationContact extends BackboneElement implements IOrganizationContact {
   // OrganizationContact attributes
@@ -10,7 +10,19 @@ export default class OrganizationContact extends BackboneElement implements IOrg
   purpose: ICodeableConcept;
   telecom: IContactPoint[];
 
-  static builder(): IOrganizationContactBuilder {
+  toJson(): OrganizationContact {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `OrganizationContact${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `OrganizationContact${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): OrganizationContactBuilder {
     return new OrganizationContactBuilder();
   }
 

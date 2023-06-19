@@ -21,7 +21,19 @@ export default class Bundle extends Resource implements IBundle {
   _total?: IElement;
   _type?: IElement;
 
-  static builder(): IBundleBuilder {
+  toJson(): Bundle {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Bundle${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Bundle${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): BundleBuilder {
     return new BundleBuilder();
   }
 

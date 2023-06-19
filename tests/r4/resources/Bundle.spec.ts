@@ -1,10 +1,10 @@
 import FHIRContext from '../../../src';
 import { IBundle } from '../../../src/r4/interfaces/resources/IBundle';
 import { BundleTypeEnum } from '../../../src/r4/enums';
-import { IBundleBuilder } from '../../../src/r4/models/resources/BundleBuilder';
+import { BundleBuilder } from '../../../src/r4/models/resources/BundleBuilder';
 
 describe('Bundle FHIR R4', () => {
-  let builder: IBundleBuilder;
+  let builder: BundleBuilder;
   const context = new FHIRContext();
   const { Bundle, Validator } = context.forR4();
 
@@ -574,8 +574,6 @@ describe('Bundle FHIR R4', () => {
       .build();
 
     const validate = await Validator.Bundle(item);
-
-    console.log(JSON.stringify(validate, null, 2));
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();

@@ -2,10 +2,10 @@ import FHIRContext from '../../../src';
 import { IPatientLink } from '../../../src/r4/interfaces/backbones';
 import { LinkTypeEnum } from '../../../src/r4/enums';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IPatientLinkBuilder } from '../../../src/r4/models/backbones/PatientLinkBuilder';
+import { PatientLinkBuilder } from '../../../src/r4/models/backbones/PatientLinkBuilder';
 
 describe('PatientLink FHIR R4', () => {
-  let builder: IPatientLinkBuilder;
+  let builder: PatientLinkBuilder;
 
   const { PatientLink } = new FHIRContext().forR4();
 

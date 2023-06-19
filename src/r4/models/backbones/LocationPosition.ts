@@ -1,7 +1,7 @@
 import { ILocationPosition } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
-import { ILocationPositionBuilder, LocationPositionBuilder } from './LocationPositionBuilder';
+import { LocationPositionBuilder } from './LocationPositionBuilder';
 
 export default class LocationPosition extends BackboneElement implements ILocationPosition {
   longitude: number;
@@ -12,7 +12,19 @@ export default class LocationPosition extends BackboneElement implements ILocati
   _latitude?: IElement;
   _altitude?: IElement;
 
-  static builder(): ILocationPositionBuilder {
+  toJson(): LocationPosition {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `LocationPosition${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `LocationPosition${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): LocationPositionBuilder {
     return new LocationPositionBuilder();
   }
 

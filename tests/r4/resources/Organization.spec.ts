@@ -1,10 +1,10 @@
 import FHIRContext from '../../../src';
 import { IOrganization } from '../../../src/r4/interfaces/resources';
 
-import { IOrganizationBuilder } from '../../../src/r4/models/resources/OrganizationBuilder';
+import { OrganizationBuilder } from '../../../src/r4/models/resources/OrganizationBuilder';
 
 describe('Organization Resource FHIR R4', () => {
-  let builder: IOrganizationBuilder;
+  let builder: OrganizationBuilder;
   const context = new FHIRContext();
   const { Organization, Validator } = context.forR4();
 

@@ -3,7 +3,7 @@ import { IElement } from '../../interfaces/base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 import Element from '../base/Element';
-import { DurationBuilder, IDurationBuilder } from './DurationBuilder';
+import { DurationBuilder } from './DurationBuilder';
 
 /**
  * @description A length of time.
@@ -77,7 +77,19 @@ export default class Duration extends Element implements IDuration {
    */
   _code?: IElement;
 
-  static builder(): IDurationBuilder {
+  toJson(): Duration {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Duration${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Duration${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): DurationBuilder {
     return new DurationBuilder();
   }
 

@@ -1,10 +1,10 @@
 import { IPractitionerRole } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
-import { IPractitionerRoleBuilder } from '../../../src/r4/models/resources/PractitionerRoleBuilder';
+import { PractitionerRoleBuilder } from '../../../src/r4/models/resources/PractitionerRoleBuilder';
 
 describe('PractitionerRole Resource FHIR R4', () => {
-  let builder: IPractitionerRoleBuilder;
+  let builder: PractitionerRoleBuilder;
   const context = new FHIRContext();
   const { Validator, PractitionerRole } = context.forR4();
 

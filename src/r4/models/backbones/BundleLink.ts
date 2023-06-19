@@ -1,7 +1,7 @@
 import { IBundleLink } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
-import { BundleLinkBuilder, IBundleLinkBuilder } from './BundleLinkBuilder';
+import { BundleLinkBuilder } from './BundleLinkBuilder';
 
 export default class BundleLink extends BackboneElement implements IBundleLink {
   // BundleLink attributes
@@ -12,7 +12,19 @@ export default class BundleLink extends BackboneElement implements IBundleLink {
   _relation: IElement;
   _url: IElement;
 
-  static builder(): IBundleLinkBuilder {
+  toJson(): BundleLink {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `BundleLink${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `BundleLink${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): BundleLinkBuilder {
     return new BundleLinkBuilder();
   }
 

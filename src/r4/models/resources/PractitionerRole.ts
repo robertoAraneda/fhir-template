@@ -31,15 +31,23 @@ export default class PractitionerRole extends DomainResource implements IPractit
   _active?: IElement;
   _availabilityExceptions?: IElement;
 
-  static get resourceType(): string {
-    return 'PractitionerRole';
+  toJson(): PractitionerRole {
+    return JSON.parse(JSON.stringify(this));
   }
 
-  static builder(): IPractitionerRoleBuilder {
+  toPrettyString(): string {
+    return `PractitionerRole${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `PractitionerRole${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PractitionerRoleBuilder {
     return new PractitionerRoleBuilder();
   }
 
-  constructor(args?: PractitionerRole) {
+  constructor(args?: IPractitionerRole) {
     super();
     Object.assign(this, args);
   }

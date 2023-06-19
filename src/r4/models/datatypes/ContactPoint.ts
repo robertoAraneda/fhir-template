@@ -80,7 +80,19 @@ export default class ContactPoint extends Element implements IContactPoint {
    */
   _rank?: IElement;
 
-  static builder(): IContactPointBuilder {
+  toJson(): ContactPoint {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `ContactPoint${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `ContactPoint${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): ContactPointBuilder {
     return new ContactPointBuilder();
   }
 

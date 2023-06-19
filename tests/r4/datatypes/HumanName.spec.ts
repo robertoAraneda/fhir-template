@@ -1,10 +1,10 @@
 import { IHumanName } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IHumanNameBuilder } from '../../../src/r4/models/datatypes/HumanNameBuilder';
+import { HumanNameBuilder } from '../../../src/r4/models/datatypes/HumanNameBuilder';
 
 describe('HumanName FHIR R4', () => {
-  let builder: IHumanNameBuilder;
+  let builder: HumanNameBuilder;
   const { HumanName } = new FHIRContext().forR4();
 
   // create global

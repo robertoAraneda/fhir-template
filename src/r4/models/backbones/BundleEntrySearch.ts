@@ -1,7 +1,8 @@
 import { IBundleEntrySearch } from '../../interfaces/backbones';
 import { IExtension } from '../../interfaces/datatypes';
 import BackboneElement from '../base/BackboneElement';
-import { BundleEntrySearchBuilder, IBundleEntrySearchBuilder } from './BundleEntrySearchBuilder';
+import { BundleEntrySearchBuilder } from './BundleEntrySearchBuilder';
+import { IElement } from '../../interfaces/base';
 
 export default class BundleEntrySearch extends BackboneElement implements IBundleEntrySearch {
   // BundleEntrySearchBuilder attributes
@@ -9,10 +10,22 @@ export default class BundleEntrySearch extends BackboneElement implements IBundl
   score: number;
 
   // Extensions of bundle entry search attributes
-  _mode?: IExtension;
-  _score?: IExtension;
+  _mode?: IElement;
+  _score?: IElement;
 
-  static builder(): IBundleEntrySearchBuilder {
+  toJson(): BundleEntrySearch {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `BundleEntrySearch${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `BundleEntrySearch${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): BundleEntrySearchBuilder {
     return new BundleEntrySearchBuilder();
   }
 

@@ -1,10 +1,10 @@
 import { IMeta } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IMetaBuilder } from '../../../src/r4/models/datatypes/MetaBuilder';
+import { MetaBuilder } from '../../../src/r4/models/datatypes/MetaBuilder';
 
 describe('Meta FHIR R4', () => {
-  let builder: IMetaBuilder;
+  let builder: MetaBuilder;
   const { Meta } = new FHIRContext().forR4();
 
   // create global

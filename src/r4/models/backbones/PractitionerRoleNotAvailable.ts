@@ -1,9 +1,6 @@
 import { IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 import BackboneElement from '../base/BackboneElement';
-import {
-  IPractitionerRoleNotAvailableBuilder,
-  PractitionerRoleNotAvailableBuilder,
-} from './PractitionerRoleNotAvailableBuilder';
+import { PractitionerRoleNotAvailableBuilder } from './PractitionerRoleNotAvailableBuilder';
 
 export default class PractitionerRoleNotAvailable extends BackboneElement implements IPractitionerRoleNotAvailable {
   // PractitionerRoleNotAvailable attributes
@@ -11,11 +8,23 @@ export default class PractitionerRoleNotAvailable extends BackboneElement implem
   during?: any;
   _description?: any;
 
-  static builder(): IPractitionerRoleNotAvailableBuilder {
+  toJson(): PractitionerRoleNotAvailable {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `PractitionerRoleNotAvailable${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `PractitionerRoleNotAvailable${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PractitionerRoleNotAvailableBuilder {
     return new PractitionerRoleNotAvailableBuilder();
   }
 
-  constructor(args?: PractitionerRoleNotAvailable) {
+  constructor(args?: IPractitionerRoleNotAvailable) {
     super();
     Object.assign(this, args);
   }

@@ -41,7 +41,19 @@ export default class Period extends Element implements IPeriod {
    */
   _end?: IElement;
 
-  static builder(): IPeriodBuilder {
+  toJson(): Period {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Period${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Period${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PeriodBuilder {
     return new PeriodBuilder();
   }
 

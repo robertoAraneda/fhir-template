@@ -20,7 +20,19 @@ export default class Quantity extends Element implements IQuantity {
   _unit: IElement;
   _value: IElement;
 
-  static builder(): IQuantityBuilder {
+  toJson(): Quantity {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Quantity${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Quantity${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): QuantityBuilder {
     return new QuantityBuilder();
   }
 

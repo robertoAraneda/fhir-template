@@ -1,17 +1,18 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { ICoding } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
+import Coding from './Coding';
 
-type ParamType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
+type ParamExtensionType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
 
-export interface ICodingBuilder extends IBuildable<ICoding>, ISerializable, IElementBuilder<ICodingBuilder> {
+export interface ICodingBuilder extends IBuildable<Coding>, IElementBuilder<CodingBuilder> {
   setSystem: (value: string) => CodingBuilder;
   setVersion: (value: string) => CodingBuilder;
   setCode: (value: string) => CodingBuilder;
   setDisplay: (value: string) => CodingBuilder;
   setUserSelected: (value: boolean) => CodingBuilder;
-  addParamExtension: (param: ParamType, extension: IElement) => CodingBuilder;
+  addParamExtension: <T extends ParamExtensionType>(param: T, extension: IElement) => CodingBuilder;
 }
 
 /**
@@ -19,12 +20,12 @@ export interface ICodingBuilder extends IBuildable<ICoding>, ISerializable, IEle
  *
  */
 export class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICodingBuilder {
-  private readonly coding: ICoding;
+  private readonly coding: Coding;
 
   constructor() {
     super();
 
-    this.coding = {} as ICoding;
+    this.coding = new Coding();
   }
 
   /**
@@ -56,7 +57,7 @@ export class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICod
    *      }
    *    }
    */
-  addParamExtension(param: ParamType, extension: IElement): CodingBuilder {
+  addParamExtension(param: ParamExtensionType, extension: IElement): CodingBuilder {
     this.coding[`_${param}`] = extension;
     return this;
   }
@@ -112,29 +113,11 @@ export class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICod
   }
 
   /**
-   * @description Return the coding as a JSON string
-   * @returns {ICoding} The coding
-   */
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  /**
    * @description Return the coding as a ICoding object
    * @returns {ICoding} The coding
    */
-  build(): ICoding {
-    return JSON.parse(this.buildAsString());
-  }
-
-  /**
-   * @description Return the coding as a native ICoding object
-   * @returns {ICoding} The coding
-   */
-  compileAsDefault(): ICoding {
-    return {
-      ...this.coding,
-      ...super.entity(),
-    };
+  build(): Coding {
+    Object.assign(this.coding, { ...super.entity() });
+    return this.coding.toJson();
   }
 }

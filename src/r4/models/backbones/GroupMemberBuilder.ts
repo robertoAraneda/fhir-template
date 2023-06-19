@@ -1,50 +1,39 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { IGroupMember } from '../../interfaces/backbones';
+import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IExtension, IPeriod, IReference } from '../../interfaces/datatypes';
 import { validateReference } from '../../../globals/helpers/validateReference';
+import GroupMember from './GroupMember';
 
 type ParamExtensionType = 'inactive';
 
 export interface IGroupMemberBuilder
-  extends IBuildable<IGroupMember>,
-    ISerializable,
-    IBackboneElementBuilder<IGroupMemberBuilder>,
-    IElementBuilder<IGroupMemberBuilder> {
-  setParamExtension(param: ParamExtensionType, extension: IExtension): this;
+  extends IBuildable<GroupMember>,
+    IBackboneElementBuilder<GroupMemberBuilder>,
+    IElementBuilder<GroupMemberBuilder> {
+  setParamExtension<T extends ParamExtensionType>(param: T, extension: IExtension): GroupMemberBuilder;
 
-  setEntity(entity: IReference): this;
+  setEntity(entity: IReference): GroupMemberBuilder;
 
-  setPeriod(period: IPeriod): this;
+  setPeriod(period: IPeriod): GroupMemberBuilder;
 
-  setInactive(inactive: boolean): this;
+  setInactive(inactive: boolean): GroupMemberBuilder;
 }
 
 export class GroupMemberBuilder extends BackboneElementBuilder<GroupMemberBuilder> implements IGroupMemberBuilder {
-  private readonly groupMember: IGroupMember;
+  private readonly groupMember: GroupMember;
 
   constructor() {
     super();
-    this.groupMember = {} as IGroupMember;
+    this.groupMember = new GroupMember();
   }
 
-  build(): IGroupMember {
-    return JSON.parse(this.buildAsString());
+  build(): GroupMember {
+    Object.assign(this.groupMember, { ...super.entity() });
+    return this.groupMember.toJson();
   }
 
-  compileAsDefault(): IGroupMember {
-    return {
-      ...this.groupMember,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault());
-  }
-
-  setEntity(entity: IReference): this {
+  setEntity(entity: IReference): GroupMemberBuilder {
     if (entity.reference) {
       validateReference(entity.reference, [
         'Patient',
@@ -60,17 +49,17 @@ export class GroupMemberBuilder extends BackboneElementBuilder<GroupMemberBuilde
     return this;
   }
 
-  setInactive(inactive: boolean): this {
+  setInactive(inactive: boolean): GroupMemberBuilder {
     this.groupMember.inactive = inactive;
     return this;
   }
 
-  setParamExtension(param: ParamExtensionType, extension: IExtension): this {
+  setParamExtension<T extends ParamExtensionType>(param: T, extension: IExtension): GroupMemberBuilder {
     this.groupMember[`_${param}`] = extension;
     return this;
   }
 
-  setPeriod(period: IPeriod): this {
+  setPeriod(period: IPeriod): GroupMemberBuilder {
     this.groupMember.period = period;
     return this;
   }

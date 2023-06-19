@@ -2,10 +2,10 @@ import FHIRContext from '../../../src';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { IPractitionerRoleAvailableTime } from '../../../src/r4/interfaces/backbones';
 
-import { IPractitionerRoleAvailableTimeBuilder } from '../../../src/r4/models/backbones/PractitionerRoleAvailableTimeBuilder';
+import { PractitionerRoleAvailableTimeBuilder } from '../../../src/r4/models/backbones/PractitionerRoleAvailableTimeBuilder';
 
 describe('PractitionerRoleAvailableTime FHIR R4', () => {
-  let builder: IPractitionerRoleAvailableTimeBuilder;
+  let builder: PractitionerRoleAvailableTimeBuilder;
   const { PractitionerRoleAvailableTime } = new FHIRContext().forR4();
 
   // create global

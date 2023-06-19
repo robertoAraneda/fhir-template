@@ -1,10 +1,10 @@
 import { IExtension } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IExtensionBuilder } from '../../../src/r4/models/datatypes/ExtensionBuilder';
+import { ExtensionBuilder } from '../../../src/r4/models/datatypes/ExtensionBuilder';
 
 describe('Extension FHIR R4', () => {
-  let builder: IExtensionBuilder;
+  let builder: ExtensionBuilder;
   const { Extension } = new FHIRContext().forR4();
 
   // create global

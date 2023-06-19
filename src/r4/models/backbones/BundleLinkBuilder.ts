@@ -1,14 +1,13 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IBundleLink } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
+import BundleLink from './BundleLink';
 
 export interface IBundleLinkBuilder
-  extends IBuildable<IBundleLink>,
-    ISerializable,
-    IBackboneElementBuilder<IBundleLinkBuilder>,
-    IElementBuilder<IBundleLinkBuilder> {
+  extends IBuildable<BundleLink>,
+    IBackboneElementBuilder<BundleLinkBuilder>,
+    IElementBuilder<BundleLinkBuilder> {
   addParamExtension(param: 'relation' | 'url', extension: IElement): BundleLinkBuilder;
 
   setRelation(relation: string): BundleLinkBuilder;
@@ -17,11 +16,11 @@ export interface IBundleLinkBuilder
 }
 
 export class BundleLinkBuilder extends BackboneElementBuilder<BundleLinkBuilder> implements IBundleLinkBuilder {
-  private readonly bundleLink: IBundleLink;
+  private readonly bundleLink: BundleLink;
 
   constructor() {
     super();
-    this.bundleLink = {} as IBundleLink;
+    this.bundleLink = new BundleLink();
   }
 
   addParamExtension(param: 'relation' | 'url', extension: IElement): BundleLinkBuilder {
@@ -29,19 +28,9 @@ export class BundleLinkBuilder extends BackboneElementBuilder<BundleLinkBuilder>
     return this;
   }
 
-  build(): IBundleLink {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IBundleLink {
-    return {
-      ...this.bundleLink,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
+  build(): BundleLink {
+    Object.assign(this.bundleLink, { ...super.entity() });
+    return this.bundleLink.toJson();
   }
 
   setRelation(relation: string): BundleLinkBuilder {

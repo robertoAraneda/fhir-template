@@ -74,7 +74,19 @@ export default class Extension extends Element implements IExtension {
   _valueUrl?: IElement;
   _valueUuid?: IElement;
 
-  static builder(): IExtensionBuilder {
+  toJson(): Extension {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Extension${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Extension${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): ExtensionBuilder {
     return new ExtensionBuilder();
   }
 

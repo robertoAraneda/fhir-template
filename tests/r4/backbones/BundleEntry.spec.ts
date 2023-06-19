@@ -2,10 +2,10 @@ import FHIRContext from '../../../src';
 import { IBundleEntry } from '../../../src/r4/interfaces/backbones';
 import { AdministrativeGenderEnum, BundleEntryRequestMethodEnum } from '../../../src/r4/enums';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IBundleEntryBuilder } from '../../../src/r4/models/backbones/BundleEntryBuilder';
+import { BundleEntryBuilder } from '../../../src/r4/models/backbones/BundleEntryBuilder';
 
 describe('BundleEntry FHIR R4', () => {
-  let builder: IBundleEntryBuilder;
+  let builder: BundleEntryBuilder;
   const { BundleEntry } = new FHIRContext().forR4();
 
   // create global
@@ -81,6 +81,11 @@ describe('BundleEntry FHIR R4', () => {
         gender: AdministrativeGenderEnum.MALE,
       })
       .build();
+
+    const validate = await _validateBackbone(item, 'Bundle_Entry');
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       fullUrl: 'http://example.com',

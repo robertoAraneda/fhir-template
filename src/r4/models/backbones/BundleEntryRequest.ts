@@ -3,7 +3,7 @@ import { IBundleEntryRequest } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { BundleEntryRequestMethodType } from '../../types';
 import { BundleEntryRequestMethodEnum } from '../../enums';
-import { BundleEntryRequestBuilder, IBundleEntryRequestBuilder } from './BundleEntryRequestBuilder';
+import { BundleEntryRequestBuilder } from './BundleEntryRequestBuilder';
 
 export default class BundleEntryRequest extends BackboneElement implements IBundleEntryRequest {
   // BundleEntryRequest attributes
@@ -22,7 +22,19 @@ export default class BundleEntryRequest extends BackboneElement implements IBund
   _method: IElement;
   _url: IElement;
 
-  static builder(): IBundleEntryRequestBuilder {
+  toJson(): BundleEntryRequest {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `BundleEntryRequest${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `BundleEntryRequest${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): BundleEntryRequestBuilder {
     return new BundleEntryRequestBuilder();
   }
 

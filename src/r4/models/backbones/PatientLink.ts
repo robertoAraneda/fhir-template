@@ -4,7 +4,7 @@ import { LinkTypeEnum } from '../../enums';
 import { LinkTypeType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
-import { IPatientLinkBuilder, PatientLinkBuilder } from './PatientLinkBuilder';
+import { PatientLinkBuilder } from './PatientLinkBuilder';
 
 export default class PatientLink extends BackboneElement implements IPatientLink {
   // PatientLink attributes
@@ -12,7 +12,19 @@ export default class PatientLink extends BackboneElement implements IPatientLink
   type: LinkTypeEnum | LinkTypeType;
   _type?: IElement;
 
-  static builder(): IPatientLinkBuilder {
+  toJson(): PatientLink {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `PatientLink${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `PatientLink${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PatientLinkBuilder {
     return new PatientLinkBuilder();
   }
 

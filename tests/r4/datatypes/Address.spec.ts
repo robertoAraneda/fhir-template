@@ -2,10 +2,10 @@ import FHIRContext from '../../../src';
 import { AddressTypeEnum } from '../../../src/r4/enums';
 import { IAddress } from '../../../src/r4/interfaces/datatypes';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IAddressBuilder } from '../../../src/r4/models/datatypes/AddressBuilder';
+import { AddressBuilder } from '../../../src/r4/models/datatypes/AddressBuilder';
 
 describe('Address FHIR R4', () => {
-  let builder: IAddressBuilder;
+  let builder: AddressBuilder;
   const { Address } = new FHIRContext().forR4();
 
   // create global

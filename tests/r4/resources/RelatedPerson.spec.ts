@@ -1,10 +1,9 @@
 import FHIRContext from '../../../src';
 import { IRelatedPerson } from '../../../src/r4/interfaces/resources';
-
-import { IRelatedPersonBuilder } from '../../../src/r4/models/resources/RelatedPersonBuilder';
+import { RelatedPersonBuilder } from '../../../src/r4/models/resources/RelatedPersonBuilder';
 
 describe('RelatedPerson Resource FHIR R4', () => {
-  let builder: IRelatedPersonBuilder;
+  let builder: RelatedPersonBuilder;
   const context = new FHIRContext();
   const { Validator, RelatedPerson } = context.forR4();
 
@@ -298,7 +297,6 @@ describe('RelatedPerson Resource FHIR R4', () => {
       .build();
 
     const validate = await Validator.RelatedPerson(item);
-    console.log(JSON.stringify(validate, null, 2));
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();

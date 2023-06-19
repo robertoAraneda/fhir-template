@@ -17,6 +17,18 @@ export default class PatientContact extends BackboneElement implements IPatientC
   organization: IReference;
   period: IPeriod;
 
+  toJson(): PatientContact {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `PatientContact${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `PatientContact${JSON.stringify(this.toJson())}`;
+  }
+
   // Factory method
   static builder(): PatientContactBuilder {
     return new PatientContactBuilder();

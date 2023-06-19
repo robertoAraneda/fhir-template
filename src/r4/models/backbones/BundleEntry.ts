@@ -7,22 +7,33 @@ import {
   IBundleLink,
 } from '../../interfaces/backbones';
 import BackboneElement from '../base/BackboneElement';
-import { BundleEntryBuilder, IBundleEntryBuilder } from './BundleEntryBuilder';
+import { BundleEntryBuilder } from './BundleEntryBuilder';
 
 export default class BundleEntry extends BackboneElement implements IBundleEntry {
   // BundleEntry attributes
-  fullUrl: string;
-  link: IBundleLink[];
-  request: IBundleEntryRequest;
-  resource: IResource extends infer R ? R : never;
-  response: IBundleEntryResponse;
-  search: IBundleEntrySearch;
+  fullUrl?: string;
+  link?: IBundleLink[];
+  request?: IBundleEntryRequest;
+  resource?: any;
+  response?: IBundleEntryResponse;
+  search?: IBundleEntrySearch;
 
   // Extensions of bundle entry attributes
   _fullUrl?: IElement;
 
-  // TODO: check if this is correct
-  static builder(): IBundleEntryBuilder {
+  toJson(): BundleEntry {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `BundleEntry${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `BundleEntry${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  static builder(): BundleEntryBuilder {
     return new BundleEntryBuilder();
   }
 

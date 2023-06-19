@@ -1,11 +1,10 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import {
   IAddress,
   IAttachment,
   ICodeableConcept,
   ICoding,
   IContactPoint,
-  IExtension,
   IHumanName,
   IIdentifier,
   IMeta,
@@ -15,7 +14,7 @@ import {
 } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { createBuildAndSerializeMethods } from '../../../globals/helpers/buildAndSerialize';
+import Extension from './Extension';
 
 type ExtensionParamType =
   | 'valueId'
@@ -36,252 +35,298 @@ type ExtensionParamType =
   | 'valueUri'
   | 'valueUrl'
   | 'valueUuid';
-type BuildAndSerialize = Pick<IExtensionBuilder, 'buildAsString' | 'build'>;
 
-export interface IExtensionBuilder extends IBuildable<IExtension>, ISerializable, IElementBuilder<IExtensionBuilder> {
-  addParamExtension(param: ExtensionParamType, extension: IElement): BuildAndSerialize;
+type Build = { build: () => Extension };
 
-  setUrl(url: string): this;
+export interface IExtensionBuilder extends IBuildable<Extension>, IElementBuilder<ExtensionBuilder> {
+  addParamExtension<T extends ExtensionParamType>(param: T, extension: IElement): Build;
 
-  setValueId(valueId: string): BuildAndSerialize;
+  setUrl(url: string): ExtensionBuilder;
 
-  setValueAddress(valueAddress: IAddress): BuildAndSerialize;
+  setValueId(valueId: string): Build;
 
-  setValueAttachment(valueAttachment: IAttachment): BuildAndSerialize;
+  setValueAddress(valueAddress: IAddress): Build;
 
-  setValueBoolean(valueBoolean: boolean): BuildAndSerialize;
+  setValueAttachment(valueAttachment: IAttachment): Build;
 
-  setValueCanonical(valueCanonical: string): BuildAndSerialize;
+  setValueBoolean(valueBoolean: boolean): Build;
 
-  setValueCode(valueCode: string): BuildAndSerialize;
+  setValueCanonical(valueCanonical: string): Build;
 
-  setValueCodeableConcept(valueCodeableConcept: ICodeableConcept): BuildAndSerialize;
+  setValueCode(valueCode: string): Build;
 
-  setValueCoding(valueCoding: ICoding): BuildAndSerialize;
+  setValueCodeableConcept(valueCodeableConcept: ICodeableConcept): Build;
 
-  setValueContactPoint(valueContactPoint: IContactPoint): BuildAndSerialize;
+  setValueCoding(valueCoding: ICoding): Build;
 
-  setValueDate(valueDate: string): BuildAndSerialize;
+  setValueContactPoint(valueContactPoint: IContactPoint): Build;
 
-  setValueDateTime(valueDateTime: string): BuildAndSerialize;
+  setValueDate(valueDate: string): Build;
 
-  setValueDecimal(valueDecimal: number): BuildAndSerialize;
+  setValueDateTime(valueDateTime: string): Build;
 
-  setValueIdentifier(valueIdentifier: IIdentifier): BuildAndSerialize;
+  setValueDecimal(valueDecimal: number): Build;
 
-  setValueInstant(valueInstant: string): BuildAndSerialize;
+  setValueIdentifier(valueIdentifier: IIdentifier): Build;
 
-  setValueInteger(valueInteger: number): BuildAndSerialize;
+  setValueInstant(valueInstant: string): Build;
 
-  setValueMarkdown(valueMarkdown: string): BuildAndSerialize;
+  setValueInteger(valueInteger: number): Build;
 
-  setValueString(valueString: string): BuildAndSerialize;
+  setValueMarkdown(valueMarkdown: string): Build;
 
-  setValueTime(valueTime: string): BuildAndSerialize;
+  setValueString(valueString: string): Build;
 
-  setValueUnsignedInt(valueUnsignedInt: number): BuildAndSerialize;
+  setValueTime(valueTime: string): Build;
 
-  setValueUri(valueUri: string): BuildAndSerialize;
+  setValueUnsignedInt(valueUnsignedInt: number): Build;
 
-  setValueUrl(valueUrl: string): BuildAndSerialize;
+  setValueUri(valueUri: string): Build;
 
-  setValueUuid(valueUuid: string): BuildAndSerialize;
+  setValueUrl(valueUrl: string): Build;
 
-  setValueOid(valueOid: string): BuildAndSerialize;
+  setValueUuid(valueUuid: string): Build;
 
-  setValuePeriod(valuePeriod: IPeriod): BuildAndSerialize;
+  setValueOid(valueOid: string): Build;
 
-  setValuePositiveInt(valuePositiveInt: number): BuildAndSerialize;
+  setValuePeriod(valuePeriod: IPeriod): Build;
 
-  setValueQuantity(valueQuantity: IQuantity): BuildAndSerialize;
+  setValuePositiveInt(valuePositiveInt: number): Build;
 
-  setValueReference(valueReference: IReference): BuildAndSerialize;
+  setValueQuantity(valueQuantity: IQuantity): Build;
 
-  setValueMeta(valueMeta: IMeta): BuildAndSerialize;
+  setValueReference(valueReference: IReference): Build;
 
-  setValueHumanName(valueHumanName: IHumanName): BuildAndSerialize;
+  setValueMeta(valueMeta: IMeta): Build;
+
+  setValueHumanName(valueHumanName: IHumanName): Build;
 }
 
 export class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
-  private readonly extension: IExtension;
+  private readonly extension: Extension;
 
   constructor() {
     super();
-    this.extension = {} as IExtension;
+    this.extension = new Extension();
   }
 
-  addParamExtension(param: ExtensionParamType, extension: IElement): BuildAndSerialize {
+  addParamExtension<T extends ExtensionParamType>(param: T, extension: IElement): Build {
     this.extension[`_${param}`] = extension;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
+    return {
+      build: this.build.bind(this),
+    };
   }
 
-  setUrl(url: string): this {
+  setUrl(url: string): ExtensionBuilder {
     this.extension.url = url;
     return this;
   }
 
-  setValueAddress(valueAddress: IAddress): BuildAndSerialize {
+  setValueAddress(valueAddress: IAddress): Build {
     this.extension.valueAddress = valueAddress;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueAttachment(valueAttachment: IAttachment): BuildAndSerialize {
-    this.extension.valueAttachment = valueAttachment;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueBase64Binary(valueBase64Binary: string): BuildAndSerialize {
-    this.extension.valueBase64Binary = valueBase64Binary;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueBoolean(valueBoolean: boolean): BuildAndSerialize {
-    this.extension.valueBoolean = valueBoolean;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueCanonical(valueCanonical: string): BuildAndSerialize {
-    this.extension.valueCanonical = valueCanonical;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueCode(valueCode: string): BuildAndSerialize {
-    this.extension.valueCode = valueCode;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueCodeableConcept(valueCodeableConcept: ICodeableConcept): BuildAndSerialize {
-    this.extension.valueCodeableConcept = valueCodeableConcept;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueCoding(valueCoding: ICoding): BuildAndSerialize {
-    this.extension.valueCoding = valueCoding;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueContactPoint(valueContactPoint: IContactPoint): BuildAndSerialize {
-    this.extension.valueContactPoint = valueContactPoint;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueDate(valueDate: string): BuildAndSerialize {
-    this.extension.valueDate = valueDate;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueDateTime(valueDateTime: string): BuildAndSerialize {
-    this.extension.valueDateTime = valueDateTime;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueDecimal(valueDecimal: number): BuildAndSerialize {
-    this.extension.valueDecimal = valueDecimal;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueId(valueId: string): BuildAndSerialize {
-    this.extension.valueId = valueId;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueIdentifier(valueIdentifier: IIdentifier): BuildAndSerialize {
-    this.extension.valueIdentifier = valueIdentifier;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueInstant(valueInstant: string): BuildAndSerialize {
-    this.extension.valueInstant = valueInstant;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueInteger(valueInteger: number): BuildAndSerialize {
-    this.extension.valueInteger = valueInteger;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueMarkdown(valueMarkdown: string): BuildAndSerialize {
-    this.extension.valueMarkdown = valueMarkdown;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueOid(valueOid: string): BuildAndSerialize {
-    this.extension.valueOid = valueOid;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValuePeriod(valuePeriod: IPeriod): BuildAndSerialize {
-    this.extension.valuePeriod = valuePeriod;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValuePositiveInt(valuePositiveInt: number): BuildAndSerialize {
-    this.extension.valuePositiveInt = valuePositiveInt;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueQuantity(valueQuantity: IQuantity): BuildAndSerialize {
-    this.extension.valueQuantity = valueQuantity;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueReference(valueReference: IReference): BuildAndSerialize {
-    this.extension.valueReference = valueReference;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueString(valueString: string): BuildAndSerialize {
-    this.extension.valueString = valueString;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueTime(valueTime: string): BuildAndSerialize {
-    this.extension.valueTime = valueTime;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueUnsignedInt(valueUnsignedInt: number): BuildAndSerialize {
-    this.extension.valueUnsignedInt = valueUnsignedInt;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueUri(valueUri: string): BuildAndSerialize {
-    this.extension.valueUri = valueUri;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueUrl(valueUrl: string): BuildAndSerialize {
-    this.extension.valueUrl = valueUrl;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueUuid(valueUuid: string): BuildAndSerialize {
-    this.extension.valueUuid = valueUuid;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueHumanName(valueHumanName: IHumanName): BuildAndSerialize {
-    this.extension.valueHumanName = valueHumanName;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  setValueMeta(valueMeta: IMeta): BuildAndSerialize {
-    this.extension.valueMeta = valueMeta;
-    return createBuildAndSerializeMethods(this.compileAsDefault());
-  }
-
-  build(): IExtension {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IExtension {
     return {
-      ...this.extension,
-      ...super.entity(),
+      build: this.build.bind(this),
     };
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
+  setValueAttachment(valueAttachment: IAttachment): Build {
+    this.extension.valueAttachment = valueAttachment;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueBoolean(valueBoolean: boolean): Build {
+    this.extension.valueBoolean = valueBoolean;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueCanonical(valueCanonical: string): Build {
+    this.extension.valueCanonical = valueCanonical;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueCode(valueCode: string): Build {
+    this.extension.valueCode = valueCode;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueCodeableConcept(valueCodeableConcept: ICodeableConcept): Build {
+    this.extension.valueCodeableConcept = valueCodeableConcept;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueCoding(valueCoding: ICoding): { build: () => Extension } {
+    this.extension.valueCoding = valueCoding;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueContactPoint(valueContactPoint: IContactPoint): Build {
+    this.extension.valueContactPoint = valueContactPoint;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueDate(valueDate: string): Build {
+    this.extension.valueDate = valueDate;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueDateTime(valueDateTime: string): Build {
+    this.extension.valueDateTime = valueDateTime;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueDecimal(valueDecimal: number): Build {
+    this.extension.valueDecimal = valueDecimal;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueId(valueId: string): Build {
+    this.extension.valueId = valueId;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueIdentifier(valueIdentifier: IIdentifier): Build {
+    this.extension.valueIdentifier = valueIdentifier;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueInstant(valueInstant: string): Build {
+    this.extension.valueInstant = valueInstant;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueInteger(valueInteger: number): Build {
+    this.extension.valueInteger = valueInteger;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueMarkdown(valueMarkdown: string): Build {
+    this.extension.valueMarkdown = valueMarkdown;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueOid(valueOid: string): Build {
+    this.extension.valueOid = valueOid;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValuePeriod(valuePeriod: IPeriod): Build {
+    this.extension.valuePeriod = valuePeriod;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValuePositiveInt(valuePositiveInt: number): Build {
+    this.extension.valuePositiveInt = valuePositiveInt;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueQuantity(valueQuantity: IQuantity): Build {
+    this.extension.valueQuantity = valueQuantity;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueReference(valueReference: IReference): Build {
+    this.extension.valueReference = valueReference;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueString(valueString: string): Build {
+    this.extension.valueString = valueString;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueTime(valueTime: string): Build {
+    this.extension.valueTime = valueTime;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueUnsignedInt(valueUnsignedInt: number): Build {
+    this.extension.valueUnsignedInt = valueUnsignedInt;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueUri(valueUri: string): Build {
+    this.extension.valueUri = valueUri;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueUrl(valueUrl: string): Build {
+    this.extension.valueUrl = valueUrl;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueUuid(valueUuid: string): Build {
+    this.extension.valueUuid = valueUuid;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueHumanName(valueHumanName: IHumanName): Build {
+    this.extension.valueHumanName = valueHumanName;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  setValueMeta(valueMeta: IMeta): Build {
+    this.extension.valueMeta = valueMeta;
+    return {
+      build: this.build.bind(this),
+    };
+  }
+
+  build(): Extension {
+    Object.assign(this.extension, { ...super.entity() });
+    return this.extension.toJson();
   }
 }

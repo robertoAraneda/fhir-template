@@ -3,7 +3,7 @@ import { IElement } from '../../interfaces/base';
 import { AddressTypeEnum, AddressUseEnum } from '../../enums';
 import { AddressTypeType, AddressUseType } from '../../types';
 import Element from '../base/Element';
-import { AddressBuilder, IAddressBuilder } from './AddressBuilder';
+import { AddressBuilder } from './AddressBuilder';
 
 /**
  * @description An address expressed using postal conventions (as opposed to GPS or other location definition formats)
@@ -32,13 +32,25 @@ import { AddressBuilder, IAddressBuilder } from './AddressBuilder';
  * @author Roberto Araneda
  */
 export default class Address extends Element implements IAddress {
-  static builder(): IAddressBuilder {
+  static builder(): AddressBuilder {
     return new AddressBuilder();
   }
 
   constructor(args?: IAddress) {
     super();
     Object.assign(this, args);
+  }
+
+  toJson(): Address {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Address${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Address${JSON.stringify(this.toJson())}`;
   }
 
   /**

@@ -4,10 +4,11 @@ import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 import { IElement } from '../../interfaces/base';
+import Quantity from './Quantity';
 
-type ParamType = 'code' | 'system' | 'unit' | 'value' | 'comparator';
+type ParamExtensionType = 'code' | 'system' | 'unit' | 'value' | 'comparator';
 
-export interface IQuantityBuilder extends IBuildable<IQuantity>, ISerializable, IElementBuilder<IQuantityBuilder> {
+export interface IQuantityBuilder extends IBuildable<Quantity>, IElementBuilder<QuantityBuilder> {
   setCode(value: string): QuantityBuilder;
 
   setSystem(value: string): QuantityBuilder;
@@ -18,36 +19,26 @@ export interface IQuantityBuilder extends IBuildable<IQuantity>, ISerializable, 
 
   setComparator(value: QuantityComparatorEnum | QuantityComparatorType): QuantityBuilder;
 
-  addParamExtension(param: ParamType, extension: IElement): QuantityBuilder;
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): QuantityBuilder;
 }
 
 export class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
-  private readonly quantity: IQuantity;
+  private readonly quantity: Quantity;
 
   constructor() {
     super();
-    this.quantity = {} as IQuantity;
+    this.quantity = new Quantity();
   }
 
-  addParamExtension(param: ParamType, extension: IElement): QuantityBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): QuantityBuilder {
     this.quantity[`_${param}`] = extension;
 
     return this;
   }
 
-  build(): IQuantity {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IQuantity {
-    return {
-      ...this.quantity,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
+  build(): Quantity {
+    Object.assign(this.quantity, { ...super.entity() });
+    return this.quantity.toJson();
   }
 
   setCode(value: string): QuantityBuilder {

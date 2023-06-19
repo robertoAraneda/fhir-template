@@ -25,12 +25,20 @@ export default class Organization extends DomainResource implements IOrganizatio
   _alias?: IElement[];
   _name?: IElement;
 
-  static get resourceType(): string {
-    return 'Organization';
+  static builder(): OrganizationBuilder {
+    return new OrganizationBuilder();
   }
 
-  static builder(): IOrganizationBuilder {
-    return new OrganizationBuilder();
+  toJson(): Organization {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Organization${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Organization${JSON.stringify(this.toJson())}`;
   }
 
   constructor(args?: IOrganization) {

@@ -1,31 +1,30 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { IPeriod } from '../../interfaces/datatypes';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
+import PractitionerRoleNotAvailable from './PractitionerRoleNotAvailable';
 
 export interface IPractitionerRoleNotAvailableBuilder
-  extends IBuildable<IPractitionerRoleNotAvailable>,
-    ISerializable,
-    IBackboneElementBuilder<IPractitionerRoleNotAvailableBuilder>,
-    IElementBuilder<IPractitionerRoleNotAvailableBuilder> {
-  setDescription(value: string): this;
+  extends IBuildable<PractitionerRoleNotAvailable>,
+    IBackboneElementBuilder<PractitionerRoleNotAvailableBuilder>,
+    IElementBuilder<PractitionerRoleNotAvailableBuilder> {
+  setDescription(value: string): PractitionerRoleNotAvailableBuilder;
 
-  setDuring(value: IPeriod): this;
+  setDuring(value: IPeriod): PractitionerRoleNotAvailableBuilder;
 
-  addParamExtension(param: 'description', extension: IElement): this;
+  addParamExtension(param: 'description', extension: IElement): PractitionerRoleNotAvailableBuilder;
 }
 
 export class PractitionerRoleNotAvailableBuilder
   extends BackboneElementBuilder<PractitionerRoleNotAvailableBuilder>
   implements IPractitionerRoleNotAvailableBuilder
 {
-  private readonly practitionerRoleNotAvailable: IPractitionerRoleNotAvailable;
+  private readonly practitionerRoleNotAvailable: PractitionerRoleNotAvailable;
 
   constructor() {
     super();
-    this.practitionerRoleNotAvailable = {} as IPractitionerRoleNotAvailable;
+    this.practitionerRoleNotAvailable = new PractitionerRoleNotAvailable();
   }
 
   addParamExtension(param: 'description', extension: IElement): this {
@@ -33,19 +32,9 @@ export class PractitionerRoleNotAvailableBuilder
     return this;
   }
 
-  build(): IPractitionerRoleNotAvailable {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IPractitionerRoleNotAvailable {
-    return {
-      ...this.practitionerRoleNotAvailable,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
+  build(): PractitionerRoleNotAvailable {
+    Object.assign(this.practitionerRoleNotAvailable, { ...super.entity() });
+    return this.practitionerRoleNotAvailable.toJson();
   }
 
   setDescription(value: string): this {

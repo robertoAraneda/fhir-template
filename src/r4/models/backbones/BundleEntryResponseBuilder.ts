@@ -1,81 +1,70 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { IBundleEntryResponse } from '../../interfaces/backbones';
+import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
+import BundleEntryResponse from './BundleEntryResponse';
 
 type ParamExtensionType = 'status' | 'location' | 'etag' | 'lastModified';
 
 export interface IBundleEntryResponseBuilder
-  extends IBuildable<IBundleEntryResponse>,
-    ISerializable,
-    IBackboneElementBuilder<IBundleEntryResponseBuilder>,
-    IElementBuilder<IBundleEntryResponseBuilder> {
-  addParamExtension(param: ParamExtensionType, extension: IElement): this;
+  extends IBuildable<BundleEntryResponse>,
+    IBackboneElementBuilder<BundleEntryResponseBuilder>,
+    IElementBuilder<BundleEntryResponseBuilder> {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): BundleEntryResponseBuilder;
 
-  setStatus(status: string): this;
+  setStatus(status: string): BundleEntryResponseBuilder;
 
-  setLocation(location: string): this;
+  setLocation(location: string): BundleEntryResponseBuilder;
 
-  setEtag(etag: string): this;
+  setEtag(etag: string): BundleEntryResponseBuilder;
 
-  setLastModified(lastModified: string): this;
+  setLastModified(lastModified: string): BundleEntryResponseBuilder;
 
-  setOutcome(outcome: any): this;
+  setOutcome(outcome: any): BundleEntryResponseBuilder;
 }
 
 export class BundleEntryResponseBuilder
   extends BackboneElementBuilder<BundleEntryResponseBuilder>
   implements IBundleEntryResponseBuilder
 {
-  private readonly bundleEntryResponse: IBundleEntryResponse;
+  private readonly bundleEntryResponse: BundleEntryResponse;
 
   constructor() {
     super();
-    this.bundleEntryResponse = {} as IBundleEntryResponse;
+    this.bundleEntryResponse = new BundleEntryResponse();
   }
 
-  addParamExtension(param: ParamExtensionType, extension: IElement): this {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): BundleEntryResponseBuilder {
     this.bundleEntryResponse[`_${param}`] = extension;
     return this;
   }
 
-  build(): IBundleEntryResponse {
-    return JSON.parse(this.buildAsString());
+  build(): BundleEntryResponse {
+    Object.assign(this.bundleEntryResponse, { ...super.entity() });
+    return this.bundleEntryResponse.toJson();
   }
 
-  compileAsDefault(): IBundleEntryResponse {
-    return {
-      ...this.bundleEntryResponse,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  setEtag(etag: string): this {
+  setEtag(etag: string): BundleEntryResponseBuilder {
     this.bundleEntryResponse.etag = etag;
     return this;
   }
 
-  setLastModified(lastModified: string): this {
+  setLastModified(lastModified: string): BundleEntryResponseBuilder {
     this.bundleEntryResponse.lastModified = lastModified;
     return this;
   }
 
-  setLocation(location: string): this {
+  setLocation(location: string): BundleEntryResponseBuilder {
     this.bundleEntryResponse.location = location;
     return this;
   }
 
-  setOutcome(outcome: any): this {
+  setOutcome(outcome: any): BundleEntryResponseBuilder {
     this.bundleEntryResponse.outcome = outcome;
     return this;
   }
 
-  setStatus(status: string): this {
+  setStatus(status: string): BundleEntryResponseBuilder {
     this.bundleEntryResponse.status = status;
     return this;
   }

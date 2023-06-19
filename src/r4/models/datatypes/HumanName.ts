@@ -105,7 +105,19 @@ export default class HumanName extends Element implements IHumanName {
    */
   _suffix?: IElement[];
 
-  static builder(): IHumanNameBuilder {
+  toJson(): HumanName {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `HumanName${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `HumanName${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): HumanNameBuilder {
     return new HumanNameBuilder();
   }
 

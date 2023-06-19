@@ -30,7 +30,19 @@ export default class Group extends DomainResource implements IGroup {
   _name?: IElement;
   _quantity?: IElement;
 
-  static builder(): IGroupBuilder {
+  toJson(): Group {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Group${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Group${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): GroupBuilder {
     return new GroupBuilder();
   }
 

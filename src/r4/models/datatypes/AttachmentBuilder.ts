@@ -1,7 +1,7 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
-import { IAttachment } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
+import Attachment from './Attachment';
 
 type ParamExtensionType =
   | 'contentType'
@@ -18,11 +18,8 @@ type ParamExtensionType =
   | 'url'
   | 'width';
 
-export interface IAttachmentBuilder
-  extends IBuildable<IAttachment>,
-    ISerializable,
-    IElementBuilder<IAttachmentBuilder> {
-  addParamExtension(param: ParamExtensionType, extension: IElement): AttachmentBuilder;
+export interface IAttachmentBuilder extends IBuildable<Attachment>, IElementBuilder<AttachmentBuilder> {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): AttachmentBuilder;
 
   setContentType(contentType: string): AttachmentBuilder;
 
@@ -52,14 +49,14 @@ export interface IAttachmentBuilder
 }
 
 export class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> implements IAttachmentBuilder {
-  private readonly attachment: IAttachment;
+  private readonly attachment: Attachment;
 
   constructor() {
     super();
-    this.attachment = {} as IAttachment;
+    this.attachment = new Attachment();
   }
 
-  addParamExtension(param: ParamExtensionType, extension: IElement): AttachmentBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): AttachmentBuilder {
     this.attachment[`_${param}`] = extension;
     return this;
   }
@@ -129,18 +126,8 @@ export class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> impleme
     return this;
   }
 
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
-  build(): IAttachment {
-    return JSON.parse(this.buildAsString());
-  }
-
-  compileAsDefault(): IAttachment {
-    return {
-      ...super.entity(),
-      ...this.attachment,
-    };
+  build(): Attachment {
+    Object.assign(this.attachment, { ...super.entity() });
+    return this.attachment.toJson();
   }
 }

@@ -27,8 +27,21 @@ export default class Endpoint extends DomainResource implements IEndpoint {
   _header?: IElement[];
   _name?: IElement;
   _status?: IElement;
+  _payloadMimeType?: IElement[];
 
-  static builder(): IEndpointBuilder {
+  toJson(): Endpoint {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Endpoint${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Endpoint${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): EndpointBuilder {
     return new EndpointBuilder();
   }
 

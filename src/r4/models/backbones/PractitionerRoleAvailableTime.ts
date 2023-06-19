@@ -21,11 +21,23 @@ export default class PractitionerRoleAvailableTime extends BackboneElement imple
   _availableStartTime?: IElement;
   _availableEndTime?: IElement;
 
-  static builder(): IPractitionerRoleAvailableTimeBuilder {
+  toJson(): PractitionerRoleAvailableTime {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `PractitionerRoleAvailableTime${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `PractitionerRoleAvailableTime${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PractitionerRoleAvailableTimeBuilder {
     return new PractitionerRoleAvailableTimeBuilder();
   }
 
-  constructor(args?: PractitionerRoleAvailableTime) {
+  constructor(args?: IPractitionerRoleAvailableTime) {
     super();
     Object.assign(this, args);
   }

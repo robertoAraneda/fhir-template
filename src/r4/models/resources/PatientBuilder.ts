@@ -1,5 +1,4 @@
 import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { IPatient } from '../../interfaces/resources';
 import { IElement } from '../../interfaces/base';
 import {
   IAddress,
@@ -14,11 +13,11 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
 import { validateReference } from '../../../globals/helpers/validateReference';
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import Patient from './Patient';
 
-type ParamType =
+type ParamExtensionType =
   | 'implicitRules'
   | 'language'
   | 'active'
@@ -31,120 +30,119 @@ type ParamType =
 
 export interface IPatientBuilder
   extends IBuildable<Patient>,
-    ISerializable,
-    IDomainResourceBuilder<IPatientBuilder>,
-    IResourceBuilder<IPatientBuilder> {
-  addParamExtension(param: ParamType, extension: IElement): this;
+    IDomainResourceBuilder<PatientBuilder>,
+    IResourceBuilder<PatientBuilder> {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): PatientBuilder;
 
-  addIdentifier(identifier: IIdentifier): this;
+  addIdentifier(identifier: IIdentifier): PatientBuilder;
 
-  setMultipleIdentifier(identifiers: IIdentifier[]): this;
+  setMultipleIdentifier(identifiers: IIdentifier[]): PatientBuilder;
 
-  setActive(active: boolean): this;
+  setActive(active: boolean): PatientBuilder;
 
-  addName(name: IHumanName): this;
+  addName(name: IHumanName): PatientBuilder;
 
-  setMultipleName(names: IHumanName[]): this;
+  setMultipleName(names: IHumanName[]): PatientBuilder;
 
-  addTelecom(telecom: IContactPoint): this;
+  addTelecom(telecom: IContactPoint): PatientBuilder;
 
-  setMultipleTelecom(telecoms: IContactPoint[]): this;
+  setMultipleTelecom(telecoms: IContactPoint[]): PatientBuilder;
 
-  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): this;
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PatientBuilder;
 
-  setBirthDate(birthDate: string): this;
+  setBirthDate(birthDate: string): PatientBuilder;
 
-  setDeceasedBoolean(deceasedBoolean: boolean): this;
+  setDeceasedBoolean(deceasedBoolean: boolean): PatientBuilder;
 
-  setDeceasedDateTime(deceasedDateTime: string): this;
+  setDeceasedDateTime(deceasedDateTime: string): PatientBuilder;
 
-  addAddress(address: IAddress): this;
+  addAddress(address: IAddress): PatientBuilder;
 
-  setMultipleAddress(addresses: IAddress[]): this;
+  setMultipleAddress(addresses: IAddress[]): PatientBuilder;
 
-  setMaritalStatus(maritalStatus: ICodeableConcept): this;
+  setMaritalStatus(maritalStatus: ICodeableConcept): PatientBuilder;
 
-  setMultipleBirthBoolean(multipleBirthBoolean: boolean): this;
+  setMultipleBirthBoolean(multipleBirthBoolean: boolean): PatientBuilder;
 
-  setMultipleBirthInteger(multipleBirthInteger: number): this;
+  setMultipleBirthInteger(multipleBirthInteger: number): PatientBuilder;
 
-  addPhoto(photo: IAttachment): this;
+  addPhoto(photo: IAttachment): PatientBuilder;
 
-  setMultiplePhoto(photos: IAttachment[]): this;
+  setMultiplePhoto(photos: IAttachment[]): PatientBuilder;
 
-  addContact(contact: IPatientContact): this;
+  addContact(contact: IPatientContact): PatientBuilder;
 
-  setMultipleContact(contacts: IPatientContact[]): this;
+  setMultipleContact(contacts: IPatientContact[]): PatientBuilder;
 
-  addCommunication(communication: IPatientCommunication): this;
+  addCommunication(communication: IPatientCommunication): PatientBuilder;
 
-  setMultipleCommunication(communications: IPatientCommunication[]): this;
+  setMultipleCommunication(communications: IPatientCommunication[]): PatientBuilder;
 
-  addGeneralPractitioner(generalPractitioner: IReference): this;
+  addGeneralPractitioner(generalPractitioner: IReference): PatientBuilder;
 
-  setMultipleGeneralPractitioner(generalPractitioners: IReference[]): this;
+  setMultipleGeneralPractitioner(generalPractitioners: IReference[]): PatientBuilder;
 
-  setManagingOrganization(managingOrganization: IReference): this;
+  setManagingOrganization(managingOrganization: IReference): PatientBuilder;
 
-  addLink(link: IPatientLink): this;
+  addLink(link: IPatientLink): PatientBuilder;
 
-  setMultipleLink(links: IPatientLink[]): this;
+  setMultipleLink(links: IPatientLink[]): PatientBuilder;
 }
 
 export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implements IPatientBuilder {
-  private readonly patient: IPatient;
+  private readonly patient: Patient;
 
   constructor() {
     super();
     this.patient = new Patient();
   }
 
-  addParamExtension(param: ParamType, extension: IElement): this {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): PatientBuilder {
     this.patient[`_${param}`] = extension;
 
     return this;
   }
 
-  addName(name: IHumanName): this {
+  addName(name: IHumanName): PatientBuilder {
     this.patient.name = this.patient.name || [];
     this.patient.name.push(name);
     return this;
   }
 
-  setActive(active: boolean): this {
+  setActive(active: boolean): PatientBuilder {
     this.patient.active = active;
     return this;
   }
 
-  addIdentifier(identifier: IIdentifier): this {
+  addIdentifier(identifier: IIdentifier): PatientBuilder {
     this.patient.identifier = this.patient.identifier || [];
     this.patient.identifier.push(identifier);
     return this;
   }
 
-  addTelecom(telecom: IContactPoint): this {
+  addTelecom(telecom: IContactPoint): PatientBuilder {
     this.patient.telecom = this.patient.telecom || [];
     this.patient.telecom.push(telecom);
     return this;
   }
 
-  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): this {
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PatientBuilder {
     this.patient.gender = gender;
     return this;
   }
 
-  setBirthDate(birthDate: string): this {
+  setBirthDate(birthDate: string): PatientBuilder {
     this.patient.birthDate = birthDate;
     return this;
   }
 
-  setMaritalStatus(maritalStatus: ICodeableConcept): this {
+  setMaritalStatus(maritalStatus: ICodeableConcept): PatientBuilder {
     this.patient.maritalStatus = maritalStatus;
 
     return this;
   }
 
-  addLink(link: IPatientLink): this {
+  addLink(link: IPatientLink): PatientBuilder {
     if (link.other?.reference) {
       validateReference(link.other.reference, ['Patient']);
     }
@@ -153,44 +151,44 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setDeceasedBoolean(deceasedBoolean: boolean): this {
+  setDeceasedBoolean(deceasedBoolean: boolean): PatientBuilder {
     this.patient.deceasedBoolean = deceasedBoolean;
     return this;
   }
 
-  setDeceasedDateTime(deceasedDateTime: string): this {
+  setDeceasedDateTime(deceasedDateTime: string): PatientBuilder {
     this.patient.deceasedDateTime = deceasedDateTime;
     return this;
   }
 
-  setMultipleBirthBoolean(multipleBirthBoolean: boolean): this {
+  setMultipleBirthBoolean(multipleBirthBoolean: boolean): PatientBuilder {
     this.patient.multipleBirthBoolean = multipleBirthBoolean;
     return this;
   }
 
-  setMultipleBirthInteger(multipleBirthInteger: number): this {
+  setMultipleBirthInteger(multipleBirthInteger: number): PatientBuilder {
     this.patient.multipleBirthInteger = multipleBirthInteger;
     return this;
   }
 
-  setManagingOrganization(args: IReference): this {
+  setManagingOrganization(args: IReference): PatientBuilder {
     this.patient.managingOrganization = args;
 
     return this;
   }
 
-  addCommunication(communication: IPatientCommunication): this {
+  addCommunication(communication: IPatientCommunication): PatientBuilder {
     this.patient.communication = this.patient.communication || [];
     this.patient.communication.push(communication);
     return this;
   }
 
-  setMultipleCommunication(communications: IPatientCommunication[]): this {
+  setMultipleCommunication(communications: IPatientCommunication[]): PatientBuilder {
     this.patient.communication = communications;
     return this;
   }
 
-  addContact(contact: IPatientContact): this {
+  addContact(contact: IPatientContact): PatientBuilder {
     this.patient.contact = this.patient.contact || [];
 
     if (contact.organization?.reference) {
@@ -200,7 +198,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMultipleContact(contacts: IPatientContact[]): this {
+  setMultipleContact(contacts: IPatientContact[]): PatientBuilder {
     for (const contact of contacts) {
       if (contact.organization?.reference) {
         validateReference(contact.organization.reference, ['Organization']);
@@ -210,29 +208,29 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  addPhoto(attachment: IAttachment): this {
+  addPhoto(attachment: IAttachment): PatientBuilder {
     this.patient.photo = this.patient.photo || [];
     this.patient.photo.push(attachment);
     return this;
   }
 
-  setMultiplePhoto(attachments: IAttachment[]): this {
+  setMultiplePhoto(attachments: IAttachment[]): PatientBuilder {
     this.patient.photo = attachments;
     return this;
   }
 
-  addAddress(address: IAddress): this {
+  addAddress(address: IAddress): PatientBuilder {
     this.patient.address = this.patient.address || [];
     this.patient.address.push(address);
     return this;
   }
 
-  setMultipleAddress(addresses: IAddress[]): this {
+  setMultipleAddress(addresses: IAddress[]): PatientBuilder {
     this.patient.address = addresses;
     return this;
   }
 
-  addGeneralPractitioner(generalPractitioner: IReference): this {
+  addGeneralPractitioner(generalPractitioner: IReference): PatientBuilder {
     if (generalPractitioner.reference) {
       validateReference(generalPractitioner.reference, ['Practitioner', 'Organization', 'PractitionerRole']);
     }
@@ -241,7 +239,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMultipleGeneralPractitioner(generalPractitioners: IReference[]): this {
+  setMultipleGeneralPractitioner(generalPractitioners: IReference[]): PatientBuilder {
     for (const generalPractitioner of generalPractitioners) {
       if (generalPractitioner.reference) {
         validateReference(generalPractitioner.reference, ['Practitioner', 'Organization', 'PractitionerRole']);
@@ -251,7 +249,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMultipleIdentifier(identifiers: IIdentifier[]): this {
+  setMultipleIdentifier(identifiers: IIdentifier[]): PatientBuilder {
     for (const identifier of identifiers) {
       if (identifier.assigner?.reference) {
         validateReference(identifier.assigner.reference, ['Organization']);
@@ -261,7 +259,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMultipleLink(links: IPatientLink[]): this {
+  setMultipleLink(links: IPatientLink[]): PatientBuilder {
     for (const link of links) {
       if (link.other?.reference) {
         validateReference(link.other.reference, ['Patient', 'RelatedPerson']);
@@ -271,28 +269,18 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     return this;
   }
 
-  setMultipleName(names: IHumanName[]): this {
+  setMultipleName(names: IHumanName[]): PatientBuilder {
     this.patient.name = names;
     return this;
   }
 
-  setMultipleTelecom(telecoms: IContactPoint[]): this {
+  setMultipleTelecom(telecoms: IContactPoint[]): PatientBuilder {
     this.patient.telecom = telecoms;
     return this;
   }
 
-  compileAsDefault(): Patient {
-    return {
-      ...this.patient,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault(), null, 2);
-  }
-
   build(): Patient {
-    return JSON.parse(this.buildAsString());
+    Object.assign(this.patient, { ...super.entity() });
+    return this.patient.toJson();
   }
 }

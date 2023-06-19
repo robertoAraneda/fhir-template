@@ -2,10 +2,10 @@ import { IQuantity } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { QuantityComparatorEnum } from '../../../src/r4/enums';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { IQuantityBuilder } from '../../../src/r4/models/datatypes/QuantityBuilder';
+import { QuantityBuilder } from '../../../src/r4/models/datatypes/QuantityBuilder';
 
 describe('Quantity FHIR R4', () => {
-  let builder: IQuantityBuilder;
+  let builder: QuantityBuilder;
   const { Quantity } = new FHIRContext().forR4();
 
   // create global

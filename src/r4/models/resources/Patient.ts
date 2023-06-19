@@ -13,7 +13,7 @@ import { IPatientCommunication, IPatientContact, IPatientLink } from '../../inte
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import DomainResource from '../base/DomainResource';
-import { IPatientBuilder, PatientBuilder } from './PatientBuilder';
+import { PatientBuilder } from './PatientBuilder';
 
 /**
  * @description FHIR R4
@@ -57,15 +57,23 @@ export default class Patient extends DomainResource implements IPatient {
   _deceasedDateTime?: IElement;
   _gender?: IElement;
 
-  static get resourceType(): string {
-    return 'Patient';
+  toJson(): Patient {
+    return JSON.parse(JSON.stringify(this));
   }
 
-  static builder(): IPatientBuilder {
+  toPrettyString(): string {
+    return `Patient${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Patient${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): PatientBuilder {
     return new PatientBuilder();
   }
 
-  constructor(args?: Patient) {
+  constructor(args?: IPatient) {
     super();
     Object.assign(this, args);
   }

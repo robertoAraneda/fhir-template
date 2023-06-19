@@ -51,7 +51,19 @@ export default class Attachment extends Element implements IAttachment {
   _url?: IElement;
   _width?: IElement;
 
-  static builder(): IAttachmentBuilder {
+  toJson(): Attachment {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Attachment${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Attachment${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): AttachmentBuilder {
     return new AttachmentBuilder();
   }
 

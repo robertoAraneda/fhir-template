@@ -35,7 +35,19 @@ export default class CodeableConcept extends Element implements ICodeableConcept
    */
   _text?: IElement;
 
-  static builder(): ICodeableConceptBuilder {
+  toJson(): CodeableConcept {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `CodeableConcept${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `CodeableConcept${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): CodeableConceptBuilder {
     return new CodeableConceptBuilder();
   }
 

@@ -1,11 +1,10 @@
 import FHIRContext from '../../../src';
 import { ILocationHoursOfOperation } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { ILocationHoursOfOperationBuilder } from '../../../src/r4/models/backbones/LocationHoursOfOperationBuilder';
+import { LocationHoursOfOperationBuilder } from '../../../src/r4/models/backbones/LocationHoursOfOperationBuilder';
 
 describe('LocationHoursOfOperation FHIR R4', () => {
-  let builder: ILocationHoursOfOperationBuilder;
-
+  let builder: LocationHoursOfOperationBuilder;
   const { LocationHoursOfOperation } = new FHIRContext().forR4();
 
   // create global

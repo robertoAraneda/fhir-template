@@ -83,7 +83,19 @@ export default class Coding extends Element implements ICoding {
    */
   _userSelected: IElement;
 
-  static builder(): ICodingBuilder {
+  toJson(): Coding {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toPrettyString(): string {
+    return `Coding${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  toString(): string {
+    return `Coding${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): CodingBuilder {
     return new CodingBuilder();
   }
 

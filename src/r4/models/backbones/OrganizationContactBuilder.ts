@@ -1,73 +1,62 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
-import { IOrganizationContact } from '../../interfaces/backbones';
+import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IAddress, ICodeableConcept, IContactPoint, IHumanName } from '../../interfaces/datatypes';
+import OrganizationContact from './OrganizationContact';
 
 export interface IOrganizationContactBuilder
-  extends IBuildable<IOrganizationContact>,
-    ISerializable,
-    IBackboneElementBuilder<IOrganizationContactBuilder>,
-    IElementBuilder<IOrganizationContactBuilder> {
-  setPurpose(purpose: ICodeableConcept): this;
+  extends IBuildable<OrganizationContact>,
+    IBackboneElementBuilder<OrganizationContactBuilder>,
+    IElementBuilder<OrganizationContactBuilder> {
+  setPurpose(purpose: ICodeableConcept): OrganizationContactBuilder;
 
-  setName(name: IHumanName): this;
+  setName(name: IHumanName): OrganizationContactBuilder;
 
-  addTelecom(telecom: IContactPoint): this;
+  addTelecom(telecom: IContactPoint): OrganizationContactBuilder;
 
-  setMultipleTelecom(telecom: IContactPoint[]): this;
+  setMultipleTelecom(telecom: IContactPoint[]): OrganizationContactBuilder;
 
-  setAddress(address: IAddress): this;
+  setAddress(address: IAddress): OrganizationContactBuilder;
 }
 
 export class OrganizationContactBuilder
   extends BackboneElementBuilder<OrganizationContactBuilder>
   implements IOrganizationContactBuilder
 {
-  private readonly organizationContact: IOrganizationContact;
+  private readonly organizationContact: OrganizationContact;
 
   constructor() {
     super();
-    this.organizationContact = {} as IOrganizationContact;
+    this.organizationContact = new OrganizationContact();
   }
 
-  addTelecom(telecom: IContactPoint): this {
+  addTelecom(telecom: IContactPoint): OrganizationContactBuilder {
     this.organizationContact.telecom = this.organizationContact.telecom || [];
     this.organizationContact.telecom.push(telecom);
     return this;
   }
 
-  build(): IOrganizationContact {
-    return JSON.parse(this.buildAsString());
+  build(): OrganizationContact {
+    Object.assign(this.organizationContact, { ...super.entity() });
+    return this.organizationContact.toJson();
   }
 
-  compileAsDefault(): IOrganizationContact {
-    return {
-      ...this.organizationContact,
-      ...super.entity(),
-    };
-  }
-
-  buildAsString(): string {
-    return JSON.stringify(this.compileAsDefault());
-  }
-
-  setAddress(address: IAddress): this {
+  setAddress(address: IAddress): OrganizationContactBuilder {
     this.organizationContact.address = address;
     return this;
   }
 
-  setMultipleTelecom(telecom: IContactPoint[]): this {
+  setMultipleTelecom(telecom: IContactPoint[]): OrganizationContactBuilder {
     this.organizationContact.telecom = telecom;
     return this;
   }
 
-  setName(name: IHumanName): this {
+  setName(name: IHumanName): OrganizationContactBuilder {
     this.organizationContact.name = name;
     return this;
   }
 
-  setPurpose(purpose: ICodeableConcept): this {
+  setPurpose(purpose: ICodeableConcept): OrganizationContactBuilder {
     this.organizationContact.purpose = purpose;
     return this;
   }

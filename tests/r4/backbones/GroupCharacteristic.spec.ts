@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { IGroupCharacteristic } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IGroupCharacteristicBuilder } from '../../../src/r4/models/backbones/GroupCharacteristic';
+
+import { IGroupCharacteristicBuilder } from '../../../src/r4/models/backbones/GroupCharacteristicBuilder';
 
 describe('GroupCharacteristic FHIR R4', () => {
   let builder: IGroupCharacteristicBuilder;

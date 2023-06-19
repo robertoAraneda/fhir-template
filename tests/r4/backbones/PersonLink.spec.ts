@@ -1,8 +1,8 @@
 import FHIRContext from '../../../src';
 import { IPersonLink } from '../../../src/r4/interfaces/backbones';
 import { IdentityAssuranceLevelEnum } from '../../../src/r4/enums';
-import { IPersonLinkBuilder } from '../../../src/r4/models/backbones/PersonLink';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IPersonLinkBuilder } from '../../../src/r4/models/backbones/PersonLinkBuilder';
 
 describe('PersonLink FHIR R4', () => {
   let builder: IPersonLinkBuilder;

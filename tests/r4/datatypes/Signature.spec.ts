@@ -1,7 +1,7 @@
 import { ISignature } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { ISignatureBuilder } from '../../../src/r4/models/datatypes/Signature';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { ISignatureBuilder } from '../../../src/r4/models/datatypes/SignatureBuilder';
 
 describe('Signature FHIR R4', () => {
   let builder: ISignatureBuilder;

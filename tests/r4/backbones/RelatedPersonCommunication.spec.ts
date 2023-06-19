@@ -1,7 +1,7 @@
 import { IRelatedPersonCommunication } from '../../../src/r4/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { IRelatedPersonCommunicationBuilder } from '../../../src/r4/models/backbones/RelatedPersonCommunication';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IRelatedPersonCommunicationBuilder } from '../../../src/r4/models/backbones/RelatedPersonCommunicationBuilder';
 
 describe('RelatedPersonCommunication FHIR R4', () => {
   let builder: IRelatedPersonCommunicationBuilder;

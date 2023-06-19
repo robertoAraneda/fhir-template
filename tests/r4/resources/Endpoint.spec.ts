@@ -1,6 +1,7 @@
 import { IEndpoint } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { IEndpointBuilder } from '../../../src/r4/models/resources/Endpoint';
+
+import { IEndpointBuilder } from '../../../src/r4/models/resources/EndpointBuilder';
 
 describe('Endpoint Resource FHIR R4', () => {
   let builder: IEndpointBuilder;

@@ -1,7 +1,7 @@
 import { IMeta } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { IMetaBuilder } from '../../../src/r4/models/datatypes/Meta';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IMetaBuilder } from '../../../src/r4/models/datatypes/MetaBuilder';
 
 describe('Meta FHIR R4', () => {
   let builder: IMetaBuilder;

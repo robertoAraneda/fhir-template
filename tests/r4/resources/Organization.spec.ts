@@ -1,6 +1,7 @@
 import FHIRContext from '../../../src';
 import { IOrganization } from '../../../src/r4/interfaces/resources';
-import { IOrganizationBuilder } from '../../../src/r4/models/resources/Organization';
+
+import { IOrganizationBuilder } from '../../../src/r4/models/resources/OrganizationBuilder';
 
 describe('Organization Resource FHIR R4', () => {
   let builder: IOrganizationBuilder;

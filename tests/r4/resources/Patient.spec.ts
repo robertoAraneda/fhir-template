@@ -1,6 +1,7 @@
 import { IPatient } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { IPatientBuilder } from '../../../src/r4/models/resources/Patient';
+
+import { IPatientBuilder } from '../../../src/r4/models/resources/PatientBuilder';
 
 describe('Patient FHIR R4', () => {
   let builder: IPatientBuilder;

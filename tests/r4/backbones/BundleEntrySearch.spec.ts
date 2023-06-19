@@ -1,8 +1,8 @@
 import FHIRContext from '../../../src';
 import { IBundleEntrySearch } from '../../../src/r4/interfaces/backbones';
-import { IBundleEntrySearchBuilder } from '../../../src/r4/models/backbones/BundleEntrySearch';
 import { BundleEntrySearchModeEnum } from '../../../src/r4/enums';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IBundleEntrySearchBuilder } from '../../../src/r4/models/backbones/BundleEntrySearchBuilder';
 
 describe('BundleEntrySearch FHIR R4', () => {
   let builder: IBundleEntrySearchBuilder;

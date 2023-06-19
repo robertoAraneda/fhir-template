@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IPatientCommunication } from '../../../src/r4/interfaces/backbones';
-import { IPatientCommunicationBuilder } from '../../../src/r4/models/backbones/PatientCommunication';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IPatientCommunicationBuilder } from '../../../src/r4/models/backbones/PatientCommunicationBuilder';
 
 describe('PatientCommunication FHIR R4', () => {
   let builder: IPatientCommunicationBuilder;

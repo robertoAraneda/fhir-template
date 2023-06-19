@@ -1,6 +1,7 @@
 import { IGroup } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { IGroupBuilder } from '../../../src/r4/models/resources/Group';
+
+import { IGroupBuilder } from '../../../src/r4/models/resources/GroupBuilder';
 
 describe('Group FHIR R4', () => {
   let builder: IGroupBuilder;

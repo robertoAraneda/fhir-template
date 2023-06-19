@@ -1,6 +1,7 @@
 import { IPerson } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-import { IPersonBuilder } from '../../../src/r4/models/resources/Person';
+
+import { IPersonBuilder } from '../../../src/r4/models/resources/PersonBuilder';
 
 describe('Person Resource FHIR R4', () => {
   let builder: IPersonBuilder;

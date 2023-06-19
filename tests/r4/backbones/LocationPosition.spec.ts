@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { ILocationPosition } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { ILocationPositionBuilder } from '../../../src/r4/models/backbones/LocationPosition';
+
+import { ILocationPositionBuilder } from '../../../src/r4/models/backbones/LocationPositionBuilder';
 
 describe('LocationPosition FHIR R4', () => {
   let builder: ILocationPositionBuilder;

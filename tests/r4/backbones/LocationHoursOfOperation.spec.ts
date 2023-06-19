@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { ILocationHoursOfOperation } from '../../../src/r4/interfaces/backbones';
-import { ILocationHoursOfOperationBuilder } from '../../../src/r4/models/backbones/LocationHoursOfOperation';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { ILocationHoursOfOperationBuilder } from '../../../src/r4/models/backbones/LocationHoursOfOperationBuilder';
 
 describe('LocationHoursOfOperation FHIR R4', () => {
   let builder: ILocationHoursOfOperationBuilder;

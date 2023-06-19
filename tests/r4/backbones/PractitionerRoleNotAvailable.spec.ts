@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { IPractitionerRoleNotAvailable } from '../../../src/r4/interfaces/backbones';
-import { IPractitionerRoleNotAvailableBuilder } from '../../../src/r4/models/backbones/PractitionerRoleNotAvailable';
+
+import { IPractitionerRoleNotAvailableBuilder } from '../../../src/r4/models/backbones/PractitionerRoleNotAvailableBuilder';
 
 describe('PractitionerRoleNotAvailable FHIR R4', () => {
   let builder: IPractitionerRoleNotAvailableBuilder;

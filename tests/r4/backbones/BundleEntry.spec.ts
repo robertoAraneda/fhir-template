@@ -1,8 +1,8 @@
 import FHIRContext from '../../../src';
 import { IBundleEntry } from '../../../src/r4/interfaces/backbones';
 import { AdministrativeGenderEnum, BundleEntryRequestMethodEnum } from '../../../src/r4/enums';
-import { IBundleEntryBuilder } from '../../../src/r4/models/backbones/BundleEntry';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IBundleEntryBuilder } from '../../../src/r4/models/backbones/BundleEntryBuilder';
 
 describe('BundleEntry FHIR R4', () => {
   let builder: IBundleEntryBuilder;

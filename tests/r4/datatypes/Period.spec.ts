@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IPeriod } from '../../../src/r4/interfaces/datatypes';
-import { IPeriodBuilder } from '../../../src/r4/models/datatypes/Period';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IPeriodBuilder } from '../../../src/r4/models/datatypes/PeriodBuilder';
 
 describe('Period FHIR R4', () => {
   let builder: IPeriodBuilder;

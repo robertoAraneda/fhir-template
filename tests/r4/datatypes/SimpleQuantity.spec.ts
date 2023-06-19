@@ -1,7 +1,7 @@
 import { ISimpleQuantity } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { ISimpleQuantityBuilder } from '../../../src/r4/models/datatypes/SimpleQuantity';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { ISimpleQuantityBuilder } from '../../../src/r4/models/datatypes/SimpleQuantityBuilder';
 
 describe('SimpleQuantity FHIR R4', () => {
   let builder: ISimpleQuantityBuilder;

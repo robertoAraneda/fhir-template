@@ -1,7 +1,8 @@
 import { ICodeableConcept } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-import { ICodeableConceptBuilder } from '../../../src/r4/models/datatypes/CodeableConcept';
+
+import { ICodeableConceptBuilder } from '../../../src/r4/models/datatypes/CodeableConceptBuilder';
 
 describe('CodeableConcept FHIR R4', () => {
   let builder: ICodeableConceptBuilder;

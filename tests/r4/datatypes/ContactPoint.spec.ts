@@ -1,7 +1,7 @@
 import { IContactPoint } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { IContactPointBuilder } from '../../../src/r4/models/datatypes/ContactPoint';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IContactPointBuilder } from '../../../src/r4/models/datatypes/ContactPointBuilder';
 
 describe('ContactPoint FHIR R4', () => {
   let builder: IContactPointBuilder;

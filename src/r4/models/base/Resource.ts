@@ -12,5 +12,5 @@ export default abstract class Resource implements IResource {
   _implicitRules?: IElement;
   _language?: IElement;
 
-  static builder: Function;
+  static builder: () => any;
 }

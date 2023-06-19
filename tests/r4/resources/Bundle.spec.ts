@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
-import { IBundleBuilder } from '../../../src/r4/models/resources/Bundle';
 import { IBundle } from '../../../src/r4/interfaces/resources/IBundle';
 import { BundleTypeEnum } from '../../../src/r4/enums';
+import { IBundleBuilder } from '../../../src/r4/models/resources/BundleBuilder';
 
 describe('Bundle FHIR R4', () => {
   let builder: IBundleBuilder;

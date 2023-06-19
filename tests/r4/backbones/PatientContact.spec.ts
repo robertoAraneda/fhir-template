@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IPatientContact } from '../../../src/r4/interfaces/backbones';
-import { IPatientContactBuilder } from '../../../src/r4/models/backbones/PatientContact';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IPatientContactBuilder } from '../../../src/r4/models/backbones/PatientContactBuilder';
 
 describe('PatientContact FHIR R4', () => {
   let builder: IPatientContactBuilder;

@@ -1,7 +1,7 @@
 import { IIdentifier } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { IIdentifierBuilder } from '../../../src/r4/models/datatypes/Identifier';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IIdentifierBuilder } from '../../../src/r4/models/datatypes/IdentifierBuilder';
 
 describe('Identifier FHIR R4', () => {
   let builder: IIdentifierBuilder;

@@ -1,7 +1,7 @@
 import { IExtension } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { IExtensionBuilder } from '../../../src/r4/models/datatypes/Extension';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IExtensionBuilder } from '../../../src/r4/models/datatypes/ExtensionBuilder';
 
 describe('Extension FHIR R4', () => {
   let builder: IExtensionBuilder;

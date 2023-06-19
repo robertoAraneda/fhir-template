@@ -1,7 +1,7 @@
 import { IDuration } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { IDurationBuilder } from '../../../src/r4/models/datatypes/Duration';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IDurationBuilder } from '../../../src/r4/models/datatypes/DurationBuilder';
 
 describe('Duration FHIR R4', () => {
   let builder: IDurationBuilder;

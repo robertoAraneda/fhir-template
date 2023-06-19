@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { IGroupMember } from '../../../src/r4/interfaces/backbones';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
-import { IGroupMemberBuilder } from '../../../src/r4/models/backbones/GroupMember';
+
+import { IGroupMemberBuilder } from '../../../src/r4/models/backbones/GroupMemberBuilder';
 
 describe('GroupMember FHIR R4', () => {
   let builder: IGroupMemberBuilder;

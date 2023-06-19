@@ -5,5 +5,5 @@ export default abstract class Element implements IElement {
   id?: string;
   extension?: IExtension[];
 
-  static builder: Function;
+  static builder: () => any;
 }

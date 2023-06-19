@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { IPractitionerRoleAvailableTime } from '../../../src/r4/interfaces/backbones';
-import { IPractitionerRoleAvailableTimeBuilder } from '../../../src/r4/models/backbones/PractitionerRoleAvailableTime';
+
+import { IPractitionerRoleAvailableTimeBuilder } from '../../../src/r4/models/backbones/PractitionerRoleAvailableTimeBuilder';
 
 describe('PractitionerRoleAvailableTime FHIR R4', () => {
   let builder: IPractitionerRoleAvailableTimeBuilder;

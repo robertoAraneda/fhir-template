@@ -1,7 +1,7 @@
 import { IHumanName } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { IHumanNameBuilder } from '../../../src/r4/models/datatypes/HumanName';
 import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { IHumanNameBuilder } from '../../../src/r4/models/datatypes/HumanNameBuilder';
 
 describe('HumanName FHIR R4', () => {
   let builder: IHumanNameBuilder;

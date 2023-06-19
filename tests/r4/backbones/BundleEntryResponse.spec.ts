@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IBundleEntryResponse } from '../../../src/r4/interfaces/backbones';
-import { IBundleEntryResponseBuilder } from '../../../src/r4/models/backbones/BundleEntryResponse';
 import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { IBundleEntryResponseBuilder } from '../../../src/r4/models/backbones/BundleEntryResponseBuilder';
 
 describe('BundleEntryResponse FHIR R4', () => {
   let builder: IBundleEntryResponseBuilder;
@@ -41,12 +41,7 @@ describe('BundleEntryResponse FHIR R4', () => {
   });
 
   it('should be able to create a new bundle_entry_response using builder methods [new BundleEntryResponseBuilder()]', async () => {
-    const item = builder
-      .setId('123')
-      .setEtag('123')
-      .setLocation('http://example.com')
-      .setStatus('200')
-      .build();
+    const item = builder.setId('123').setEtag('123').setLocation('http://example.com').setStatus('200').build();
 
     expect(item).toEqual({
       id: '123',

@@ -2,6 +2,8 @@ import { IExtension, IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
+import Element from '../base/Element';
+import HumanNameBuilder from './HumanNameBuilder';
 
 /**
  * @description Name of a human or other living entity - parts and usage
@@ -35,17 +37,7 @@ import { NameUseType } from '../../types';
  *   "period" : { Period } // Time period when name was/is in use
  * }
  */
-export default class HumanName implements IHumanName {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension?: IExtension[];
-
+export default class HumanName extends Element implements IHumanName {
   /**
    * @description usual | official | temp | nickname | anonymous | old | maiden
    */
@@ -113,7 +105,24 @@ export default class HumanName implements IHumanName {
    */
   _suffix?: IElement[];
 
+  static builder(): HumanNameBuilder {
+    return new HumanNameBuilder();
+  }
+
+  toJson(): HumanName {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `HumanName${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `HumanName${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IHumanName) {
+    super();
     Object.assign(this, args);
   }
 }

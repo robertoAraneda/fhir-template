@@ -1,17 +1,9 @@
-import {
-  ICoding,
-  IContactPoint,
-  IExtendedContactDetail,
-  IExtension,
-  IVirtualServiceDetail,
-} from '../../interfaces/datatypes';
+import { ICoding, IContactPoint, IExtendedContactDetail, IVirtualServiceDetail } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import Element from '../base/Element';
+import VirtualServiceDetailBuilder from './VirtualServiceDetailBuilder';
 
-export default class VirtualServiceDetail implements IVirtualServiceDetail {
-  // Extends from IElement: id, extension
-  id?: string;
-  extension?: IExtension[];
-
+export default class VirtualServiceDetail extends Element implements IVirtualServiceDetail {
   // Own properties
   additionalInfo?: string[];
   addressContactPoint?: IContactPoint;
@@ -29,7 +21,24 @@ export default class VirtualServiceDetail implements IVirtualServiceDetail {
   _maxParticipants?: IElement;
   _sessionKey?: IElement;
 
+  static builder(): VirtualServiceDetailBuilder {
+    return new VirtualServiceDetailBuilder();
+  }
+
+  toJson(): VirtualServiceDetail {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `VirtualServiceDetail${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `VirtualServiceDetail${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IVirtualServiceDetail) {
+    super();
     Object.assign(this, args);
   }
 }

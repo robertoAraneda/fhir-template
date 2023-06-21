@@ -1,44 +1,45 @@
 import { IOrganization } from '../../interfaces/resources';
-import {
-  ICodeableConcept,
-  IExtendedContactDetail,
-  IExtension,
-  IIdentifier,
-  IMeta,
-  INarrative,
-  IReference,
-} from '../../interfaces/datatypes';
-import { IElement, IResource } from '../../interfaces/base';
+import { ICodeableConcept, IExtendedContactDetail, IIdentifier, IReference } from '../../interfaces/datatypes';
+import { IElement } from '../../interfaces/base';
 import { IOrganizationQualification } from '../../interfaces/backbones';
+import DomainResource from '../base/DomainResource';
+import OrganizationBuilder from './OrganizationBuilder';
 
-export default class Organization implements IOrganization {
+export default class Organization extends DomainResource implements IOrganization {
   _active?: IElement;
   _alias?: IElement[];
   _description?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
   _name?: IElement;
   active?: boolean;
   alias?: string[];
   contact?: IExtendedContactDetail[];
-  contained?: IResource[];
   description?: string;
   endpoint?: IReference[];
-  extension?: IExtension[];
-  id?: number | string;
   identifier?: IIdentifier[];
-  implicitRules?: string;
-  language?: string;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
   name?: string;
   partOf?: IReference;
   qualification?: IOrganizationQualification[];
-  resourceType: string = 'Organization';
-  text?: INarrative;
+  resourceType = 'Organization';
   type?: ICodeableConcept[];
 
-  constructor(args?: Partial<Organization>) {
+  static builder(): OrganizationBuilder {
+    return new OrganizationBuilder();
+  }
+
+  toJson(): Organization {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Group${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Group${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  constructor(args?: IOrganization) {
+    super();
     Object.assign(this, args);
   }
 }

@@ -1,5 +1,7 @@
 import { ICodeableConcept, ICoding, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import Element from '../base/Element';
+import CodeableConceptBuilder from './CodeableConceptBuilder';
 
 /**
  * @description Concept - reference to a terminology or just text.
@@ -18,17 +20,7 @@ import { IElement } from '../../interfaces/base';
  *   "text" : "<string>" // Plain text representation of the concept
  * }
  */
-export default class CodeableConcept implements ICodeableConcept {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension?: IExtension[];
-
+export default class CodeableConcept extends Element implements ICodeableConcept {
   /**
    * @description Code defined by a terminology system
    */
@@ -44,7 +36,24 @@ export default class CodeableConcept implements ICodeableConcept {
    */
   _text?: IElement;
 
+  static builder(): CodeableConceptBuilder {
+    return new CodeableConceptBuilder();
+  }
+
+  toJson(): CodeableConcept {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `CodeableConcept${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `CodeableConcept${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: ICodeableConcept) {
+    super();
     Object.assign(this, args);
   }
 }

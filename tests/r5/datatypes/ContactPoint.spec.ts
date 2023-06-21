@@ -1,36 +1,19 @@
-import { ContactPointBuilder } from '../../../src/r5/builders/datatypes';
 import { IContactPoint } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import ContactPoint from '../../../src/r5/models/datatypes/ContactPoint';
+import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import ContactPointBuilder from '../../../src/r5/models/datatypes/ContactPointBuilder';
 
 describe('ContactPoint FHIR R5', () => {
   let builder: ContactPointBuilder;
-  let builderFromFunction: ContactPointBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
+  const { ContactPoint } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new ContactPointBuilder();
-    builderFromFunction = Builder.dataTypes.ContactPoint();
-  });
-
-  it('should be able to create a new contact point and validate with correct data [createDatatype]', async () => {
-    const dataType = createDatatype('ContactPoint', {
-      id: '123',
-      value: 'test',
-      system: 'url',
-      rank: 1,
-      use: 'home',
-    });
-
-    const validate = await Validator.dataTypes.ContactPoint(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = ContactPoint.builder();
   });
 
   it('should be able to create a new contact point and validate with correct data [new ContactPoint()]', async () => {
-    const dataType = new ContactPoint({
+    const item = new ContactPoint({
       id: '123',
       value: 'test',
       system: 'url',
@@ -38,14 +21,14 @@ describe('ContactPoint FHIR R5', () => {
       use: 'home',
     });
 
-    const validate = await Validator.dataTypes.ContactPoint(dataType);
+    const validate = await _validateDataType(item, 'ContactPoint');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new contact point and validate with correct data [IContactPoint]', async () => {
-    const dataType: IContactPoint = {
+    const item: IContactPoint = {
       id: '123',
       value: 'test',
       system: 'url',
@@ -53,14 +36,14 @@ describe('ContactPoint FHIR R5', () => {
       use: 'home',
     };
 
-    const validate = await Validator.dataTypes.ContactPoint(dataType);
+    const validate = await _validateDataType(item, 'ContactPoint');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new contact point and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       value: 'test',
       system: 'bad system', // wrong property
@@ -69,7 +52,7 @@ describe('ContactPoint FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.ContactPoint(dataType);
+    const validate = await _validateDataType(item, 'ContactPoint');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -94,7 +77,7 @@ describe('ContactPoint FHIR R5', () => {
 
   it('should be able to create a new contact point using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setRank(1)
       .setSystem('url')
@@ -102,8 +85,8 @@ describe('ContactPoint FHIR R5', () => {
       .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       id: '123',
       rank: 1,
       system: 'url',
@@ -118,33 +101,10 @@ describe('ContactPoint FHIR R5', () => {
         ],
       },
     });
-  });
 
-  it('should be able to create a new contact point using builder methods', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setId('123')
-      .setRank(1)
-      .setSystem('url')
-      .setValue('test')
-      .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
-      .build();
+    const validate = await _validateDataType(item, 'ContactPoint');
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      id: '123',
-      rank: 1,
-      system: 'url',
-      value: 'test',
-      _system: {
-        extension: [
-          {
-            id: '123',
-            url: 'url',
-            valueDate: '2022-06-12',
-          },
-        ],
-      },
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

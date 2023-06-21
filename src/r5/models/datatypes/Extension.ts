@@ -12,9 +12,10 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import Element from '../base/Element';
+import ExtensionBuilder from './ExtensionBuilder';
 
-export default class Extension implements IExtension {
-  id?: string;
+export default class Extension extends Element implements IExtension {
   url: string;
 
   valueAddress?: IAddress;
@@ -70,9 +71,25 @@ export default class Extension implements IExtension {
   _valueUri?: IElement;
   _valueUrl?: IElement;
   _valueUuid?: IElement;
-  extension?: IExtension[];
+
+  static builder(): ExtensionBuilder {
+    return new ExtensionBuilder();
+  }
+
+  toJson(): Extension {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `ExtendedContactDetail${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `ExtendedContactDetail${JSON.stringify(this.toJson(), null, 2)}`;
+  }
 
   constructor(args?: IExtension) {
+    super();
     Object.assign(this, args);
   }
 }

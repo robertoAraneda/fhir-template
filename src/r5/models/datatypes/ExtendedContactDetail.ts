@@ -8,6 +8,7 @@ import {
   IPeriod,
   IReference,
 } from '../../interfaces/datatypes';
+import ExtendedContactDetailBuilder from './ExtendedContactDetailBuilder';
 
 /**
  * @description Contact information
@@ -72,6 +73,22 @@ export default class ExtendedContactDetail implements IExtendedContactDetail {
    * @description Period that this contact was valid for usage
    */
   period?: IPeriod;
+
+  static builder(): ExtendedContactDetailBuilder {
+    return new ExtendedContactDetailBuilder();
+  }
+
+  toJson(): ExtendedContactDetail {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `ExtendedContactDetail${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `ExtendedContactDetail${JSON.stringify(this.toJson(), null, 2)}`;
+  }
 
   constructor(args?: IExtendedContactDetail) {
     Object.assign(this, args);

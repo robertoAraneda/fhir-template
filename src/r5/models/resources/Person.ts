@@ -1,54 +1,60 @@
 import { IPerson } from '../../interfaces/resources';
-import { IElement, IResource } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 import {
   IAddress,
   IAttachment,
   ICodeableConcept,
   IContactPoint,
-  IExtension,
   IHumanName,
   IIdentifier,
-  IMeta,
-  INarrative,
   IReference,
 } from '../../interfaces/datatypes';
 import { IPersonCommunication, IPersonLink } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
+import PersonBuilder from './PersonBuilder';
+import DomainResource from '../base/DomainResource';
 
-export default class Person implements IPerson {
+export default class Person extends DomainResource implements IPerson {
   _active?: IElement;
   _birthDate?: IElement;
   _deceasedBoolean?: IElement;
   _deceasedDateTime?: IElement;
   _gender?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
   active?: boolean;
   address?: IAddress[];
   birthDate?: string;
   communication?: IPersonCommunication[];
-  contained?: IResource[];
   deceasedBoolean?: boolean;
   deceasedDateTime?: string;
-  extension?: IExtension[];
   gender?: AdministrativeGenderEnum | AdministrativeGenderType;
-  id?: number | string;
   identifier?: IIdentifier[];
-  implicitRules?: string;
-  language?: string;
   link?: IPersonLink[];
   managingOrganization?: IReference;
   maritalStatus?: ICodeableConcept;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
   name?: IHumanName[];
   photo?: IAttachment[];
   resourceType: string = 'Person';
   telecom?: IContactPoint[];
-  text?: INarrative;
 
-  constructor(args?: Partial<Person>) {
+  static builder(): PersonBuilder {
+    return new PersonBuilder();
+  }
+
+  toJson(): Person {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Person${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Person${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  constructor(args?: IPerson) {
+    super();
     Object.assign(this, args);
   }
 }

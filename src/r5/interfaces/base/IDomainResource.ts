@@ -4,7 +4,8 @@ import { IExtension } from '../datatypes';
 
 export interface IDomainResource extends IResource {
   text?: INarrative;
-  contained?: IResource[];
+  // TODO: Figure out how to handle this
+  contained?: any[];
   extension?: IExtension[];
   modifierExtension?: IExtension[];
 }

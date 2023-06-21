@@ -1,22 +1,20 @@
-import { PractitionerBuilder } from '../../../src/r5/builders/resources';
 import { IPractitioner } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
-import { Practitioner } from '../../../src/r5/models/resources';
+import PractitionerBuilder from '../../../src/r5/models/resources/PractitionerBuilder';
 
 describe('Practitioner FHIR R5', () => {
   let builder: PractitionerBuilder;
-  let builderFromFunction: PractitionerBuilder;
+
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR5();
+  const { Validator, Practitioner } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = new PractitionerBuilder();
-    builderFromFunction = Builder.resources.Practitioner();
+    builder = Practitioner.builder();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/example]', async () => {
-    const dataType: IPractitioner = {
+    const item: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'example',
       text: {
@@ -74,76 +72,13 @@ describe('Practitioner FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.Practitioner(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f001]', async () => {
-    const dataType = createResource('Practitioner', {
-      resourceType: 'Practitioner',
-      id: 'f001',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      identifier: [
-        {
-          use: 'official',
-          system: 'urn:oid:2.16.528.1.1007.3.1',
-          value: '938273695',
-        },
-        {
-          use: 'usual',
-          system: 'urn:oid:2.16.840.1.113883.2.4.6.3',
-          value: '129IDH4OP733',
-        },
-      ],
-      name: [
-        {
-          use: 'official',
-          family: 'van den broek',
-          given: ['Eric'],
-          suffix: ['MD'],
-        },
-      ],
-      telecom: [
-        {
-          system: 'phone',
-          value: '0205568263',
-          use: 'work',
-        },
-        {
-          system: 'email',
-          value: 'E.M.vandenbroek@bmc.nl',
-          use: 'work',
-        },
-        {
-          system: 'fax',
-          value: '0205664440',
-          use: 'work',
-        },
-      ],
-      gender: 'male',
-      birthDate: '1975-12-07',
-      address: [
-        {
-          use: 'work',
-          line: ['Galapagosweg 91'],
-          city: 'Den Burg',
-          postalCode: '9105 PZ',
-          country: 'NLD',
-        },
-      ],
-    });
-
-    const validate = await Validator.resources.Practitioner(dataType);
+    const validate = await Validator.Practitioner(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/prac4]', async () => {
-    const dataType = new Practitioner({
+    const item = new Practitioner({
       resourceType: 'Practitioner',
       id: 'prac4',
       text: {
@@ -163,14 +98,14 @@ describe('Practitioner FHIR R5', () => {
       deceasedDateTime: '2021-12-12',
     });
 
-    const validate = await Validator.resources.Practitioner(dataType);
+    const validate = await Validator.Practitioner(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f003]', async () => {
-    const dataType: IPractitioner = {
+    const item: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'f003',
       text: {
@@ -240,14 +175,14 @@ describe('Practitioner FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.Practitioner(dataType);
+    const validate = await Validator.Practitioner(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f204]', async () => {
-    const dataType: IPractitioner = {
+    const item: IPractitioner = {
       resourceType: 'Practitioner',
       id: 'f204',
       text: {
@@ -287,14 +222,14 @@ describe('Practitioner FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.Practitioner(dataType);
+    const validate = await Validator.Practitioner(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       resourceType: 'Practitioner',
       id: 'xcda1',
       wrongProperty: 'wrong', // wrong property
@@ -323,7 +258,7 @@ describe('Practitioner FHIR R5', () => {
         },
       ],
     };
-    const validate = await Validator.resources.Practitioner(dataType);
+    const validate = await Validator.Practitioner(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -346,7 +281,7 @@ describe('Practitioner FHIR R5', () => {
   });
 
   it('should be able to create a new practitioner with builder methods', async () => {
-    const practitioner = builder
+    const item = builder
       .setActive(true)
       .addName({
         family: 'Notsowell',
@@ -367,7 +302,7 @@ describe('Practitioner FHIR R5', () => {
       })
       .build();
 
-    expect(practitioner).toEqual({
+    expect(item).toEqual({
       extension: [
         {
           url: 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
@@ -392,5 +327,9 @@ describe('Practitioner FHIR R5', () => {
         ],
       },
     });
+
+    const validate = await Validator.Practitioner(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

@@ -1,21 +1,19 @@
 import { ICodeableReference } from '../../../src/r5/interfaces/datatypes';
-import { CodeableReferenceBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
-import { CodeableReference } from '../../../src/r5/models/datatypes';
+import CodeableReferenceBuilder from '../../../src/r5/models/datatypes/CodeableReferenceBuilder';
+import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
 describe('CodeableReference', () => {
   let builder: CodeableReferenceBuilder;
-  let builderFromFunction: CodeableReferenceBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
+  const { CodeableReference } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new CodeableReferenceBuilder();
-    builderFromFunction = Builder.dataTypes.CodeableReference();
+    builder = CodeableReference.builder();
   });
 
   it('should be able to create a new codeableconcept and validate with correct data [new CodeableReference]', async () => {
-    const dataType = createDatatype('CodeableReference', {
+    const item = new CodeableReference({
       id: '123',
       concept: {
         coding: [
@@ -32,38 +30,14 @@ describe('CodeableReference', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.CodeableReference(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new codeableconcept and validate with correct data [new CodeableReference]', async () => {
-    const dataType = new CodeableReference({
-      id: '123',
-      concept: {
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/sid/us-npi',
-            code: '123',
-            display: 'test',
-          },
-        ],
-        text: 'test',
-      },
-      reference: {
-        reference: 'test',
-      },
-    });
-
-    const validate = await Validator.dataTypes.CodeableReference(dataType);
+    const validate = await _validateDataType(item, 'CodeableReference');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new codeableconcept and validate with correct data [ICodeableReference]', async () => {
-    const dataType: ICodeableReference = {
+    const item: ICodeableReference = {
       id: '123',
       concept: {
         coding: [
@@ -80,14 +54,14 @@ describe('CodeableReference', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.CodeableReference(dataType);
+    const validate = await _validateDataType(item, 'CodeableReference');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new codeableconcept and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       concept: {
         coding: [
@@ -105,7 +79,7 @@ describe('CodeableReference', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.CodeableReference(dataType);
+    const validate = await _validateDataType(item, 'CodeableReference');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -123,7 +97,7 @@ describe('CodeableReference', () => {
 
   it('should be able to create a new codeableconcept using builder methods [new CodeableReferenceBuilder]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setConcept({
         coding: [
@@ -139,8 +113,8 @@ describe('CodeableReference', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       concept: {
         coding: [
           {
@@ -155,41 +129,10 @@ describe('CodeableReference', () => {
         reference: 'test',
       },
     });
-  });
 
-  it('should be able to create a new codeableconcept using builder methods [Builder.dataTypes.CodeableReference()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setId('123')
-      .setConcept({
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/sid/us-npi',
-            code: '123',
-            display: 'test',
-          },
-        ],
-      })
-      .setReference({
-        reference: 'test',
-      })
-      .build();
+    const validate = await _validateDataType(item, 'CodeableReference');
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      concept: {
-        coding: [
-          {
-            code: '123',
-            display: 'test',
-            system: 'http://hl7.org/fhir/sid/us-npi',
-          },
-        ],
-      },
-      id: '123',
-      reference: {
-        reference: 'test',
-      },
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

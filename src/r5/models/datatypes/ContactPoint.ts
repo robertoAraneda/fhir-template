@@ -2,6 +2,8 @@ import { IContactPoint, IExtension, IPeriod } from '../../interfaces/datatypes';
 import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
 import { ContactPointSystemType, ContactPointUseType } from '../../types';
 import { IElement } from '../../interfaces/base';
+import Element from '../base/Element';
+import ContactPointBuilder from './ContactPointBuilder';
 
 /**
  * @description Details for all kinds of technology-mediated contact points for a person or organization, including telephone, email, etc.
@@ -30,17 +32,7 @@ import { IElement } from '../../interfaces/base';
  *   "period" : { Period } // Time period when the contact point was/is in use
  * }
  */
-export default class ContactPoint implements IContactPoint {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension?: IExtension[];
-
+export default class ContactPoint extends Element implements IContactPoint {
   /**
    * @description phone | fax | email | pager | url | sms | other
    */
@@ -88,7 +80,24 @@ export default class ContactPoint implements IContactPoint {
    */
   _rank?: IElement;
 
+  static builder(): ContactPointBuilder {
+    return new ContactPointBuilder();
+  }
+
+  toJson(): ContactPoint {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `CodingBuilder${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `CodingBuilder${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IContactPoint) {
+    super();
     Object.assign(this, args);
   }
 }

@@ -1,17 +1,15 @@
-import { OrganizationQualificationBuilder } from '../../../src/r5/builders/backbones';
 import FHIRContext from '../../../src';
 import { IOrganizationQualification } from '../../../src/r5/interfaces/backbones';
-import { OrganizationQualification } from '../../../src/r5/models/backbones';
+import OrganizationQualificationBuilder from '../../../src/r5/models/backbones/OrganizationQualificationBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('OrganizationQualification FHIR R5', () => {
-  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
+  const { OrganizationQualification } = new FHIRContext().forR5();
   let builder: OrganizationQualificationBuilder;
-  let builderFromFunction: OrganizationQualificationBuilder;
 
   // create global
   beforeEach(() => {
-    builder = new OrganizationQualificationBuilder();
-    builderFromFunction = Builder.backboneElements.OrganizationQualification();
+    builder = OrganizationQualification.builder();
   });
 
   it('should be able to create a new organization_qualification payload and validate with correct data [new OrganizationQualification()]', async () => {
@@ -30,7 +28,7 @@ describe('OrganizationQualification FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.backboneElements.OrganizationQualification(item);
+    const validate = await _validateBackbone(item, 'Organization_Qualification');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -52,29 +50,7 @@ describe('OrganizationQualification FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.OrganizationQualification(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new organization_qualification payload and validate with correct data [createBackboneElement]', async () => {
-    const item = createBackboneElement('OrganizationQualification', {
-      id: '123',
-      issuer: {
-        reference: 'test',
-      },
-      code: {
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/organization-qualification',
-            code: 'any',
-          },
-        ],
-      },
-    });
-
-    const validate = await Validator.backboneElements.OrganizationQualification(item);
+    const validate = await _validateBackbone(item, 'Organization_Qualification');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -101,7 +77,7 @@ describe('OrganizationQualification FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.backboneElements.OrganizationQualification(item);
+    const validate = await _validateBackbone(item, 'Organization_Qualification');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -156,62 +132,10 @@ describe('OrganizationQualification FHIR R5', () => {
       })
       .build();
 
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      code: {
-        coding: [
-          {
-            code: 'any',
-            system: 'http://hl7.org/fhir/organization-qualification',
-          },
-        ],
-        text: 'test',
-      },
-      id: '123',
-      identifier: [
-        {
-          system: 'http://hl7.org/fhir/sid/us-npi',
-          use: 'official',
-          value: '123',
-        },
-      ],
-      issuer: {
-        reference: 'Organization/1',
-      },
-    });
-  });
+    const validate = await _validateBackbone(item, 'Organization_Qualification');
 
-  it('should be able to create a new organization_qualification payload using builder methods [Builder.backboneElements.OrganizationQualification()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .setId('123')
-      .setCode({
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/organization-qualification',
-            code: 'any',
-          },
-        ],
-        text: 'test',
-      })
-      .setIssuer({
-        reference: 'Organization/1',
-      })
-      .setCode({
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/organization-qualification',
-            code: 'any',
-          },
-        ],
-        text: 'test',
-      })
-      .addIdentifier({
-        use: 'official',
-        system: 'http://hl7.org/fhir/sid/us-npi',
-        value: '123',
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

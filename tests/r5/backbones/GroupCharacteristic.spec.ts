@@ -1,36 +1,15 @@
 import FHIRContext from '../../../src';
-import { GroupCharacteristic } from '../../../src/r5/models/backbones';
-import { GroupCharacteristicBuilder } from '../../../src/r5/builders/backbones';
 import { IGroupCharacteristic } from '../../../src/r5/interfaces/backbones';
+import GroupCharacteristicBuilder from '../../../src/r5/models/backbones/GroupCharacteristicBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('GroupCharacteristic FHIR R5', () => {
   let builder: GroupCharacteristicBuilder;
-  let builderFromFunction: GroupCharacteristicBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR5();
+  const { GroupCharacteristic } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new GroupCharacteristicBuilder();
-    builderFromFunction = Builder.backboneElements.GroupCharacteristic();
-  });
-
-  it('should be able to validate a new group_characteristic [createBackboneElement]', async () => {
-    const item = createBackboneElement('GroupCharacteristic', {
-      id: '123',
-      code: {
-        coding: [
-          {
-            code: '123',
-            system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-          },
-        ],
-      },
-      exclude: false,
-    });
-
-    const validate = await Validator.backboneElements.GroupCharacteristic(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = GroupCharacteristic.builder();
   });
 
   it('should be able to validate a new group_characteristic [new GroupCharacteristic()]', async () => {
@@ -47,7 +26,7 @@ describe('GroupCharacteristic FHIR R5', () => {
       exclude: false,
     });
 
-    const validateAddress = await Validator.backboneElements.GroupCharacteristic(item);
+    const validateAddress = await _validateBackbone(item, 'Group_Characteristic');
     expect(validateAddress.isValid).toBeTruthy();
     expect(validateAddress.errors).toBeUndefined();
   });
@@ -66,7 +45,7 @@ describe('GroupCharacteristic FHIR R5', () => {
       exclude: false,
     };
 
-    const validate = await Validator.backboneElements.GroupCharacteristic(item);
+    const validate = await _validateBackbone(item, 'Group_Characteristic');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -94,49 +73,10 @@ describe('GroupCharacteristic FHIR R5', () => {
       })
       .build();
 
-    expect(item).toEqual({
-      _exclude: {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      },
-      code: {
-        coding: [
-          {
-            code: '123',
-            system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-          },
-        ],
-      },
-      id: '123',
-      valueBoolean: true,
-    });
-  });
+    const validate = await _validateBackbone(item, 'Group_Characteristic');
 
-  it('should be able to create a new group_characteristic using builder methods [Builder.backboneElements.GroupCharacteristic()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setCode({
-        coding: [
-          {
-            code: '123',
-            system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-          },
-        ],
-      })
-      .setValueBoolean(true)
-      .setParamExtension('exclude', {
-        extension: [
-          {
-            url: 'preferred',
-            valueDate: '2020-01-01',
-          },
-        ],
-      })
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _exclude: {
@@ -166,7 +106,7 @@ describe('GroupCharacteristic FHIR R5', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await Validator.backboneElements.GroupCharacteristic(item);
+    const validate = await _validateBackbone(item, 'Group_Characteristic');
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(2);

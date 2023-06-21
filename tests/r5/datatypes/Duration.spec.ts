@@ -1,37 +1,19 @@
-import { DurationBuilder } from '../../../src/r5/builders/datatypes';
 import { IDuration } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import Duration from '../../../src/r5/models/datatypes/Duration';
+import DurationBuilder from '../../../src/r5/models/datatypes/DurationBuilder';
+import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
 describe('Duration', () => {
   let builder: DurationBuilder;
-  let builderFromFunction: DurationBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
+  const { Duration } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new DurationBuilder();
-    builderFromFunction = Builder.dataTypes.Duration();
-  });
-
-  it('should be able to create a new contact point and validate with correct data [createDatatype]', async () => {
-    const dataType = createDatatype('Duration', {
-      id: '123',
-      value: 45,
-      system: 'url',
-      comparator: '>',
-      code: 'test',
-      unit: 'test',
-    });
-
-    const validate = await Validator.dataTypes.Duration(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = Duration.builder();
   });
 
   it('should be able to create a new contact point and validate with correct data [new Duration()]', async () => {
-    const dataType = new Duration({
+    const item = new Duration({
       id: '123',
       value: 45,
       system: 'url',
@@ -40,14 +22,14 @@ describe('Duration', () => {
       unit: 'test',
     });
 
-    const validate = await Validator.dataTypes.Duration(dataType);
+    const validate = await _validateDataType(item, 'Duration');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new contact point and validate with correct data [IDuration]', async () => {
-    const dataType: IDuration = {
+    const item: IDuration = {
       id: '123',
       value: 45,
       system: 'url',
@@ -56,14 +38,14 @@ describe('Duration', () => {
       unit: 'test',
     };
 
-    const validate = await Validator.dataTypes.Duration(dataType);
+    const validate = await _validateDataType(item, 'Duration');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new contact point and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       value: 45,
       system: 'url',
@@ -73,7 +55,7 @@ describe('Duration', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Duration(dataType);
+    const validate = await _validateDataType(item, 'Duration');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -91,7 +73,7 @@ describe('Duration', () => {
 
   it('should be able to create a new contact point using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setCode('test')
       .setSystem('url')
@@ -101,8 +83,8 @@ describe('Duration', () => {
       .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _system: {
         extension: [
           {
@@ -119,37 +101,10 @@ describe('Duration', () => {
       unit: 'test',
       value: 4,
     });
-  });
 
-  it('should be able to create a new contact point using builder methods', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setId('123')
-      .setCode('test')
-      .setSystem('url')
-      .setValue(4)
-      .setComparator('<=')
-      .setUnit('test')
-      .addParamExtension('system', { extension: [{ id: '123', url: 'url', valueDate: '2022-06-12' }] })
-      .build();
+    const validate = await _validateDataType(item, 'Duration');
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      _system: {
-        extension: [
-          {
-            id: '123',
-            url: 'url',
-            valueDate: '2022-06-12',
-          },
-        ],
-      },
-      code: 'test',
-      comparator: '<=',
-      id: '123',
-      system: 'url',
-      unit: 'test',
-      value: 4,
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

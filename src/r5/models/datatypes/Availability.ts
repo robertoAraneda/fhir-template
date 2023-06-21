@@ -1,4 +1,6 @@
 import { IAvailability, IAvailableTime, IExtension, INotAvailableTime } from '../../interfaces/datatypes';
+import Element from '../base/Element';
+import AvailabilityBuilder from './AvailabilityBuilder';
 
 /**
  * @description Availability data for an {item}.
@@ -9,17 +11,7 @@ import { IAvailability, IAvailableTime, IExtension, INotAvailableTime } from '..
  * @see https://www.hl7.org/fhir/metadatatypes.html#Availability FHIR API
  * @author Roberto Araneda
  */
-export default class Availability implements IAvailability {
-  /**
-   * @description Unique id for inter-element referencing.
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations.
-   */
-  extension?: IExtension[];
-
+export default class Availability extends Element implements IAvailability {
   /**
    * @description Times the {item} is available.
    */
@@ -30,7 +22,24 @@ export default class Availability implements IAvailability {
    */
   notAvailableTime?: INotAvailableTime[];
 
+  static builder(): AvailabilityBuilder {
+    return new AvailabilityBuilder();
+  }
+
+  toJson(): Availability {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Availability${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Availability${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IAvailability) {
+    super();
     Object.assign(this, args);
   }
 }

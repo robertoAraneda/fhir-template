@@ -1,30 +1,16 @@
 import { ISimpleQuantity } from '../../../src/r5/interfaces/datatypes';
-import { SimpleQuantityBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
-import { SimpleQuantity } from '../../../src/r5/models/datatypes';
+import SimpleQuantityBuilder from '../../../src/r5/models/datatypes/SimpleQuantityBuilder';
+import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
 describe('SimpleQuantity FHIR R5', () => {
   let builder: SimpleQuantityBuilder;
-  let builderFromFunction: SimpleQuantityBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
+
+  const { SimpleQuantity } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new SimpleQuantityBuilder();
-    builderFromFunction = Builder.dataTypes.SimpleQuantity();
-  });
-
-  it('should be able to create a new simple_quantity and validate with correct data [createDatatype()]', async () => {
-    const item = createDatatype('SimpleQuantity', {
-      code: 'test',
-      unit: 'test',
-      value: 1,
-    });
-
-    const validate = await Validator.dataTypes.SimpleQuantity(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = SimpleQuantity.builder();
   });
 
   it('should be able to create a new simple_quantity and validate with correct data [new SimpleQuantity()]', async () => {
@@ -34,7 +20,7 @@ describe('SimpleQuantity FHIR R5', () => {
       value: 1,
     });
 
-    const validate = await Validator.dataTypes.SimpleQuantity(item);
+    const validate = await _validateDataType(item, 'SimpleQuantity');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -47,7 +33,7 @@ describe('SimpleQuantity FHIR R5', () => {
       value: 1,
     };
 
-    const validate = await Validator.dataTypes.SimpleQuantity(item);
+    const validate = await _validateDataType(item, 'SimpleQuantity');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -61,7 +47,7 @@ describe('SimpleQuantity FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.SimpleQuantity(item);
+    const validate = await _validateDataType(item, 'SimpleQuantity');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -86,16 +72,10 @@ describe('SimpleQuantity FHIR R5', () => {
       code: 'test',
       system: 'test',
     });
-  });
 
-  it('should be able to create a new attachment using builder methods [Builder.dataTypes.SimpleQuantityBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction.setCode('test').setSystem('test').build();
+    const validate = await _validateDataType(item, 'SimpleQuantity');
 
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      code: 'test',
-      system: 'test',
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

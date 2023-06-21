@@ -2,6 +2,7 @@ import { ILocation } from '../../interfaces/resources';
 import { IElement, IResource } from '../../interfaces/base';
 import {
   IAddress,
+  IAvailability,
   ICodeableConcept,
   ICoding,
   IExtendedContactDetail,
@@ -12,28 +13,15 @@ import {
   IReference,
   IVirtualServiceDetail,
 } from '../../interfaces/datatypes';
-import { Availability } from '../datatypes';
 import { LocationModeEnum, LocationStatusEnum } from '../../enums';
 import { LocationModeType, LocationStatusType } from '../../types';
 import { ILocationPosition } from '../../interfaces/backbones';
+import DomainResource from '../base/DomainResource';
+import LocationBuilder from './LocationBuilder';
 
-export default class Location implements ILocation {
+export default class Location extends DomainResource implements ILocation {
   // Resource Attributes
   resourceType: string = 'Location';
-  id?: number | string;
-  implicitRules?: string;
-  language?: string;
-  meta?: IMeta;
-
-  // Extension Resource Attributes
-  _implicitRules?: IElement;
-  _language?: IElement;
-
-  // DomainResource Attributes
-  contained?: IResource[];
-  extension?: IExtension[];
-  modifierExtension?: IExtension[];
-  text?: INarrative;
 
   // Location Attributes
   address?: IAddress;
@@ -43,7 +31,7 @@ export default class Location implements ILocation {
   description?: string;
   endpoint?: IReference[];
   form?: ICodeableConcept;
-  hoursOfOperation?: Availability[];
+  hoursOfOperation?: IAvailability[];
   identifier?: IIdentifier[];
   managingOrganization?: IReference;
   mode?: LocationModeEnum | LocationModeType;
@@ -63,7 +51,24 @@ export default class Location implements ILocation {
   _mode?: IElement;
   _name?: IElement;
 
+  static builder(): LocationBuilder {
+    return new LocationBuilder();
+  }
+
+  toJson(): Location {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Group${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Group${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: ILocation) {
+    super();
     Object.assign(this, args);
   }
 }

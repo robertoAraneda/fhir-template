@@ -3,7 +3,7 @@ import { IElement } from '../../interfaces/base';
 import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
 import Element from '../base/Element';
-import { HumanNameBuilder, IHumanNameBuilder } from './HumanNameBuilder';
+import { HumanNameBuilder } from './HumanNameBuilder';
 
 /**
  * @description Name of a human or other living entity - parts and usage

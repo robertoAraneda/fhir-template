@@ -1,5 +1,7 @@
 import { ICoding, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import Element from '../base/Element';
+import CodingBuilder from './CodingBuilder';
 
 /**
  * @description A reference to a code defined by a terminology system.
@@ -29,17 +31,7 @@ import { IElement } from '../../interfaces/base';
  *   "userSelected" : <boolean> // If this coding was chosen directly by the user
  * }
  */
-export default class Coding implements ICoding {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension: IExtension[];
-
+export default class Coding extends Element implements ICoding {
   /**
    * @description Identity of the terminology system
    */
@@ -91,7 +83,24 @@ export default class Coding implements ICoding {
    */
   _userSelected: IElement;
 
+  static builder(): CodingBuilder {
+    return new CodingBuilder();
+  }
+
+  toJson(): Coding {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `CodingBuilder${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `CodingBuilder${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: ICoding) {
+    super();
     Object.assign(this, args);
   }
 }

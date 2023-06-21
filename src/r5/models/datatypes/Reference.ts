@@ -1,11 +1,9 @@
-import { IExtension, IIdentifier, IReference } from '../../interfaces/datatypes';
+import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import ReferenceBuilder from './ReferenceBuilder';
+import Element from '../base/Element';
 
-export default class Reference implements IReference {
-  // Element attributes
-  id: string;
-  extension: IExtension[];
-
+export default class Reference extends Element implements IReference {
   // Reference attributes
   display: string;
   identifier: IIdentifier;
@@ -17,7 +15,24 @@ export default class Reference implements IReference {
   _reference: IElement;
   _type: IElement;
 
+  static builder(): ReferenceBuilder {
+    return new ReferenceBuilder();
+  }
+
+  toJson(): Reference {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Reference${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Reference${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IReference) {
+    super();
     Object.assign(this, args);
   }
 }

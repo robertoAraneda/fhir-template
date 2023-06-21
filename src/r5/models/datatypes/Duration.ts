@@ -2,6 +2,8 @@ import { IDuration, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
+import Element from '../base/Element';
+import DurationBuilder from './DurationBuilder';
 
 /**
  * @description A length of time.
@@ -22,16 +24,7 @@ import { QuantityComparatorType } from '../../types';
  * @author Roberto Araneda
  *
  */
-export default class Duration implements IDuration {
-  /**
-   * @description Unique id for inter-element referencing.
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations.
-   */
-  extension?: IExtension[];
+export default class Duration extends Element implements IDuration {
   /**
    * @description The value of the measured amount. The value includes an implicit precision in the presentation of the value.
    */
@@ -84,7 +77,24 @@ export default class Duration implements IDuration {
    */
   _code?: IElement;
 
+  static builder(): DurationBuilder {
+    return new DurationBuilder();
+  }
+
+  toJson(): Duration {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Duration${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Duration${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IDuration) {
+    super();
     Object.assign(this, args);
   }
 }

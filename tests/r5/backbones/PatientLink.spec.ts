@@ -1,17 +1,15 @@
-import { PatientLinkBuilder } from '../../../src/r5/builders/backbones';
 import { IPatientLink } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { PatientLink } from '../../../src/r5/models/backbones';
+import PatientLinkBuilder from '../../../src/r5/models/backbones/PatientLinkBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('PatientLink FHIR R5', () => {
-  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
+  const { PatientLink } = new FHIRContext().forR5();
   let builder: PatientLinkBuilder;
-  let builderFromFunction: PatientLinkBuilder;
 
   // create global
   beforeEach(() => {
-    builder = new PatientLinkBuilder();
-    builderFromFunction = Builder.backboneElements.PatientLink();
+    builder = PatientLink.builder();
   });
 
   it('should be able to create a new patient_link payload and validate with correct data [IPatientLink]', async () => {
@@ -29,7 +27,7 @@ describe('PatientLink FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.backboneElements.PatientLink(dataType);
+    const validate = await _validateBackbone(dataType, 'Patient_Link');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -50,28 +48,7 @@ describe('PatientLink FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.backboneElements.PatientLink(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new patient_link payload and validate with correct data', async () => {
-    const dataType = createBackboneElement('PatientLink', {
-      id: '123',
-      other: {
-        reference: 'test',
-      },
-      type: 'replaced-by', // correct type
-      extension: [
-        {
-          url: 'test',
-          valueString: 'test',
-        },
-      ],
-    });
-
-    const validate = await Validator.backboneElements.PatientLink(dataType);
+    const validate = await _validateBackbone(dataType, 'Patient_Link');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -89,7 +66,7 @@ describe('PatientLink FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.backboneElements.PatientLink(dataType);
+    const validate = await _validateBackbone(dataType, 'Patient_Link');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -122,6 +99,10 @@ describe('PatientLink FHIR R5', () => {
   it('should be able to create a new patient_link payload using builder methods [new PatientLinkBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const dataType = builder
+      .setOther({
+        reference: 'Observation/123',
+      })
+      .setType('seealso')
       .addParamExtension('type', {
         extension: [
           {
@@ -152,42 +133,15 @@ describe('PatientLink FHIR R5', () => {
           valueString: 'Jane Doe',
         },
       ],
-    });
-  });
-
-  it('should be able to create a new patient_link payload using builder methods [Builder.backboneElements.PatientLink()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .addParamExtension('type', {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
-            valueString: 'Jane Doe',
-          },
-        ],
-      })
-      .addExtension({
-        url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
-        valueString: 'Jane Doe',
-      })
-      .build();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      _type: {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
-            valueString: 'Jane Doe',
-          },
-        ],
+      other: {
+        reference: 'Observation/123',
       },
-      extension: [
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName',
-          valueString: 'Jane Doe',
-        },
-      ],
+      type: 'seealso',
     });
+
+    const validate = await _validateBackbone(dataType, 'Patient_Link');
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

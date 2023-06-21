@@ -1,5 +1,7 @@
-import { IAttachment, IExtension } from '../../interfaces/datatypes';
+import { IAttachment } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import Element from '../base/Element';
+import AttachmentBuilder from './AttachmentBuilder';
 
 /**
  * @example ```json
@@ -21,9 +23,7 @@ import { IElement } from '../../interfaces/base';
  *   "pages" : "<positiveInt>" // Number of printed pages
  * }
  */
-export default class Attachment implements IAttachment {
-  id?: string;
-  extension?: IExtension[];
+export default class Attachment extends Element implements IAttachment {
   contentType?: string;
   data?: string;
   language?: string;
@@ -51,7 +51,24 @@ export default class Attachment implements IAttachment {
   _url?: IElement;
   _width?: IElement;
 
+  static builder(): AttachmentBuilder {
+    return new AttachmentBuilder();
+  }
+
+  toJson(): Attachment {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Attachment${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Attachment${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IAttachment) {
+    super();
     Object.assign(this, args);
   }
 }

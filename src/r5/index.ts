@@ -1,141 +1,102 @@
-import { BackboneElementValidator, Wait } from './validators/BackboneElementValidator';
 import { ResourceValidator } from './validators/ResourceValidator';
-import { ResourceBuilder } from './ResourceBuilder';
-import { ElementBuilder } from './ElementBuilder';
-import { BackboneElementBuilder } from './BackboneElementBuilder';
-import { ParseDataTypeR5, DataTypeR5, IDatatypeValidatorProperties } from './GlobalDatatypes';
-import { generateInstanceDatatype } from './InstanceBuilderDatatype';
-import { generateInstanceResource } from './InstanceBuilderResource';
-import { IResourceValidatorProperties, ParseResourceTypeR5, ResourceTypeR5 } from './GlobalResourceTypes';
-import { BackboneElementTypeR5, ParseBackboneElementTypeR5 } from './GlobalBackboneElements';
-import { generateInstanceBackboneElement } from './InstanceBuilderBackboneElement';
-import * as DataTypesValidator from './validators/ElementValidator';
-
-export interface IBackboneValidatorProperties {
-  EndpointPayload: (data: unknown) => Wait;
-  OrganizationQualification: (data: unknown) => Wait;
-  PatientContact: (data: unknown) => Wait;
-  PatientCommunication: (data: unknown) => Wait;
-  PatientLink: (data: unknown) => Wait;
-  PersonCommunication: (data: unknown) => Wait;
-  PersonLink: (data: unknown) => Wait;
-  PractitionerCommunication: (data: unknown) => Wait;
-  PractitionerQualification: (data: unknown) => Wait;
-  RelatedPersonCommunication: (data: unknown) => Wait;
-  GroupMember: (data: unknown) => Wait;
-  GroupCharacteristic: (data: unknown) => Wait;
-  LocationPosition: (data: unknown) => Wait;
-}
-
-export interface IValidatorContext {
-  backboneElements: IBackboneValidatorProperties;
-  dataTypes: IDatatypeValidatorProperties;
-  resources: IResourceValidatorProperties;
-}
+import { IResourceValidatorProperties } from './GlobalResourceTypes';
+import {
+  Address,
+  Availability,
+  Attachment,
+  CodeableConcept,
+  CodeableReference,
+  ExtendedContactDetail,
+  Coding,
+  VirtualServiceDetail,
+  ContactPoint,
+  Duration,
+  Extension,
+  HumanName,
+  Identifier,
+  Meta,
+  Period,
+  Quantity,
+  Range,
+  Reference,
+  SimpleQuantity,
+} from '../r5/models/datatypes';
+import {
+  Endpoint,
+  Group,
+  Location,
+  Organization,
+  Patient,
+  Person,
+  Practitioner,
+  PractitionerRole,
+  RelatedPerson,
+} from '../r5/models/resources';
+import {
+  EndpointPayload,
+  GroupCharacteristic,
+  GroupMember,
+  LocationPosition,
+  PatientCommunication,
+  PatientContact,
+  PatientLink,
+  PersonLink,
+  PersonCommunication,
+  PractitionerQualification,
+  PractitionerCommunication,
+  RelatedPersonCommunication,
+  OrganizationQualification,
+} from '../r5/models/backbones';
 
 export class FhirContextR5 {
-  createResource<T extends ResourceTypeR5>(resourceType: T, data?: ParseResourceTypeR5<T>) {
-    return generateInstanceResource(resourceType, data) as ParseResourceTypeR5<T>;
-  }
-
-  createDatatype<T extends DataTypeR5>(datatypeType: T, d: ParseDataTypeR5<T>) {
-    return generateInstanceDatatype(datatypeType, d) as ParseDataTypeR5<T>;
-  }
-
-  createBackboneElement<T extends BackboneElementTypeR5>(backboneType: T, data?: ParseBackboneElementTypeR5<T>) {
-    return generateInstanceBackboneElement(backboneType, data) as ParseBackboneElementTypeR5<T>;
-  }
-  public getBuilders() {
+  getInstances() {
     return {
-      backboneElements: BackboneElementBuilder,
-      dataTypes: ElementBuilder,
-      resources: ResourceBuilder,
+      Address,
+      Availability,
+      Attachment,
+      CodeableConcept,
+      CodeableReference,
+      ExtendedContactDetail,
+      Coding,
+      ContactPoint,
+      Duration,
+      Extension,
+      HumanName,
+      Identifier,
+      Meta,
+      Period,
+      Quantity,
+      Range,
+      Reference,
+      SimpleQuantity,
+      VirtualServiceDetail,
+      Endpoint,
+      EndpointPayload,
+      Group,
+      GroupMember,
+      GroupCharacteristic,
+      Location,
+      LocationPosition,
+      Organization,
+      OrganizationQualification,
+      Patient,
+      PatientCommunication,
+      PatientContact,
+      PatientLink,
+      Person,
+      PersonLink,
+      PersonCommunication,
+      Practitioner,
+      PractitionerQualification,
+      PractitionerCommunication,
+      PractitionerRole,
+      RelatedPerson,
+      RelatedPersonCommunication,
     };
   }
-
-  public getValidator(): IValidatorContext {
+  public getValidator(): IResourceValidatorProperties {
     return {
-      backboneElements: BackboneElementValidator,
-      dataTypes: DataTypesValidator,
-      resources: ResourceValidator,
+      ...ResourceValidator,
     };
   }
 }
-
-/*
-export class FhirContextR5 {
-  public validate(resourceType: ResourceEnum | ResourceTypeType, payload: any): boolean {
-    switch (resourceType) {
-      case 'Patient':
-        return this.validatePatient(payload);
-      case 'Organization':
-        return this.validateOrganization(payload);
-      default:
-        return false;
-    }
-  }
-
-  private validatePatient(patient: Patient): boolean {
-    // validate identifier
-    if (patient.identifier) {
-      patient.identifier.forEach((_identifier: Identifier) => {
-        const id = new Identifier(_identifier);
-      });
-    }
-
-    // validate contact
-    if (patient.contact) {
-      patient.contact.forEach((_contact: any) => {
-        if (!_contact.name && !_contact.telecom && !_contact.address && !_contact.organization) {
-          throw new Error(
-            `[Constraints: Patient.contact] SHALL at least contain a contact's details or a reference to an organization`,
-          );
-        }
-      });
-    }
-
-    return true;
-  }
-
-  private validateOrganization(organization: Organization): boolean {
-    if (!organization.identifier && !organization.name) {
-      throw new Error(
-        `[Constraints: (base)] The organization SHALL at least have a name or an identifier, and possibly more than one.`,
-      );
-    }
-
-    if (organization.identifier) {
-      organization.identifier.forEach((_identifier: Identifier) => {
-        const id = new Identifier(_identifier);
-      });
-    }
-
-    if (organization.contact) {
-      organization.contact.forEach((_contact: any) => {
-        if (_contact.telecom) {
-          _contact.telecom.forEach((_telecom: any) => {
-            if (_telecom.use && _telecom.use === 'home') {
-              throw new Error(
-                `[Constraints: Organization.contact] The telecom of an organization can never be of use 'home'.`,
-              );
-            }
-          });
-        }
-
-        if (_contact.address) {
-          _contact.address.forEach((_address: any) => {
-            if (_address.use && _address.use === 'home') {
-              throw new Error(
-                `[Constraints: Organization.contact] The address of an organization can never be of use 'home'.`,
-              );
-            }
-          });
-        }
-      });
-    }
-
-    return true;
-  }
-}
-
- */

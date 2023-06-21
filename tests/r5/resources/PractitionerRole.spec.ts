@@ -1,22 +1,19 @@
-import { PractitionerRoleBuilder } from '../../../src/r5/builders/resources';
 import { IPractitionerRole } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
-import { PractitionerRole } from '../../../src/r5/models/resources';
+import PractitionerRoleBuilder from '../../../src/r5/models/resources/PractitionerRoleBuilder';
 
 describe('PractitionerRole FHIR R5', () => {
   let builder: PractitionerRoleBuilder;
-  let builderFromFunction: PractitionerRoleBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR5();
+  const { Validator, PractitionerRole } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = new PractitionerRoleBuilder();
-    builderFromFunction = Builder.resources.PractitionerRole();
+    builder = PractitionerRole.builder();
   });
 
   it('should be able to create a new practitioner role and validate with correct data [Example PractitionerRole/example]', async () => {
-    const dataType: IPractitionerRole = {
+    const item: IPractitionerRole = {
       resourceType: 'PractitionerRole',
       id: 'example',
       text: {
@@ -158,14 +155,14 @@ describe('PractitionerRole FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.PractitionerRole(dataType);
+    const validate = await Validator.PractitionerRole(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new contact point and validate with wrong data [Example PractitionerRole/3ad0687e-f477-468c-afd5-fcc2bf897808]', async () => {
-    const dataType = new PractitionerRole({
+    const item = new PractitionerRole({
       resourceType: 'PractitionerRole',
       id: 'f007-0',
       text: {
@@ -204,53 +201,7 @@ describe('PractitionerRole FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.resources.PractitionerRole(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to validate a new contact point and validate with wrong data [Example PractitionerRole/3ad0687e-f477-468c-afd5-fcc2bf897808]', async () => {
-    const dataType = createResource('PractitionerRole', {
-      resourceType: 'PractitionerRole',
-      id: 'f007-0',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      practitioner: {
-        reference: 'Practitioner/f007',
-        display: 'Simone Heps',
-      },
-      organization: {
-        reference: 'Organization/f001',
-        display: 'BMC',
-      },
-      code: [
-        {
-          coding: [
-            {
-              system: 'http://snomed.info/sct',
-              code: '59058001',
-              display: 'General physician',
-            },
-          ],
-        },
-      ],
-      specialty: [
-        {
-          coding: [
-            {
-              system: 'http://snomed.info/sct',
-              code: '394814009',
-              display: 'General practice',
-            },
-          ],
-        },
-      ],
-    });
-
-    const validate = await Validator.resources.PractitionerRole(dataType);
+    const validate = await Validator.PractitionerRole(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -258,7 +209,7 @@ describe('PractitionerRole FHIR R5', () => {
 
   it('should be able to create a new contact point using builder methods [new PractitionerRoleBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .addCode({
         coding: [
           {
@@ -267,7 +218,7 @@ describe('PractitionerRole FHIR R5', () => {
           },
         ],
       })
-      .addPractitionerRoleParamExtension('active', {
+      .addParamExtension('active', {
         extension: [
           {
             url: 'active',
@@ -281,8 +232,8 @@ describe('PractitionerRole FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _active: {
         extension: [
           {
@@ -309,60 +260,10 @@ describe('PractitionerRole FHIR R5', () => {
       ],
       resourceType: 'PractitionerRole',
     });
-  });
 
-  it('should be able to create a new contact point using builder methods [Builder.resource.PractitionerRole()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .addCode({
-        coding: [
-          {
-            system: 'http://snomed.info/sct',
-            code: '59058001',
-          },
-        ],
-      })
-      .addPractitionerRoleParamExtension('active', {
-        extension: [
-          {
-            url: 'active',
-            valueBoolean: true,
-          },
-        ],
-      })
-      .setActive(true)
-      .addHealthcareService({
-        reference: 'HealthcareService/example',
-      })
-      .build();
+    const validate = await Validator.PractitionerRole(item);
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      _active: {
-        extension: [
-          {
-            url: 'active',
-            valueBoolean: true,
-          },
-        ],
-      },
-      active: true,
-      code: [
-        {
-          coding: [
-            {
-              code: '59058001',
-              system: 'http://snomed.info/sct',
-            },
-          ],
-        },
-      ],
-      healthcareService: [
-        {
-          reference: 'HealthcareService/example',
-        },
-      ],
-      resourceType: 'PractitionerRole',
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

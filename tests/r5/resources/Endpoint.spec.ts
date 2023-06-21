@@ -1,103 +1,17 @@
-import { EndpointBuilder } from '../../../src/r5/builders/resources';
 import { IEndpoint } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
-import { Endpoint } from '../../../src/r5/models/resources';
+import EndpointBuilder from '../../../src/r5/models/resources/EndpointBuilder';
 
 describe('Endpoint FHIR R5', () => {
   let builder: EndpointBuilder;
-  let builderFromFunction: EndpointBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR5();
+  const { Validator, Endpoint } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = new EndpointBuilder();
-    builderFromFunction = Builder.resources.Endpoint();
+    builder = Endpoint.builder();
   });
   // create global
-
-  it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
-    const resource = createResource('Endpoint', {
-      resourceType: 'Endpoint',
-      id: 'example',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tHealth Intersections CarePlan Hub<br/>\n\t\t\tCarePlans can be uploaded to/from this loccation\n\t\t</div>',
-      },
-      identifier: [
-        {
-          system: 'http://example.org/enpoint-identifier',
-          value: 'epcp12',
-        },
-      ],
-      status: 'active',
-      connectionType: [
-        {
-          coding: [
-            {
-              system: 'http://terminology.hl7.org/CodeSystem/endpoint-connection-type',
-              code: 'hl7-fhir-rest',
-            },
-          ],
-        },
-      ],
-      name: 'Health Intersections CarePlan Hub',
-      description: 'The CarePlan hub provides a test/dev environment for testing submissions',
-      environmentType: [
-        {
-          coding: [
-            {
-              system: 'http://hl7.org/fhir/endpoint-environment',
-              code: 'test',
-            },
-          ],
-        },
-        {
-          coding: [
-            {
-              system: 'http://hl7.org/fhir/endpoint-environment',
-              code: 'dev',
-            },
-          ],
-        },
-      ],
-      managingOrganization: {
-        reference: 'Organization/hl7',
-      },
-      contact: [
-        {
-          system: 'email',
-          value: 'endpointmanager@example.org',
-          use: 'work',
-        },
-      ],
-      period: {
-        start: '2014-09-01',
-      },
-      payload: [
-        {
-          type: [
-            {
-              coding: [
-                {
-                  system: 'http://hl7.org/fhir/fhir-types',
-                  code: 'CarePlan',
-                },
-              ],
-            },
-          ],
-          mimeType: ['application/fhir+xml'],
-        },
-      ],
-      address: 'http://fhir3.healthintersections.com.au/open/CarePlan',
-      header: ['bearer-code BASGS534s4'],
-    });
-
-    const validate = await Validator.resources.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
     const resource = new Endpoint({
@@ -175,7 +89,7 @@ describe('Endpoint FHIR R5', () => {
       address: 'http://fhir3.healthintersections.com.au/open/CarePlan',
       header: ['bearer-code BASGS534s4'],
     });
-    const validate = await Validator.resources.Endpoint(resource);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -258,7 +172,7 @@ describe('Endpoint FHIR R5', () => {
       header: ['bearer-code BASGS534s4'],
     };
 
-    const validate = await Validator.resources.Endpoint(resource);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -297,7 +211,7 @@ describe('Endpoint FHIR R5', () => {
       address: 'https://pacs.hospital.org/wado-rs',
     };
 
-    const validate = await Validator.resources.Endpoint(resource);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -343,14 +257,14 @@ describe('Endpoint FHIR R5', () => {
       address: 'mailto:MARTIN.SMIETANKA@directnppes.com',
     };
 
-    const validate = await Validator.resources.Endpoint(resource);
+    const validate = await Validator.Endpoint(resource);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new endpoint and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       resourceType: 'Endpoint',
       id: 'example-wadors',
       text: {
@@ -383,7 +297,7 @@ describe('Endpoint FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.resources.Endpoint(dataType);
+    const validate = await Validator.Endpoint(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -408,7 +322,7 @@ describe('Endpoint FHIR R5', () => {
 
   it('should be able to create a new endpoint using builder methods [Example Endpoint/example-wadors]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('example-wadors')
       .setText({
         status: 'generated',
@@ -437,8 +351,8 @@ describe('Endpoint FHIR R5', () => {
       .setAddress('https://pacs.hospital.org/wado-rs')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       resourceType: 'Endpoint',
       id: 'example-wadors',
       text: {
@@ -469,5 +383,10 @@ describe('Endpoint FHIR R5', () => {
       ],
       address: 'https://pacs.hospital.org/wado-rs',
     });
+
+    const validate = await Validator.Endpoint(item);
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

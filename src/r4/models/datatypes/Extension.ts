@@ -15,7 +15,7 @@ import {
 } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { ExtensionBuilder, IExtensionBuilder } from './ExtensionBuilder';
+import { ExtensionBuilder } from './ExtensionBuilder';
 
 export default class Extension extends Element implements IExtension {
   url: string;

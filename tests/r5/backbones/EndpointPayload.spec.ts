@@ -1,17 +1,15 @@
 import FHIRContext from '../../../src';
-import { EndpointPayloadBuilder } from '../../../src/r5/builders/backbones';
 import { IEndpointPayload } from '../../../src/r5/interfaces/backbones';
-import { EndpointPayload } from '../../../src/r5/models/backbones';
+import EndpointPayloadBuilder from '../../../src/r5/models/backbones/EndpointPayloadBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('EndpointPayload FHIR R5', () => {
-  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
+  const { EndpointPayload } = new FHIRContext().forR5();
   let builder: EndpointPayloadBuilder;
-  let builderFromFunction: EndpointPayloadBuilder;
 
   // create global
   beforeEach(() => {
-    builder = new EndpointPayloadBuilder();
-    builderFromFunction = Builder.backboneElements.EndpointPayload();
+    builder = EndpointPayload.builder();
   });
 
   it('should be able to create a new endpoint payload and validate with correct data [IEndpointPayload]', async () => {
@@ -30,7 +28,7 @@ describe('EndpointPayload FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.backboneElements.EndpointPayload(item);
+    const validate = await _validateBackbone(item, 'Endpoint_Payload');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -52,29 +50,7 @@ describe('EndpointPayload FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.backboneElements.EndpointPayload(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new endpoint payload and validate with correct data [createBackboneElement()]', async () => {
-    const item = createBackboneElement('EndpointPayload', {
-      id: '123',
-      type: [
-        {
-          coding: [
-            {
-              system: 'http://hl7.org/fhir/endpoint-payload-type',
-              code: 'any',
-              display: 'Any',
-            },
-          ],
-        },
-      ],
-    });
-
-    const validate = await Validator.backboneElements.EndpointPayload(item);
+    const validate = await _validateBackbone(item, 'Endpoint_Payload');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -97,7 +73,7 @@ describe('EndpointPayload FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.backboneElements.EndpointPayload(item);
+    const validate = await _validateBackbone(item, 'Endpoint_Payload');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -138,57 +114,10 @@ describe('EndpointPayload FHIR R5', () => {
       ])
       .build();
 
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      _mimeType: [
-        {
-          extension: [
-            {
-              url: 'http://hl7.org/fhir/StructureDefinition/endpoint-mimeType',
-              valueId: '1221',
-            },
-          ],
-        },
-      ],
-      id: '123',
-      type: [
-        {
-          coding: [
-            {
-              code: 'any',
-              display: 'Any',
-              system: 'http://hl7.org/fhir/endpoint-payload-type',
-            },
-          ],
-        },
-      ],
-    });
-  });
+    const validate = await _validateBackbone(item, 'Endpoint_Payload');
 
-  it('should be able to create a new endpoint payload using builder methods [Builder.backboneElements.EndpointPayload()]', async () => {
-    // build() is a method that returns the object that was built
-    const item = builderFromFunction
-      .setId('123')
-      .addType({
-        coding: [
-          {
-            code: 'any',
-            display: 'Any',
-            system: 'http://hl7.org/fhir/endpoint-payload-type',
-          },
-        ],
-      })
-      .addParamExtension('mimeType', [
-        {
-          extension: [
-            {
-              url: 'http://hl7.org/fhir/StructureDefinition/endpoint-mimeType',
-              valueId: '1221',
-            },
-          ],
-        },
-      ])
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

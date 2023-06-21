@@ -1,17 +1,15 @@
-import { PractitionerQualificationBuilder } from '../../../src/r5/builders/backbones';
 import { IPractitionerQualification } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { PractitionerQualification } from '../../../src/r5/models/backbones';
+import PractitionerQualificationBuilder from '../../../src/r5/models/backbones/PractitionerQualificationBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('PractitionerQualification FHIR R5', () => {
-  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
+  const { PractitionerQualification } = new FHIRContext().forR5();
   let builder: PractitionerQualificationBuilder;
-  let builderFromFunction: PractitionerQualificationBuilder;
 
   // create global
   beforeEach(() => {
-    builder = new PractitionerQualificationBuilder();
-    builderFromFunction = Builder.backboneElements.PractitionerQualification();
+    builder = PractitionerQualification.builder();
   });
 
   it('should be able to create a new practitioner_qualification payload and validate with correct data [IPractitionerQualification]', async () => {
@@ -30,7 +28,7 @@ describe('PractitionerQualification FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
+    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -52,29 +50,7 @@ describe('PractitionerQualification FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new practitioner_qualification payload and validate with correct data [createBackboneElement()]', async () => {
-    const dataType = createBackboneElement('PractitionerQualification', {
-      id: '123',
-      issuer: {
-        reference: 'test',
-      },
-      code: {
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/organization-qualification',
-            code: 'any',
-          },
-        ],
-      },
-    });
-
-    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
+    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -101,7 +77,7 @@ describe('PractitionerQualification FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.backboneElements.PractitionerQualification(dataType);
+    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -179,62 +155,10 @@ describe('PractitionerQualification FHIR R5', () => {
         reference: 'Organization/1',
       },
     });
-  });
 
-  it('should be able to create a new practitioner_qualification payload using builder methods [Builder.backboneElements.PractitionerQualification()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setId('123')
-      .setCode({
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/organization-qualification',
-            code: 'any',
-          },
-        ],
-        text: 'test',
-      })
-      .setIssuer({
-        reference: 'Organization/1',
-      })
-      .setCode({
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/organization-qualification',
-            code: 'any',
-          },
-        ],
-        text: 'test',
-      })
-      .addIdentifier({
-        use: 'official',
-        system: 'http://hl7.org/fhir/sid/us-npi',
-        value: '123',
-      })
-      .build();
+    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      code: {
-        coding: [
-          {
-            code: 'any',
-            system: 'http://hl7.org/fhir/organization-qualification',
-          },
-        ],
-        text: 'test',
-      },
-      id: '123',
-      identifier: [
-        {
-          system: 'http://hl7.org/fhir/sid/us-npi',
-          use: 'official',
-          value: '123',
-        },
-      ],
-      issuer: {
-        reference: 'Organization/1',
-      },
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

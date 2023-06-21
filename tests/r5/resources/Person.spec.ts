@@ -1,22 +1,20 @@
 import { IPerson } from '../../../src/r5/interfaces/resources';
-import { PersonBuilder } from '../../../src/r5/builders/resources';
 import FHIRContext from '../../../src';
-import { Person } from '../../../src/r5/models/resources';
+import PersonBuilder from '../../../src/r5/models/resources/PersonBuilder';
 
 describe('Person FHIR R5', () => {
   let builder: PersonBuilder;
-  let builderFromFunction: PersonBuilder;
+
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR5();
+  const { Validator, Person } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = new PersonBuilder();
-    builderFromFunction = Builder.resources.Person();
+    builder = Person.builder();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/example]', async () => {
-    const dataType = new Person({
+    const item = new Person({
       resourceType: 'Person',
       id: 'example',
       text: {
@@ -89,10 +87,14 @@ describe('Person FHIR R5', () => {
         },
       ],
     });
+
+    const validate = await Validator.Person(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/grahame]', async () => {
-    const dataType: IPerson = {
+    const item: IPerson = {
       resourceType: 'Person',
       id: 'grahame',
       text: {
@@ -150,89 +152,13 @@ describe('Person FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.resources.Person(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new person and validate with correct data [Example Person/pp]', async () => {
-    const dataType = createResource('Person', {
-      resourceType: 'Person',
-      id: 'pp',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      identifier: [
-        {
-          use: 'official',
-          system: 'urn:oid:2.16.840.1.113883.4.3.39',
-          value: 'TL545786',
-          period: {
-            start: '2041-09-23',
-          },
-          assigner: {
-            display: 'Ohio Bureau of Motor Vehicles',
-          },
-        },
-      ],
-      active: true,
-      name: [
-        {
-          use: 'official',
-          family: 'Everywoman',
-          given: ['Eve', 'Marie'],
-        },
-      ],
-      telecom: [
-        {
-          system: 'phone',
-          value: '(621)-479-9743',
-          use: 'home',
-        },
-      ],
-      gender: 'female',
-      birthDate: '1974-03-07',
-      address: [
-        {
-          use: 'home',
-          line: ['2086 College St'],
-          city: 'Sandusky',
-          state: 'OH',
-          postalCode: '44870',
-          country: 'USA',
-        },
-      ],
-      managingOrganization: {
-        reference: 'http://www.goodhealth.com/Organization/12',
-        display: 'Goodhealth Patient Portal',
-      },
-      link: [
-        {
-          target: {
-            reference: 'http://www.goodhealth.com/Patient/98574',
-            display: 'Eve Everywoman',
-          },
-          assurance: 'level3',
-        },
-        {
-          target: {
-            reference: 'http://www.acme-medical.com/Patient/ab34d',
-            display: 'Eve Marie Everywoman',
-          },
-          assurance: 'level2',
-        },
-      ],
-    });
-
-    const validate = await Validator.resources.Person(dataType);
-
+    const validate = await Validator.Person(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/per4]', async () => {
-    const dataType: IPerson = {
+    const item: IPerson = {
       resourceType: 'Person',
       id: 'per4',
       text: {
@@ -271,13 +197,13 @@ describe('Person FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.Person(dataType);
+    const validate = await Validator.Person(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new person and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       resourceType: 'Person',
       id: 'f002',
       text: {
@@ -317,7 +243,7 @@ describe('Person FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.resources.Person(dataType);
+    const validate = await Validator.Person(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -342,7 +268,7 @@ describe('Person FHIR R5', () => {
 
   it('should be able to create a new person using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .addParamExtension('active', {
         extension: [
           {
@@ -353,8 +279,8 @@ describe('Person FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       resourceType: 'Person',
       _active: {
         extension: [
@@ -365,5 +291,9 @@ describe('Person FHIR R5', () => {
         ],
       },
     });
+
+    const validate = await Validator.Person(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

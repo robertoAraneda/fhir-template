@@ -1,18 +1,15 @@
 import FHIRContext from '../../../src';
-import { Organization } from '../../../src/r5/models/resources';
 import { IOrganization } from '../../../src/r5/interfaces/resources';
-import { OrganizationBuilder } from '../../../src/r5/builders/resources';
+import OrganizationBuilder from '../../../src/r5/models/resources/OrganizationBuilder';
 
 describe('Organization FHIR R5', () => {
   let builder: OrganizationBuilder;
-  let builderFromFunction: OrganizationBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR5();
+  const { Validator, Organization } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = new OrganizationBuilder();
-    builderFromFunction = Builder.resources.Organization();
+    builder = Organization.builder();
   });
 
   it('should be able to create a new organization and validate with correct data [Example Organization/1]', async () => {
@@ -48,7 +45,7 @@ describe('Organization FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.resources.Organization(resource);
+    const validate = await Validator.Organization(resource);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -86,64 +83,7 @@ describe('Organization FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.Organization(resource);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new organization and validate with correct data [Example Organization/f203]', async () => {
-    const resource = createResource('Organization', {
-      resourceType: 'Organization',
-      id: 'f203',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      identifier: [
-        {
-          use: 'official',
-          system: 'http://www.zorgkaartnederland.nl/',
-          value: 'Blijdorp MC',
-        },
-      ],
-      active: true,
-      type: [
-        {
-          coding: [
-            {
-              system: 'http://snomed.info/sct',
-              code: '405608006',
-              display: 'Academic Medical Center',
-            },
-            {
-              system: 'http://terminology.hl7.org/CodeSystem/organization-type',
-              code: 'prov',
-            },
-          ],
-        },
-      ],
-      name: 'Blijdorp Medisch Centrum (BUMC)',
-      contact: [
-        {
-          telecom: [
-            {
-              system: 'phone',
-              value: '+31107040704',
-              use: 'work',
-            },
-          ],
-          address: {
-            use: 'work',
-            line: ['apenrots 230'],
-            city: 'Blijdorp',
-            postalCode: '3056BE',
-            country: 'NLD',
-          },
-        },
-      ],
-    });
-
-    const validate = await Validator.resources.Organization(resource);
+    const validate = await Validator.Organization(resource);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
@@ -168,7 +108,7 @@ describe('Organization FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.Organization(resource);
+    const validate = await Validator.Organization(resource);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -291,5 +231,8 @@ describe('Organization FHIR R5', () => {
         },
       ],
     });
+    const validate = await Validator.Organization(resource);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

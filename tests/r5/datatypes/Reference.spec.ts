@@ -1,65 +1,51 @@
-import { ReferenceBuilder } from '../../../src/r5/builders/datatypes';
 import { IOrganization } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import { IReference } from '../../../src/r5/interfaces/datatypes';
-import { Reference } from '../../../src/r5/models/datatypes';
+import ReferenceBuilder from '../../../src/r5/models/datatypes/ReferenceBuilder';
+import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
 describe('Reference FHIR R5', () => {
   let builder: ReferenceBuilder;
-  let builderFromFunction: ReferenceBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
+  const { Reference } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new ReferenceBuilder();
-    builderFromFunction = Builder.dataTypes.Reference();
+    builder = Reference.builder();
   });
 
   it('should be able to create a new reference and validate with correct data [new Reference()]', async () => {
-    const dataType = new Reference({
+    const item = new Reference({
       type: 'official',
       reference: 'Organization/123',
       display: 'Organization display',
     });
 
-    const validate = await Validator.dataTypes.Reference(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new reference and validate with correct data [createDatatype()]', async () => {
-    const dataType = createDatatype('Reference', {
-      type: 'official',
-      reference: 'Organization/123',
-      display: 'Organization display',
-    });
-
-    const validate = await Validator.dataTypes.Reference(dataType);
+    const validate = await _validateDataType(item, 'Reference');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new reference and validate with correct data [IReference]', async () => {
-    const dataType: IReference = {
+    const item: IReference = {
       type: 'official',
       reference: 'Organization/123',
       display: 'Organization display',
     };
 
-    const validate = await Validator.dataTypes.Reference(dataType);
+    const validate = await _validateDataType(item, 'Reference');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new reference and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       type: 'official',
       reference: 'Organization/123',
       display: 'Organization display',
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Reference(dataType);
+    const validate = await _validateDataType(item, 'Reference');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -75,32 +61,24 @@ describe('Reference FHIR R5', () => {
     ]);
   });
 
-  it('should be able to create a new address using builder methods [new ReferenceBuilder()]', async () => {
+  it('should be able to create a new reference using builder methods [new ReferenceBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setType('official')
       .setReference('Organization/123')
       .setDisplay('Organization display')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({ type: 'official', display: 'Organization display', reference: 'Organization/123' });
+    expect(item).toBeDefined();
+    expect(item).toEqual({ type: 'official', display: 'Organization display', reference: 'Organization/123' });
+
+    const validate = await _validateDataType(item, 'Reference');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new address using builder methods [Builder.dataTypes.Reference()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setType('official')
-      .setReference('Organization/123')
-      .setDisplay('Organization display')
-      .build();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({ type: 'official', display: 'Organization display', reference: 'Organization/123' });
-  });
-
-  it('should return errors if identifiers has wrong data', async () => {
-    const dataType = builder
+  it('should return errors if reference has wrong data', async () => {
+    const item = builder
       .setType('official')
       .setReference('Organization/123')
       .setIdentifier({
@@ -112,8 +90,8 @@ describe('Reference FHIR R5', () => {
       .setDisplay('Organization display')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       type: 'official',
       display: 'Organization display',
       reference: 'Organization/123',
@@ -125,7 +103,7 @@ describe('Reference FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.Reference(dataType);
+    const validate = await _validateDataType(item, 'Reference');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -148,12 +126,16 @@ describe('Reference FHIR R5', () => {
       resourceType: 'Organization',
       id: '123',
     };
-    const dataType = new ReferenceBuilder().setReference(organization).setDisplay('Organization display').build();
+    const item = new ReferenceBuilder().setReference(organization).setDisplay('Organization display').build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       reference: 'Organization/123',
       display: 'Organization display',
     });
+
+    const validate = await _validateDataType(item, 'Reference');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

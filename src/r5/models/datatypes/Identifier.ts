@@ -2,6 +2,8 @@ import { ICodeableConcept, IExtension, IIdentifier, IPeriod, IReference } from '
 import { IElement } from '../../interfaces/base';
 import { IdentifierUseEnum } from '../../enums';
 import { IdentifierUseType } from '../../types';
+import Element from '../base/Element';
+import IdentifierBuilder from './IdentifierBuilder';
 
 /**
  * @description An identifier intended for computation
@@ -29,17 +31,7 @@ import { IdentifierUseType } from '../../types';
  *   "assigner" : { Reference(Organization) } // Organization that issued id (may be just text)
  * }
  */
-export default class Identifier implements IIdentifier {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension?: IExtension[];
-
+export default class Identifier extends Element implements IIdentifier {
   /**
    * @description usual | official | temp | secondary | old (If known)
    */
@@ -85,7 +77,24 @@ export default class Identifier implements IIdentifier {
    */
   _value?: IElement;
 
+  static builder(): IdentifierBuilder {
+    return new IdentifierBuilder();
+  }
+
+  toJson(): Identifier {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Identifier${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Identifier${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IIdentifier) {
+    super();
     Object.assign(this, args);
   }
 }

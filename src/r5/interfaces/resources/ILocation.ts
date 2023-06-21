@@ -1,6 +1,7 @@
 import { IDomainResource, IElement } from '../base';
 import {
   IAddress,
+  IAvailability,
   ICodeableConcept,
   ICoding,
   IExtendedContactDetail,
@@ -11,7 +12,6 @@ import {
 import { LocationModeEnum, LocationStatusEnum } from '../../enums';
 import { LocationModeType, LocationStatusType } from '../../types';
 import { ILocationPosition } from '../backbones';
-import { Availability } from '../../models/datatypes';
 
 export interface ILocation extends IDomainResource {
   identifier?: IIdentifier[];
@@ -29,7 +29,7 @@ export interface ILocation extends IDomainResource {
   managingOrganization?: IReference;
   partOf?: IReference;
   characteristic?: ICodeableConcept[];
-  hoursOfOperation?: Availability[];
+  hoursOfOperation?: IAvailability[];
   virtualService?: IVirtualServiceDetail[];
   endpoint?: IReference[];
 

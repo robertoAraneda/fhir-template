@@ -1,21 +1,19 @@
 import { IIdentifier } from '../../../src/r5/interfaces/datatypes';
-import { IdentifierBuilder } from '../../../src/r5/builders/datatypes';
 import FHIRContext from '../../../src';
-import Identifier from '../../../src/r5/models/datatypes/Identifier';
+import IdentifierBuilder from '../../../src/r5/models/datatypes/IdentifierBuilder';
+import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
 describe('Identifier FHIR R5', () => {
   let builder: IdentifierBuilder;
-  let builderFromFunction: IdentifierBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
+  const { Identifier } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new IdentifierBuilder();
-    builderFromFunction = Builder.dataTypes.Identifier();
+    builder = Identifier.builder();
   });
 
   it('should be able to create a new identifier and validate with correct data [new Identifier()]', async () => {
-    const dataType = new Identifier({
+    const item = new Identifier({
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -29,33 +27,13 @@ describe('Identifier FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new identifier and validate with correct data [createDatatype()]', async () => {
-    const dataType = createDatatype('Identifier', {
-      id: '123',
-      use: 'official',
-      value: '1234567890',
-      system: 'http://hl7.org/fhir/sid/us-npi',
-      period: {
-        start: '2020-01-01',
-        end: '2020-01-02',
-      },
-      assigner: {
-        reference: 'Organization/123',
-      },
-    });
-
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await _validateDataType(item, 'Identifier');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new identifier and validate with correct data [IIdentifier]', async () => {
-    const dataType: IIdentifier = {
+    const item: IIdentifier = {
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -69,13 +47,13 @@ describe('Identifier FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await _validateDataType(item, 'Identifier');
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new reference and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       use: 'official',
       value: '1234567890',
@@ -90,7 +68,7 @@ describe('Identifier FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.dataTypes.Identifier(dataType);
+    const validate = await _validateDataType(item, 'Identifier');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -108,7 +86,7 @@ describe('Identifier FHIR R5', () => {
 
   it('should be able to create a new identifier using builder methods [new IdentifierBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setUse('official')
       .setSystem('http://hl7.org/fhir/sid/us-npi')
       .setPeriod({
@@ -119,8 +97,8 @@ describe('Identifier FHIR R5', () => {
       .setAssigner({ reference: 'Organization/123' })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       assigner: {
         reference: 'Organization/123',
       },
@@ -132,80 +110,10 @@ describe('Identifier FHIR R5', () => {
       use: 'official',
       value: '1234567890',
     });
-  });
 
-  it('should be able to create a new identifier using builder methods [builders.dataTypes.IdentifierBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setUse('official')
-      .setSystem('http://hl7.org/fhir/sid/us-npi')
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-02',
-      })
-      .setValue('1234567890')
-      .setAssigner({ reference: 'Organization/123' })
-      .build();
+    const validate = await _validateDataType(item, 'Identifier');
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      assigner: {
-        reference: 'Organization/123',
-      },
-      period: {
-        start: '2020-01-01',
-        end: '2020-01-02',
-      },
-      system: 'http://hl7.org/fhir/sid/us-npi',
-      use: 'official',
-      value: '1234567890',
-    });
-  });
-
-  it('should return errors if identifiers has wrong data', async () => {
-    const dataType = builder
-      .setUse('official')
-      .setSystem('http://hl7.org/fhir/sid/us-npi')
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-02',
-      })
-      .setValue('1234567890')
-      .setAssigner({ reference: 'Organization/123' })
-      .setPeriod({
-        start: '2020-01-01 HH:MM:SS', // wrong format
-        end: '2020-01-02',
-      })
-      .build();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      assigner: {
-        reference: 'Organization/123',
-      },
-      period: {
-        end: '2020-01-02',
-        start: '2020-01-01 HH:MM:SS',
-      },
-      system: 'http://hl7.org/fhir/sid/us-npi',
-      use: 'official',
-      value: '1234567890',
-    });
-
-    const validate = await Validator.dataTypes.Identifier(dataType);
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    if (validate.errors) {
-      expect(validate.errors).toEqual([
-        {
-          keyword: 'pattern',
-          instancePath: '/period/start',
-          message: "The value '/period/start' does not match with datatype 'dateTime'",
-          params: { value: '/period/start' },
-          schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
-        },
-      ]);
-    }
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

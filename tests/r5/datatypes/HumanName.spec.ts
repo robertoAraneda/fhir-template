@@ -1,22 +1,19 @@
-import { HumanNameBuilder } from '../../../src/r5/builders/datatypes';
 import { IHumanName } from '../../../src/r5/interfaces/datatypes';
-import { IValidatorContext } from '../../../src/r5';
 import FHIRContext from '../../../src';
-import HumanName from '../../../src/r5/models/datatypes/HumanName';
+import HumanNameBuilder from '../../../src/r5/models/datatypes/HumanNameBuilder';
+import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
 describe('HumanName FHIR R5', () => {
   let builder: HumanNameBuilder;
-  let builderFromFunction: HumanNameBuilder;
-  const { Validator, createDatatype, Builder } = new FHIRContext().forR5();
+  const { HumanName } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
     builder = new HumanNameBuilder();
-    builderFromFunction = Builder.dataTypes.HumanName();
   });
 
   it('should be able to create a new humanname and validate with correct data [new HumanName()]', async () => {
-    const dataType = new HumanName({
+    const item = new HumanName({
       use: 'maiden',
       family: 'Windsor',
       given: ['Peter', 'James'],
@@ -34,37 +31,14 @@ describe('HumanName FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.dataTypes.HumanName(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
+    const validate = await _validateDataType(item, 'HumanName');
 
-  it('should be able to create a new humanname and validate with correct data [createDatatype()]', async () => {
-    const dataType: IHumanName = createDatatype('HumanName', {
-      use: 'maiden',
-      family: 'Windsor',
-      given: ['Peter', 'James'],
-      period: {
-        end: '2002',
-      },
-      _use: {
-        extension: [
-          {
-            id: 'test',
-            url: 'test',
-            valueCode: 'test',
-          },
-        ],
-      },
-    });
-
-    const validate = await Validator.dataTypes.HumanName(dataType);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new humanname and validate with correct data [IHumanName]', async () => {
-    const dataType: IHumanName = {
+    const item: IHumanName = {
       use: 'maiden',
       family: 'Windsor',
       given: ['Peter', 'James'],
@@ -82,13 +56,14 @@ describe('HumanName FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.HumanName(dataType);
+    const validate = await _validateDataType(item, 'HumanName');
+
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new humanname and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       test: 'test', // wrong property
       use: 'wrong use', // wrong property
       family: 'Windsor',
@@ -107,7 +82,7 @@ describe('HumanName FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.dataTypes.HumanName(dataType);
+    const validate = await _validateDataType(item, 'HumanName');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -130,66 +105,9 @@ describe('HumanName FHIR R5', () => {
     ]);
   });
 
-  it('should be able to create a new identifier using builder methods [builders.dataTypes.HumanNameBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setUse('official')
-      .addGiven('Peter')
-      .addGiven('James')
-      .setFamily('Windsor')
-      .setPeriod({ end: '2002' })
-      .addParamExtension('given', [
-        {
-          extension: [
-            {
-              url: 'url',
-              valueCode: 'valueCode',
-            },
-          ],
-        },
-      ])
-      .addParamExtension('family', {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/humanname-mothers-family',
-            valueString: 'White',
-          },
-        ],
-      })
-      .build();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      _family: {
-        extension: [
-          {
-            url: 'http://hl7.org/fhir/StructureDefinition/humanname-mothers-family',
-            valueString: 'White',
-          },
-        ],
-      },
-      family: 'Windsor',
-      given: ['Peter', 'James'],
-      _given: [
-        {
-          extension: [
-            {
-              url: 'url',
-              valueCode: 'valueCode',
-            },
-          ],
-        },
-      ],
-      period: {
-        end: '2002',
-      },
-      use: 'official',
-    });
-  });
-
   it('should be able to create a new identifier using builder methods [new HumanNameBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setUse('official')
       .addGiven('Peter')
       .addGiven('James')
@@ -215,8 +133,8 @@ describe('HumanName FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _family: {
         extension: [
           {
@@ -242,5 +160,10 @@ describe('HumanName FHIR R5', () => {
       },
       use: 'official',
     });
+
+    const validate = await _validateDataType(item, 'HumanName');
+
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

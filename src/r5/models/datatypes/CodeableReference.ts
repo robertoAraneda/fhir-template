@@ -1,4 +1,6 @@
 import { ICodeableConcept, ICodeableReference, IExtension, IReference } from '../../interfaces/datatypes';
+import Element from '../base/Element';
+import CodeableReferenceBuilder from './CodeableReferenceBuilder';
 
 /**
  * @description Reference to a resource or a concept.
@@ -10,17 +12,7 @@ import { ICodeableConcept, ICodeableReference, IExtension, IReference } from '..
  * @see https://www.hl7.org/fhir/references.html#CodeableReference CodeableReference
  * @author Roberto Araneda
  */
-export default class CodeableReference implements ICodeableReference {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension?: IExtension[];
-
+export default class CodeableReference extends Element implements ICodeableReference {
   /**
    * @description Reference to a concept (by class)
    */
@@ -31,7 +23,24 @@ export default class CodeableReference implements ICodeableReference {
    */
   reference?: IReference;
 
+  static builder(): CodeableReferenceBuilder {
+    return new CodeableReferenceBuilder();
+  }
+
+  toJson(): CodeableReference {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `CodeableReference${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `CodeableReference${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: ICodeableReference) {
+    super();
     Object.assign(this, args);
   }
 }

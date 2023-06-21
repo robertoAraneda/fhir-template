@@ -2,6 +2,8 @@ import { IAddress, IExtension, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { AddressTypeEnum, AddressUseEnum } from '../../enums';
 import { AddressTypeType, AddressUseType } from '../../types';
+import Element from '../base/Element';
+import AddressBuilder from './AddressBuilder';
 
 /**
  * @description An address expressed using postal conventions (as opposed to GPS or other location definition formats)
@@ -29,17 +31,7 @@ import { AddressTypeType, AddressUseType } from '../../types';
  * @see https://hl7.org/fhir/datatypes.html#Address Address
  * @author Roberto Araneda
  */
-export default class Address implements IAddress {
-  /**
-   * @description unique id for the element
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension?: IExtension[];
-
+export default class Address extends Element implements IAddress {
   /**
    * @description home | work | temp | old | billing - purpose of this address
    */
@@ -135,7 +127,24 @@ export default class Address implements IAddress {
    */
   _country?: IElement;
 
-  constructor(args?: Partial<Address>) {
+  static builder(): AddressBuilder {
+    return new AddressBuilder();
+  }
+
+  toJson(): Address {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Address${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Address${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  constructor(args?: IAddress) {
+    super();
     Object.assign(this, args);
   }
 }

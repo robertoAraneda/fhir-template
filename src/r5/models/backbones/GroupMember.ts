@@ -1,15 +1,10 @@
 import { IGroupMember } from '../../interfaces/backbones';
-import { IExtension, IPeriod, IReference } from '../../interfaces/datatypes';
+import { IPeriod, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import BackboneElement from '../base/BackboneElement';
+import GroupMemberBuilder from './GroupMemberBuilder';
 
-export default class GroupMember implements IGroupMember {
-  // Element attributes
-  id: string;
-  extension: IExtension[];
-
-  // BackBoneElement attributes
-  modifierExtension: IExtension[];
-
+export default class GroupMember extends BackboneElement implements IGroupMember {
   // GroupMember attributes
   entity: IReference;
   period: IPeriod;
@@ -18,7 +13,24 @@ export default class GroupMember implements IGroupMember {
   // Extensions
   _inactive?: IElement;
 
+  static builder(): GroupMemberBuilder {
+    return new GroupMemberBuilder();
+  }
+
+  toJson(): GroupMember {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `GroupMember${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `GroupMember${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IGroupMember) {
+    super();
     Object.assign(this, args);
   }
 }

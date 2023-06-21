@@ -1,31 +1,15 @@
 import FHIRContext from '../../../src';
-import { GroupMember } from '../../../src/r5/models/backbones';
-import { GroupMemberBuilder } from '../../../src/r5/builders/backbones';
 import { IGroupMember } from '../../../src/r5/interfaces/backbones';
+import GroupMemberBuilder from '../../../src/r5/models/backbones/GroupMemberBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('GroupMember FHIR R5', () => {
   let builder: GroupMemberBuilder;
-  let builderFromFunction: GroupMemberBuilder;
-  const { Validator, createBackboneElement, Builder } = new FHIRContext().forR5();
+  const { GroupMember } = new FHIRContext().forR5();
 
   // create global
   beforeEach(() => {
-    builder = new GroupMemberBuilder();
-    builderFromFunction = Builder.backboneElements.GroupMember();
-  });
-
-  it('should be able to validate a new group_characteristic [createBackboneElement]', async () => {
-    const item = createBackboneElement('GroupMember', {
-      id: '123',
-      inactive: false,
-      entity: {
-        reference: 'Patient/123',
-      },
-    });
-
-    const validate = await Validator.backboneElements.GroupMember(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    builder = GroupMember.builder();
   });
 
   it('should be able to validate a new group_characteristic [new GroupMember()]', async () => {
@@ -37,9 +21,9 @@ describe('GroupMember FHIR R5', () => {
       },
     });
 
-    const validateAddress = await Validator.backboneElements.GroupMember(item);
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    const validate = await _validateBackbone(item, 'Group_Member');
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new group_characteristic [IGroupMember]', async () => {
@@ -51,7 +35,7 @@ describe('GroupMember FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.GroupMember(item);
+    const validate = await _validateBackbone(item, 'Group_Member');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -66,23 +50,10 @@ describe('GroupMember FHIR R5', () => {
       .setInactive(false)
       .build();
 
-    expect(item).toEqual({
-      entity: {
-        reference: 'Patient/123',
-      },
-      id: '123',
-      inactive: false,
-    });
-  });
+    const validate = await _validateBackbone(item, 'Group_Member');
 
-  it('should be able to create a new group_characteristic using builder methods [Builder.backboneElements.GroupMember()]', async () => {
-    const item = builderFromFunction
-      .setId('123')
-      .setEntity({
-        reference: 'Patient/123',
-      })
-      .setInactive(false)
-      .build();
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       entity: {
@@ -99,7 +70,7 @@ describe('GroupMember FHIR R5', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await Validator.backboneElements.GroupMember(item);
+    const validate = await _validateBackbone(item, 'Group_Member');
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
     expect(validate.errors?.length).toBe(2);

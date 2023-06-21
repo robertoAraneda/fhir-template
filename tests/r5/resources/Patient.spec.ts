@@ -1,22 +1,19 @@
-import { OrganizationBuilder, PatientBuilder } from '../../../src/r5/builders/resources';
 import { IPatient } from '../../../src/r5/interfaces/resources';
-import { Patient } from '../../../src/r5/models/resources';
 import FHIRContext from '../../../src';
+import PatientBuilder from '../../../src/r5/models/resources/PatientBuilder';
 
 describe('Patient FHIR R5', () => {
   let builder: PatientBuilder;
-  let builderFromFunction: PatientBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR5();
+  const { Validator, Patient } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = new PatientBuilder();
-    builderFromFunction = Builder.resources.Patient();
+    builder = Patient.builder();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/patient-example-sex-and-gender]', async () => {
-    const dataType = new Patient({
+    const item = new Patient({
       resourceType: 'Patient',
       id: 'patient-example-sex-and-gender',
       text: {
@@ -354,13 +351,13 @@ describe('Patient FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.resources.Patient(dataType);
+    const validate = await Validator.Patient(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/patient-example-sex-and-gender]', async () => {
-    const dataType: IPatient = {
+    const item: IPatient = {
       resourceType: 'Patient',
       id: 'patient-example-sex-and-gender',
       text: {
@@ -698,124 +695,13 @@ describe('Patient FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.resources.Patient(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new patient and validate with correct data [Example Patient/animal]', async function () {
-    const dataType = createResource('Patient', {
-      resourceType: 'Patient',
-      id: 'animal',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml"><p style="border: 1px #661aff solid; background-color: #e6e6ff; padding: 10px;"><b>Kenzi </b> female, DoB: 2010-03-23 ( Dog Tag:\u00a01234123\u00a0(period:\u00a02010-05-31 --&gt; (ongoing)))</p><hr/><table class="grid"><tr><td style="background-color: #f3f5da" title="Record is active">Active:</td><td colspan="3">true</td></tr><tr><td style="background-color: #f3f5da" title="Nominated Contact: Emergency Contact">Emergency Contact:</td><td colspan="3"><ul><li>Peter James Chalmers </li><li>ph: (03) 5555 6473(WORK)</li></ul></td></tr><tr><td style="background-color: #f3f5da" title="Patient Links">Links:</td><td colspan="3"><ul><li>Managing Organization: <span>: Pete\'s Vetinary Services</span></li></ul></td></tr><tr><td style="background-color: #f3f5da" title="This patient is known to be an animal.">Patient Animal:</td><td colspan="3"><ul><li>species: <span title="Codes: {http://hl7.org/fhir/animal-species canislf}">Dog</span></li><li>breed: <span title="Codes: {http://snomed.info/sct 58108001}, {http://example.org/fhir/CodeSystem/animal-breed gret}">Golden retriever</span></li><li>genderStatus: <span title="Codes: {http://hl7.org/fhir/animal-genderstatus neutered}">Neutered</span></li></ul></td></tr></table></div>',
-      },
-      extension: [
-        {
-          url: 'http://hl7.org/fhir/StructureDefinition/patient-animal',
-          extension: [
-            {
-              url: 'species',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://hl7.org/fhir/animal-species',
-                    code: 'canislf',
-                    display: 'Dog',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'breed',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://snomed.info/sct',
-                    code: '58108001',
-                    display: 'Golden retriever',
-                  },
-                  {
-                    system: 'http://example.org/fhir/CodeSystem/animal-breed',
-                    code: 'gret',
-                    display: 'Golden Retriever',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'genderStatus',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://hl7.org/fhir/animal-genderstatus',
-                    code: 'neutered',
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      ],
-      identifier: [
-        {
-          system: 'http://www.maroondah.vic.gov.au/AnimalRegFees.aspx',
-          value: '1234123',
-          period: {
-            start: '2010-05-31',
-          },
-          assigner: {
-            display: 'Maroondah City Council',
-          },
-        },
-      ],
-      active: true,
-      name: [
-        {
-          use: 'usual',
-          given: ['Kenzi'],
-        },
-      ],
-      gender: 'female',
-      birthDate: '2010-03-23',
-      contact: [
-        {
-          relationship: [
-            {
-              coding: [
-                {
-                  system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
-                  code: 'C',
-                },
-              ],
-            },
-          ],
-          name: {
-            family: 'Chalmers',
-            given: ['Peter', 'James'],
-          },
-          telecom: [
-            {
-              system: 'phone',
-              value: '(03) 5555 6473',
-              use: 'work',
-            },
-          ],
-        },
-      ],
-      managingOrganization: {
-        display: "Pete's Vetinary Services",
-      },
-    });
-
-    const validate = await Validator.resources.Patient(dataType);
+    const validate = await Validator.Patient(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/glossy]', async function () {
-    const dataType: IPatient = {
+    const item: IPatient = {
       resourceType: 'Patient',
       id: 'glossy',
       meta: {
@@ -860,13 +746,13 @@ describe('Patient FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.resources.Patient(dataType);
+    const validate = await Validator.Patient(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/dicom]', async function () {
-    const dataType: IPatient = {
+    const item: IPatient = {
       resourceType: 'Patient',
       id: 'dicom',
       text: {
@@ -925,14 +811,14 @@ describe('Patient FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.resources.Patient(dataType);
+    const validate = await Validator.Patient(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new patient and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       resourceType: 'Patient',
       id: 'pat2',
       text: {
@@ -1000,7 +886,7 @@ describe('Patient FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.Patient(dataType);
+    const validate = await Validator.Patient(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -1020,20 +906,20 @@ describe('Patient FHIR R5', () => {
 
   it('should be able to create a new patient using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setText({
         status: 'generated',
         div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
       })
-      .setDeceased(false)
+      .setDeceasedBoolean(false)
       .setActive(true)
       .setGender('other')
       .setBirthDate('1974-12-25')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       active: true,
       birthDate: '1974-12-25',
       deceasedBoolean: false,
@@ -1045,5 +931,9 @@ describe('Patient FHIR R5', () => {
         status: 'generated',
       },
     });
+
+    const validate = await Validator.Patient(item);
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

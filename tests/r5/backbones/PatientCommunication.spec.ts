@@ -1,17 +1,15 @@
-import { PatientCommunicationBuilder } from '../../../src/r5/builders/backbones';
 import { IPatientCommunication } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { PatientCommunication } from '../../../src/r5/models/backbones';
+import PatientCommunicationBuilder from '../../../src/r5/models/backbones/PatientCommunicationBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('PatientCommunication FHIR R5', () => {
-  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
+  const { PatientCommunication } = new FHIRContext().forR5();
   let builder: PatientCommunicationBuilder;
-  let builderFromFunction: PatientCommunicationBuilder;
 
   // create global
   beforeEach(() => {
-    builder = new PatientCommunicationBuilder();
-    builderFromFunction = Builder.backboneElements.PatientCommunication();
+    builder = PatientCommunication.builder();
   });
 
   it('should be able to create a new patient_communication payload and validate with correct data [IPatientCommunication]', async () => {
@@ -29,7 +27,7 @@ describe('PatientCommunication FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.PatientCommunication(dataType);
+    const validate = await _validateBackbone(dataType, 'Patient_Communication');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -50,28 +48,7 @@ describe('PatientCommunication FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.backboneElements.PatientCommunication(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new patient_communication payload and validate with correct data [createBackboneElement()]', async () => {
-    const dataType = createBackboneElement('PatientCommunication', {
-      id: '123',
-      preferred: true,
-      language: {
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/ValueSet/languages',
-            code: 'en',
-            display: 'English',
-          },
-        ],
-      },
-    });
-
-    const validate = await Validator.backboneElements.PatientCommunication(dataType);
+    const validate = await _validateBackbone(dataType, 'Patient_Communication');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
@@ -93,7 +70,7 @@ describe('PatientCommunication FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.backboneElements.PatientCommunication(dataType);
+    const validate = await _validateBackbone(dataType, 'Patient_Communication');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -144,51 +121,10 @@ describe('PatientCommunication FHIR R5', () => {
         ],
       })
       .build();
+    const validate = await _validateBackbone(dataType, 'Patient_Communication');
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      _preferred: {
-        extension: [
-          {
-            url: 'test',
-            valueString: 'test',
-          },
-        ],
-      },
-      language: {
-        coding: [
-          {
-            code: 'any',
-            display: 'test',
-            system: 'http://hl7.org/fhir/organization-qualification',
-          },
-        ],
-      },
-    });
-  });
-
-  it('should be able to create a new patient_communication payload using builder methods [Builder.backboneElements.PatientCommunication()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setLanguage({
-        coding: [
-          {
-            code: 'any',
-            system: 'http://hl7.org/fhir/organization-qualification',
-            display: 'test',
-          },
-        ],
-      })
-      .addParamExtension('preferred', {
-        extension: [
-          {
-            url: 'test',
-            valueString: 'test',
-          },
-        ],
-      })
-      .build();
-
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
     expect(dataType).toBeDefined();
     expect(dataType).toEqual({
       _preferred: {

@@ -16,36 +16,45 @@ import {
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
+import DomainResource from '../base/DomainResource';
+import RelatedPersonBuilder from './RelatedPersonBuilder';
 
-export default class RelatedPerson implements IRelatedPerson {
+export default class RelatedPerson extends DomainResource implements IRelatedPerson {
   _active?: IElement;
   _birthDate?: IElement;
   _gender?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
   active?: boolean;
   address?: IAddress[];
   birthDate?: string;
   communication?: IRelatedPersonCommunication[];
-  contained?: IResource[];
-  extension?: IExtension[];
   gender?: AdministrativeGenderEnum | AdministrativeGenderType;
-  id?: number | string;
   identifier?: IIdentifier[];
-  implicitRules?: string;
-  language?: string;
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
   name?: IHumanName[];
   patient?: IReference;
   period?: IPeriod;
   photo?: IAttachment[];
   relationship?: ICodeableConcept[];
-  resourceType: string = 'RelatedPerson';
+  resourceType = 'RelatedPerson';
   telecom?: IContactPoint[];
-  text?: INarrative;
 
-  constructor(args?: Partial<RelatedPerson>) {
+  static builder(): RelatedPersonBuilder {
+    return new RelatedPersonBuilder();
+  }
+
+  toJson(): RelatedPerson {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Person${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Person${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
+  constructor(args?: IRelatedPerson) {
+    super();
     Object.assign(this, args);
   }
 }

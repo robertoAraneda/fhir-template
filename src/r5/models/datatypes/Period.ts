@@ -1,5 +1,7 @@
 import { IExtension, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import Element from '../base/Element';
+import PeriodBuilder from './PeriodBuilder';
 
 /**
  * @description Time range defined by start and end date/time.
@@ -13,15 +15,7 @@ import { IElement } from '../../interfaces/base';
  * @see {@link https://www.hl7.org/fhir/datatypes.html#Period Period}
  * @author Roberto Araneda
  */
-export default class Period implements IPeriod {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id: string;
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension: IExtension[];
+export default class Period extends Element implements IPeriod {
   /**
    * @description Starting time with inclusive boundary
    * @description A date, date-time or partial date (e.g. just year or year + month) as used in human communication. The format is YYYY, YYYY-MM, YYYY-MM-DD or YYYY-MM-DDThh:mm:ss+zz:zz
@@ -47,7 +41,24 @@ export default class Period implements IPeriod {
    */
   _end?: IElement;
 
+  static builder(): PeriodBuilder {
+    return new PeriodBuilder();
+  }
+
+  toJson(): Period {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Period${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Period${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IPeriod) {
+    super();
     Object.assign(this, args);
   }
 }

@@ -1,22 +1,19 @@
-import { RelatedPersonBuilder } from '../../../src/r5/builders/resources';
 import { IRelatedPerson } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
-import { RelatedPerson } from '../../../src/r5/models/resources';
+import RelatedPersonBuilder from '../../../src/r5/models/resources/RelatedPersonBuilder';
 
 describe('RelatedPerson FHIR R5', () => {
   let builder: RelatedPersonBuilder;
-  let builderFromFunction: RelatedPersonBuilder;
   const context = new FHIRContext();
-  const { Validator, Builder, createResource } = context.forR5();
+  const { Validator, RelatedPerson } = context.forR5();
 
   // create global
   beforeEach(() => {
-    builder = new RelatedPersonBuilder();
-    builderFromFunction = Builder.resources.RelatedPerson();
+    builder = RelatedPerson.builder();
   });
 
   it('should be able to create a new coding and validate with correct data [Example RelatedPerson/benedicte]', async () => {
-    const dataType: IRelatedPerson = {
+    const item: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'benedicte',
       text: {
@@ -88,75 +85,13 @@ describe('RelatedPerson FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.RelatedPerson(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/peter]', async () => {
-    const dataType = createResource('RelatedPerson', {
-      resourceType: 'RelatedPerson',
-      id: 'peter',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
-      },
-      patient: {
-        reference: 'Patient/animal',
-      },
-      relationship: [
-        {
-          coding: [
-            {
-              system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
-              code: 'C',
-            },
-          ],
-        },
-      ],
-      name: [
-        {
-          use: 'official',
-          family: 'Chalmers',
-          given: ['Peter', 'James'],
-        },
-      ],
-      telecom: [
-        {
-          system: 'phone',
-          value: '(03) 5555 6473',
-          use: 'work',
-        },
-      ],
-      gender: 'male',
-      address: [
-        {
-          use: 'home',
-          line: ['534 Erewhon St'],
-          city: 'PleasantVille',
-          state: 'Vic',
-          postalCode: '3999',
-        },
-      ],
-      photo: [
-        {
-          contentType: 'image/jpeg',
-          url: 'Binary/f012',
-        },
-      ],
-      period: {
-        start: '2012-03-11',
-      },
-    });
-
-    const validate = await Validator.resources.RelatedPerson(dataType);
-
+    const validate = await Validator.RelatedPerson(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/f001]', async () => {
-    const dataType = new RelatedPerson({
+    const item = new RelatedPerson({
       resourceType: 'RelatedPerson',
       id: 'f001',
       text: {
@@ -207,14 +142,13 @@ describe('RelatedPerson FHIR R5', () => {
       gender: 'female',
     });
 
-    const validate = await Validator.resources.RelatedPerson(dataType);
-
+    const validate = await Validator.RelatedPerson(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/newborn-mom]', async () => {
-    const dataType: IRelatedPerson = {
+    const item: IRelatedPerson = {
       resourceType: 'RelatedPerson',
       id: 'newborn-mom',
       text: {
@@ -275,15 +209,14 @@ describe('RelatedPerson FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.resources.RelatedPerson(dataType);
-
+    const validate = await Validator.RelatedPerson(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new coding using builder methods [new RelatedPersonBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .addName({
         use: 'official',
         family: 'Chalmers',
@@ -297,12 +230,15 @@ describe('RelatedPerson FHIR R5', () => {
         system: 'urn:oid:2.16.840.1.113883.23',
         value: '123456789',
       })
+      .setPatient({
+        reference: 'Patient/1',
+      })
       .setGender('male')
       .setBirthDate('1974-12-25')
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       birthDate: '1974-12-25',
       gender: 'male',
       identifier: [
@@ -322,52 +258,15 @@ describe('RelatedPerson FHIR R5', () => {
           use: 'official',
         },
       ],
+      patient: {
+        reference: 'Patient/1',
+      },
       resourceType: 'RelatedPerson',
     });
-  });
 
-  it('should be able to create a new coding using builder methods [Builder.resource.RelatedPerson()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .addName({
-        use: 'official',
-        family: 'Chalmers',
-        given: ['Peter', 'James'],
-      })
-      .addIdentifier({
-        use: 'official',
-        type: {
-          text: 'BSN',
-        },
-        system: 'urn:oid:2.16.840.1.113883.23',
-        value: '123456789',
-      })
-      .setGender('male')
-      .setBirthDate('1974-12-25')
-      .build();
+    const validate = await Validator.RelatedPerson(item);
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      birthDate: '1974-12-25',
-      gender: 'male',
-      identifier: [
-        {
-          system: 'urn:oid:2.16.840.1.113883.23',
-          type: {
-            text: 'BSN',
-          },
-          use: 'official',
-          value: '123456789',
-        },
-      ],
-      name: [
-        {
-          family: 'Chalmers',
-          given: ['Peter', 'James'],
-          use: 'official',
-        },
-      ],
-      resourceType: 'RelatedPerson',
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

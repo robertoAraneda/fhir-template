@@ -196,7 +196,10 @@
         },
         "_mimeType": {
           "description": "Extensions for mimeType",
-          "$ref": "datatypes.schema.json#/definitions/Element"
+          "items": {
+            "$ref": "datatypes.schema.json#/definitions/Element"
+          },
+          "type": "array"
         }
       },
       "additionalProperties": false

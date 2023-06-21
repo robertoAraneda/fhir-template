@@ -1,21 +1,19 @@
-import { PractitionerCommunicationBuilder } from '../../../src/r5/builders/backbones';
 import { IPractitionerCommunication } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { PractitionerCommunication } from '../../../src/r5/models/backbones';
+import PractitionerCommunicationBuilder from '../../../src/r5/models/backbones/PractitionerCommunicationBuilder';
+import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 
 describe('PractitionerCommunication FHIR R5', () => {
-  const { Validator, Builder, createBackboneElement } = new FHIRContext().forR5();
+  const { PractitionerCommunication } = new FHIRContext().forR5();
   let builder: PractitionerCommunicationBuilder;
-  let builderFromFunction: PractitionerCommunicationBuilder;
 
   // create global
   beforeEach(() => {
-    builder = new PractitionerCommunicationBuilder();
-    builderFromFunction = Builder.backboneElements.PractitionerCommunication();
+    builder = PractitionerCommunication.builder();
   });
 
   it('should be able to create a new practitioner_communication payload and validate with correct data [IPractitionerCommunication]', async () => {
-    const dataType: IPractitionerCommunication = {
+    const item: IPractitionerCommunication = {
       id: '123',
       preferred: true,
       language: {
@@ -29,14 +27,14 @@ describe('PractitionerCommunication FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.backboneElements.PractitionerCommunication(dataType);
+    const validate = await _validateBackbone(item, 'Practitioner_Communication');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to create a new practitioner_communication payload and validate with correct data [new PractitionerCommunication()]', async () => {
-    const dataType = new PractitionerCommunication({
+    const item = new PractitionerCommunication({
       id: '123',
       preferred: true,
       language: {
@@ -50,35 +48,14 @@ describe('PractitionerCommunication FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.backboneElements.PractitionerCommunication(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new practitioner_communication payload and validate with correct data [createBackboneElement()]', async () => {
-    const dataType = createBackboneElement('PractitionerCommunication', {
-      id: '123',
-      preferred: true,
-      language: {
-        coding: [
-          {
-            system: 'http://hl7.org/fhir/ValueSet/languages',
-            code: 'en',
-            display: 'English',
-          },
-        ],
-      },
-    });
-
-    const validate = await Validator.backboneElements.PractitionerCommunication(dataType);
+    const validate = await _validateBackbone(item, 'Practitioner_Communication');
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
   it('should be able to validate a new practitioner_communication payload and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       preferred: 'bad data type', // wrong data type
       language: {
@@ -93,7 +70,7 @@ describe('PractitionerCommunication FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.backboneElements.PractitionerCommunication(dataType);
+    const validate = await _validateBackbone(item, 'Practitioner_Communication');
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -125,7 +102,7 @@ describe('PractitionerCommunication FHIR R5', () => {
 
   it('should be able to create a new practitioner_communication payload using builder methods [new PractitionerCommunicationBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setLanguage({
         coding: [
           {
@@ -145,8 +122,8 @@ describe('PractitionerCommunication FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _preferred: {
         extension: [
           {
@@ -165,49 +142,10 @@ describe('PractitionerCommunication FHIR R5', () => {
         ],
       },
     });
-  });
 
-  it('should be able to create a new practitioner_communication payload using builder methods [Builder.backboneElements.PractitionerCommunication()]', async () => {
-    // build() is a method that returns the object that was built
-    const dataType = builderFromFunction
-      .setLanguage({
-        coding: [
-          {
-            code: 'any',
-            system: 'http://hl7.org/fhir/organization-qualification',
-            display: 'test',
-          },
-        ],
-      })
-      .addParamExtension('preferred', {
-        extension: [
-          {
-            url: 'test',
-            valueString: 'test',
-          },
-        ],
-      })
-      .build();
+    const validate = await _validateBackbone(item, 'Practitioner_Communication');
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
-      _preferred: {
-        extension: [
-          {
-            url: 'test',
-            valueString: 'test',
-          },
-        ],
-      },
-      language: {
-        coding: [
-          {
-            code: 'any',
-            display: 'test',
-            system: 'http://hl7.org/fhir/organization-qualification',
-          },
-        ],
-      },
-    });
+    expect(validate.isValid).toBeTruthy();
+    expect(validate.errors).toBeUndefined();
   });
 });

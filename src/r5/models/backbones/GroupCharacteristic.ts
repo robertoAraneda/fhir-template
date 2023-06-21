@@ -1,15 +1,10 @@
 import { IGroupCharacteristic } from '../../interfaces/backbones';
-import { ICodeableConcept, IExtension, IPeriod, IQuantity, IRange, IReference } from '../../interfaces/datatypes';
+import { ICodeableConcept, IPeriod, IQuantity, IRange, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
+import GroupCharacteristicBuilder from './GroupCharacteristicBuilder';
+import BackboneElement from '../base/BackboneElement';
 
-export default class GroupCharacteristic implements IGroupCharacteristic {
-  // Element attributes
-  id: string;
-  extension: IExtension[];
-
-  // BackBoneElement attributes
-  modifierExtension: IExtension[];
-
+export default class GroupCharacteristic extends BackboneElement implements IGroupCharacteristic {
   // GroupCharacteristic attributes
   code: ICodeableConcept;
   valueCodeableConcept: ICodeableConcept;
@@ -24,7 +19,24 @@ export default class GroupCharacteristic implements IGroupCharacteristic {
   _valueBoolean?: IElement;
   _exclude?: IElement;
 
+  static builder(): GroupCharacteristicBuilder {
+    return new GroupCharacteristicBuilder();
+  }
+
+  toJson(): GroupCharacteristic {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `GroupCharacteristic${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `GroupCharacteristic${JSON.stringify(this.toJson(), null, 2)}`;
+  }
+
   constructor(args?: IGroupCharacteristic) {
+    super();
     Object.assign(this, args);
   }
 }

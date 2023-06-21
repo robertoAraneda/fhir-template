@@ -1,46 +1,52 @@
 import { IPractitionerRole } from '../../interfaces/resources';
-import { IElement, IResource } from '../../interfaces/base';
+import { IElement } from '../../interfaces/base';
 import {
   IAvailability,
   ICodeableConcept,
   IExtendedContactDetail,
-  IExtension,
   IIdentifier,
-  IMeta,
-  INarrative,
   IPeriod,
   IReference,
 } from '../../interfaces/datatypes';
+import DomainResource from '../base/DomainResource';
+import PractitionerRoleBuilder from './PractitionerRoleBuilder';
 
-export default class PractitionerRole implements IPractitionerRole {
+export default class PractitionerRole extends DomainResource implements IPractitionerRole {
   _active?: IElement;
-  _implicitRules?: IElement;
-  _language?: IElement;
   active?: boolean;
   availability?: IAvailability[];
   characteristic?: ICodeableConcept[];
   code?: ICodeableConcept[];
   communication?: ICodeableConcept[];
   contact?: IExtendedContactDetail[];
-  contained?: IResource[];
   endpoint?: IReference[];
-  extension?: IExtension[];
   healthcareService?: IReference[];
-  id?: number | string;
   identifier?: IIdentifier[];
-  implicitRules?: string;
-  language?: string;
   location?: IReference[];
-  meta?: IMeta;
-  modifierExtension?: IExtension[];
   organization?: IReference;
   period?: IPeriod;
   practitioner?: IReference;
-  resourceType: string = 'PractitionerRole';
+  resourceType = 'PractitionerRole';
   specialty?: ICodeableConcept[];
-  text?: INarrative;
+
+  static builder(): PractitionerRoleBuilder {
+    return new PractitionerRoleBuilder();
+  }
+
+  toJson(): PractitionerRole {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  toString(): string {
+    return `Person${JSON.stringify(this.toJson())}`;
+  }
+
+  toPrettyString(): string {
+    return `Person${JSON.stringify(this.toJson(), null, 2)}`;
+  }
 
   constructor(args?: Partial<PractitionerRole>) {
+    super();
     Object.assign(this, args);
   }
 }

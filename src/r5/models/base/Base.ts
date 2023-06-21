@@ -1,7 +1,5 @@
 import { IBase } from '../../../globals/interfaces';
 
-export type StaticThis<T> = { new (): T };
-
 export default abstract class Base implements IBase {
   abstract toJson(): any;
   abstract toString(): string;

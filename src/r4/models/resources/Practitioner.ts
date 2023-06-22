@@ -15,7 +15,7 @@ import DomainResource from '../base/DomainResource';
 import { IPractitionerBuilder, PractitionerBuilder } from './PractitionerBuilder';
 
 export default class Practitioner extends DomainResource implements IPractitioner {
-  resourceType = 'Practitioner';
+  resourceType = 'Practitioner' as const;
 
   // Practitioner attributes
   identifier?: IIdentifier[];

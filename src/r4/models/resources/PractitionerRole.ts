@@ -9,7 +9,7 @@ import { IPractitionerRoleBuilder, PractitionerRoleBuilder } from './Practitione
  * @summary FHIR R4
  */
 export default class PractitionerRole extends DomainResource implements IPractitionerRole {
-  resourceType = 'PractitionerRole';
+  resourceType = 'PractitionerRole' as const;
 
   // PractitionerRole attributes
   identifier?: IIdentifier[];

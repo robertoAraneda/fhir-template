@@ -11,8 +11,18 @@ import RelatedPersonCommunication from './RelatedPersonCommunication';
 import GroupCharacteristic from './GroupCharacteristic';
 import GroupMember from './GroupMember';
 import LocationPosition from './LocationPosition';
+import BundleEntry from './BundleEntry';
+import BundleLink from './BundleLink';
+import BundleEntryRequest from './BundleEntryRequest';
+import BundleEntryResponse from './BundleEntryResponse';
+import BundleEntrySearch from './BundleEntrySearch';
 
 export {
+  BundleEntryRequest,
+  BundleEntryResponse,
+  BundleLink,
+  BundleEntrySearch,
+  BundleEntry,
   PersonCommunication,
   OrganizationQualification,
   PractitionerCommunication,

@@ -19,7 +19,7 @@ export default class Organization extends DomainResource implements IOrganizatio
   name?: string;
   partOf?: IReference;
   qualification?: IOrganizationQualification[];
-  resourceType = 'Organization';
+  resourceType = 'Organization' as const;
   type?: ICodeableConcept[];
 
   static builder(): OrganizationBuilder {

@@ -21,5 +21,16 @@ import GroupType from './GroupType';
 import GroupMembershipBasisType from './GroupMembershipBasisType';
 import LocationStatusType from './LocationStatusType';
 import LocationModeType from './LocationModeType';
+import BundleEntryRequestMethodType from './BundleEntryRequestMethodType';
+import BundleEntrySearchModeType from './BundleEntrySearchModeType';
+import BundleTypeType from './BundleTypeType';
 
-export { GroupType, GroupMembershipBasisType, LocationStatusType, LocationModeType };
+export {
+  type GroupType,
+  type GroupMembershipBasisType,
+  type LocationStatusType,
+  type LocationModeType,
+  type BundleEntrySearchModeType,
+  type BundleEntryRequestMethodType,
+  type BundleTypeType,
+};

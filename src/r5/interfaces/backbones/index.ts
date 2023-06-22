@@ -11,3 +11,11 @@ export type { IRelatedPersonCommunication } from './IRelatedPersonCommunication'
 export type { IGroupCharacteristic } from './IGroupCharacteristic';
 export type { IGroupMember } from './IGroupMember';
 export type { ILocationPosition } from './ILocationPosition';
+
+import IBundleEntry from './IBundleEntry';
+import IBundleLink from './IBundleLink';
+import IBundleEntryRequest from './IBundleEntryRequest';
+import IBundleEntryResponse from './IBundleEntryResponse';
+import IBundleEntrySearch from './IBundleEntrySearch';
+
+export type { IBundleEntry, IBundleLink, IBundleEntryRequest, IBundleEntryResponse, IBundleEntrySearch };

@@ -34,7 +34,7 @@ export default class Person extends DomainResource implements IPerson {
   maritalStatus?: ICodeableConcept;
   name?: IHumanName[];
   photo?: IAttachment[];
-  resourceType: string = 'Person';
+  resourceType = 'Person' as const;
   telecom?: IContactPoint[];
 
   static builder(): PersonBuilder {

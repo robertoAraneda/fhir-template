@@ -14,6 +14,7 @@ import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../backbones';
 
 export interface IRelatedPerson extends IDomainResource {
+  resourceType: 'RelatedPerson';
   identifier?: IIdentifier[];
   active?: boolean;
   patient?: IReference;

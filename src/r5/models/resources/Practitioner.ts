@@ -23,7 +23,7 @@ export default class Practitioner extends DomainResource implements IPractitione
   name?: IHumanName[];
   photo?: IAttachment[];
   qualification?: IPractitionerQualification[];
-  resourceType: string = 'Practitioner';
+  resourceType = 'Practitioner' as const;
   telecom?: IContactPoint[];
 
   static builder(): PractitionerBuilder {

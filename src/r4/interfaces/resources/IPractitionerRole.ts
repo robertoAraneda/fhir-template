@@ -3,6 +3,7 @@ import { IIdentifier, IPeriod, ICodeableConcept, IContactPoint, IReference } fro
 import { IPractitionerRoleAvailableTime, IPractitionerRoleNotAvailable } from '../backbones';
 
 export interface IPractitionerRole extends IDomainResource {
+  resourceType: 'PractitionerRole';
   identifier?: IIdentifier[];
   active?: boolean;
   period?: IPeriod;

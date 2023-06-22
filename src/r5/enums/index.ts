@@ -21,5 +21,16 @@ import GroupTypeEnum from './GroupTypeEnum';
 import GroupMembershipBasisEnum from './GroupMembershipBasisEnum';
 import LocationModeEnum from './LocationModeEnum';
 import LocationStatusEnum from './LocationStatusEnum';
+import BundleEntryRequestMethodEnum from './BundleEntryRequestMethodEnum';
+import BundleEntrySearchModeEnum from './BundleEntrySearchModeEnum';
+import BundleTypeEnum from './BundleTypeEnum';
 
-export { GroupTypeEnum, GroupMembershipBasisEnum, LocationStatusEnum, LocationModeEnum };
+export {
+  GroupTypeEnum,
+  GroupMembershipBasisEnum,
+  LocationStatusEnum,
+  LocationModeEnum,
+  BundleTypeEnum,
+  BundleEntryRequestMethodEnum,
+  BundleEntrySearchModeEnum,
+};

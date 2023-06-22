@@ -14,6 +14,7 @@ import { LocationModeType, LocationStatusType } from '../../types';
 import { ILocationPosition } from '../backbones';
 
 export interface ILocation extends IDomainResource {
+  resourceType: 'Location';
   identifier?: IIdentifier[];
   status?: LocationStatusEnum | LocationStatusType;
   operationalStatus?: ICoding;

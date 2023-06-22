@@ -5,6 +5,7 @@ import { AdministrativeGenderType } from '../../types';
 import { IPractitionerCommunication, IPractitionerQualification } from '../backbones';
 
 export interface IPractitioner extends IDomainResource {
+  resourceType: 'Practitioner';
   identifier?: IIdentifier[];
   active?: boolean;
   _active?: IElement;

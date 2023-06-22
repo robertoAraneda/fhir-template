@@ -1,4 +1,4 @@
-import { ResourceValidator } from './validators/ResourceValidator';
+import ResourceValidator from './validators/ResourceValidator';
 import { IResourceValidatorProperties } from './GlobalResourceTypes';
 import {
   Address,

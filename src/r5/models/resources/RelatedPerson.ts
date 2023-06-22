@@ -34,7 +34,7 @@ export default class RelatedPerson extends DomainResource implements IRelatedPer
   period?: IPeriod;
   photo?: IAttachment[];
   relationship?: ICodeableConcept[];
-  resourceType = 'RelatedPerson';
+  resourceType = 'RelatedPerson' as const;
   telecom?: IContactPoint[];
 
   static builder(): RelatedPersonBuilder {

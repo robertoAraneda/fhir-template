@@ -1,7 +1,21 @@
-import { ResourceEnum } from '../enums';
+type ResourceType =
+  | 'Account'
+  | 'ActivityDefinition'
+  | 'AdverseEvent'
+  | 'AllergyIntolerance'
+  | 'Appointment'
+  | 'AppointmentResponse'
+  | 'AuditEvent'
+  | 'Basic'
+  | 'Binary'
+  | 'BiologicallyDerivedProduct'
+  | 'BodyStructure'
+  | 'Bundle'
+  | 'CapabilityStatement'
+  | 'CarePlan'
+  | 'CareTeam'
+  | 'CatalogEntry'
+  | 'ChargeItem'
+  | 'ChargeItemDefinition';
 
-export const typesArray = Object.values(ResourceEnum).map((value: any) => {
-  return value;
-}) as string[];
-
-export type ResourceType = (typeof typesArray)[number];
+export default ResourceType;

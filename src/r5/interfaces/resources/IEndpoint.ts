@@ -5,6 +5,7 @@ import { ICodeableConcept, IContactPoint, IIdentifier, IPeriod, IReference } fro
 import { IEndpointPayload } from '../backbones';
 
 export interface IEndpoint extends IDomainResource {
+  resourceType: 'Endpoint';
   /**
    * Identifies this endpoint across multiple systems.
    * @see http://hl7.org/fhir/endpoint-definitions.html#Endpoint.identifier

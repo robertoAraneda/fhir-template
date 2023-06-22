@@ -1,8 +1,9 @@
 import { IMeta } from '../datatypes';
 import { IElement } from './IElement';
+import { ResourceTypeR4FromArray } from '../../GlobalResourceTypes';
 
 export interface IResource {
-  resourceType: string;
+  resourceType: ResourceTypeR4FromArray;
   id?: number | string;
   meta?: IMeta;
   implicitRules?: string;

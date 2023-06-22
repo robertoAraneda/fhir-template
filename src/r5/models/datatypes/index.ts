@@ -17,6 +17,7 @@ import VirtualServiceDetail from './VirtualServiceDetail';
 import Reference from './Reference';
 import Range from './Range';
 import SimpleQuantity from './SimpleQuantity';
+import Signature from './Signature';
 
 export {
   ExtendedContactDetail,
@@ -38,4 +39,5 @@ export {
   Reference,
   Range,
   SimpleQuantity,
+  Signature,
 };

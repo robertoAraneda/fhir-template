@@ -19,7 +19,7 @@ import { PatientBuilder } from './PatientBuilder';
  * @description FHIR R4
  */
 export default class Patient extends DomainResource implements IPatient {
-  resourceType = 'Patient';
+  resourceType = 'Patient' as const;
 
   // Patient attributes
   /**

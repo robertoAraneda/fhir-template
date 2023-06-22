@@ -5,6 +5,7 @@ import { BundleTypeType } from '../../types';
 import { IBundleLink, IBundleEntry } from '../backbones';
 
 export interface IBundle extends IResource {
+  resourceType: 'Bundle';
   identifier?: IIdentifier;
   type: BundleTypeEnum | BundleTypeType;
   timestamp?: string;

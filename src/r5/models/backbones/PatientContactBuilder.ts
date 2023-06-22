@@ -1,5 +1,5 @@
 import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { ICodeableConcept, IHumanName, IContactPoint, IPeriod, IReference } from '../../interfaces/datatypes';
+import { ICodeableConcept, IHumanName, IContactPoint, IPeriod, IReference, IAddress } from '../../interfaces/datatypes';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { PatientContact } from './index';
@@ -21,6 +21,8 @@ interface IPatientContactBuilder
   setName(name: IHumanName): PatientContactBuilder;
 
   addTelecom(telecom: IContactPoint): PatientContactBuilder;
+
+  setAddress(address: IAddress): PatientContactBuilder;
 
   setMultipleTelecom(telecom: IContactPoint[]): PatientContactBuilder;
 
@@ -86,6 +88,11 @@ export default class PatientContactBuilder
 
   setPeriod(period: IPeriod): PatientContactBuilder {
     this.patientContact.period = period;
+    return this;
+  }
+
+  setAddress(address: IAddress): PatientContactBuilder {
+    this.patientContact.address = address;
     return this;
   }
 

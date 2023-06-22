@@ -11,6 +11,7 @@ import { IOrganizationQualification } from '../backbones';
  * @extends {IDomainResource} IDomainResource
  */
 export interface IOrganization extends IDomainResource {
+  resourceType: 'Organization';
   /**
    * @description Identifies this organization  across multiple systems
    * @see https://hl7.org/fhir/organization-definitions.html#Organization.identifier

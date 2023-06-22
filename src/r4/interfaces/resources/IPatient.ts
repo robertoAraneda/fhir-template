@@ -13,6 +13,7 @@ import { AdministrativeGenderType } from '../../types';
 import { IPatientContact, IPatientCommunication, IPatientLink } from '../backbones';
 
 export interface IPatient extends IDomainResource {
+  resourceType: 'Patient';
   // Patient attributes
 
   /**

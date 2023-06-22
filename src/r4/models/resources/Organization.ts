@@ -6,7 +6,7 @@ import DomainResource from '../base/DomainResource';
 import { IOrganizationBuilder, OrganizationBuilder } from './OrganizationBuilder';
 
 export default class Organization extends DomainResource implements IOrganization {
-  resourceType = 'Organization';
+  resourceType = 'Organization' as const;
 
   // Organization attributes
   identifier?: IIdentifier[];

@@ -20,8 +20,10 @@ import {
   Range,
   Reference,
   SimpleQuantity,
+  Signature,
 } from '../r5/models/datatypes';
 import {
+  Bundle,
   Endpoint,
   Group,
   Location,
@@ -33,6 +35,11 @@ import {
   RelatedPerson,
 } from '../r5/models/resources';
 import {
+  BundleLink,
+  BundleEntrySearch,
+  BundleEntryResponse,
+  BundleEntryRequest,
+  BundleEntry,
   EndpointPayload,
   GroupCharacteristic,
   GroupMember,
@@ -69,7 +76,14 @@ export class FhirContextR5 {
       Range,
       Reference,
       SimpleQuantity,
+      Signature,
       VirtualServiceDetail,
+      Bundle,
+      BundleEntry,
+      BundleEntryRequest,
+      BundleEntryResponse,
+      BundleEntrySearch,
+      BundleLink,
       Endpoint,
       EndpointPayload,
       Group,

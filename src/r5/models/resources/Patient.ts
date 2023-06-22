@@ -33,7 +33,7 @@ export default class Patient extends DomainResource implements IPatient {
   multipleBirthInteger?: number;
   name?: IHumanName[];
   photo?: IAttachment[];
-  resourceType: string = 'Patient';
+  resourceType = 'Patient' as const;
   telecom?: IContactPoint[];
   _active?: IElement;
   _birthDate?: IElement;

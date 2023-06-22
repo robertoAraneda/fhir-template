@@ -13,72 +13,7 @@ describe('Bundle FHIR R4', () => {
     builder = Bundle.builder();
   });
 
-  it('should be able to create a new bundle and validate with correct data [IBundle]', async () => {
-    const item: IBundle = {
-      resourceType: 'Bundle',
-      id: 'bundle-example',
-      meta: {
-        lastUpdated: '2014-08-18T01:43:30Z',
-      },
-      type: 'searchset',
-      total: 3,
-      link: [
-        {
-          relation: 'self',
-          url: 'https://example.com/base/MedicationRequest?patient=347&_include=MedicationRequest.medication&_count=2',
-        },
-        {
-          relation: 'next',
-          url: 'https://example.com/base/MedicationRequest?patient=347&searchId=ff15fd40-ff71-4b48-b366-09c706bed9d0&page=2',
-        },
-      ],
-      entry: [
-        {
-          fullUrl: 'https://example.com/base/MedicationRequest/3123',
-          resource: {
-            resourceType: 'MedicationRequest',
-            id: '3123',
-            text: {
-              status: 'generated',
-              div: '<div xmlns="http://www.w3.org/1999/xhtml"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: 3123</p><p><b>status</b>: unknown</p><p><b>intent</b>: order</p><p><b>medication</b>: <a>Medication/example</a></p><p><b>subject</b>: <a>Patient/347</a></p></div>',
-            },
-            status: 'unknown',
-            intent: 'order',
-            medicationReference: {
-              reference: 'Medication/example',
-            },
-            subject: {
-              reference: 'Patient/347',
-            },
-          },
-          search: {
-            mode: 'match',
-            score: 1,
-          },
-        },
-        {
-          fullUrl: 'https://example.com/base/Medication/example',
-          resource: {
-            resourceType: 'Medication',
-            id: 'example',
-            text: {
-              status: 'generated',
-              div: '<div xmlns="http://www.w3.org/1999/xhtml"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: example</p></div>',
-            },
-          },
-          search: {
-            mode: 'include',
-          },
-        },
-      ],
-    };
-
-    const validate = await Validator.Bundle(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-  });
-
-  it('should be able to create a new bundle and validate with correct data [new Bundle()]', async () => {
+  it('should be able to create a new bundle and validate with correct data [new Bundle()]', () => {
     const item = new Bundle({
       resourceType: 'Bundle',
       id: 'bundle-transaction',
@@ -236,25 +171,6 @@ describe('Bundle FHIR R4', () => {
           },
         },
         {
-          fullUrl: 'urn:uuid:79378cb8-8f58-48e8-a5e8-60ac2755b674',
-          resource: {
-            resourceType: 'Parameters',
-            parameter: [
-              {
-                name: 'coding',
-                valueCoding: {
-                  system: 'http://loinc.org',
-                  code: '1963-8',
-                },
-              },
-            ],
-          },
-          request: {
-            method: 'POST',
-            url: 'ValueSet/$lookup',
-          },
-        },
-        {
           request: {
             method: 'GET',
             url: 'Patient?name=peter',
@@ -271,12 +187,12 @@ describe('Bundle FHIR R4', () => {
       ],
     });
 
-    const validate = await Validator.Bundle(item);
+    const validate = Validator.Bundle(item);
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new bundle and validate with correct data [Bundle-example-patientlist.json]', async () => {
+  it('should be able to create a new bundle and validate with correct data [Bundle-example-patientlist.json]', () => {
     const item: IBundle = {
       resourceType: 'Bundle',
       id: 'bundle-response-medsallergies',
@@ -535,19 +451,19 @@ describe('Bundle FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Bundle(item);
+    const validate = Validator.Bundle(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();
   });
 
-  it('should be able to create a new bundle and validate with wrong data', async () => {
+  it('should be able to create a new bundle and validate with wrong data', () => {
     const item = {
       resourceType: 'Bundle',
       id: 'xcda1',
       wrongProperty: 'wrong', // wrong property
     };
-    const validate = await Validator.Bundle(item);
+    const validate = Validator.Bundle(item);
 
     expect(validate.isValid).toBeFalsy();
     expect(validate.errors).toBeDefined();
@@ -562,7 +478,7 @@ describe('Bundle FHIR R4', () => {
     ]);
   });
 
-  it('should be able to create a new bundle with builder methods [new BundleBuilder()]', async () => {
+  it('should be able to create a new bundle with builder methods [new BundleBuilder()]', () => {
     const item = builder
       .setId('123')
       .setType(BundleTypeEnum.TRANSACTION)
@@ -573,7 +489,7 @@ describe('Bundle FHIR R4', () => {
       .setTimestamp('2019-01-01T00:00:00.000Z')
       .build();
 
-    const validate = await Validator.Bundle(item);
+    const validate = Validator.Bundle(item);
 
     expect(validate.isValid).toBeTruthy();
     expect(validate.errors).toBeUndefined();

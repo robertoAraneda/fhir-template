@@ -9,7 +9,7 @@ import GroupBuilder from './GroupBuilder';
 
 export default class Group extends DomainResource implements IGroup {
   // Resource Attributes
-  resourceType: string = 'Group';
+  resourceType = 'Group' as const;
 
   // Group Attributes
   identifier?: IIdentifier[];

@@ -9,6 +9,7 @@ import {
 } from '../datatypes';
 
 export interface IPractitionerRole extends IDomainResource {
+  resourceType: 'PractitionerRole';
   identifier?: IIdentifier[];
   active?: boolean;
   period?: IPeriod;

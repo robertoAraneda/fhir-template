@@ -20,3 +20,7 @@ export type { IReference } from './IReference';
 export type { INarrative } from './INarrative';
 export type { IRange } from './IRange';
 export type { ISimpleQuantity } from './ISimpleQuantity';
+
+import ISignature from './ISignature';
+
+export type { ISignature };

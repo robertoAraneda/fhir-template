@@ -8,6 +8,7 @@ import { IOrganizationContact } from '../backbones';
  * @see http://hl7.org/fhir/R4/organization.html http://hl7.org/fhir/R4/organization.html
  */
 export interface IOrganization extends IDomainResource {
+  resourceType: 'Organization';
   /**
    * @description Identifies this organization  across multiple systems
    */

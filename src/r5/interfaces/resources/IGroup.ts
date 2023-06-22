@@ -5,6 +5,7 @@ import { IGroupCharacteristic, IGroupMember } from '../backbones';
 import { GroupTypeEnum, GroupMembershipBasisEnum } from '../../enums';
 
 export interface IGroup extends IDomainResource {
+  resourceType: 'Group';
   identifier?: IIdentifier[];
   active?: boolean;
   type: GroupTypeEnum | GroupType;

@@ -5,6 +5,7 @@ import { AdministrativeGenderType } from '../../types';
 import { IPersonLink } from '../backbones';
 
 export interface IPerson extends IDomainResource {
+  resourceType: 'Person';
   identifier?: IIdentifier[];
   name?: IHumanName[];
   telecom?: IContactPoint[];

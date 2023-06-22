@@ -9,6 +9,9 @@ import { IValidateProperties } from '../../globals/interfaces';
 const ajv = new Ajv({
   allErrors: true,
   strict: false,
+  schemas: [defSchema, datatypeSchema, extensionSchema, backboneSchema, baseResourceSchema],
+
+  /*
   loadSchema: (uri) => {
     return new Promise((resolve, reject) => {
       switch (uri) {
@@ -32,6 +35,8 @@ const ajv = new Ajv({
       }
     });
   },
+  
+   */
 });
 
 const extractSchemaFromDefinition = (definition: string, schemaName: string) => {
@@ -50,8 +55,8 @@ const extractSchemaFromDefinition = (definition: string, schemaName: string) => 
   return schema.definitions[definition];
 };
 
-const _validate = async (schema: any, data: any) => {
-  const validate = await ajv.compileAsync(schema);
+const _validate = (schema: any, data: any) => {
+  const validate = ajv.compile(schema);
 
   const valid = validate(data);
 
@@ -77,7 +82,7 @@ const _validate = async (schema: any, data: any) => {
   };
 };
 
-export const _validateBaseResource = async (data: any, entity: string): Promise<IValidateProperties> => {
+export const _validateBaseResource = (data: any, entity: string): IValidateProperties => {
   if (typeof data !== 'object') {
     throw new Error('Data must be a JSON object');
   }
@@ -87,7 +92,7 @@ export const _validateBaseResource = async (data: any, entity: string): Promise<
   return _validate(schema, data);
 };
 
-export const _validateDataType = async (data: any, entity: string): Promise<IValidateProperties> => {
+export const _validateDataType = (data: any, entity: string): IValidateProperties => {
   if (typeof data !== 'object') {
     throw new Error('Data must be a JSON object');
   }
@@ -101,7 +106,7 @@ export const _validateDataType = async (data: any, entity: string): Promise<IVal
   return _validate(schema, data);
 };
 
-export const _validateBackbone = async (data: any, entity: string): Promise<IValidateProperties> => {
+export const _validateBackbone = (data: any, entity: string): IValidateProperties => {
   if (typeof data !== 'object') {
     throw new Error('Data must be a JSON object');
   }

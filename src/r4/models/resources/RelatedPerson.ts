@@ -17,7 +17,7 @@ import DomainResource from '../base/DomainResource';
 import { IRelatedPersonBuilder, RelatedPersonBuilder } from './RelatedPersonBuilder';
 
 export default class RelatedPerson extends DomainResource implements IRelatedPerson {
-  resourceType = 'RelatedPerson';
+  resourceType = 'RelatedPerson' as const;
 
   // RelatedPerson attributes
   identifier?: IIdentifier[];

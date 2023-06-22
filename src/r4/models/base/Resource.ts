@@ -1,7 +1,8 @@
 import { IElement, IResource } from '../../interfaces/base';
+import { ResourceTypeR4FromArray } from '../../GlobalResourceTypes';
 
 export default abstract class Resource implements IResource {
-  resourceType: string;
+  resourceType: ResourceTypeR4FromArray;
   id?: number | string;
 
   language?: string;

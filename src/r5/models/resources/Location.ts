@@ -21,7 +21,7 @@ import LocationBuilder from './LocationBuilder';
 
 export default class Location extends DomainResource implements ILocation {
   // Resource Attributes
-  resourceType: string = 'Location';
+  resourceType = 'Location' as const;
 
   // Location Attributes
   address?: IAddress;

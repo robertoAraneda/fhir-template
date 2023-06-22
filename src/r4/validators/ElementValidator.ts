@@ -1,27 +1,25 @@
 import { _validateDataType } from './BaseValidator';
 import { IValidateProperties } from '../../globals/interfaces';
 
-type Wait = Promise<IValidateProperties>;
+const Address = (item: unknown): IValidateProperties => _validateDataType(item, 'Address');
+const Attachment = (item: unknown): IValidateProperties => _validateDataType(item, 'Attachment');
+const CodeableConcept = (item: unknown): IValidateProperties => _validateDataType(item, 'CodeableConcept');
+const Coding = (item: unknown): IValidateProperties => _validateDataType(item, 'Coding');
+const ContactPoint = (item: unknown): IValidateProperties => _validateDataType(item, 'ContactPoint');
+const HumanName = (item: unknown): IValidateProperties => _validateDataType(item, 'HumanName');
+const Identifier = (item: unknown): IValidateProperties => _validateDataType(item, 'Identifier');
+const Meta = (item: unknown): IValidateProperties => _validateDataType(item, 'Meta');
+const Period = (item: unknown): IValidateProperties => _validateDataType(item, 'Period');
+const Reference = (item: unknown): IValidateProperties => _validateDataType(item, 'Reference');
+const Duration = (item: unknown): IValidateProperties => _validateDataType(item, 'Duration');
+const Extension = (item: unknown): IValidateProperties => _validateDataType(item, 'Extension');
+const Quantity = (item: unknown): IValidateProperties => _validateDataType(item, 'Quantity');
+const Range = (item: unknown): IValidateProperties => _validateDataType(item, 'Range');
+const Ratio = (item: unknown): IValidateProperties => _validateDataType(item, 'Ratio');
+const SimpleQuantity = (item: unknown): IValidateProperties => _validateDataType(item, 'SimpleQuantity');
+const Signature = (item: unknown): IValidateProperties => _validateDataType(item, 'Signature');
 
-const Address = async (item: unknown): Wait => _validateDataType(item, 'Address');
-const Attachment = async (item: unknown): Wait => _validateDataType(item, 'Attachment');
-const CodeableConcept = async (item: unknown): Wait => _validateDataType(item, 'CodeableConcept');
-const Coding = async (item: unknown): Wait => _validateDataType(item, 'Coding');
-const ContactPoint = async (item: unknown): Wait => _validateDataType(item, 'ContactPoint');
-const HumanName = async (item: unknown): Wait => _validateDataType(item, 'HumanName');
-const Identifier = async (item: unknown): Wait => _validateDataType(item, 'Identifier');
-const Meta = async (item: unknown): Wait => _validateDataType(item, 'Meta');
-const Period = async (item: unknown): Wait => _validateDataType(item, 'Period');
-const Reference = async (item: unknown): Wait => _validateDataType(item, 'Reference');
-const Duration = async (item: unknown): Wait => _validateDataType(item, 'Duration');
-const Extension = async (item: unknown): Wait => _validateDataType(item, 'Extension');
-const Quantity = async (item: unknown): Wait => _validateDataType(item, 'Quantity');
-const Range = async (item: unknown): Wait => _validateDataType(item, 'Range');
-const Ratio = async (item: unknown): Wait => _validateDataType(item, 'Ratio');
-const SimpleQuantity = async (item: unknown): Wait => _validateDataType(item, 'SimpleQuantity');
-const Signature = async (item: unknown): Wait => _validateDataType(item, 'Signature');
-
-export const DataTypesValidator = {
+export default {
   Address,
   Attachment,
   CodeableConcept,

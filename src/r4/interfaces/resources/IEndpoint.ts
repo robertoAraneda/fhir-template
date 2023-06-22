@@ -7,6 +7,7 @@ import { IDomainResource, IElement } from '../base';
  * @resume FHIR R4 Endpoint Resource
  */
 export interface IEndpoint extends IDomainResource {
+  resourceType: 'Endpoint';
   /**
    * Identifies this endpoint across multiple systems.
    */

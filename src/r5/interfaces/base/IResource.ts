@@ -1,9 +1,10 @@
 import { IMeta } from '../datatypes';
 import { IBase } from './IBase';
 import { IElement } from './IElement';
+import { ResourceTypeR5FromArray } from '../../GlobalResourceTypes';
 
 export interface IResource extends IBase {
-  resourceType: string;
+  resourceType: ResourceTypeR5FromArray;
   id?: number | string;
   meta?: IMeta;
   implicitRules?: string;

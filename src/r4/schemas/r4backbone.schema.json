@@ -81,7 +81,7 @@
         },
         "resource": {
           "description": "The Resource for the entry. The purpose/meaning of the resource is determined by the Bundle.type.",
-          "$recursiveRef": "r4base.schema.json#/definitions/ResourceList"
+          "$ref": "r4base.schema.json#/definitions/ResourceList"
         },
         "search": {
           "description": "Information about the search process that lead to the creation of this entry.",

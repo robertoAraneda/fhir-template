@@ -8,7 +8,7 @@ import DomainResource from '../base/DomainResource';
 import { IPersonBuilder, PersonBuilder } from './PersonBuilder';
 
 export default class Person extends DomainResource implements IPerson {
-  resourceType = 'Person';
+  resourceType = 'Person' as const;
 
   // Person attributes
   identifier?: IIdentifier[];

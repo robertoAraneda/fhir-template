@@ -26,7 +26,7 @@ export default class PractitionerRole extends DomainResource implements IPractit
   organization?: IReference;
   period?: IPeriod;
   practitioner?: IReference;
-  resourceType = 'PractitionerRole';
+  resourceType = 'PractitionerRole' as const;
   specialty?: ICodeableConcept[];
 
   static builder(): PractitionerRoleBuilder {

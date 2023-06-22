@@ -28,7 +28,7 @@ export class BackboneElementBuilder<BuilderClass extends BackboneElementBuilder<
     return this as unknown as BuilderClass;
   }
 
-  protected entity(): IBackboneElement {
+  entity(): IBackboneElement {
     return {
       ...this.backboneElement,
       ...super.entity(),

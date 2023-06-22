@@ -24,9 +24,8 @@ describe('BundleEntry FHIR R4', () => {
       ],
       fullUrl: 'http://example.com',
       resource: {
-        resourceType: 'Patient',
+        resourceType: 'Location',
         id: '123',
-        name: [],
       },
       request: {
         method: BundleEntryRequestMethodEnum.GET,

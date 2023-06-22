@@ -10,6 +10,7 @@ import {
   IPractitionerRole,
   IRelatedPerson,
 } from './interfaces/resources';
+import { IBundle } from './interfaces/resources/IBundle';
 
 export interface IResourceValidatorProperties {
   Patient: (data: unknown) => Wait;
@@ -21,7 +22,23 @@ export interface IResourceValidatorProperties {
   RelatedPerson: (data: unknown) => Wait;
   Group: (data: unknown) => Wait;
   Location: (data: unknown) => Wait;
+  Bundle: (data: unknown) => Wait;
 }
+
+export const ResourcesListR5 = [
+  'Patient',
+  'Organization',
+  'Endpoint',
+  'Person',
+  'Practitioner',
+  'PractitionerRole',
+  'RelatedPerson',
+  'Group',
+  'Location',
+  'Bundle',
+] as const;
+
+export type ResourceTypeR5FromArray = (typeof ResourcesListR5)[number];
 
 export type ResourceTypeR5 =
   | 'Patient'
@@ -32,6 +49,7 @@ export type ResourceTypeR5 =
   | 'PractitionerRole'
   | 'Group'
   | 'Location'
+  | 'Bundle'
   | 'RelatedPerson';
 
 export type ParseResourceTypeR5<T> = T extends 'Patient'
@@ -52,4 +70,6 @@ export type ParseResourceTypeR5<T> = T extends 'Patient'
   ? IGroup
   : T extends 'Location'
   ? ILocation
+  : T extends 'Bundle'
+  ? IBundle
   : never;

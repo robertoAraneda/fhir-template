@@ -5,10 +5,11 @@ import { BundleTypeType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import { IIdentifier, ISignature } from '../../interfaces/datatypes';
 import { IBundleEntry, IBundleLink } from '../../interfaces/backbones';
-import { BundleBuilder, IBundleBuilder } from './BundleBuilder';
+import { BundleBuilder } from './BundleBuilder';
+import { _validateBaseResource } from '../../../r5/validators/BaseValidator';
 
 export default class Bundle extends Resource implements IBundle {
-  resourceType = 'Bundle';
+  resourceType = 'Bundle' as const;
   entry?: IBundleEntry[];
   identifier?: IIdentifier;
   link?: IBundleLink[];
@@ -39,6 +40,18 @@ export default class Bundle extends Resource implements IBundle {
 
   constructor(args?: IBundle) {
     super();
-    Object.assign(this, args);
+    if (args) {
+      Object.assign(this, args);
+      for (const entry of this.entry || []) {
+        if (entry.resource) {
+          if (!entry.resource.resourceType) throw new Error('BundleEntry must have a resourceType');
+          const validate = _validateBaseResource(entry.resource, entry.resource?.resourceType);
+
+          if (!validate.isValid) {
+            throw new Error(`Invalid resource for BundleEntry: ${JSON.stringify(validate.errors, null, 2)}`);
+          }
+        }
+      }
+    }
   }
 }

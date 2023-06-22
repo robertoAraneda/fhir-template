@@ -13,6 +13,7 @@ import { AdministrativeGenderType } from '../../types';
 import { IPersonCommunication, IPersonLink } from '../backbones';
 
 export interface IPerson extends IDomainResource {
+  resourceType: 'Person';
   identifier?: IIdentifier[];
   active?: boolean;
   name?: IHumanName[];

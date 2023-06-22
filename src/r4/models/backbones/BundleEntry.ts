@@ -8,13 +8,14 @@ import {
 } from '../../interfaces/backbones';
 import BackboneElement from '../base/BackboneElement';
 import { BundleEntryBuilder } from './BundleEntryBuilder';
+import { _validateBaseResource } from '../../../r5/validators/BaseValidator';
 
 export default class BundleEntry extends BackboneElement implements IBundleEntry {
   // BundleEntry attributes
   fullUrl?: string;
   link?: IBundleLink[];
   request?: IBundleEntryRequest;
-  resource?: any;
+  resource?: IResource & { [key: string]: any };
   response?: IBundleEntryResponse;
   search?: IBundleEntrySearch;
 
@@ -39,6 +40,16 @@ export default class BundleEntry extends BackboneElement implements IBundleEntry
 
   constructor(args?: IBundleEntry) {
     super();
-    Object.assign(this, args);
+    if (args) {
+      Object.assign(this, args);
+      if (this.resource) {
+        if (!this.resource.resourceType) throw new Error('BundleEntry must have a resourceType');
+        const validate = _validateBaseResource(this.resource, this.resource.resourceType);
+
+        if (!validate.isValid) {
+          throw new Error(`Invalid resource for BundleEntry: ${JSON.stringify(validate.errors, null, 2)}`);
+        }
+      }
+    }
   }
 }

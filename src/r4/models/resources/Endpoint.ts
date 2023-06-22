@@ -7,7 +7,7 @@ import DomainResource from '../base/DomainResource';
 import { EndpointBuilder, IEndpointBuilder } from './EndpointBuilder';
 
 export default class Endpoint extends DomainResource implements IEndpoint {
-  resourceType: string = 'Endpoint';
+  resourceType = 'Endpoint' as const;
 
   // Endpoint attributes
   identifier?: IIdentifier[];

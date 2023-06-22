@@ -8,7 +8,7 @@ import { ISignature } from '../datatypes';
 export interface IBundleEntry extends IBackboneElement {
   link?: IBundleLink[];
   fullUrl?: string;
-  resource?: any;
+  resource?: IResource & { [key: string]: any };
   search?: IBundleEntrySearch;
   request?: IBundleEntryRequest;
   response?: IBundleEntryResponse;

@@ -4,31 +4,34 @@
   "description": "Base FHIR Data Types",
   "oneOf": [
     {
-      "$ref": "base-resource.schema.json#/definitions/Endpoint"
+      "$recursiveRef": "base-resource.schema.json#/definitions/Endpoint"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/Organization"
+      "$recursiveRef": "base-resource.schema.json#/definitions/Organization"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/Person"
+      "$recursiveRef": "base-resource.schema.json#/definitions/Person"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/Patient"
+      "$recursiveRef": "base-resource.schema.json#/definitions/Patient"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/Practitioner"
+      "$recursiveRef": "base-resource.schema.json#/definitions/Practitioner"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/PractitionerRole"
+      "$recursiveRef": "base-resource.schema.json#/definitions/PractitionerRole"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/RelatedPerson"
+      "$recursiveRef": "base-resource.schema.json#/definitions/RelatedPerson"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/Group"
+      "$recursiveRef": "base-resource.schema.json#/definitions/Group"
     },
     {
-      "$ref": "base-resource.schema.json#/definitions/Location"
+      "$recursiveRef": "base-resource.schema.json#/definitions/Location"
+    },
+    {
+      "$recursiveRef": "base-resource.schema.json#/definitions/Bundle"
     }
   ],
   "definitions": {
@@ -60,6 +63,9 @@
         },
         {
           "$ref": "base-resource.schema.json#/definitions/Location"
+        },
+        {
+          "$ref": "base-resource.schema.json#/definitions/Bundle"
         }
       ]
     },

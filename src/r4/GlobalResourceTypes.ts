@@ -1,4 +1,3 @@
-import { Wait } from './validators/BackboneElementValidator';
 import {
   IEndpoint,
   ILocation,
@@ -11,19 +10,35 @@ import {
   IGroup,
 } from './interfaces/resources';
 import { IBundle } from './interfaces/resources/IBundle';
+import { IValidateProperties } from '../globals/interfaces';
 
 export interface IResourceValidatorProperties {
-  Patient: (data: unknown) => Wait;
-  Organization: (data: unknown) => Wait;
-  Endpoint: (data: unknown) => Wait;
-  Person: (data: unknown) => Wait;
-  Practitioner: (data: unknown) => Wait;
-  PractitionerRole: (data: unknown) => Wait;
-  RelatedPerson: (data: unknown) => Wait;
-  Group: (data: unknown) => Wait;
-  Location: (data: unknown) => Wait;
-  Bundle: (data: unknown) => Wait;
+  Patient: (data: unknown) => IValidateProperties;
+  Organization: (data: unknown) => IValidateProperties;
+  Endpoint: (data: unknown) => IValidateProperties;
+  Person: (data: unknown) => IValidateProperties;
+  Practitioner: (data: unknown) => IValidateProperties;
+  PractitionerRole: (data: unknown) => IValidateProperties;
+  RelatedPerson: (data: unknown) => IValidateProperties;
+  Group: (data: unknown) => IValidateProperties;
+  Location: (data: unknown) => IValidateProperties;
+  Bundle: (data: unknown) => IValidateProperties;
 }
+
+export const ResourcesListR4 = [
+  'Patient',
+  'Organization',
+  'Endpoint',
+  'Person',
+  'Practitioner',
+  'PractitionerRole',
+  'RelatedPerson',
+  'Group',
+  'Location',
+  'Bundle',
+] as const;
+
+export type ResourceTypeR4FromArray = (typeof ResourcesListR4)[number];
 
 export type ResourceTypeR4 =
   | 'Patient'

@@ -24,7 +24,7 @@ export default class Endpoint extends DomainResource implements IEndpoint {
   name?: string;
   payload?: IEndpointPayload[];
   period?: IPeriod;
-  resourceType = 'Endpoint';
+  resourceType = 'Endpoint' as const;
   status?: EndpointStatusEnum | EndpointStatusType;
 
   static builder(): EndpointBuilder {

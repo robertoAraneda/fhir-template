@@ -1,5 +1,6 @@
 import { BaseBuilder } from './BaseBuilder';
 import { IResource } from '../../interfaces/base';
+import { ResourceTypeR5FromArray } from '../../GlobalResourceTypes';
 
 export interface IResourceBuilder<ClassBuilder> {
   setId(id: string): ClassBuilder;
@@ -43,7 +44,7 @@ export class ResourceBuilder<ClassBuilder> extends BaseBuilder<ClassBuilder> imp
     return this as unknown as ClassBuilder;
   }
 
-  setResourceType(resourceType: string): ClassBuilder {
+  setResourceType(resourceType: ResourceTypeR5FromArray): ClassBuilder {
     this.resource.resourceType = resourceType;
     return this as unknown as ClassBuilder;
   }

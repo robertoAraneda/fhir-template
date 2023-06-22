@@ -1,4 +1,3 @@
-import { Wait } from './validators/BackboneElementValidator';
 import {
   IEndpointPayload,
   IGroupCharacteristic,
@@ -14,22 +13,6 @@ import {
   IPractitionerQualification,
   IRelatedPersonCommunication,
 } from './interfaces/backbones';
-
-export interface IBackboneElementValidatorProperties {
-  EndpointPayload: (data: unknown) => Wait;
-  OrganizationQualification: (data: unknown) => Wait;
-  PatientContact: (data: unknown) => Wait;
-  PatientCommunication: (data: unknown) => Wait;
-  PatientLink: (data: unknown) => Wait;
-  PersonCommunication: (data: unknown) => Wait;
-  PersonLink: (data: unknown) => Wait;
-  PractitionerCommunication: (data: unknown) => Wait;
-  PractitionerQualification: (data: unknown) => Wait;
-  RelatedPersonCommunication: (data: unknown) => Wait;
-  GroupMember: (data: unknown) => Wait;
-  GroupCharacteristic: (data: unknown) => Wait;
-  LocationPosition: (data: unknown) => Wait;
-}
 
 export type BackboneElementTypeR5 =
   | 'EndpointPayload'

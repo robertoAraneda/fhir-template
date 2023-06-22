@@ -1,4 +1,3 @@
-import { Wait } from './validators/BackboneElementValidator';
 import {
   IEndpoint,
   IGroup,
@@ -11,19 +10,6 @@ import {
   IRelatedPerson,
 } from './interfaces/resources';
 import { IBundle } from './interfaces/resources/IBundle';
-
-export interface IResourceValidatorProperties {
-  Patient: (data: unknown) => Wait;
-  Organization: (data: unknown) => Wait;
-  Endpoint: (data: unknown) => Wait;
-  Person: (data: unknown) => Wait;
-  Practitioner: (data: unknown) => Wait;
-  PractitionerRole: (data: unknown) => Wait;
-  RelatedPerson: (data: unknown) => Wait;
-  Group: (data: unknown) => Wait;
-  Location: (data: unknown) => Wait;
-  Bundle: (data: unknown) => Wait;
-}
 
 export const ResourcesListR5 = [
   'Patient',

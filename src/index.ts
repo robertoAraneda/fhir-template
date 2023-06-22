@@ -2,8 +2,8 @@ import { FhirContextR5 } from './r5';
 import { FhirContextR4 } from './r4';
 
 class FHIRContext {
-  private r4: FhirContextR4;
-  private r5: FhirContextR5;
+  private readonly r4: FhirContextR4;
+  private readonly r5: FhirContextR5;
 
   constructor() {
     this.r4 = new FhirContextR4();

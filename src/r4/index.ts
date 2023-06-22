@@ -1,5 +1,4 @@
 import ResourceValidator from './validators/ResourceValidator';
-import { IResourceValidatorProperties } from './GlobalResourceTypes';
 import {
   Address,
   Attachment,
@@ -101,7 +100,7 @@ export class FhirContextR4 {
     };
   }
 
-  public getValidator(): IResourceValidatorProperties {
+  public getValidator() {
     return {
       ...ResourceValidator,
     };

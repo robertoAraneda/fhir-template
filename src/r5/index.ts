@@ -1,5 +1,4 @@
-import { ResourceValidator } from './validators/ResourceValidator';
-import { IResourceValidatorProperties } from './GlobalResourceTypes';
+import ResourceValidator from './validators/ResourceValidator';
 import {
   Address,
   Availability,
@@ -108,7 +107,7 @@ export class FhirContextR5 {
       RelatedPersonCommunication,
     };
   }
-  public getValidator(): IResourceValidatorProperties {
+  public getValidator() {
     return {
       ...ResourceValidator,
     };

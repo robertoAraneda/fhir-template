@@ -10,20 +10,6 @@ import {
   IGroup,
 } from './interfaces/resources';
 import { IBundle } from './interfaces/resources/IBundle';
-import { IValidateProperties } from '../globals/interfaces';
-
-export interface IResourceValidatorProperties {
-  Patient: (data: unknown) => IValidateProperties;
-  Organization: (data: unknown) => IValidateProperties;
-  Endpoint: (data: unknown) => IValidateProperties;
-  Person: (data: unknown) => IValidateProperties;
-  Practitioner: (data: unknown) => IValidateProperties;
-  PractitionerRole: (data: unknown) => IValidateProperties;
-  RelatedPerson: (data: unknown) => IValidateProperties;
-  Group: (data: unknown) => IValidateProperties;
-  Location: (data: unknown) => IValidateProperties;
-  Bundle: (data: unknown) => IValidateProperties;
-}
 
 export const ResourcesListR4 = [
   'Patient',

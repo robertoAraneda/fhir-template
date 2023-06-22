@@ -13,7 +13,6 @@ export { LinkTypeType } from './LinkTypeType';
 export { NameUseType } from './NameUseType';
 export { NarrativeStatusType } from './NarrativeStatusType';
 export { QuantityComparatorType } from './QuantityComparatorType';
-export { ResourceType } from './ResourceType';
 export { DatatypeType } from './DatatypeType';
 export { BackboneElementType } from './BackboneElementType';
 
@@ -24,13 +23,15 @@ import LocationModeType from './LocationModeType';
 import BundleEntryRequestMethodType from './BundleEntryRequestMethodType';
 import BundleEntrySearchModeType from './BundleEntrySearchModeType';
 import BundleTypeType from './BundleTypeType';
+import ResourceType from './ResourceType';
 
-export {
-  type GroupType,
-  type GroupMembershipBasisType,
-  type LocationStatusType,
-  type LocationModeType,
-  type BundleEntrySearchModeType,
-  type BundleEntryRequestMethodType,
-  type BundleTypeType,
+export type {
+  GroupType,
+  GroupMembershipBasisType,
+  LocationStatusType,
+  LocationModeType,
+  BundleEntrySearchModeType,
+  BundleEntryRequestMethodType,
+  BundleTypeType,
+  ResourceType,
 };

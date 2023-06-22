@@ -1,21 +1,17 @@
 import { _validateBaseResource } from './BaseValidator';
-import { IValidateProperties } from '../interfaces/IValidateProperties';
 
-type Wait = Promise<IValidateProperties>;
+const Patient = (patient: unknown) => _validateBaseResource(patient, 'Patient');
+const Organization = (organization: unknown) => _validateBaseResource(organization, 'Organization');
+const Endpoint = (endpoint: unknown) => _validateBaseResource(endpoint, 'Endpoint');
+const Person = (person: unknown) => _validateBaseResource(person, 'Person');
+const Practitioner = (practitioner: unknown) => _validateBaseResource(practitioner, 'Practitioner');
+const PractitionerRole = (practitionerRole: unknown) => _validateBaseResource(practitionerRole, 'PractitionerRole');
+const RelatedPerson = (relatedPerson: unknown) => _validateBaseResource(relatedPerson, 'RelatedPerson');
+const Group = (group: unknown) => _validateBaseResource(group, 'Group');
+const Location = (location: unknown) => _validateBaseResource(location, 'Location');
+const Bundle = (bundle: unknown) => _validateBaseResource(bundle, 'Bundle');
 
-const Patient = async (patient: unknown): Wait => _validateBaseResource(patient, 'Patient');
-const Organization = async (organization: unknown): Wait => _validateBaseResource(organization, 'Organization');
-const Endpoint = async (endpoint: unknown): Wait => _validateBaseResource(endpoint, 'Endpoint');
-const Person = async (person: unknown): Wait => _validateBaseResource(person, 'Person');
-const Practitioner = async (practitioner: unknown): Wait => _validateBaseResource(practitioner, 'Practitioner');
-const PractitionerRole = async (practitionerRole: unknown): Wait =>
-  _validateBaseResource(practitionerRole, 'PractitionerRole');
-const RelatedPerson = async (relatedPerson: unknown): Wait => _validateBaseResource(relatedPerson, 'RelatedPerson');
-const Group = async (group: unknown): Wait => _validateBaseResource(group, 'Group');
-const Location = async (location: unknown): Wait => _validateBaseResource(location, 'Location');
-const Bundle = async (bundle: unknown): Wait => _validateBaseResource(bundle, 'Bundle');
-
-export const ResourceValidator = {
+export default {
   Patient,
   Organization,
   Endpoint,

@@ -19,27 +19,6 @@ import {
   ISimpleQuantity,
   IVirtualServiceDetail,
 } from './interfaces/datatypes';
-import { Wait } from './validators/BackboneElementValidator';
-export interface IDatatypeValidatorProperties {
-  Address: (data: unknown) => Wait;
-  Attachment: (data: unknown) => Wait;
-  CodeableConcept: (data: unknown) => Wait;
-  CodeableReference: (data: unknown) => Wait;
-  Coding: (data: unknown) => Wait;
-  ContactPoint: (data: unknown) => Wait;
-  HumanName: (data: unknown) => Wait;
-  Identifier: (data: unknown) => Wait;
-  Meta: (data: unknown) => Wait;
-  Period: (data: unknown) => Wait;
-  Reference: (data: unknown) => Wait;
-  Availability: (data: unknown) => Wait;
-  Duration: (data: unknown) => Wait;
-  ExtendedContactDetail: (data: unknown) => Wait;
-  Quantity: (data: unknown) => Wait;
-  VirtualServiceDetail: (data: unknown) => Wait;
-  Range: (data: unknown) => Wait;
-  SimpleQuantity: (data: unknown) => Wait;
-}
 
 export type DataTypeR5 =
   | 'Address'

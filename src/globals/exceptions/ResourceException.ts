@@ -3,18 +3,18 @@ export default class ResourceException extends Error {
     const message = `Invalid Resource: ${entity}: ${JSON.stringify(
       errors
         ?.map((error) => {
-          const { keyword, instancePath, message, params, schemaPath, constraint } = error;
+          const { keyword, message: msg, params, constraint } = error;
 
           if (keyword === 'pattern') {
-            return message;
+            return msg;
           }
 
           if (keyword === 'required') {
-            return message;
+            return msg;
           }
 
           if (keyword === 'additionalProperties') {
-            return `${message}: [${params.additionalProperty}]`;
+            return `${msg}: [${params.additionalProperty}]`;
           }
 
           if (constraint) {

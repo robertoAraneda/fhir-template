@@ -103,8 +103,6 @@ export default class CompositionBuilder
     Object.assign(this._composition, { ...super.entity() });
     const composition = new Composition(this._composition);
 
-    console.log('composition', composition.toJson());
-
     return composition.toJson();
   }
 

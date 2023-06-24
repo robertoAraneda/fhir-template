@@ -3,10 +3,10 @@ export default class RequiredException extends Error {
     const message = `Invalid ${entity}: ${JSON.stringify(
       errors
         ?.map((error) => {
-          const { keyword, message } = error;
+          const { keyword, message: msg } = error;
 
           if (keyword === 'required') {
-            return message;
+            return msg;
           }
         })
         .join(', '),

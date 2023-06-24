@@ -13,7 +13,7 @@ import {
 import { IPractitionerQualification } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import Practitioner from './Practitioner';
 
 type ParamExtensionType = 'implicitRules' | 'language' | 'active' | 'birthDate' | 'gender';
@@ -104,13 +104,13 @@ export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuild
 
   addQualification(qualification: IPractitionerQualification): PractitionerBuilder {
     if (qualification.issuer?.reference) {
-      validateReference(qualification.issuer.reference, ['Organization']);
+      validateReferenceHelper(qualification.issuer.reference, ['Organization']);
     }
 
     if (qualification.identifier) {
       qualification.identifier.forEach((identifier) => {
         if (identifier.assigner?.reference) {
-          validateReference(identifier.assigner.reference, ['Organization']);
+          validateReferenceHelper(identifier.assigner.reference, ['Organization']);
         }
       });
     }

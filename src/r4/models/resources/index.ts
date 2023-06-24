@@ -8,6 +8,7 @@ import RelatedPerson from './RelatedPerson';
 import Group from './Group';
 import Location from './Location';
 import Bundle from './Bundle';
+import Composition from './Composition';
 
 export {
   Endpoint,
@@ -20,4 +21,5 @@ export {
   Group,
   Location,
   Bundle,
+  Composition,
 };

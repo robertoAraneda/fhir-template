@@ -2,7 +2,7 @@ import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IExtension, IPeriod, IReference } from '../../interfaces/datatypes';
 import { IBuildable } from '../../../globals/interfaces';
 import { GroupMember } from './index';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IBackboneElementBuilder } from '../../../r4/models/base/BackboneElementBuilder';
 import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 
@@ -36,7 +36,7 @@ export default class GroupMemberBuilder
 
   setEntity(entity: IReference): GroupMemberBuilder {
     if (entity.reference) {
-      validateReference(entity.reference, [
+      validateReferenceHelper(entity.reference, [
         'Patient',
         'Practitioner',
         'PractitionerRole',

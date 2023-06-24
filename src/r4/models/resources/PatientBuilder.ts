@@ -12,7 +12,7 @@ import {
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import Patient from './Patient';
@@ -144,7 +144,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
 
   addLink(link: IPatientLink): PatientBuilder {
     if (link.other?.reference) {
-      validateReference(link.other.reference, ['Patient']);
+      validateReferenceHelper(link.other.reference, ['Patient']);
     }
     this.patient.link = this.patient.link || [];
     this.patient.link.push(link);
@@ -192,7 +192,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
     this.patient.contact = this.patient.contact || [];
 
     if (contact.organization?.reference) {
-      validateReference(contact.organization.reference, ['Organization']);
+      validateReferenceHelper(contact.organization.reference, ['Organization']);
     }
     this.patient.contact.push(contact);
     return this;
@@ -201,7 +201,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
   setMultipleContact(contacts: IPatientContact[]): PatientBuilder {
     for (const contact of contacts) {
       if (contact.organization?.reference) {
-        validateReference(contact.organization.reference, ['Organization']);
+        validateReferenceHelper(contact.organization.reference, ['Organization']);
       }
     }
     this.patient.contact = contacts;
@@ -232,7 +232,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
 
   addGeneralPractitioner(generalPractitioner: IReference): PatientBuilder {
     if (generalPractitioner.reference) {
-      validateReference(generalPractitioner.reference, ['Practitioner', 'Organization', 'PractitionerRole']);
+      validateReferenceHelper(generalPractitioner.reference, ['Practitioner', 'Organization', 'PractitionerRole']);
     }
     this.patient.generalPractitioner = this.patient.generalPractitioner || [];
     this.patient.generalPractitioner.push(generalPractitioner);
@@ -242,7 +242,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
   setMultipleGeneralPractitioner(generalPractitioners: IReference[]): PatientBuilder {
     for (const generalPractitioner of generalPractitioners) {
       if (generalPractitioner.reference) {
-        validateReference(generalPractitioner.reference, ['Practitioner', 'Organization', 'PractitionerRole']);
+        validateReferenceHelper(generalPractitioner.reference, ['Practitioner', 'Organization', 'PractitionerRole']);
       }
     }
     this.patient.generalPractitioner = generalPractitioners;
@@ -252,7 +252,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
   setMultipleIdentifier(identifiers: IIdentifier[]): PatientBuilder {
     for (const identifier of identifiers) {
       if (identifier.assigner?.reference) {
-        validateReference(identifier.assigner.reference, ['Organization']);
+        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
       }
     }
     this.patient.identifier = identifiers;
@@ -262,7 +262,7 @@ export class PatientBuilder extends DomainResourceBuilder<PatientBuilder> implem
   setMultipleLink(links: IPatientLink[]): PatientBuilder {
     for (const link of links) {
       if (link.other?.reference) {
-        validateReference(link.other.reference, ['Patient', 'RelatedPerson']);
+        validateReferenceHelper(link.other.reference, ['Patient', 'RelatedPerson']);
       }
     }
     this.patient.link = links;

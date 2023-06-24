@@ -22,11 +22,26 @@ export const ResourcesListR5 = [
   'Group',
   'Location',
   'Bundle',
+  'CareTeam',
+  'Encounter',
+  'Specimen',
+  'Medication',
+  'Device',
+  'DocumentReference',
+  'Composition',
+  'CarePlan',
+  'Condition',
+  'Procedure',
+  'Observation',
+  'Immunization',
+  'HealthcareService',
+  'Substance',
 ] as const;
 
 export type ResourceTypeR5FromArray = (typeof ResourcesListR5)[number];
 
 export type ResourceTypeR5 =
+  | 'all'
   | 'Patient'
   | 'Organization'
   | 'Endpoint'

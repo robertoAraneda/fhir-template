@@ -4,7 +4,7 @@ import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { IdentifierUseEnum } from '../../enums';
 import { IdentifierUseType } from '../../types';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import Identifier from './Identifier';
 
 export interface IIdentifierBuilder extends IBuildable<Identifier>, IElementBuilder<IdentifierBuilder> {
@@ -70,7 +70,7 @@ export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> impleme
 
   setAssigner(value: IReference): IdentifierBuilder {
     if (value.reference) {
-      validateReference(value.reference, ['Organization']);
+      validateReferenceHelper(value.reference, ['Organization']);
     }
 
     this.identifier.assigner = value;

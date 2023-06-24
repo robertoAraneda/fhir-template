@@ -16,3 +16,10 @@ export type { IBundleLink } from './IBundleLink';
 export type { IBundleEntrySearch } from './IBundleEntrySearch';
 export type { IBundleEntryRequest } from './IBundleEntryRequest';
 export type { IBundleEntryResponse } from './IBundleEntryResponse';
+
+import ICompositionAttester from './ICompositionAttester';
+import ICompositionEvent from './ICompositionEvent';
+import ICompositionRelatesTo from './ICompositionRelatesTo';
+import ICompositionSection from './ICompositionSection';
+
+export type { ICompositionAttester, ICompositionSection, ICompositionEvent, ICompositionRelatesTo };

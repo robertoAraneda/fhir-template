@@ -6,7 +6,7 @@ import { IAddress, IAttachment, IContactPoint, IHumanName, IIdentifier, IReferen
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IPersonLink } from '../../interfaces/backbones';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import Person from './Person';
 
 type ParamExtensionType = 'implicitRules' | 'language' | 'active' | 'birthDate' | 'gender';
@@ -106,7 +106,7 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
 
   addLink(link: IPersonLink): PersonBuilder {
     if (link.target?.reference) {
-      validateReference(link.target.reference, ['Patient', 'Practitioner', 'RelatedPerson', 'Person']);
+      validateReferenceHelper(link.target.reference, ['Patient', 'Practitioner', 'RelatedPerson', 'Person']);
     }
 
     this.person.link = this.person.link || [];
@@ -115,7 +115,7 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
   }
 
   setManagingOrganization(args: IReference): PersonBuilder {
-    if (args.reference) validateReference(args.reference, ['Organization']);
+    if (args.reference) validateReferenceHelper(args.reference, ['Organization']);
 
     this.person.managingOrganization = args;
     return this;
@@ -135,7 +135,7 @@ export class PersonBuilder extends DomainResourceBuilder<PersonBuilder> implemen
   setMultipleLink(links: IPersonLink[]): PersonBuilder {
     for (const link of links) {
       if (link.target?.reference) {
-        validateReference(link.target.reference, ['Patient', 'Practitioner', 'RelatedPerson', 'Person']);
+        validateReferenceHelper(link.target.reference, ['Patient', 'Practitioner', 'RelatedPerson', 'Person']);
       }
     }
     this.person.link = links;

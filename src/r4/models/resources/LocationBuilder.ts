@@ -7,7 +7,7 @@ import {
   IIdentifier,
   IReference,
 } from '../../interfaces/datatypes';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { ILocationHoursOfOperation, ILocationPosition } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { LocationModeEnum, LocationStatusEnum } from '../../enums';
@@ -90,7 +90,7 @@ export class LocationBuilder extends DomainResourceBuilder<LocationBuilder> impl
   }
 
   addEndpoint(endpoint: IReference): LocationBuilder {
-    if (endpoint.reference) validateReference(endpoint.reference, ['Endpoint']);
+    if (endpoint.reference) validateReferenceHelper(endpoint.reference, ['Endpoint']);
     this.location.endpoint = this.location.endpoint || [];
     this.location.endpoint.push(endpoint);
     return this;
@@ -151,7 +151,7 @@ export class LocationBuilder extends DomainResourceBuilder<LocationBuilder> impl
 
   setManagingOrganization(managingOrganization: IReference): LocationBuilder {
     if (managingOrganization.reference) {
-      validateReference(managingOrganization.reference, ['Organization']);
+      validateReferenceHelper(managingOrganization.reference, ['Organization']);
     }
     this.location.managingOrganization = managingOrganization;
     return this;
@@ -169,7 +169,7 @@ export class LocationBuilder extends DomainResourceBuilder<LocationBuilder> impl
 
   setMultipleEndpoint(endpoints: IReference[]): LocationBuilder {
     endpoints.forEach((endpoint) => {
-      if (endpoint.reference) validateReference(endpoint.reference, ['Endpoint']);
+      if (endpoint.reference) validateReferenceHelper(endpoint.reference, ['Endpoint']);
     });
     this.location.endpoint = endpoints;
     return this;
@@ -201,7 +201,7 @@ export class LocationBuilder extends DomainResourceBuilder<LocationBuilder> impl
   }
 
   setPartOf(partOf: IReference): LocationBuilder {
-    if (partOf.reference) validateReference(partOf.reference, ['Location']);
+    if (partOf.reference) validateReferenceHelper(partOf.reference, ['Location']);
     this.location.partOf = partOf;
     return this;
   }

@@ -2,7 +2,7 @@ import { IOrganizationQualification } from '../../interfaces/backbones';
 import { Organization } from './index';
 import { IExtendedContactDetail, IIdentifier, ICodeableConcept, IReference } from '../../interfaces/datatypes';
 import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IElement } from '../../interfaces/base';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IBuildable } from '../../../globals/interfaces';
@@ -67,7 +67,7 @@ export default class OrganizationBuilder
    */
   addIdentifier(identifier: IIdentifier): OrganizationBuilder {
     if (identifier.assigner?.reference) {
-      validateReference(identifier.assigner.reference, ['Organization']);
+      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
     }
     this.organization.identifier = this.organization.identifier || [];
     this.organization.identifier.push(identifier);
@@ -83,7 +83,7 @@ export default class OrganizationBuilder
   setMultipleIdentifier(identifiers: IIdentifier[]): OrganizationBuilder {
     for (const identifier of identifiers) {
       if (identifier.assigner?.reference) {
-        validateReference(identifier.assigner.reference, ['Organization']);
+        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
       }
     }
     this.organization.identifier = identifiers;
@@ -155,7 +155,7 @@ export default class OrganizationBuilder
 
   setPartOf(partOf: IReference): OrganizationBuilder {
     if (partOf.reference) {
-      validateReference(partOf.reference, ['Organization']);
+      validateReferenceHelper(partOf.reference, ['Organization']);
     }
     this.organization.partOf = partOf;
 

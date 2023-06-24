@@ -28,6 +28,7 @@ import {
   Practitioner,
   PractitionerRole,
   RelatedPerson,
+  Composition,
 } from './models/resources';
 import {
   BundleEntry,
@@ -48,6 +49,10 @@ import {
   PractitionerRoleAvailableTime,
   PractitionerRoleNotAvailable,
   RelatedPersonCommunication,
+  CompositionAttester,
+  CompositionEvent,
+  CompositionRelatesTo,
+  CompositionSection,
 } from './models/backbones';
 
 export class FhirContextR4 {
@@ -75,6 +80,11 @@ export class FhirContextR4 {
       BundleEntrySearch,
       BundleEntryRequest,
       BundleEntryResponse,
+      Composition,
+      CompositionAttester,
+      CompositionEvent,
+      CompositionRelatesTo,
+      CompositionSection,
       Endpoint,
       Group,
       GroupMember,

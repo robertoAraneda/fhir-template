@@ -11,7 +11,7 @@ import {
   IPeriod,
   IReference,
 } from '../../interfaces/datatypes';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
@@ -81,7 +81,7 @@ export class RelatedPersonBuilder extends DomainResourceBuilder<RelatedPersonBui
 
   addIdentifier(identifier: IIdentifier): RelatedPersonBuilder {
     if (identifier.assigner?.reference) {
-      validateReference(identifier.assigner?.reference, ['Organization']);
+      validateReferenceHelper(identifier.assigner?.reference, ['Organization']);
     }
 
     this.relatedPerson.identifier = this.relatedPerson.identifier || [];
@@ -92,7 +92,7 @@ export class RelatedPersonBuilder extends DomainResourceBuilder<RelatedPersonBui
   setMultipleIdentifier(identifiers: IIdentifier[]): RelatedPersonBuilder {
     identifiers.forEach((identifier) => {
       if (identifier.assigner?.reference) {
-        validateReference(identifier.assigner?.reference, ['Organization']);
+        validateReferenceHelper(identifier.assigner?.reference, ['Organization']);
       }
     });
 
@@ -118,7 +118,7 @@ export class RelatedPersonBuilder extends DomainResourceBuilder<RelatedPersonBui
 
   setPatient(patient: IReference): RelatedPersonBuilder {
     if (patient.reference) {
-      validateReference(patient.reference, ['Patient']);
+      validateReferenceHelper(patient.reference, ['Patient']);
     }
 
     this.relatedPerson.patient = patient;

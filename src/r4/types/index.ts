@@ -23,6 +23,11 @@ import LocationModeType from './LocationModeType';
 import BundleTypeType from './BundleTypeType';
 import BundleEntryRequestMethodType from './BundleEntryRequestMethodType';
 import BundleEntrySearchModeType from './BundleEntrySearchModeType';
+import CompositionStatusType from './CompositionStatusType';
+import CompositionAttestationModeType from './CompositionAttestationModeType';
+import CompositionDocumentRelationshipType from './CompositionDocumentRelationshipType';
+import CompositionSectionListModeType from './CompositionSectionListModeType';
+import CompositionConfidentialityType from './CompositionConfidentialityType';
 
 export {
   GroupType,
@@ -31,4 +36,9 @@ export {
   BundleTypeType,
   BundleEntrySearchModeType,
   BundleEntryRequestMethodType,
+  CompositionStatusType,
+  CompositionAttestationModeType,
+  CompositionDocumentRelationshipType,
+  CompositionSectionListModeType,
+  CompositionConfidentialityType,
 };

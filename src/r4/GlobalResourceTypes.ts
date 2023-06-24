@@ -8,8 +8,8 @@ import {
   IPractitionerRole,
   IRelatedPerson,
   IGroup,
+  IBundle,
 } from './interfaces/resources';
-import { IBundle } from './interfaces/resources/IBundle';
 
 export const ResourcesListR4 = [
   'Patient',
@@ -22,6 +22,20 @@ export const ResourcesListR4 = [
   'Group',
   'Location',
   'Bundle',
+  'CareTeam',
+  'Encounter',
+  'Specimen',
+  'Medication',
+  'Device',
+  'DocumentReference',
+  'Composition',
+  'CarePlan',
+  'Condition',
+  'Procedure',
+  'Observation',
+  'Immunization',
+  'HealthcareService',
+  'Substance',
 ] as const;
 
 export type ResourceTypeR4FromArray = (typeof ResourcesListR4)[number];
@@ -36,6 +50,7 @@ export type ResourceTypeR4 =
   | 'Group'
   | 'Location'
   | 'Bundle'
+  | 'Composition'
   | 'RelatedPerson';
 
 export type ParseResourceTypeR4<T> = T extends 'Patient'
@@ -57,5 +72,7 @@ export type ParseResourceTypeR4<T> = T extends 'Patient'
   : T extends 'Location'
   ? ILocation
   : T extends 'Bundle'
+  ? IBundle
+  : T extends 'Composition'
   ? IBundle
   : never;

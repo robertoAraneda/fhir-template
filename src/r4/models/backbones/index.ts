@@ -16,6 +16,10 @@ import BundleLink from './BundleLink';
 import BundleEntryRequest from './BundleEntryRequest';
 import BundleEntryResponse from './BundleEntryResponse';
 import BundleEntrySearch from './BundleEntrySearch';
+import CompositionAttester from './CompositionAttester';
+import CompositionEvent from './CompositionEvent';
+import CompositionRelatesTo from './CompositionRelatesTo';
+import CompositionSection from './CompositionSection';
 
 export {
   OrganizationContact,
@@ -36,4 +40,8 @@ export {
   BundleEntrySearch,
   BundleEntry,
   BundleLink,
+  CompositionAttester,
+  CompositionEvent,
+  CompositionRelatesTo,
+  CompositionSection,
 };

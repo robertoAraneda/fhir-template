@@ -4,7 +4,7 @@ import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, IContactPoint, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { IPractitionerRoleAvailableTime, IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import PractitionerRole from './PractitionerRole';
 
 type ParamExtensionType = 'implicitRules' | 'language' | 'active' | 'availabilityExceptions';
@@ -80,7 +80,7 @@ export class PractitionerRoleBuilder
 
   addIdentifier(identifier: IIdentifier): PractitionerRoleBuilder {
     if (identifier.assigner?.reference) {
-      validateReference(identifier.assigner.reference, ['Organization']);
+      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
     }
     this.practitionerRole.identifier = this.practitionerRole.identifier || [];
     this.practitionerRole.identifier.push(identifier);
@@ -90,7 +90,7 @@ export class PractitionerRoleBuilder
   setMultipleIdentifier(identifiers: IIdentifier[]): PractitionerRoleBuilder {
     identifiers.forEach((identifier) => {
       if (identifier.assigner?.reference) {
-        validateReference(identifier.assigner.reference, ['Organization']);
+        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
       }
     });
     this.practitionerRole.identifier = identifiers;
@@ -109,7 +109,7 @@ export class PractitionerRoleBuilder
 
   setPractitioner(practitioner: IReference): PractitionerRoleBuilder {
     if (practitioner.reference) {
-      validateReference(practitioner.reference, ['Practitioner']);
+      validateReferenceHelper(practitioner.reference, ['Practitioner']);
     }
 
     this.practitionerRole.practitioner = practitioner;
@@ -118,7 +118,7 @@ export class PractitionerRoleBuilder
 
   setOrganization(organization: IReference): PractitionerRoleBuilder {
     if (organization.reference) {
-      validateReference(organization.reference, ['Organization']);
+      validateReferenceHelper(organization.reference, ['Organization']);
     }
 
     this.practitionerRole.organization = organization;
@@ -149,7 +149,7 @@ export class PractitionerRoleBuilder
 
   addLocation(location: IReference): PractitionerRoleBuilder {
     if (location.reference) {
-      validateReference(location.reference, ['Location']);
+      validateReferenceHelper(location.reference, ['Location']);
     }
 
     this.practitionerRole.location = this.practitionerRole.location || [];
@@ -160,7 +160,7 @@ export class PractitionerRoleBuilder
   setMultipleLocation(locations: IReference[]): PractitionerRoleBuilder {
     locations.forEach((location) => {
       if (location.reference) {
-        validateReference(location.reference, ['Location']);
+        validateReferenceHelper(location.reference, ['Location']);
       }
     });
     this.practitionerRole.location = locations;
@@ -169,7 +169,7 @@ export class PractitionerRoleBuilder
 
   addHealthcareService(healthcareService: IReference): PractitionerRoleBuilder {
     if (healthcareService.reference) {
-      validateReference(healthcareService.reference, ['HealthcareService']);
+      validateReferenceHelper(healthcareService.reference, ['HealthcareService']);
     }
 
     this.practitionerRole.healthcareService = this.practitionerRole.healthcareService || [];
@@ -180,7 +180,7 @@ export class PractitionerRoleBuilder
   setMultipleHealthcareService(healthcareServices: IReference[]): PractitionerRoleBuilder {
     healthcareServices.forEach((healthcareService) => {
       if (healthcareService.reference) {
-        validateReference(healthcareService.reference, ['HealthcareService']);
+        validateReferenceHelper(healthcareService.reference, ['HealthcareService']);
       }
     });
     this.practitionerRole.healthcareService = healthcareServices;
@@ -189,7 +189,7 @@ export class PractitionerRoleBuilder
 
   addEndpoint(endpoint: IReference): PractitionerRoleBuilder {
     if (endpoint.reference) {
-      validateReference(endpoint.reference, ['Endpoint']);
+      validateReferenceHelper(endpoint.reference, ['Endpoint']);
     }
 
     this.practitionerRole.endpoint = this.practitionerRole.endpoint || [];
@@ -200,7 +200,7 @@ export class PractitionerRoleBuilder
   setMultipleEndpoint(endpoints: IReference[]): PractitionerRoleBuilder {
     endpoints.forEach((endpoint) => {
       if (endpoint.reference) {
-        validateReference(endpoint.reference, ['Endpoint']);
+        validateReferenceHelper(endpoint.reference, ['Endpoint']);
       }
     });
 

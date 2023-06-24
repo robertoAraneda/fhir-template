@@ -3,6 +3,213 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "Base FHIR R4 Backbone Elements",
   "definitions": {
+    "Composition_Attester": {
+      "description": "A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "mode": {
+          "description": "The type of attestation the authenticator offers.",
+          "enum": ["personal", "professional", "legal", "official"]
+        },
+        "_mode": {
+          "description": "Extensions for mode",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "time": {
+          "description": "When the composition was attested by the party.",
+          "$ref": "r4base.schema.json#/definitions/dateTime"
+        },
+        "_time": {
+          "description": "Extensions for time",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "party": {
+          "description": "Who attested the composition in the specified way.",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Composition_RelatesTo": {
+      "description": "A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "code": {
+          "description": "The type of relationship that this composition has with anther composition or document.",
+          "$ref": "r4base.schema.json#/definitions/code"
+        },
+        "_code": {
+          "description": "Extensions for code",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "targetIdentifier": {
+          "description": "The target composition/document of this relationship.",
+          "$ref": "r4datatypes.schema.json#/definitions/Identifier"
+        },
+        "targetReference": {
+          "description": "The target composition/document of this relationship.",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Composition_Event": {
+      "description": "A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "code": {
+          "description": "This list of codes represents the main clinical acts, such as a colonoscopy or an appendectomy, being documented. In some cases, the event is inherent in the typeCode, such as a \"History and Physical Report\" in which the procedure being documented is necessarily a \"History and Physical\" act.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+          },
+          "type": "array"
+        },
+        "period": {
+          "description": "The period of time covered by the documentation. There is no assertion that the documentation is a complete representation for this period, only that it documents events during this time.",
+          "$ref": "r4datatypes.schema.json#/definitions/Period"
+        },
+        "detail": {
+          "description": "The description and/or reference of the event(s) being documented. For example, this could be used to document such a colonoscopy or an appendectomy.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/Reference"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Composition_Section": {
+      "description": "A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type\u003ddocument, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).",
+      "properties": {
+        "id": {
+          "description": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "extension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "modifierExtension": {
+          "description": "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element\u0027s descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "items": {
+            "$ref": "r4extension.schema.json#/definitions/Extension"
+          },
+          "type": "array"
+        },
+        "title": {
+          "description": "The label for this particular section.  This will be part of the rendered content for the document, and is often used to build a table of contents.",
+          "$ref": "r4base.schema.json#/definitions/string"
+        },
+        "_title": {
+          "description": "Extensions for title",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "code": {
+          "description": "A code identifying the kind of content contained within the section. This must be consistent with the section title.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "author": {
+          "description": "Identifies who is responsible for the information in this section, not necessarily who typed it in.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/Reference"
+          },
+          "type": "array"
+        },
+        "focus": {
+          "description": "The actual focus of the section when it is not the subject of the composition, but instead represents something or someone associated with the subject such as (for a patient subject) a spouse, parent, fetus, or donor. If not focus is specified, the focus is assumed to be focus of the parent section, or, for a section in the Composition itself, the subject of the composition. Sections with a focus SHALL only include resources where the logical subject (patient, subject, focus, etc.) matches the section focus, or the resources have no logical subject (few resources).",
+          "$ref": "r4datatypes.schema.json#/definitions/Reference"
+        },
+        "text": {
+          "description": "A human-readable narrative that contains the attested content of the section, used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative.",
+          "$ref": "r4datatypes.schema.json#/definitions/Narrative"
+        },
+        "mode": {
+          "description": "How the entry list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted.",
+          "$ref": "r4base.schema.json#/definitions/code"
+        },
+        "_mode": {
+          "description": "Extensions for mode",
+          "$ref": "r4datatypes.schema.json#/definitions/Element"
+        },
+        "orderedBy": {
+          "description": "Specifies the order applied to the items in the section entries.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "entry": {
+          "description": "A reference to the actual resource from which the narrative in the section is derived.",
+          "items": {
+            "$ref": "r4datatypes.schema.json#/definitions/Reference"
+          },
+          "type": "array"
+        },
+        "emptyReason": {
+          "description": "If the section is empty, why the list is empty. An empty section typically has some text explaining the empty reason.",
+          "$ref": "r4datatypes.schema.json#/definitions/CodeableConcept"
+        },
+        "section": {
+          "description": "A nested sub-section within this section.",
+          "items": {
+            "$ref": "r4backbone.schema.json#/definitions/Composition_Section"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false
+    },
     "Bundle_Link": {
       "description": "A container for a collection of resources.",
       "properties": {

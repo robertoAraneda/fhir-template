@@ -2,7 +2,7 @@ import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IExtension, IPeriod, IReference } from '../../interfaces/datatypes';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import GroupMember from './GroupMember';
 
 type ParamExtensionType = 'inactive';
@@ -35,7 +35,7 @@ export class GroupMemberBuilder extends BackboneElementBuilder<GroupMemberBuilde
 
   setEntity(entity: IReference): GroupMemberBuilder {
     if (entity.reference) {
-      validateReference(entity.reference, [
+      validateReferenceHelper(entity.reference, [
         'Patient',
         'Practitioner',
         'PractitionerRole',

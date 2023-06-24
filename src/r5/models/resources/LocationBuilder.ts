@@ -15,7 +15,7 @@ import { LocationModeEnum, LocationStatusEnum } from '../../enums';
 import { LocationModeType, LocationStatusType } from '../../types';
 import { ILocationPosition } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 
 type ParamExtensionType = 'status' | 'alias' | 'name' | 'description' | 'mode';
@@ -72,7 +72,7 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   addEndpoint(endpoint: IReference): this {
-    if (endpoint.reference) validateReference(endpoint.reference, ['Endpoint']);
+    if (endpoint.reference) validateReferenceHelper(endpoint.reference, ['Endpoint']);
     this.location.endpoint = this.location.endpoint || [];
     this.location.endpoint.push(endpoint);
     return this;
@@ -122,7 +122,7 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
 
   setManagingOrganization(managingOrganization: IReference): this {
     if (managingOrganization.reference) {
-      validateReference(managingOrganization.reference, ['Organization']);
+      validateReferenceHelper(managingOrganization.reference, ['Organization']);
     }
     this.location.managingOrganization = managingOrganization;
     return this;
@@ -140,7 +140,7 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
 
   setMultipleEndpoint(endpoints: IReference[]): this {
     endpoints.forEach((endpoint) => {
-      if (endpoint.reference) validateReference(endpoint.reference, ['Endpoint']);
+      if (endpoint.reference) validateReferenceHelper(endpoint.reference, ['Endpoint']);
     });
     this.location.endpoint = endpoints;
     return this;
@@ -167,7 +167,7 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   setPartOf(partOf: IReference): this {
-    if (partOf.reference) validateReference(partOf.reference, ['Location']);
+    if (partOf.reference) validateReferenceHelper(partOf.reference, ['Location']);
     this.location.partOf = partOf;
     return this;
   }

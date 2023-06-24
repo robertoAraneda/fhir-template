@@ -11,7 +11,7 @@ import {
 } from '../../interfaces/datatypes';
 import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Person } from './index';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
@@ -72,7 +72,7 @@ export default class PersonBuilder extends DomainResourceBuilder<PersonBuilder> 
 
   addIdentifier(identifier: IIdentifier): PersonBuilder {
     if (identifier.assigner?.reference) {
-      validateReference(identifier.assigner.reference, ['Organization']);
+      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
     }
 
     this.person.identifier = this.person.identifier || [];
@@ -83,7 +83,7 @@ export default class PersonBuilder extends DomainResourceBuilder<PersonBuilder> 
   setMultipleIdentifier(identifiers: IIdentifier[]): PersonBuilder {
     for (const identifier of identifiers) {
       if (identifier.assigner?.reference) {
-        validateReference(identifier.assigner.reference, ['Organization']);
+        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
       }
     }
     this.person.identifier = identifiers;
@@ -118,7 +118,7 @@ export default class PersonBuilder extends DomainResourceBuilder<PersonBuilder> 
 
   addLink(link: IPersonLink): PersonBuilder {
     if (link.target?.reference) {
-      validateReference(link.target.reference, ['Patient', 'Practitioner', 'RelatedPerson', 'Person']);
+      validateReferenceHelper(link.target.reference, ['Patient', 'Practitioner', 'RelatedPerson', 'Person']);
     }
 
     this.person.link = this.person.link || [];
@@ -134,7 +134,7 @@ export default class PersonBuilder extends DomainResourceBuilder<PersonBuilder> 
 
   setManagingOrganization(args: IReference): PersonBuilder {
     if (args.reference) {
-      validateReference(args.reference, ['Organization']);
+      validateReferenceHelper(args.reference, ['Organization']);
     }
 
     this.person.managingOrganization = args;

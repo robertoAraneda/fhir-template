@@ -23,6 +23,11 @@ import LocationModeEnum from './LocationModeEnum';
 import BundleTypeEnum from './BundleTypeEnum';
 import BundleEntryRequestMethodEnum from './BundleEntryRequestMethodEnum';
 import BundleEntrySearchModeEnum from './BundleEntrySearchModeEnum';
+import CompositionStatusEnum from './CompositionStatusEnum';
+import CompositionAttestationModeEnum from './CompositionAttestationModeEnum';
+import CompositionDocumentRelationshipTypeEnum from './CompositionDocumentRelationshipTypeEnum';
+import CompositionSectionListModeEnum from './CompositionSectionListModeEnum';
+import CompositionConfidentialityEnum from './CompositionConfidentialityEnum';
 
 export {
   GroupTypeEnum,
@@ -31,4 +36,9 @@ export {
   BundleTypeEnum,
   BundleEntrySearchModeEnum,
   BundleEntryRequestMethodEnum,
+  CompositionStatusEnum,
+  CompositionAttestationModeEnum,
+  CompositionDocumentRelationshipTypeEnum,
+  CompositionSectionListModeEnum,
+  CompositionConfidentialityEnum,
 };

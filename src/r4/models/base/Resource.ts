@@ -13,7 +13,6 @@ export default abstract class Resource implements IResource {
   _implicitRules?: IElement;
   _language?: IElement;
 
-  static builder: () => any;
   abstract toJson(): any;
   abstract toString(): string;
   abstract toPrettyString(): string;

@@ -13,7 +13,7 @@ import { AdministrativeGenderType } from '../../types';
 import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { Patient } from './index';
 import { IPatient } from '../../interfaces/resources';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElement } from '../../interfaces/base';
 import { IResourceBuilder } from '../base/ResourceBuilder';
@@ -116,7 +116,7 @@ export default class PatientBuilder extends DomainResourceBuilder<PatientBuilder
 
   addLink(link: IPatientLink): PatientBuilder {
     if (link.other?.reference) {
-      validateReference(link.other.reference, ['Patient']);
+      validateReferenceHelper(link.other.reference, ['Patient']);
     }
     this.patient.link = this.patient.link || [];
     this.patient.link.push(link);
@@ -130,7 +130,7 @@ export default class PatientBuilder extends DomainResourceBuilder<PatientBuilder
 
   setManagingOrganization(args: IReference): PatientBuilder {
     if (args?.reference) {
-      validateReference(args.reference, ['Organization']);
+      validateReferenceHelper(args.reference, ['Organization']);
     }
     this.patient.managingOrganization = args;
 
@@ -150,7 +150,7 @@ export default class PatientBuilder extends DomainResourceBuilder<PatientBuilder
 
   addContact(contact: IPatientContact): PatientBuilder {
     if (contact.organization?.reference) {
-      validateReference(contact.organization.reference, ['Organization']);
+      validateReferenceHelper(contact.organization.reference, ['Organization']);
     }
 
     this.patient.contact = this.patient.contact || [];
@@ -162,7 +162,7 @@ export default class PatientBuilder extends DomainResourceBuilder<PatientBuilder
   setMultipleContact(contacts: IPatientContact[]): PatientBuilder {
     for (const contact of contacts) {
       if (contact.organization?.reference) {
-        validateReference(contact.organization.reference, ['Organization']);
+        validateReferenceHelper(contact.organization.reference, ['Organization']);
       }
     }
     this.patient.contact = contacts;
@@ -205,7 +205,7 @@ export default class PatientBuilder extends DomainResourceBuilder<PatientBuilder
   setMultipleIdentifier(identifiers: IIdentifier[]): PatientBuilder {
     for (const identifier of identifiers) {
       if (identifier.assigner?.reference) {
-        validateReference(identifier.assigner.reference, ['Organization']);
+        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
       }
     }
 

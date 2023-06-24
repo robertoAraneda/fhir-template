@@ -2,7 +2,7 @@ import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
-import { validateReference } from '../../../globals/helpers/validateReference';
+import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import PractitionerQualification from './PractitionerQualification';
 
 export interface IPractitionerQualificationBuilder
@@ -38,7 +38,7 @@ export class PractitionerQualificationBuilder
 
   addIdentifier(identifier: IIdentifier): PractitionerQualificationBuilder {
     if (identifier.assigner?.reference) {
-      validateReference(identifier.assigner.reference, ['Organization']);
+      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
     }
 
     this.practitionerQualification.identifier = this.practitionerQualification.identifier || [];
@@ -50,7 +50,7 @@ export class PractitionerQualificationBuilder
   setMultipleIdentifier(identifiers: IIdentifier[]): PractitionerQualificationBuilder {
     for (const identifier of identifiers) {
       if (identifier.assigner?.reference) {
-        validateReference(identifier.assigner.reference, ['Organization']);
+        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
       }
     }
     this.practitionerQualification.identifier = identifiers;
@@ -59,7 +59,7 @@ export class PractitionerQualificationBuilder
 
   setIssuer(issuer: IReference): PractitionerQualificationBuilder {
     if (issuer.reference) {
-      validateReference(issuer.reference, ['Organization']);
+      validateReferenceHelper(issuer.reference, ['Organization']);
     }
 
     this.practitionerQualification.issuer = issuer;

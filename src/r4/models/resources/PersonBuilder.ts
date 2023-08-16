@@ -2,14 +2,7 @@ import { IBuildable } from '../../../globals/interfaces';
 import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
-import {
-  IAddress,
-  IAttachment,
-  IContactPoint,
-  IHumanName,
-  IIdentifier,
-  IReference,
-} from '../../interfaces/datatypes';
+import { IAddress, IAttachment, IContactPoint, IHumanName, IIdentifier, IReference } from '../../interfaces/datatypes';
 import { AdministrativeGenderEnum } from '../../../enums';
 import { AdministrativeGenderType } from '../../../types';
 import { IPersonLink } from '../../interfaces/backbones';

@@ -1,13 +1,6 @@
 import { IPerson } from '../../interfaces/resources';
 import { IElement } from '../../interfaces/base';
-import {
-  IAddress,
-  IAttachment,
-  IContactPoint,
-  IHumanName,
-  IIdentifier,
-  IReference,
-} from '../../interfaces/datatypes';
+import { IAddress, IAttachment, IContactPoint, IHumanName, IIdentifier, IReference } from '../../interfaces/datatypes';
 import { IPersonLink } from '../../interfaces/backbones';
 import { AdministrativeGenderEnum } from '../../../enums';
 import { AdministrativeGenderType } from '../../../types';

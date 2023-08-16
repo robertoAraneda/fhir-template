@@ -1,13 +1,6 @@
 import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainResourceBuilder';
 import { IElement } from '../../interfaces/base';
-import {
-  ICodeableConcept,
-  ICoding,
-  IContactPoint,
-  IIdentifier,
-  IPeriod,
-  IReference,
-} from '../../interfaces/datatypes';
+import { ICodeableConcept, ICoding, IContactPoint, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { EndpointStatusEnum } from '../../../enums';
 import { EndpointStatusType } from '../../../types';
 import { IBuildable } from '../../../globals/interfaces';

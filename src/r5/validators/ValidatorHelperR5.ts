@@ -21,19 +21,24 @@ export const ValidatorHelperR5 = <T extends {}>(
         const validator = Validator[data.resourceType] as (data: any, path: string) => void;
         if (validator) {
           validator(data, `${path}.${String(element.name)}`);
-        } else {
+        }
+
+        /*
+        else {
           console.warn("Resource validator doesn't exist", data.resourceType);
         }
+
+         */
       }
     } else {
       const payloadProperties = Object.keys(payload);
       const additionalFields = payloadProperties.filter((property) => {
-        return !elements.find((element) => element.name === property);
+        return !elements.find((_element) => _element.name === property);
       });
 
       if (additionalFields.length) {
         throw new InvalidFieldException(path, additionalFields.join(', '));
-        //throw new Error(`Additional fields are not allowed in ${path}: ${additionalFields.join(', ')}`);
+        // throw new Error(`Additional fields are not allowed in ${path}: ${additionalFields.join(', ')}`);
       }
     }
 
@@ -48,9 +53,9 @@ export const ValidatorHelperR5 = <T extends {}>(
     }
 
     if (element.isArray && payload[element.name] && Array.isArray(payload[element.name])) {
-      const payloadArray = payload[element.name] as Array<any>;
+      const payloadArray = payload[element.name] as any[];
       if (element.type === 'Element') {
-        const data = payloadArray as Array<IElement>;
+        const data = payloadArray as IElement[];
         data.forEach((item: IElement, index: number) => {
           ElementValidator(item, `${path}.${String(element.name)}[${index}]`);
         });
@@ -60,7 +65,7 @@ export const ValidatorHelperR5 = <T extends {}>(
         const data = payload[element.name];
         validator(data, element.referenceValues, `${path}.${String(element.name)}`);
       } else if (element.type === 'Address') {
-        const data = payload[element.name] as Array<IAddress>;
+        const data = payload[element.name] as IAddress[];
         data.forEach((item: IAddress, index: number) => {
           AddressValidator(item, `${path}.${String(element.name)}[${index}]`);
         });
@@ -71,9 +76,13 @@ export const ValidatorHelperR5 = <T extends {}>(
           payloadArray.forEach((item: any, index: number) => {
             validator(item, `${path}.${String(element.name)}[${index}]`);
           });
-        } else {
+        }
+        /*
+        else {
           console.warn("Validator doesn't exist", element.type);
         }
+
+         */
       }
 
       if (element.isRequired && payloadArray.length === 0) {
@@ -93,7 +102,7 @@ export const ValidatorHelperR5 = <T extends {}>(
       }
     }
 
-    //validate fields
+    // validate fields
     if (payload[element.name]) {
       if (element.type === 'Reference') {
         const validator = Validator[element.type] as (data: any, resources: any, path: string) => void;
@@ -111,10 +120,14 @@ export const ValidatorHelperR5 = <T extends {}>(
 
         if (validator) {
           validator(data, `${path}.${String(element.name)}`);
-        } else {
+        }
+        /*
+        else {
           console.warn("Resource validator doesn't exist", data.resourceType);
         }
-        //TODO: validate resource
+
+         */
+        // TODO: validate resource
       } else if (element.type === 'Address') {
         const data = payload[element.name] as IAddress;
         AddressValidator(data, `${path}.${String(element.name)}`);
@@ -124,9 +137,13 @@ export const ValidatorHelperR5 = <T extends {}>(
         if (validator) {
           const data = payload[element.name];
           validator(data, `${path}.${String(element.name)}`);
-        } else {
+        }
+        /*
+        else {
           console.warn("Validator doesn't exist", element.type);
         }
+
+         */
       }
     }
 

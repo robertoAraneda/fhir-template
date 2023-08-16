@@ -64,5 +64,3 @@ export default class Period extends Element implements IPeriod {
     Object.assign(this, args);
   }
 }
-
-//TODO: add validator constraint

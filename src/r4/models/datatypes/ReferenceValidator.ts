@@ -63,13 +63,10 @@ export function ReferenceValidator(
   }
 
   ValidateConstraint(args, resources, path);
-
   ValidatorHelperR4(args, referenceKeysDefinitions, path);
 }
 
 function ValidateConstraint(payload: IReference, resources: any, path: string) {
   // validate reference string format
   if (payload.reference) ValidateReferenceFormatHelper(payload.reference, resources, `${path}.reference`);
-
-  //if (payload.identifier) IdentifierValidator(payload.identifier, `${path}.identifier`);
 }

@@ -98,7 +98,7 @@ function ValidateConstraint(payload: IGroupCharacteristic, path: string): void {
     );
   }
 
-  //only one of the values can be present
+  // only one of the values can be present
   const presentValues = requiredValues.filter((value) => payload[value]);
   if (presentValues.length > 1) {
     throw new RequiredException(

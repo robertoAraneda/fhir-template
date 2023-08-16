@@ -195,7 +195,7 @@ const PositiveIntValidator = (value: number, path: string) => {
 };
 
 const TimeValidator = (value: string, path: string) => {
-  //regex for ^([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\\.[0-9]+)?$
+  // regex for ^([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\\.[0-9]+)?$
   const regex = /^([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?$/;
   if (!regex.test(value)) {
     throw new Error(`Invalid time: ${value} at path: ${path}`);
@@ -203,7 +203,7 @@ const TimeValidator = (value: string, path: string) => {
 };
 
 const UnsignedIntValidator = (value: number, path: string) => {
-  //regex for ^[0]|([1-9][0-9]*)$
+  // regex for ^[0]|([1-9][0-9]*)$
   const regex = /^[0]|([1-9][0-9]*)$/;
   if (!regex.test(value.toString())) {
     throw new Error(`Invalid unsignedInt: ${value} at path: ${path}`);
@@ -240,8 +240,6 @@ const UuidValidator = (value: string, path: string) => {
     throw new Error(`Invalid uuid: ${value} at path: ${path}`);
   }
 };
-
-const XhtmlValidator = (value: string, path: string) => {};
 
 export type ValidatorType = {
   base64Binary: typeof Base64BinaryValidator;
@@ -389,7 +387,7 @@ export const Validator: ValidatorType = {
   PractitionerCommunication: PractitionerCommunicationValidator,
   RelatedPersonCommunication: RelatedPersonCommunicationValidator,
 
-  //Resources
+  // Resources
   PractitionerRole: PractitionerRoleValidator,
   Patient: PatientValidator,
   Practitioner: PractitionerValidator,

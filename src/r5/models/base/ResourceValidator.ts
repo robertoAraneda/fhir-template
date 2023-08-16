@@ -46,16 +46,16 @@ export const resourceKeysDefinitions: ReadonlyArray<any> = [
   },
 ];
 
-export const ResourceValidator = (resource: IResource | IResource[], path: string = 'Resource') => {
-  if (Array.isArray(resource)) {
-    resource.forEach((resource, index) => {
+export const ResourceValidator = (payload: IResource | IResource[], path: string = 'Resource') => {
+  if (Array.isArray(payload)) {
+    payload.forEach((resource, index) => {
       ResourceValidator(resource, `${path}[${index}]`);
     });
     return;
   }
-  if (!resource) {
+  if (!payload) {
     throw new Error(`${path} cannot be null or undefined`);
   }
 
-  ValidatorHelperR5(resource, resourceKeysDefinitions, path);
+  ValidatorHelperR5(payload, resourceKeysDefinitions, path);
 };

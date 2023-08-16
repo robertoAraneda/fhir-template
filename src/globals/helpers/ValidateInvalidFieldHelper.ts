@@ -1,6 +1,6 @@
 import InvalidFieldException from '../exceptions/InvalidFieldException';
 
-export function ValidateInvalidFieldHelper<T extends Object>(
+export function ValidateInvalidFieldHelper<T extends {}>(
   payload: T,
   entityFields: readonly string[],
   entityName: string,

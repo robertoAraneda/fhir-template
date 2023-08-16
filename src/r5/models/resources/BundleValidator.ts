@@ -113,7 +113,7 @@ const ValidateConstraint = (payload: IBundle, path: string) => {
       ]);
     }
 
-    //bdl-3a: For collections of type document, message, searchset or collection, all entries must contain resources, and not have request or response elements.
+    // bdl-3a: For collections of type document, message, searchset or collection, all entries must contain resources, and not have request or response elements.
     if (
       (payload.type === BundleTypeEnum.DOCUMENT ||
         payload.type === BundleTypeEnum.MESSAGE ||
@@ -136,7 +136,7 @@ const ValidateConstraint = (payload: IBundle, path: string) => {
       ]);
     }
 
-    //bld-3b: For collections of type history, all entries must contain request or response elements, and resources if the method is POST, PUT or PATCH
+    // bld-3b: For collections of type history, all entries must contain request or response elements, and resources if the method is POST, PUT or PATCH
     if (
       payload.type === BundleTypeEnum.HISTORY &&
       (!entry.request || !entry.response || (entry.request && entry.response)) &&
@@ -158,7 +158,7 @@ const ValidateConstraint = (payload: IBundle, path: string) => {
       ]);
     }
 
-    //bld-3c: 	For collections of type transaction or batch, all entries must contain request elements, and resources if the method is POST, PUT or PATCH
+    // bld-3c: 	For collections of type transaction or batch, all entries must contain request elements, and resources if the method is POST, PUT or PATCH
 
     if (payload.type === BundleTypeEnum.TRANSACTION || payload.type === BundleTypeEnum.BATCH) {
       if (!entry.request) {
@@ -199,7 +199,7 @@ const ValidateConstraint = (payload: IBundle, path: string) => {
       }
     }
 
-    //bld-3d: For collections of type transaction-response or batch-response, all entries must contain response elements
+    // bld-3d: For collections of type transaction-response or batch-response, all entries must contain response elements
     if (
       (payload.type === BundleTypeEnum.TRANSACTION_RESPONSE || payload.type === BundleTypeEnum.BATCH_RESPONSE) &&
       !entry.response
@@ -357,7 +357,7 @@ const ValidateConstraint = (payload: IBundle, path: string) => {
       ]);
     }
 
-    //bld-14: entry.request.method PATCH not allowed for history
+    // bld-14: entry.request.method PATCH not allowed for history
     if (entry.request?.method === BundleEntryRequestMethodEnum.PATCH && payload.type === BundleTypeEnum.HISTORY) {
       throw new ResourceException(path, [
         {
@@ -371,7 +371,7 @@ const ValidateConstraint = (payload: IBundle, path: string) => {
       ]);
     }
 
-    //bld-15: 	Bundle resources where type is not transaction, transaction-response, batch, or batch-response or when the request is a POST SHALL have Bundle.entry.fullUrl populated
+    // bld-15: 	Bundle resources where type is not transaction, transaction-response, batch, or batch-response or when the request is a POST SHALL have Bundle.entry.fullUrl populated
     if (
       payload.type !== BundleTypeEnum.TRANSACTION &&
       payload.type !== BundleTypeEnum.TRANSACTION_RESPONSE &&
@@ -394,9 +394,9 @@ const ValidateConstraint = (payload: IBundle, path: string) => {
     }
   });
 
-  //bld-16 TODO
+  // bld-16 TODO
 
-  //bld-17: Use and meaning of issues for documents has not been validated because the content will not be rendered in the document.
+  // bld-17: Use and meaning of issues for documents has not been validated because the content will not be rendered in the document.
   if (payload.type === BundleTypeEnum.DOCUMENT && payload.issues) {
     throw new ResourceException(path, [
       {

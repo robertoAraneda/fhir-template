@@ -37,7 +37,7 @@ export default class OrganizationQualificationBuilder
   }
 
   setMultipleIdentifier(identifier: IIdentifier[]): this {
-    identifier.forEach((identifier) => this.addIdentifier(identifier));
+    identifier.forEach((i) => this.addIdentifier(i));
     return this;
   }
 

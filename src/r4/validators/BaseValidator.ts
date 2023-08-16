@@ -11,7 +11,7 @@ import { IValidateProperties } from '../../globals/interfaces';
 const ajv = new Ajv({
   allErrors: true,
   strict: false,
-  //schemas: [defSchema, datatypeSchema, extensionSchema, backboneSchema, baseResourceSchema],
+  // schemas: [defSchema, datatypeSchema, extensionSchema, backboneSchema, baseResourceSchema],
 
   /*
   loadSchema: (uri) => {
@@ -42,7 +42,7 @@ const ajv = new Ajv({
 });
 
 ajv.addMetaSchema(draft6MetaSchema);
-//ajv.addSchema(r4FhirSchema);
+// ajv.addSchema(r4FhirSchema);
 
 const $validate = ajv.compile(r4FhirSchema);
 
@@ -64,13 +64,13 @@ const extractSchemaFromDefinition = (definition: string, schemaName: string) => 
 
    */
 
-  let schema: SchemaObject = r4FhirSchema;
+  const schema: SchemaObject = r4FhirSchema;
 
   return schema.definitions[definition];
 };
 
 const extractSchema = (definition: string) => {
-  let schema: SchemaObject = r4FhirSchema;
+  const schema: SchemaObject = r4FhirSchema;
 
   return schema.definitions[definition];
 };
@@ -110,7 +110,6 @@ const validateJsonObject = (schema: any, data: any) => {
   const errors: any[] = [];
 
   if (!valid) {
-    console.log(validate.errors);
     for (const error of validate.errors || []) {
       if (
         error.keyword !== 'additionalProperties' &&

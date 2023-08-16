@@ -19,19 +19,23 @@ export const ValidatorHelperR4 = <T extends {}>(
         const validator = Validator[data.resourceType] as (data: any, path: string) => void;
         if (validator) {
           validator(data, `${path}.${String(element.name)}`);
-        } else {
+        }
+        /*
+        else {
           console.warn("Resource validator doesn't exist", data.resourceType);
         }
+
+         */
       }
     } else {
       const payloadProperties = Object.keys(payload);
       const additionalFields = payloadProperties.filter((property) => {
-        return !elements.find((element) => element.name === property);
+        return !elements.find((_element) => _element.name === property);
       });
 
       if (additionalFields.length) {
         throw new InvalidFieldException(path, additionalFields.join(', '));
-        //throw new Error(`Additional fields are not allowed in ${path}: ${additionalFields.join(', ')}`);
+        // throw new Error(`Additional fields are not allowed in ${path}: ${additionalFields.join(', ')}`);
       }
     }
 
@@ -46,7 +50,7 @@ export const ValidatorHelperR4 = <T extends {}>(
     }
 
     if (element.isArray && payload[element.name] && Array.isArray(payload[element.name])) {
-      const payloadArray = payload[element.name] as Array<any>;
+      const payloadArray = payload[element.name] as any[];
       if (element.type === 'Reference') {
         const validator = Validator[element.type] as (data: any, resources: any, path: string) => void;
 
@@ -77,7 +81,7 @@ export const ValidatorHelperR4 = <T extends {}>(
       }
     }
 
-    //validate fields
+    // validate fields
     if (payload[element.name]) {
       if (element.type === 'Reference') {
         const validator = Validator[element.type] as (data: any, resources: any, path: string) => void;
@@ -95,9 +99,13 @@ export const ValidatorHelperR4 = <T extends {}>(
 
         if (validator) {
           validator(data, `${path}.${String(element.name)}`);
-        } else {
+        }
+        /*
+        else {
           console.warn("Resource validator doesn't exist", data.resourceType);
         }
+
+         */
       } else {
         const validator = Validator[element.type] as (data: any, path: string) => void;
         if (validator) {

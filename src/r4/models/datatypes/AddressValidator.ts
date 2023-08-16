@@ -133,10 +133,5 @@ export function AddressValidator(payload: IAddress | IAddress[], path: string = 
     return;
   }
 
-  //if (payload.period) PeriodValidator(payload.period, path);
-
-  //ValidateExtensionFieldHelper(payload);
-  //ValidateInvalidFieldHelper(payload, addressFields, path);
-
   ValidatorHelperR4(payload, addressAttributes, path);
 }

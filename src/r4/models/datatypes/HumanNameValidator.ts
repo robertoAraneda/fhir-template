@@ -98,19 +98,4 @@ export function HumanNameValidator(payload: IHumanName | IHumanName[], path: str
   }
 
   ValidatorHelperR4(payload, humanNameKeyDefinitions, path);
-
-  /*
-  ValidateInvalidFieldHelper(payload, humanNameFields, path);
-  ValidateExtensionFieldHelper(payload, path);
-
-   */
-  //ValidateConstraint(payload, path);
-}
-
-function ValidateConstraint(payload: IHumanName, path: string) {
-  if (payload.use && !Object.values(NameUseEnum).includes(payload.use as NameUseEnum)) {
-    throw new Error(`TypeException: Invalid use type: '${payload.use}' for ${path}`);
-  }
-
-  if (payload.period) PeriodValidator(payload.period, `${path}.period`);
 }

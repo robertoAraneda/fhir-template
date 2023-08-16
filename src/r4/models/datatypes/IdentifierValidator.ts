@@ -72,11 +72,5 @@ export function IdentifierValidator(args: IIdentifier | IIdentifier[], path: str
     return;
   }
 
-  //if (args.assigner) ReferenceValidator(args.assigner, ['Organization'], `${path}.assigner`);
-  //if (args.period) PeriodValidator(args.period, `${path}.period`);
-
-  //ValidateExtensionFieldHelper(args, path);
-  //ValidateInvalidFieldHelper(args, identifierAttributes, path);
-
   ValidatorHelperR4(args, identifierKeyDefinitions, path);
 }

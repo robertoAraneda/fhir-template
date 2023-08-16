@@ -1,12 +1,6 @@
 import { elementAttributes } from '../base/Element';
 import { IExtension } from '../../interfaces/datatypes';
 import ConstraintException from '../../../globals/exceptions/ConstraintException';
-import { ValidateExtensionFieldHelper } from '../../../globals/helpers/ValidateExtensionFieldHelper';
-import { ValidateInvalidFieldHelper } from '../../../globals/helpers/ValidateInvalidFieldHelper';
-import { ValidateRequiredFieldHelper } from '../../../globals/helpers/validateRequiredFieldHelper';
-import { IdentifierValidator } from './IdentifierValidator';
-import { PeriodValidator } from './PeriodValidator';
-import { ReferenceValidator } from './ReferenceValidator';
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
 
@@ -395,10 +389,6 @@ export const extensionKeys = DataTypeAttributesHelperR4<IExtension>([
 ]);
 
 function validateConstraints(args: IExtension, path: string): void {
-  //if (args.valueReference) ReferenceValidator(args.valueReference, null, `${path}.valueReference`);
-  //if (args.valueIdentifier) IdentifierValidator(args.valueIdentifier, `${path}.valueIdentifier`);
-  //if (args.valuePeriod) PeriodValidator(args.valuePeriod, `${path}.valuePeriod`);
-
   // + Rule: Must have either extensions or value[x], not both
 
   const keys = Object.keys(args) as (keyof IExtension)[];
@@ -424,14 +414,5 @@ export function ExtensionValidator(payload: IExtension | IExtension[], path: str
   }
 
   validateConstraints(payload, path);
-  //ValidateExtensionFieldHelper(payload, path);
-  //ValidateInvalidFieldHelper(payload, extensionAttributes, path);
-
   ValidatorHelperR4(payload, extensionKeys, path);
-
-  /*
-  const requiredFields: ReadonlyArray<keyof IExtension> = ['url'];
-  ValidateRequiredFieldHelper(requiredFields, payload, path);
-
-   */
 }

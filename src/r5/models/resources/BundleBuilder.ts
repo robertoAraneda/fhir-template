@@ -70,12 +70,12 @@ export default class BundleBuilder extends ResourceBuilder<BundleBuilder> implem
   }
 
   setMultipleEntry(entry: IBundleEntry[]): this {
-    entry.forEach((entry) => this.addEntry(entry));
+    entry.forEach((_entry) => this.addEntry(_entry));
     return this;
   }
 
   setMultipleLink(link: IBundleLink[]): this {
-    link.forEach((link) => this.addLink(link));
+    link.forEach((_link) => this.addLink(_link));
     return this;
   }
 

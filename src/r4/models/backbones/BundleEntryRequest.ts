@@ -5,7 +5,6 @@ import { BundleEntryRequestMethodType } from '../../../types';
 import { BundleEntryRequestMethodEnum } from '../../../enums';
 import { BundleEntryRequestBuilder } from './BundleEntryRequestBuilder';
 import { bundleEntryRequestAttributes, BundleEntryRequestValidator } from './BundleEntryRequestValidator';
-//import { ValidateExtensionHelper } from '../../../globals/helpers/validateExtensionHelper';
 
 export default class BundleEntryRequest extends BackboneElement implements IBundleEntryRequest {
   // BundleEntryRequest attributes

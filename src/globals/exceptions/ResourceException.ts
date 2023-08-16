@@ -1,6 +1,6 @@
 export default class ResourceException extends Error {
   constructor(entity: string, errors?: any[] | null) {
-    const error = errors
+    const _error = errors
       ?.map((error) => {
         const { keyword, message: msg, params, constraint } = error;
 
@@ -38,7 +38,7 @@ export default class ResourceException extends Error {
       })
       .join(', ');
 
-    const message = `Invalid Resource: ${entity}: ${error}`;
+    const message = `Invalid Resource: ${entity}: ${_error}`;
     super(message);
   }
 }

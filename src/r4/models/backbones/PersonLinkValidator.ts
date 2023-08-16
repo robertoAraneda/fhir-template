@@ -29,13 +29,13 @@ export const personLinkKeysDefinitions = BackboneAttributesHelperR4<IPersonLink>
 
 export const personLinkFields = personLinkKeysDefinitions.map((key) => key.name);
 
-export function PersonLinkValidator(personLink: IPersonLink | IPersonLink[], path: string = 'PersonLink') {
-  if (Array.isArray(personLink)) {
-    personLink.forEach((personLink, index) => {
-      PersonLinkValidator(personLink, `${path}[${index}]`);
+export function PersonLinkValidator(payload: IPersonLink | IPersonLink[], path: string = 'PersonLink') {
+  if (Array.isArray(payload)) {
+    payload.forEach((p, index) => {
+      PersonLinkValidator(p, `${path}[${index}]`);
     });
     return;
   }
 
-  ValidatorHelperR4(personLink, personLinkKeysDefinitions, path);
+  ValidatorHelperR4(payload, personLinkKeysDefinitions, path);
 }

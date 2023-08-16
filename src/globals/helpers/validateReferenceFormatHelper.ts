@@ -14,7 +14,7 @@ export const ValidateReferenceFormatHelper = (
   // regex for resourceType/id
   const regex = /^[a-zA-Z]+\/[a-zA-Z0-9\-\.]+$/;
 
-  //match with regex
+  // match with regex
   if (!regex.test(value)) {
     throw new ReferenceException(value, null, path);
   }

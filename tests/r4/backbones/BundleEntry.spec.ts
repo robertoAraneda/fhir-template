@@ -1,8 +1,9 @@
 import FHIRContext from '../../../src';
 import { IBundleEntry } from '../../../src/r4/interfaces/backbones';
-import { AdministrativeGenderEnum, BundleEntryRequestMethodEnum } from '../../../src/r4/enums';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { AdministrativeGenderEnum, BundleEntryRequestMethodEnum } from '../../../src/enums';
 import { BundleEntryBuilder } from '../../../src/r4/models/backbones/BundleEntryBuilder';
+import InvalidFieldException from '../../../src/globals/exceptions/InvalidFieldException';
+import { BundleEntryValidator } from '../../../src/r4/models/backbones/BundleEntryValidator';
 
 describe('BundleEntry FHIR R4', () => {
   let builder: BundleEntryBuilder;
@@ -24,7 +25,7 @@ describe('BundleEntry FHIR R4', () => {
       ],
       fullUrl: 'http://example.com',
       resource: {
-        resourceType: 'Location',
+        resourceType: 'Patient',
         id: '123',
       },
       request: {
@@ -34,9 +35,7 @@ describe('BundleEntry FHIR R4', () => {
       },
     });
 
-    const validate = await _validateBackbone(item, 'Bundle_Entry');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new bundle_entry [IBundleEntry]', async () => {
@@ -60,10 +59,8 @@ describe('BundleEntry FHIR R4', () => {
         ifMatch: '123',
       },
     };
-    const validate = await _validateBackbone(item, 'Bundle_Entry');
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => BundleEntryValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new bundle_entry using builder methods [new BundleEntryBuilder()]', async () => {
@@ -81,10 +78,7 @@ describe('BundleEntry FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'Bundle_Entry');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       fullUrl: 'http://example.com',
@@ -109,20 +103,9 @@ describe('BundleEntry FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Bundle_Entry');
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => BundleEntryValidator(item)).toThrowError(InvalidFieldException);
+    expect(() => BundleEntryValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for BundleEntry",
+    );
   });
 });

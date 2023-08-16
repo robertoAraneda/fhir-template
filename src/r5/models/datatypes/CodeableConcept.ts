@@ -2,6 +2,7 @@ import { ICodeableConcept, ICoding, IExtension } from '../../interfaces/datatype
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
 import CodeableConceptBuilder from './CodeableConceptBuilder';
+import { CodeableConceptValidator } from './CodeableConceptValidator';
 
 /**
  * @description Concept - reference to a terminology or just text.
@@ -52,8 +53,9 @@ export default class CodeableConcept extends Element implements ICodeableConcept
     return `CodeableConcept${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: ICodeableConcept) {
+  constructor(args: ICodeableConcept) {
     super();
+    CodeableConceptValidator(args);
     Object.assign(this, args);
   }
 }

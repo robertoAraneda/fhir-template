@@ -3,6 +3,7 @@ import { ICodeableConcept, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import PatientCommunicationBuilder from './PatientCommunicationBuilder';
+import { PatientCommunicationValidator } from './PatientCommunicationValidator';
 
 export default class PatientCommunication extends BackboneElement implements IPatientCommunication {
   // PatientCommunication attributes
@@ -26,8 +27,9 @@ export default class PatientCommunication extends BackboneElement implements IPa
     return ` PatientCommunication${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPatientCommunication) {
+  constructor(args: IPatientCommunication) {
     super();
+    PatientCommunicationValidator(args);
     Object.assign(this, args);
   }
 }

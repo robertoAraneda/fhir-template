@@ -2,6 +2,7 @@ import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import ReferenceBuilder from './ReferenceBuilder';
 import Element from '../base/Element';
+import { ReferenceValidator } from './ReferenceValidator';
 
 export default class Reference extends Element implements IReference {
   // Reference attributes
@@ -31,8 +32,9 @@ export default class Reference extends Element implements IReference {
     return `Reference${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IReference) {
+  constructor(args: IReference) {
     super();
+    ReferenceValidator(args);
     Object.assign(this, args);
   }
 }

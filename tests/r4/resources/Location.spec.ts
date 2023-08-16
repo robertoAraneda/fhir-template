@@ -2,6 +2,8 @@ import { ILocation } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 import { LocationBuilder } from '../../../src/r4/models/resources/LocationBuilder';
 
+import { LocationValidator } from '../../../src/r4/models/resources/LocationValidator';
+
 describe('Location FHIR R4', () => {
   let builder: LocationBuilder;
   const context = new FHIRContext();
@@ -82,9 +84,7 @@ describe('Location FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Location(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => LocationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new location and validate with correct data [new Location()]', async () => {
@@ -144,9 +144,7 @@ describe('Location FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.Location(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new location and validate with correct data [Location-example-patients-home.json]', async () => {
@@ -185,10 +183,7 @@ describe('Location FHIR R4', () => {
         reference: 'Organization/f001',
       },
     };
-
-    const validate = await Validator.Location(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => LocationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new location and validate with wrong data', async () => {
@@ -198,19 +193,9 @@ describe('Location FHIR R4', () => {
       wrongProperty: 'wrong', // wrong property
     };
 
-    const validate = await Validator.Location(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => LocationValidator(item as ILocation)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Location",
+    );
   });
 
   it('should be able to create a new location with builder methods [new LocationBuilder()]', async () => {
@@ -225,9 +210,7 @@ describe('Location FHIR R4', () => {
       .setDescription('Old South Wing, Neuro Radiology Operation Room 1 on second floor')
       .build();
 
-    const validate = await Validator.Location(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       address: {

@@ -2,15 +2,16 @@ import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder, ResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
 import { IIdentifier, ISignature } from '../../interfaces/datatypes';
-import { BundleTypeEnum } from '../../enums';
-import { BundleTypeType } from '../../types';
+import { BundleTypeEnum } from '../../../enums';
+import { BundleTypeType } from '../../../types';
 import { IBundleEntry, IBundleLink } from '../../interfaces/backbones';
 import Bundle from './Bundle';
+import { IBundle } from '../../interfaces/resources';
 
 type ParamExtensionType = 'type' | 'timestamp' | 'total';
 
 export interface IBundleBuilder extends IBuildable<Bundle>, IResourceBuilder<BundleBuilder> {
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): BundleBuilder;
+  addParamExtension<T extends ParamExtensionType>(param: T, element: IElement): BundleBuilder;
 
   setIdentifier(identifier: IIdentifier): BundleBuilder;
 
@@ -32,11 +33,11 @@ export interface IBundleBuilder extends IBuildable<Bundle>, IResourceBuilder<Bun
 }
 
 export class BundleBuilder extends ResourceBuilder<BundleBuilder> implements IBundleBuilder {
-  private readonly bundle: Bundle;
+  private readonly bundle: IBundle;
 
   constructor() {
     super();
-    this.bundle = new Bundle();
+    this.bundle = {} as IBundle;
   }
 
   addEntry(entry: IBundleEntry): BundleBuilder {
@@ -51,16 +52,17 @@ export class BundleBuilder extends ResourceBuilder<BundleBuilder> implements IBu
     return this;
   }
 
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): BundleBuilder {
-    this.bundle[`_${param}`] = extension;
+  addParamExtension<T extends ParamExtensionType>(param: T, element: IElement): BundleBuilder {
+    this.bundle[`_${param}`] = element;
     return this;
   }
 
   build(): Bundle {
     Object.assign(this.bundle, { ...super.entity() });
-    return this.bundle.toJson();
+    return new Bundle(this.bundle).toJson();
   }
 
+  // TODO: Validate that the identifier is a valid IIdentifier
   setIdentifier(identifier: IIdentifier): BundleBuilder {
     this.bundle.identifier = identifier;
     return this;

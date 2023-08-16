@@ -1,6 +1,6 @@
 import { IElement } from '../base';
-import { QuantityComparatorEnum } from '../../enums';
-import { QuantityComparatorType } from '../../types';
+import { QuantityComparatorEnum } from '../../../enums';
+import { QuantityComparatorType } from '../../../types';
 
 export interface IQuantity extends IElement {
   value?: number;

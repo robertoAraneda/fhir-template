@@ -1,7 +1,8 @@
 import { ICoding } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 import { CodingBuilder } from '../../../src/r4/models/datatypes/CodingBuilder';
+import { CodingValidator } from '../../../src/r4/models/datatypes/CodingValidator';
+
 describe('Coding FHIR R4', () => {
   let builder: CodingBuilder;
   const { Coding } = new FHIRContext().forR4();
@@ -20,9 +21,7 @@ describe('Coding FHIR R4', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     });
 
-    const validate = await _validateDataType(item, 'Coding');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new coding and validate with correct data [ICoding]', async () => {
@@ -32,11 +31,18 @@ describe('Coding FHIR R4', () => {
       version: '1.0.0',
       display: 'test',
       system: 'http://hl7.org/fhir/sid/us-npi',
+      _code: {
+        extension: [
+          {
+            id: '123',
+            url: 'url',
+            valueString: 'test',
+          },
+        ],
+      },
     };
 
-    const validate = await _validateDataType(item, 'Coding');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => CodingValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new coding and validate with wrong data', async () => {
@@ -49,20 +55,9 @@ describe('Coding FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Coding');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => CodingValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for Coding",
+    );
   });
 
   it('should be able to create a new coding using builder methods [new CodingBuilder()]', async () => {
@@ -75,10 +70,6 @@ describe('Coding FHIR R4', () => {
       .setVersion('1.0.0')
       .addParamExtension('code', { id: '123', extension: [{ url: 'url', valueId: '1221' }] })
       .build();
-
-    const validate = await _validateDataType(item, 'Coding');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

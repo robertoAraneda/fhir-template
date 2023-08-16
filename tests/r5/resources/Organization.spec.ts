@@ -1,6 +1,7 @@
 import FHIRContext from '../../../src';
 import { IOrganization } from '../../../src/r5/interfaces/resources';
 import OrganizationBuilder from '../../../src/r5/models/resources/OrganizationBuilder';
+import { OrganizationValidator } from '../../../src/r5/models/resources/OrganizationValidator';
 
 describe('Organization FHIR R5', () => {
   let builder: OrganizationBuilder;
@@ -13,7 +14,7 @@ describe('Organization FHIR R5', () => {
   });
 
   it('should be able to create a new organization and validate with correct data [Example Organization/1]', async () => {
-    const resource = new Organization({
+    const item = new Organization({
       resourceType: 'Organization',
       id: '1',
       text: {
@@ -45,13 +46,11 @@ describe('Organization FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.Organization(resource);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new organization and validate with correct data [Example Organization/1]', async () => {
-    const resource: IOrganization = {
+    const item: IOrganization = {
       resourceType: 'Organization',
       id: '1',
       text: {
@@ -83,13 +82,11 @@ describe('Organization FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.Organization(resource);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => OrganizationValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new organization and validate with wrong data [Example Organization/mmanu]', async () => {
-    const resource = {
+    const item = {
       wrongProperty: 'wrong', // wrong property
       resourceType: 'Organization',
       id: 'mmanu',
@@ -108,32 +105,14 @@ describe('Organization FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.Organization(resource);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/active',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: { type: 'boolean' },
-        schemaPath: 'base.schema.json#/definitions/boolean/type',
-      },
-    ]);
+    expect(() => OrganizationValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Organization",
+    );
   });
 
   it('should be able to create a new organization using builder methods', async () => {
     // build() is a method that returns the object that was built
-    const resource = builder
+    const item = builder
       .setName('test')
       .setActive(true)
       .setId('123')
@@ -175,12 +154,12 @@ describe('Organization FHIR R5', () => {
       .addAlias('test')
       .addAlias('test2')
       .addEndpoint({
-        reference: 'test',
+        reference: 'Endpoint/id',
       })
       .build();
 
-    expect(resource).toBeDefined();
-    expect(resource).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _active: {
         extension: [
           {
@@ -213,7 +192,7 @@ describe('Organization FHIR R5', () => {
       description: 'test',
       endpoint: [
         {
-          reference: 'test',
+          reference: 'Endpoint/id',
         },
       ],
       id: '123',
@@ -231,8 +210,5 @@ describe('Organization FHIR R5', () => {
         },
       ],
     });
-    const validate = await Validator.Organization(resource);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

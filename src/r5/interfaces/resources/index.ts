@@ -1,9 +1,21 @@
-export { IEndpoint } from './IEndpoint';
-export { IPatient } from './IPatient';
-export { IPractitioner } from './IPractitioner';
-export { IPractitionerRole } from './IPractitionerRole';
-export { IOrganization } from './IOrganization';
-export { IRelatedPerson } from './IRelatedPerson';
-export { IPerson } from './IPerson';
-export { IGroup } from './IGroup';
-export { ILocation } from './ILocation';
+import IEndpoint from './IEndpoint';
+import IPatient from './IPatient';
+import IPractitioner from './IPractitioner';
+import IPractitionerRole from './IPractitionerRole';
+import IOrganization from './IOrganization';
+import IRelatedPerson from './IRelatedPerson';
+import IPerson from './IPerson';
+import IGroup from './IGroup';
+import ILocation from './ILocation';
+
+export {
+  IEndpoint,
+  IPatient,
+  IPractitioner,
+  IPractitionerRole,
+  IOrganization,
+  IRelatedPerson,
+  IPerson,
+  IGroup,
+  ILocation,
+};

@@ -1,9 +1,10 @@
-import { NameUseEnum } from '../../enums';
-import { NameUseType } from '../../types';
-import { IPeriod } from './IPeriod';
+import { NameUseEnum } from '../../../enums';
+import { NameUseType } from '../../../types';
+import IPeriod from './IPeriod';
 import { IElement } from '../base';
 
 /**
+ * @summary FHIR R4
  * @description Name of a human or other living entity - parts and usage
  * @property {NameUseEnum} use - usual | official | temp | nickname | anonymous | old | maiden
  * @property {string} text - Text representation of the full name
@@ -18,10 +19,10 @@ import { IElement } from '../base';
  * @property {IElement[]} _given - Extension of given
  * @property {IElement[]} _prefix - Extension of prefix
  * @property {IElement[]} _suffix - Extension of suffix
- * @see {@link https://www.hl7.org/fhir/datatypes.html#HumanName HumanName}
+ * @see http://hl7.org/fhir/R4/datatypes.html#HumanName http://hl7.org/fhir/R4/datatypes.html#HumanName
  * @author Roberto Araneda
  */
-export interface IHumanName extends IElement {
+export default interface IHumanName extends IElement {
   /**
    * @description usual | official | temp | nickname | anonymous | old | maiden
    */

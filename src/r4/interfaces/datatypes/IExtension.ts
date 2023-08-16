@@ -1,16 +1,20 @@
 import { IElement } from '../base';
-import { IAddress } from './IAddress';
-import { ICodeableConcept } from './ICodeableConcept';
-import { IPeriod } from './IPeriod';
-import { ICoding } from './ICoding';
+import {
+  IAddress,
+  ISignature,
+  ICodeableConcept,
+  IPeriod,
+  ICoding,
+  IContactPoint,
+  IIdentifier,
+  IQuantity,
+  IReference,
+  IDuration,
+  IHumanName,
+  IMeta,
+  IRange,
+} from './index';
 import { IAttachment } from './IAttachment';
-import { IContactPoint } from './IContactPoint';
-import { IIdentifier } from './IIdentifier';
-import { IQuantity } from './IQuantity';
-import { IReference } from './IReference';
-import { IDuration } from './IDuration';
-import { IHumanName } from './IHumanName';
-import { IMeta } from './IMeta';
 
 export interface IExtension extends IElement {
   url: string;
@@ -68,11 +72,11 @@ export interface IExtension extends IElement {
   // TODO missing money
   valuePeriod?: IPeriod;
   valueQuantity?: IQuantity;
-  // TODO missing range
+  valueRange?: IRange;
   // TODO missing ratio
   valueReference?: IReference;
   // TODO missing sampledData
-  // TODO missing signature
+  valueSignature?: ISignature;
   // TODO missing timing
   // TODO missing contactDetail
   // TODO missing contributor

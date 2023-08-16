@@ -11,10 +11,11 @@ import {
   IIdentifier,
 } from '../../interfaces/datatypes';
 import { IPractitionerQualification } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../enums';
-import { AdministrativeGenderType } from '../../types';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
+import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderType } from '../../../types';
+import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import Practitioner from './Practitioner';
+import { IPractitioner } from '../../interfaces/resources';
 
 type ParamExtensionType = 'implicitRules' | 'language' | 'active' | 'birthDate' | 'gender';
 
@@ -22,163 +23,150 @@ export interface IPractitionerBuilder
   extends IBuildable<Practitioner>,
     IDomainResourceBuilder<PractitionerBuilder>,
     IResourceBuilder<PractitionerBuilder> {
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): PractitionerBuilder;
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this;
 
-  addIdentifier(identifier: IIdentifier): PractitionerBuilder;
+  addIdentifier(identifier: IIdentifier): this;
 
-  addName(name: IHumanName): PractitionerBuilder;
+  addName(name: IHumanName): this;
 
-  addTelecom(telecom: IContactPoint): PractitionerBuilder;
+  addTelecom(telecom: IContactPoint): this;
 
-  addAddress(address: IAddress): PractitionerBuilder;
+  addAddress(address: IAddress): this;
 
-  addPhoto(photo: IAttachment): PractitionerBuilder;
+  addPhoto(photo: IAttachment): this;
 
-  addQualification(qualification: IPractitionerQualification): PractitionerBuilder;
+  addQualification(qualification: IPractitionerQualification): this;
 
-  addCommunication(communication: ICodeableConcept): PractitionerBuilder;
+  addCommunication(communication: ICodeableConcept): this;
 
-  setMultipleIdentifier(identifier: IIdentifier[]): PractitionerBuilder;
+  setMultipleIdentifier(identifier: IIdentifier[]): this;
 
-  setMultipleName(name: IHumanName[]): PractitionerBuilder;
+  setMultipleName(name: IHumanName[]): this;
 
-  setMultipleTelecom(telecom: IContactPoint[]): PractitionerBuilder;
+  setMultipleTelecom(telecom: IContactPoint[]): this;
 
-  setMultipleAddress(address: IAddress[]): PractitionerBuilder;
+  setMultipleAddress(address: IAddress[]): this;
 
-  setMultiplePhoto(photo: IAttachment[]): PractitionerBuilder;
+  setMultiplePhoto(photo: IAttachment[]): this;
 
-  setMultipleQualification(qualification: IPractitionerQualification[]): PractitionerBuilder;
+  setMultipleQualification(qualification: IPractitionerQualification[]): this;
 
-  setMultipleCommunication(communication: ICodeableConcept[]): PractitionerBuilder;
+  setMultipleCommunication(communication: ICodeableConcept[]): this;
 
-  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PractitionerBuilder;
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): this;
 
-  setActive(active: boolean): PractitionerBuilder;
+  setActive(active: boolean): this;
 
-  setBirthDate(birthDate: string): PractitionerBuilder;
+  setBirthDate(birthDate: string): this;
 }
 
 export class PractitionerBuilder extends DomainResourceBuilder<PractitionerBuilder> implements IPractitionerBuilder {
-  private readonly practitioner: Practitioner;
+  private readonly practitioner: IPractitioner;
 
   constructor() {
     super();
-    this.practitioner = new Practitioner();
+    this.practitioner = {} as IPractitioner;
   }
 
-  addParamExtension(param: ParamExtensionType, extension: IElement): PractitionerBuilder {
+  addParamExtension(param: ParamExtensionType, extension: IElement): this {
     this.practitioner[`_${param}`] = extension;
     return this;
   }
 
-  addIdentifier(identifier: IIdentifier): PractitionerBuilder {
+  addIdentifier(identifier: IIdentifier): this {
     this.practitioner.identifier = this.practitioner.identifier || [];
     this.practitioner.identifier.push(identifier);
     return this;
   }
 
-  addName(name: IHumanName): PractitionerBuilder {
+  addName(name: IHumanName): this {
     this.practitioner.name = this.practitioner.name || [];
     this.practitioner.name.push(name);
     return this;
   }
 
-  addTelecom(telecom: IContactPoint): PractitionerBuilder {
+  addTelecom(telecom: IContactPoint): this {
     this.practitioner.telecom = this.practitioner.telecom || [];
     this.practitioner.telecom.push(telecom);
     return this;
   }
 
-  addAddress(address: IAddress): PractitionerBuilder {
+  addAddress(address: IAddress): this {
     this.practitioner.address = this.practitioner.address || [];
     this.practitioner.address.push(address);
     return this;
   }
 
-  addPhoto(photo: IAttachment): PractitionerBuilder {
+  addPhoto(photo: IAttachment): this {
     this.practitioner.photo = this.practitioner.photo || [];
     this.practitioner.photo.push(photo);
     return this;
   }
 
-  addQualification(qualification: IPractitionerQualification): PractitionerBuilder {
-    if (qualification.issuer?.reference) {
-      validateReferenceHelper(qualification.issuer.reference, ['Organization']);
-    }
-
-    if (qualification.identifier) {
-      qualification.identifier.forEach((identifier) => {
-        if (identifier.assigner?.reference) {
-          validateReferenceHelper(identifier.assigner.reference, ['Organization']);
-        }
-      });
-    }
-
+  addQualification(qualification: IPractitionerQualification): this {
     this.practitioner.qualification = this.practitioner.qualification || [];
     this.practitioner.qualification.push(qualification);
     return this;
   }
 
-  addCommunication(communication: ICodeableConcept): PractitionerBuilder {
+  addCommunication(communication: ICodeableConcept): this {
     this.practitioner.communication = this.practitioner.communication || [];
     this.practitioner.communication.push(communication);
     return this;
   }
 
-  setMultipleIdentifier(identifier: IIdentifier[]): PractitionerBuilder {
+  setMultipleIdentifier(identifier: IIdentifier[]): this {
     this.practitioner.identifier = identifier;
     return this;
   }
 
-  setMultipleName(name: IHumanName[]): PractitionerBuilder {
+  setMultipleName(name: IHumanName[]): this {
     this.practitioner.name = name;
     return this;
   }
 
-  setMultipleTelecom(telecom: IContactPoint[]): PractitionerBuilder {
+  setMultipleTelecom(telecom: IContactPoint[]): this {
     this.practitioner.telecom = telecom;
     return this;
   }
 
-  setMultipleAddress(address: IAddress[]): PractitionerBuilder {
+  setMultipleAddress(address: IAddress[]): this {
     this.practitioner.address = address;
     return this;
   }
 
-  setMultiplePhoto(photo: IAttachment[]): PractitionerBuilder {
+  setMultiplePhoto(photo: IAttachment[]): this {
     this.practitioner.photo = photo;
     return this;
   }
 
-  setMultipleQualification(qualification: IPractitionerQualification[]): PractitionerBuilder {
+  setMultipleQualification(qualification: IPractitionerQualification[]): this {
     this.practitioner.qualification = qualification;
     return this;
   }
 
-  setMultipleCommunication(communication: ICodeableConcept[]): PractitionerBuilder {
+  setMultipleCommunication(communication: ICodeableConcept[]): this {
     this.practitioner.communication = communication;
     return this;
   }
 
-  setActive(active: boolean): PractitionerBuilder {
+  setActive(active: boolean): this {
     this.practitioner.active = active;
     return this;
   }
 
-  setBirthDate(birthDate: string): PractitionerBuilder {
+  setBirthDate(birthDate: string): this {
     this.practitioner.birthDate = birthDate;
     return this;
   }
 
-  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): PractitionerBuilder {
+  setGender(gender: AdministrativeGenderEnum | AdministrativeGenderType): this {
     this.practitioner.gender = gender;
-
     return this;
   }
 
   build(): Practitioner {
     Object.assign(this.practitioner, { ...super.entity() });
-    return this.practitioner.toJson();
+    return new Practitioner(this.practitioner).toJson();
   }
 }

@@ -1,7 +1,8 @@
 import { IRange } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 import { RangeBuilder } from '../../../src/r4/models/datatypes/RangeBuilder';
+import InvalidFieldException from '../../../src/globals/exceptions/InvalidFieldException';
+import { RangeValidator } from '../../../src/r4/models/datatypes/RangeValidator';
 
 describe('Range FHIR R4', () => {
   let builder: RangeBuilder;
@@ -17,81 +18,70 @@ describe('Range FHIR R4', () => {
     const item = new Range({
       id: 'test',
       low: {
+        system: 'test',
         code: 'test',
       },
       high: {
+        system: 'test',
         code: 'test',
       },
     });
 
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new range and validate with correct data [IRange]', async () => {
     const item: IRange = {
       id: 'test',
       low: {
+        system: 'test',
         code: 'test',
       },
       high: {
+        system: 'test',
         code: 'test',
       },
     };
 
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RangeValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new range and validate with wrong data', async () => {
     const item = {
       id: 'test',
       low: {
+        system: 'test',
         code: 'test',
       },
       high: {
+        system: 'test',
         code: 'test',
       },
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => RangeValidator(item)).toThrow(InvalidFieldException);
+    expect(() => RangeValidator(item)).toThrow("InvalidFieldException: field(s) 'test' is not a valid for Range");
   });
 
   it('should be able to create a new attachment using builder methods [new RangeBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const item = builder.setId('123').setLow({ code: 'code' }).setHigh({ code: 'code' }).build();
-
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    const item = builder
+      .setId('123')
+      .setLow({ code: 'code', system: 'system' })
+      .setHigh({ code: 'code', system: 'system' })
+      .build();
 
     expect(item).toBeDefined();
     expect(item).toEqual({
       high: {
         code: 'code',
+        system: 'system',
       },
       id: '123',
       low: {
         code: 'code',
+        system: 'system',
       },
     });
   });

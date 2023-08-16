@@ -1,9 +1,10 @@
 import { IElement } from '../base';
-import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
-import { ContactPointSystemType, ContactPointUseType } from '../../types';
-import { IPeriod } from './IPeriod';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../../enums';
+import { ContactPointSystemType, ContactPointUseType } from '../../../types';
+import IPeriod from './IPeriod';
 
 /**
+ * @summary FHIR R4
  * @description Details for all kinds of technology-mediated contact points for a person or organization, including telephone, email, etc.
  * @property {IPeriod} period - Time period when the contact point was/is in use
  * @property {number} rank - Specify preferred order of use (1 = highest)
@@ -14,11 +15,9 @@ import { IPeriod } from './IPeriod';
  * @property {IElement} _value - Extension of value element
  * @property {IElement} _use - Extension of use element
  * @property {IElement} _rank - Extension of rank element
- * @see https://www.hl7.org/fhir/datatypes.html#ContactPoint ContactPoint
+ * @see http://hl7.org/fhir/R4/datatypes.html#ContactPoint http://hl7.org/fhir/R4/datatypes.html#ContactPoint
  * @author Roberto Araneda
- *
- * @example ```json
- * JSON Template
+ * @example JSON Template
  * {
  *   // from Element: extension
  *   "system" : "<code>", // phone | fax | email | pager | url | sms | other
@@ -28,7 +27,7 @@ import { IPeriod } from './IPeriod';
  *   "period" : { Period } // Time period when the contact point was/is in use
  * }
  */
-export interface IContactPoint extends IElement {
+export default interface IContactPoint extends IElement {
   /**
    * @description phone | fax | email | pager | url | sms | other
    */

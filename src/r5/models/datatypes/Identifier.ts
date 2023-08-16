@@ -4,6 +4,7 @@ import { IdentifierUseEnum } from '../../enums';
 import { IdentifierUseType } from '../../types';
 import Element from '../base/Element';
 import IdentifierBuilder from './IdentifierBuilder';
+import { IdentifierValidator } from './IdentifierValidator';
 
 /**
  * @description An identifier intended for computation
@@ -93,8 +94,9 @@ export default class Identifier extends Element implements IIdentifier {
     return `Identifier${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IIdentifier) {
+  constructor(args: IIdentifier) {
     super();
+    IdentifierValidator(args);
     Object.assign(this, args);
   }
 }

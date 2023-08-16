@@ -1,11 +1,11 @@
 import { IElement } from '../base';
-import { ICoding } from './ICoding';
-import { IReference } from './IReference';
+import ICoding from './ICoding';
+import IReference from './IReference';
 
 export default interface ISignature extends IElement {
-  type: ICoding[];
-  when: string;
-  who: IReference;
+  type?: ICoding[];
+  when?: string;
+  who?: IReference;
   onBehalfOf?: IReference;
   targetFormat?: string;
   sigFormat?: string;

@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IBundleEntryResponse } from '../../../src/r5/interfaces/backbones';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 import { BundleEntryResponseBuilder } from '../../../src/r5/models/backbones/BundleEntryResponseBuilder';
+import { BundleEntryResponseValidator } from '../../../src/r5/models/backbones/BundleEntryResponseValidator';
 
 describe('BundleEntryResponse FHIR R5', () => {
   let builder: BundleEntryResponseBuilder;
@@ -20,9 +20,7 @@ describe('BundleEntryResponse FHIR R5', () => {
       etag: '123',
     });
 
-    const validate = await _validateBackbone(item, 'Bundle_Response');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new bundle_entry_response [IBundleEntryResponse]', async () => {
@@ -33,14 +31,13 @@ describe('BundleEntryResponse FHIR R5', () => {
       etag: '123',
     };
 
-    const validate = await _validateBackbone(item, 'Bundle_Response');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => BundleEntryResponseValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new bundle_entry_response using builder methods [new BundleEntryResponseBuilder()]', async () => {
     const item = builder.setId('123').setEtag('123').setLocation('http://example.com').setStatus('200').build();
+
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       id: '123',
@@ -53,23 +50,12 @@ describe('BundleEntryResponse FHIR R5', () => {
   it('should be get errors validators if new bundle_entry_response has wrong data', async () => {
     const item = {
       id: '123',
+      status: '200',
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Bundle_Response');
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => BundleEntryResponseValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for BundleEntryResponse",
+    );
   });
 });

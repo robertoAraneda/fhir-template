@@ -1,5 +1,5 @@
-import { EndpointStatusEnum } from '../../enums';
-import { EndpointStatusType } from '../../types';
+import { EndpointStatusEnum } from '../../../enums';
+import { EndpointStatusType } from '../../../types';
 import { ICodeableConcept, ICoding, IContactPoint, IIdentifier, IPeriod, IReference } from '../datatypes';
 import { IDomainResource, IElement } from '../base';
 
@@ -16,7 +16,7 @@ export interface IEndpoint extends IDomainResource {
    * active | suspended | error | off | test.
    * @summary Required field
    */
-  status: EndpointStatusEnum | EndpointStatusType;
+  status?: EndpointStatusEnum | EndpointStatusType;
 
   /**
    * Extension for status
@@ -68,7 +68,7 @@ export interface IEndpoint extends IDomainResource {
    * The technical base address for connecting to this endpoint.
    * @summary Required field
    */
-  address: string;
+  address?: string;
 
   /**
    * Extension for address

@@ -1,6 +1,7 @@
 import { IGroup } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import GroupBuilder from '../../../src/r5/models/resources/GroupBuilder';
+import { GroupValidator } from '../../../src/r5/models/resources/GroupValidator';
 
 describe('Group FHIR R5', () => {
   let builder: GroupBuilder;
@@ -28,7 +29,6 @@ describe('Group FHIR R5', () => {
         },
       ],
       type: 'animal',
-      actual: true,
       code: {
         text: 'Horse',
       },
@@ -55,10 +55,7 @@ describe('Group FHIR R5', () => {
         },
       ],
     };
-
-    const validate = await Validator.Group(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new group and validate with correct data [new Group()]', async () => {
@@ -71,7 +68,6 @@ describe('Group FHIR R5', () => {
         div: '<div xmlns="http://www.w3.org/1999/xhtml">\n      <p>Selected Patients</p>\n      <ul>\n        <li>Patient Donald DUCK @ Acme Healthcare, Inc. MR = 654321</li>\n        <li>Patient Donald D DUCK @ Acme Healthcare, Inc. MR = 123456</li>\n        <li>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</li>\n        <li>Patient Sandy Notsowell @ Acme Healthcare, Inc. MR = 123458, DECEASED</li>\n      </ul>\n    </div>',
       },
       type: 'person',
-      actual: true,
       member: [
         {
           entity: {
@@ -109,9 +105,7 @@ describe('Group FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.Group(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => GroupValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new group and validate with correct data [Group-example-patientlist.json]', async () => {
@@ -124,7 +118,6 @@ describe('Group FHIR R5', () => {
         div: '<div xmlns="http://www.w3.org/1999/xhtml">\n      <p>All patients primarily attributed to Practitioner 123</p>\n    </div>',
       },
       type: 'person',
-      actual: true,
       characteristic: [
         {
           code: {
@@ -143,11 +136,7 @@ describe('Group FHIR R5', () => {
         },
       ],
     };
-
-    const validate = await Validator.Group(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => GroupValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new group and validate with wrong data', async () => {
@@ -156,24 +145,16 @@ describe('Group FHIR R5', () => {
       id: 'xcda1',
       wrongProperty: 'wrong', // wrong property
     };
-    const validate = await Validator.Group(item);
 
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => GroupValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Group",
+    );
   });
 
   it('should be able to create a new group with builder methods [new GroupBuilder()]', async () => {
     const item = builder
       .setActive(true)
+      .setMembership('definitional')
       .setName('Name')
       .setType('animal')
       .addMember({
@@ -183,8 +164,11 @@ describe('Group FHIR R5', () => {
       })
       .build();
 
+    expect(item).toBeDefined();
+
     expect(item).toEqual({
       resourceType: 'Group',
+      membership: 'definitional',
       active: true,
       member: [
         {
@@ -196,9 +180,5 @@ describe('Group FHIR R5', () => {
       name: 'Name',
       type: 'animal',
     });
-
-    const validate = await Validator.Group(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

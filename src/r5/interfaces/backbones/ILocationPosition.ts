@@ -1,6 +1,6 @@
 import { IBackboneElement, IElement } from '../base';
 
-export interface ILocationPosition extends IBackboneElement {
+export default interface ILocationPosition extends IBackboneElement {
   longitude: number;
   latitude: number;
   altitude?: number;

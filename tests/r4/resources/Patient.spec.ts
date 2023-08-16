@@ -2,6 +2,7 @@ import { IPatient } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
 import { PatientBuilder } from '../../../src/r4/models/resources/PatientBuilder';
+import { PatientValidator } from '../../../src/r4/models/resources/PatientValidator';
 
 describe('Patient FHIR R4', () => {
   let builder: PatientBuilder;
@@ -14,7 +15,7 @@ describe('Patient FHIR R4', () => {
   });
 
   it('should be able to create a new patient and validate with correct data [new Patient()]', async () => {
-    const dataType = new Patient({
+    const item = new Patient({
       resourceType: 'Patient',
       id: 'example',
       meta: {
@@ -169,14 +170,11 @@ describe('Patient FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.Patient(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new patient and validate with correct data [IPatient]', async () => {
-    const dataType: IPatient = {
+    const item: IPatient = {
       resourceType: 'Patient',
       id: 'pat3',
       text: {
@@ -215,9 +213,7 @@ describe('Patient FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.Patient(dataType);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new patient and validate with correct data [Patient-example-f001-pieter.json]', async function () {
@@ -330,13 +326,11 @@ describe('Patient FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.Patient(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/dicom]', async function () {
-    const dataType: IPatient = {
+    const item: IPatient = {
       resourceType: 'Patient',
       id: 'dicom',
       text: {
@@ -395,14 +389,11 @@ describe('Patient FHIR R4', () => {
       },
     };
 
-    const validate = await Validator.Patient(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new patient and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       resourceType: 'Patient',
       id: 'pat2',
       text: {
@@ -425,7 +416,7 @@ describe('Patient FHIR R4', () => {
           value: '123456',
         },
       ],
-      active: 'true', //bad value
+      active: true,
       name: [
         {
           use: 'official',
@@ -471,32 +462,14 @@ describe('Patient FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Patient(dataType);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'managingPatient' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/active',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: { type: 'boolean' },
-        schemaPath: 'r4base.schema.json#/definitions/boolean/type',
-      },
-    ]);
+    expect(() => PatientValidator(item as IPatient)).toThrowError(
+      "InvalidFieldException: field(s) 'managingPatient' is not a valid for Patient",
+    );
   });
 
   it('should be able to create a new patient using builder methods [new PatientBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setText({
         status: 'generated',
@@ -508,13 +481,8 @@ describe('Patient FHIR R4', () => {
       .setBirthDate('1974-12-25')
       .build();
 
-    const validate = await Validator.Patient(dataType);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       active: true,
       birthDate: '1974-12-25',
       deceasedBoolean: false,

@@ -1,4 +1,4 @@
-import { IIdentifier } from '../datatypes';
+import { IIdentifier } from './index';
 import { IElement } from '../base';
 
 export interface IReference extends IElement {

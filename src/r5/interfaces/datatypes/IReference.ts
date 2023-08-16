@@ -1,11 +1,14 @@
 import { IIdentifier } from './index';
-import { IElement } from '../base/IElement';
+import { IElement } from '../base';
 
-export interface IReference extends IElement {
+export default interface IReference extends IElement {
+  // Reference attributes
   reference?: string;
-  display?: string;
-  identifier?: IIdentifier;
   type?: string;
+  identifier?: IIdentifier;
+  display?: string;
+
+  // Extensions
   _display?: IElement;
   _type?: IElement;
   _reference?: IElement;

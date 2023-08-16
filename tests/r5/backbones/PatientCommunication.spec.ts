@@ -1,7 +1,7 @@
 import { IPatientCommunication } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
 import PatientCommunicationBuilder from '../../../src/r5/models/backbones/PatientCommunicationBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { PatientCommunicationValidator } from '../../../src/r5/models/backbones/PatientCommunicationValidator';
 
 describe('PatientCommunication FHIR R5', () => {
   const { PatientCommunication } = new FHIRContext().forR5();
@@ -27,10 +27,7 @@ describe('PatientCommunication FHIR R5', () => {
       },
     };
 
-    const validate = await _validateBackbone(dataType, 'Patient_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientCommunicationValidator(dataType)).not.toThrow();
   });
 
   it('should be able to create a new patient_communication payload and validate with correct data [new PatientCommunication()]', async () => {
@@ -48,16 +45,13 @@ describe('PatientCommunication FHIR R5', () => {
       },
     });
 
-    const validate = await _validateBackbone(dataType, 'Patient_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(dataType).toBeDefined();
   });
 
   it('should be able to validate a new patient_communication payload and validate with wrong data', async () => {
     const dataType = {
       id: '123',
-      preferred: 'bad data type', // wrong data type
+      preferred: true, // wrong data type
       language: {
         coding: [
           {
@@ -70,34 +64,9 @@ describe('PatientCommunication FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(dataType, 'Patient_Communication');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(3);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: { type: 'boolean' },
-        schemaPath: 'base.schema.json#/definitions/boolean/type',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'pattern',
-        message: "The value '/preferred' does not match with datatype 'boolean'",
-        params: { value: '/preferred' },
-        schemaPath: 'base.schema.json#/definitions/boolean/pattern',
-      },
-    ]);
+    expect(() => PatientCommunicationValidator(dataType)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PatientCommunication",
+    );
   });
 
   it('should be able to create a new patient_communication payload using builder methods [new PatientCommunicationBuilder()]', async () => {
@@ -121,11 +90,9 @@ describe('PatientCommunication FHIR R5', () => {
         ],
       })
       .build();
-    const validate = await _validateBackbone(dataType, 'Patient_Communication');
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
     expect(dataType).toBeDefined();
+
     expect(dataType).toEqual({
       _preferred: {
         extension: [

@@ -1,4 +1,4 @@
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import {
   IAddress,
   IAttachment,
@@ -14,7 +14,7 @@ import {
 } from '../../interfaces/datatypes';
 import { Extension } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
+import { IElement } from '../../../r4/interfaces/base';
 
 type ParamExtensionType =
   | 'valueId'
@@ -40,8 +40,8 @@ type ParamExtensionType =
 
 type Build = { build: () => Extension };
 interface IExtensionBuilder extends IBuildable<Extension>, IElementBuilder<ExtensionBuilder> {
-  addParamExtension<T extends ParamExtensionType>(param: ParamExtensionType, extension: IExtension): Build;
-  setUrl(url: string): ExtensionBuilder;
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): Build;
+  setUrl(url: string): this;
   setValueId(valueId: string): Build;
   setValueAddress(valueAddress: IAddress): Build;
   setValueAttachment(valueAttachment: IAttachment): Build;
@@ -75,21 +75,21 @@ interface IExtensionBuilder extends IBuildable<Extension>, IElementBuilder<Exten
 }
 
 export default class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
-  private readonly extension: Extension;
+  private readonly extension: IExtension;
 
   constructor() {
     super();
-    this.extension = new Extension();
+    this.extension = {} as IExtension;
   }
 
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IExtension): Build {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): Build {
     this.extension[`_${param}`] = extension;
     return {
       build: this.build.bind(this),
     };
   }
 
-  setUrl(url: string): ExtensionBuilder {
+  setUrl(url: string): this {
     this.extension.url = url;
     return this;
   }
@@ -306,6 +306,6 @@ export default class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> i
 
   build(): Extension {
     Object.assign(this.extension, { ...super.entity() });
-    return this.extension.toJson();
+    return new Extension(this.extension).toJson();
   }
 }

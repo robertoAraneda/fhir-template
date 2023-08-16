@@ -1,6 +1,7 @@
 import { IPractitionerRole } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import PractitionerRoleBuilder from '../../../src/r5/models/resources/PractitionerRoleBuilder';
+import { PractitionerRoleValidator } from '../../../src/r5/models/resources/PractitionerRoleValidator';
 
 describe('PractitionerRole FHIR R5', () => {
   let builder: PractitionerRoleBuilder;
@@ -155,13 +156,10 @@ describe('PractitionerRole FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.PractitionerRole(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerRoleValidator(item)).not.toThrow();
   });
 
-  it('should be able to validate a new contact point and validate with wrong data [Example PractitionerRole/3ad0687e-f477-468c-afd5-fcc2bf897808]', async () => {
+  it('should be able to validate a new practitioner role  [Example PractitionerRole/3ad0687e-f477-468c-afd5-fcc2bf897808]', async () => {
     const item = new PractitionerRole({
       resourceType: 'PractitionerRole',
       id: 'f007-0',
@@ -201,13 +199,56 @@ describe('PractitionerRole FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.PractitionerRole(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerRoleValidator(item)).not.toThrowError();
   });
 
-  it('should be able to create a new contact point using builder methods [new PractitionerRoleBuilder()]', async () => {
+  it('should be able to validate a new practitioner role  with wrong data', async () => {
+    const item = {
+      resourceType: 'PractitionerRole',
+      wrongProperty: 'wrong',
+      id: 'f007-0',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">Generated</div>',
+      },
+      practitioner: {
+        reference: 'Practitioner/f007',
+        display: 'Simone Heps',
+      },
+      organization: {
+        reference: 'Organization/f001',
+        display: 'BMC',
+      },
+      code: [
+        {
+          coding: [
+            {
+              system: 'http://snomed.info/sct',
+              code: '59058001',
+              display: 'General physician',
+            },
+          ],
+        },
+      ],
+      specialty: [
+        {
+          coding: [
+            {
+              system: 'http://snomed.info/sct',
+              code: '394814009',
+              display: 'General practice',
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(() => PractitionerRoleValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PractitionerRole",
+    );
+  });
+
+  it('should be able to create a new practitioner role using builder methods [new PractitionerRoleBuilder()]', async () => {
     // build() is a method that returns the object that was built
     const item = builder
       .addCode({
@@ -260,10 +301,5 @@ describe('PractitionerRole FHIR R5', () => {
       ],
       resourceType: 'PractitionerRole',
     });
-
-    const validate = await Validator.PractitionerRole(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

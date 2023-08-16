@@ -1,8 +1,8 @@
 import { ICoding, IMeta } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import ExtensionBuilder from './ExtensionBuilder';
 import MetaBuilder from './MetaBuilder';
+import { MetaValidator } from './MetaValidator';
 
 export default class Meta extends Element implements IMeta {
   // Meta Properties
@@ -34,8 +34,9 @@ export default class Meta extends Element implements IMeta {
     return `Meta${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IMeta) {
+  constructor(args: IMeta) {
     super();
+    MetaValidator(args);
     Object.assign(this, args);
   }
 }

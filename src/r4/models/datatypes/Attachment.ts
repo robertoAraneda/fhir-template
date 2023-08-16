@@ -1,7 +1,8 @@
 import { IAttachment } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { AttachmentBuilder, IAttachmentBuilder } from './AttachmentBuilder';
+import { AttachmentBuilder } from './AttachmentBuilder';
+import { AttachmentValidator } from './AttachmentValidator';
 
 /**
  * @example ```json
@@ -32,24 +33,14 @@ export default class Attachment extends Element implements IAttachment {
   hash?: string;
   title?: string;
   creation?: string;
-  height?: number;
-  width?: number;
-  frames?: number;
-  duration?: number;
-  pages?: number;
   _contentType?: IElement;
   _creation?: IElement;
   _data?: IElement;
-  _duration?: IElement;
-  _frames?: IElement;
   _hash?: IElement;
-  _height?: IElement;
   _language?: IElement;
-  _pages?: IElement;
   _size?: IElement;
   _title?: IElement;
   _url?: IElement;
-  _width?: IElement;
 
   toJson(): Attachment {
     return JSON.parse(JSON.stringify(this));
@@ -67,8 +58,9 @@ export default class Attachment extends Element implements IAttachment {
     return new AttachmentBuilder();
   }
 
-  constructor(args?: IAttachment) {
+  constructor(args: IAttachment) {
     super();
+    AttachmentValidator(args);
     Object.assign(this, args);
   }
 }

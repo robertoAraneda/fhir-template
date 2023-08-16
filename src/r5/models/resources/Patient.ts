@@ -14,6 +14,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import PatientBuilder from './PatientBuilder';
+import { PatientValidator } from './PatientValidator';
 
 export default class Patient extends DomainResource implements IPatient {
   active?: boolean;
@@ -59,8 +60,9 @@ export default class Patient extends DomainResource implements IPatient {
     return `Patient${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPatient) {
+  constructor(args: IPatient) {
     super();
+    PatientValidator(args);
     Object.assign(this, args);
   }
 }

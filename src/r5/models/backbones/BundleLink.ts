@@ -2,10 +2,13 @@ import { IBundleLink } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import { BundleLinkBuilder } from './BundleLinkBuilder';
+import BundleLinkRelationEnum from '../../enums/BundleLinkRelationEnum';
+import BundleLinkRelationType from '../../types/BundleLinkRelationType';
+import { BundleLinkValidator } from './BundleLinkValidator';
 
 export default class BundleLink extends BackboneElement implements IBundleLink {
   // BundleLink attributes
-  relation: string;
+  relation: BundleLinkRelationEnum | BundleLinkRelationType;
   url: string;
 
   // Extensions of bundle link attributes
@@ -28,8 +31,9 @@ export default class BundleLink extends BackboneElement implements IBundleLink {
     return new BundleLinkBuilder();
   }
 
-  constructor(args?: IBundleLink) {
+  constructor(args: IBundleLink) {
     super();
+    BundleLinkValidator(args);
     Object.assign(this, args);
   }
 }

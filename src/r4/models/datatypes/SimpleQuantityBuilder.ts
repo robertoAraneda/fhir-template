@@ -2,32 +2,33 @@ import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { IBuildable } from '../../../globals/interfaces';
 import SimpleQuantity from './SimpleQuantity';
+import { ISimpleQuantity } from '../../interfaces/datatypes';
 
 type ParamExtensionType = 'value' | 'code' | 'system' | 'unit';
 
 export interface ISimpleQuantityBuilder extends IBuildable<SimpleQuantity>, IElementBuilder<SimpleQuantityBuilder> {
-  setParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): SimpleQuantityBuilder;
+  setParamExtension<T extends ParamExtensionType>(param: T, element: IElement): this;
 
-  setCode(code: string): SimpleQuantityBuilder;
+  setCode(code: string): this;
 
-  setSystem(system: string): SimpleQuantityBuilder;
+  setSystem(system: string): this;
 
-  setUnit(unit: string): SimpleQuantityBuilder;
+  setUnit(unit: string): this;
 
-  setValue(value: number): SimpleQuantityBuilder;
+  setValue(value: number): this;
 }
 
 export class SimpleQuantityBuilder extends ElementBuilder<SimpleQuantityBuilder> implements ISimpleQuantityBuilder {
-  private readonly simpleQuantity: SimpleQuantity;
+  private readonly simpleQuantity: ISimpleQuantity;
 
   constructor() {
     super();
-    this.simpleQuantity = new SimpleQuantity();
+    this.simpleQuantity = {} as ISimpleQuantity;
   }
 
   build(): SimpleQuantity {
     Object.assign(this.simpleQuantity, { ...super.entity() });
-    return this.simpleQuantity.toJson();
+    return new SimpleQuantity(this.simpleQuantity).toJson();
   }
 
   setCode(code: string): this {
@@ -35,8 +36,8 @@ export class SimpleQuantityBuilder extends ElementBuilder<SimpleQuantityBuilder>
     return this;
   }
 
-  setParamExtension(param: ParamExtensionType, extension: IElement): this {
-    this.simpleQuantity[`_${param}`] = extension;
+  setParamExtension(param: ParamExtensionType, element: IElement): this {
+    this.simpleQuantity[`_${param}`] = element;
     return this;
   }
 

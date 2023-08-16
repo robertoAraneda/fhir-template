@@ -11,11 +11,14 @@ import {
   IMeta,
   IPeriod,
   IQuantity,
+  IRange,
   IReference,
+  ISignature,
 } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
 import { ExtensionBuilder } from './ExtensionBuilder';
+import { extensionAttributes, ExtensionValidator } from './ExtensionValidator';
 
 export default class Extension extends Element implements IExtension {
   url: string;
@@ -51,6 +54,8 @@ export default class Extension extends Element implements IExtension {
   valueHumanName?: IHumanName;
   valueMeta?: IMeta;
   valueReference?: IReference;
+  valueRange?: IRange;
+  valueSignature?: ISignature;
 
   // Extensions for url
   _url?: IElement;
@@ -90,8 +95,13 @@ export default class Extension extends Element implements IExtension {
     return new ExtensionBuilder();
   }
 
-  constructor(args?: IExtension) {
+  static getAttributes(): readonly string[] {
+    return extensionAttributes;
+  }
+
+  constructor(args: IExtension) {
     super();
+    ExtensionValidator(args);
     Object.assign(this, args);
   }
 }

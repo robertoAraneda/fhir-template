@@ -29,12 +29,12 @@ export interface IMetaBuilder extends IBuildable<Meta>, IElementBuilder<MetaBuil
 }
 
 export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBuilder {
-  private readonly meta: Meta;
+  private readonly meta: IMeta;
 
   constructor() {
     super();
 
-    this.meta = new Meta();
+    this.meta = {} as IMeta;
   }
 
   addParamExtension<T extends ParamsExtensionType>(param: T, extension: IElement): MetaBuilder {
@@ -93,6 +93,6 @@ export class MetaBuilder extends ElementBuilder<MetaBuilder> implements IMetaBui
 
   build(): Meta {
     Object.assign(this.meta, { ...super.entity() });
-    return this.meta.toJson();
+    return new Meta(this.meta).toJson();
   }
 }

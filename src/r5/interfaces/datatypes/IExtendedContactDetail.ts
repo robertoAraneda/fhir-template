@@ -1,10 +1,10 @@
-import { IPeriod } from './IPeriod';
-import { IReference } from './IReference';
-import { IAddress } from './IAddress';
-import { IContactPoint } from './IContactPoint';
-import { IHumanName } from './IHumanName';
-import { IElement } from '../base/IElement';
-import { ICodeableConcept } from './ICodeableConcept';
+import { IElement } from '../base';
+import ICodeableConcept from './ICodeableConcept';
+import IHumanName from './IHumanName';
+import IContactPoint from './IContactPoint';
+import IAddress from './IAddress';
+import IReference from './IReference';
+import IPeriod from './IPeriod';
 
 /**
  * @description Contact information
@@ -28,7 +28,7 @@ import { ICodeableConcept } from './ICodeableConcept';
  * }
  * ```
  */
-export interface IExtendedContactDetail extends IElement {
+export default interface IExtendedContactDetail extends IElement {
   /**
    * @description The type of contact icon
    */

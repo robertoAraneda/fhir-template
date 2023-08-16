@@ -18,6 +18,7 @@ import { LocationModeType, LocationStatusType } from '../../types';
 import { ILocationPosition } from '../../interfaces/backbones';
 import DomainResource from '../base/DomainResource';
 import LocationBuilder from './LocationBuilder';
+import { LocationValidator } from './LocationValidator';
 
 export default class Location extends DomainResource implements ILocation {
   // Resource Attributes
@@ -60,15 +61,16 @@ export default class Location extends DomainResource implements ILocation {
   }
 
   toString(): string {
-    return `Group${JSON.stringify(this.toJson())}`;
+    return `Location${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return `Group${JSON.stringify(this.toJson(), null, 2)}`;
+    return `Location${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: ILocation) {
+  constructor(args: ILocation) {
     super();
+    LocationValidator(args);
     Object.assign(this, args);
   }
 }

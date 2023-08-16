@@ -2,6 +2,7 @@ import FHIRContext from '../../../src';
 import { IPeriod } from '../../../src/r5/interfaces/datatypes';
 import PeriodBuilder from '../../../src/r5/models/datatypes/PeriodBuilder';
 import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { PeriodValidator } from '../../../src/r5/models/datatypes/PeriodValidator';
 
 describe('Period FHIR R5', () => {
   let builder: PeriodBuilder;
@@ -18,10 +19,7 @@ describe('Period FHIR R5', () => {
       end: '2020-01-02',
     };
 
-    const validate = await _validateDataType(item, 'Period');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PeriodValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new attachment and validate with correct data [new Period]', async function () {

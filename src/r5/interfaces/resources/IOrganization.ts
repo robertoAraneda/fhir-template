@@ -10,7 +10,7 @@ import { IOrganizationQualification } from '../backbones';
  * @export IOrganization
  * @extends {IDomainResource} IDomainResource
  */
-export interface IOrganization extends IDomainResource {
+export default interface IOrganization extends IDomainResource {
   resourceType: 'Organization';
   /**
    * @description Identifies this organization  across multiple systems

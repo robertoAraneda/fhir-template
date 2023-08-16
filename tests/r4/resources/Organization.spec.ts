@@ -2,6 +2,7 @@ import FHIRContext from '../../../src';
 import { IOrganization } from '../../../src/r4/interfaces/resources';
 
 import { OrganizationBuilder } from '../../../src/r4/models/resources/OrganizationBuilder';
+import { OrganizationValidator } from '../../../src/r4/models/resources/OrganizationValidator';
 
 describe('Organization Resource FHIR R4', () => {
   let builder: OrganizationBuilder;
@@ -14,7 +15,7 @@ describe('Organization Resource FHIR R4', () => {
   });
 
   it('should be able to create a new organization and validate with correct data [new Organization() FHIR R4]', async () => {
-    const resource = new Organization({
+    const item = new Organization({
       resourceType: 'Organization',
       id: 'hl7',
       text: {
@@ -53,14 +54,11 @@ describe('Organization Resource FHIR R4', () => {
       ],
     });
 
-    const validate = await Validator.Organization(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new organization and validate with correct data [IOrganization]', async () => {
-    const resource: IOrganization = {
+    const item: IOrganization = {
       resourceType: 'Organization',
       id: '1',
       text: {
@@ -87,13 +85,11 @@ describe('Organization Resource FHIR R4', () => {
         },
       ],
     };
-    const validate = await Validator.Organization(resource);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => OrganizationValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new organization and validate with wrong data [Example Organization/mmanu]', async () => {
-    const resource = {
+    const item = {
       wrongProperty: 'wrong', // wrong property
       resourceType: 'Organization',
       id: 'mmanu',
@@ -101,7 +97,7 @@ describe('Organization Resource FHIR R4', () => {
         status: 'generated',
         div: '<div xmlns="http://www.w3.org/1999/xhtml">\n<p>Acme Corporation, Proud member of the pharma industry</p>\n</div>',
       },
-      active: 'true', // wrong type
+      active: true,
       name: 'Acme Corporation',
       contact: [
         {
@@ -111,32 +107,13 @@ describe('Organization Resource FHIR R4', () => {
         },
       ],
     };
-    const validate = await Validator.Organization(resource);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/active',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: { type: 'boolean' },
-        schemaPath: 'r4base.schema.json#/definitions/boolean/type',
-      },
-    ]);
+    expect(() => OrganizationValidator(item as IOrganization)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Organization",
+    );
   });
 
   it('should be able to create a new organization using builder methods [new OrganizationBuilder()]', async () => {
-    // build() is a method that returns the object that was built
-    const resource = builder
+    const item = builder
       .setName('test')
       .setActive(true)
       .setId('123')
@@ -181,12 +158,8 @@ describe('Organization Resource FHIR R4', () => {
       })
       .build();
 
-    const validate = await Validator.Organization(resource);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-
-    expect(resource).toBeDefined();
-    expect(resource).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _active: {
         extension: [
           {

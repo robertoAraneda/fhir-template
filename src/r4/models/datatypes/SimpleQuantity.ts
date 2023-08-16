@@ -1,7 +1,8 @@
 import { ISimpleQuantity } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { ISimpleQuantityBuilder, SimpleQuantityBuilder } from './SimpleQuantityBuilder';
+import { SimpleQuantityBuilder } from './SimpleQuantityBuilder';
+import { SimpleQuantityValidator } from './SimpleQuantityValidator';
 
 export default class SimpleQuantity extends Element implements ISimpleQuantity {
   // SimpleQuantity attributes
@@ -31,8 +32,9 @@ export default class SimpleQuantity extends Element implements ISimpleQuantity {
   static builder(): SimpleQuantityBuilder {
     return new SimpleQuantityBuilder();
   }
-  constructor(args?: ISimpleQuantity) {
+  constructor(args: ISimpleQuantity) {
     super();
+    SimpleQuantityValidator(args);
     Object.assign(this, args);
   }
 }

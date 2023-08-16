@@ -1,8 +1,8 @@
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElement } from '../../interfaces/base';
 import { SimpleQuantity } from './index';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
+import { ISimpleQuantity } from '../../interfaces/datatypes';
 
 type ParamExtensionType = 'value' | 'code' | 'system' | 'unit';
 
@@ -17,15 +17,16 @@ export default class SimpleQuantityBuilder
   extends ElementBuilder<SimpleQuantityBuilder>
   implements ISimpleQuantityBuilder
 {
-  private readonly simpleQuantity: SimpleQuantity;
+  private readonly simpleQuantity: ISimpleQuantity;
+
   constructor() {
     super();
-    this.simpleQuantity = new SimpleQuantity();
+    this.simpleQuantity = {} as ISimpleQuantity;
   }
 
   build(): SimpleQuantity {
     Object.assign(this.simpleQuantity, { ...super.entity() });
-    return this.simpleQuantity.toJson();
+    return new SimpleQuantity(this.simpleQuantity).toJson();
   }
 
   setCode(code: string): this {

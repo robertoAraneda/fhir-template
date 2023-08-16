@@ -1,8 +1,9 @@
 import { IQuantity } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { QuantityComparatorEnum } from '../../../src/r4/enums';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
+import { QuantityComparatorEnum } from '../../../src/enums';
 import { QuantityBuilder } from '../../../src/r4/models/datatypes/QuantityBuilder';
+import InvalidFieldException from '../../../src/globals/exceptions/InvalidFieldException';
+import { QuantityValidator } from '../../../src/r4/models/datatypes/QuantityValidator';
 
 describe('Quantity FHIR R4', () => {
   let builder: QuantityBuilder;
@@ -22,10 +23,7 @@ describe('Quantity FHIR R4', () => {
       value: 1,
     });
 
-    const validate = await _validateDataType(item, 'Quantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new quantity and validate with correct data [IQuantity]', async () => {
@@ -37,13 +35,10 @@ describe('Quantity FHIR R4', () => {
       value: 1,
     };
 
-    const validate = await _validateDataType(item, 'Quantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => QuantityValidator(item)).not.toThrow();
   });
 
-  it('should be able to validate a new quantity and validate with wrong data', async () => {
+  it('should be validate: Extra property should throw an InvalidFieldException', async () => {
     const item = {
       code: 'test',
       comparator: QuantityComparatorEnum.GREATER_OR_EQUAL,
@@ -53,20 +48,10 @@ describe('Quantity FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Quantity');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => QuantityValidator(item)).toThrow(InvalidFieldException);
+    expect(() => QuantityValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for Quantity",
+    );
   });
 
   it('should be able to create a new attachment using builder methods [new QuantityBuilder()]', async () => {
@@ -76,11 +61,6 @@ describe('Quantity FHIR R4', () => {
       .setComparator(QuantityComparatorEnum.GREATER_OR_EQUAL)
       .setSystem('test')
       .build();
-
-    const validate = await _validateDataType(item, 'Quantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

@@ -1,9 +1,10 @@
 import { IQuantity } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { QuantityComparatorEnum } from '../../enums';
-import { QuantityComparatorType } from '../../types';
+import { QuantityComparatorEnum } from '../../../enums';
+import { QuantityComparatorType } from '../../../types';
 import Element from '../base/Element';
-import { IQuantityBuilder, QuantityBuilder } from './QuantityBuilder';
+import { QuantityBuilder } from './QuantityBuilder';
+import { QuantityValidator } from './QuantityValidator';
 
 export default class Quantity extends Element implements IQuantity {
   // Quantity Properties
@@ -36,8 +37,9 @@ export default class Quantity extends Element implements IQuantity {
     return new QuantityBuilder();
   }
 
-  constructor(args?: IQuantity) {
+  constructor(args: IQuantity) {
     super();
+    QuantityValidator(args);
     Object.assign(this, args);
   }
 }

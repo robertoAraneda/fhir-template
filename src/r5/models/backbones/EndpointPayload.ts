@@ -3,6 +3,7 @@ import { ICodeableConcept } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import EndpointPayloadBuilder from './EndpointPayloadBuilder';
+import { EndpointPayloadValidator } from './EndpointPayloadValidator';
 
 export default class EndpointPayload extends BackboneElement implements IEndpointPayload {
   mimeType?: string[];
@@ -25,8 +26,9 @@ export default class EndpointPayload extends BackboneElement implements IEndpoin
     return `EndpointPayload${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IEndpointPayload) {
+  constructor(args: IEndpointPayload) {
     super();
+    EndpointPayloadValidator(args);
     Object.assign(this, args);
   }
 }

@@ -20,7 +20,11 @@ import {
   Reference,
   SimpleQuantity,
   Signature,
-} from '../r5/models/datatypes';
+  NotAvailableTime,
+  AvailableTime,
+  RelatedArtifact,
+} from './models/datatypes';
+
 import {
   Bundle,
   Endpoint,
@@ -32,7 +36,8 @@ import {
   Practitioner,
   PractitionerRole,
   RelatedPerson,
-} from '../r5/models/resources';
+} from './models/resources';
+
 import {
   BundleLink,
   BundleEntrySearch,
@@ -52,7 +57,10 @@ import {
   PractitionerCommunication,
   RelatedPersonCommunication,
   OrganizationQualification,
-} from '../r5/models/backbones';
+  CompositionAttester,
+  CompositionEvent,
+  CompositionSection,
+} from './models/backbones';
 
 export class FhirContextR5 {
   getInstances() {
@@ -77,12 +85,18 @@ export class FhirContextR5 {
       SimpleQuantity,
       Signature,
       VirtualServiceDetail,
+      NotAvailableTime,
+      AvailableTime,
+      RelatedArtifact,
       Bundle,
       BundleEntry,
       BundleEntryRequest,
       BundleEntryResponse,
       BundleEntrySearch,
       BundleLink,
+      CompositionAttester,
+      CompositionEvent,
+      CompositionSection,
       Endpoint,
       EndpointPayload,
       Group,

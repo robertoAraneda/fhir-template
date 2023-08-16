@@ -12,7 +12,7 @@ import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
 import BundleEntry from './BundleEntry';
 
-export interface IBundleEntryBuilder
+interface IBundleEntryBuilder
   extends IBuildable<BundleEntry>,
     IBackboneElementBuilder<BundleEntryBuilder>,
     IElementBuilder<BundleEntryBuilder> {
@@ -37,11 +37,11 @@ export interface IBundleEntryBuilder
 }
 
 export class BundleEntryBuilder extends BackboneElementBuilder<BundleEntryBuilder> implements IBundleEntryBuilder {
-  private readonly bundleEntry: BundleEntry;
+  private readonly bundleEntry: IBundleEntry;
 
   constructor() {
     super();
-    this.bundleEntry = new BundleEntry();
+    this.bundleEntry = {} as IBundleEntry;
   }
 
   addLink(link: IBundleLink): BundleEntryBuilder {
@@ -57,7 +57,7 @@ export class BundleEntryBuilder extends BackboneElementBuilder<BundleEntryBuilde
 
   build(): BundleEntry {
     Object.assign(this.bundleEntry, { ...super.entity() });
-    return this.bundleEntry.toJson();
+    return new BundleEntry(this.bundleEntry).toJson();
   }
 
   setFullUrl(fullUrl: string): BundleEntryBuilder {

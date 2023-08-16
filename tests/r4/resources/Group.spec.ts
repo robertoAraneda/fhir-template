@@ -1,6 +1,7 @@
 import { IGroup } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 import { GroupBuilder } from '../../../src/r4/models/resources/GroupBuilder';
+import { GroupValidator } from '../../../src/r4/models/resources/GroupValidator';
 
 describe('Group FHIR R4', () => {
   let builder: GroupBuilder;
@@ -56,10 +57,7 @@ describe('Group FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Group(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => GroupValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new group and validate with correct data [new Group()]', async () => {
@@ -109,10 +107,7 @@ describe('Group FHIR R4', () => {
       ],
     });
 
-    const validate = await Validator.Group(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new group and validate with correct data [Group-example-patientlist.json]', async () => {
@@ -144,31 +139,45 @@ describe('Group FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Group(item);
+    expect(() => GroupValidator(item)).not.toThrow();
+  });
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+  it('should throw an error if group actual is true and have members', async () => {
+    const item: IGroup = {
+      resourceType: 'Group',
+      id: 'example-patientlist',
+      text: {
+        status: 'additional',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n      <p>All patients primarily attributed to Practitioner 123</p>\n    </div>',
+      },
+      type: 'person',
+      actual: true,
+      member: [
+        {
+          entity: {
+            reference: 'Patient/pat1',
+          },
+        },
+      ],
+    };
+
+    expect(() => GroupValidator(item)).toThrow(
+      'Invalid Resource: Group: Can only have members if group is "actual" (grp-1)',
+    );
   });
 
   it('should be able to create a new group and validate with wrong data', async () => {
     const item = {
       resourceType: 'Group',
       id: 'xcda1',
+      type: 'animal',
+      actual: true,
       wrongProperty: 'wrong', // wrong property
     };
-    const validate = await Validator.Group(item);
 
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => GroupValidator(item as IGroup)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Group",
+    );
   });
 
   it('should be able to create a new group with builder methods [new GroupBuilder()]', async () => {
@@ -183,10 +192,7 @@ describe('Group FHIR R4', () => {
       })
       .build();
 
-    const validate = await Validator.Group(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       resourceType: 'Group',

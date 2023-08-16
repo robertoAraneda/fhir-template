@@ -1,7 +1,8 @@
 import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { IReferenceBuilder, ReferenceBuilder } from './ReferenceBuilder';
+import { ReferenceBuilder } from './ReferenceBuilder';
+import { ReferenceValidator } from './ReferenceValidator';
 
 export default class Reference extends Element implements IReference {
   // Reference attributes
@@ -31,8 +32,9 @@ export default class Reference extends Element implements IReference {
     return new ReferenceBuilder();
   }
 
-  constructor(args?: IReference) {
+  constructor(args: IReference) {
     super();
+    ReferenceValidator(args);
     Object.assign(this, args);
   }
 }

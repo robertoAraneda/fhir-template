@@ -11,10 +11,11 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../enums';
-import { AdministrativeGenderType } from '../../types';
+import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderType } from '../../../types';
 import DomainResource from '../base/DomainResource';
-import { IRelatedPersonBuilder, RelatedPersonBuilder } from './RelatedPersonBuilder';
+import { RelatedPersonBuilder } from './RelatedPersonBuilder';
+import { RelatedPersonValidator } from './RelatedPersonValidator';
 
 export default class RelatedPerson extends DomainResource implements IRelatedPerson {
   resourceType = 'RelatedPerson' as const;
@@ -53,8 +54,9 @@ export default class RelatedPerson extends DomainResource implements IRelatedPer
     return new RelatedPersonBuilder();
   }
 
-  constructor(args?: IRelatedPerson) {
+  constructor(args: IRelatedPerson) {
     super();
+    RelatedPersonValidator(args);
     Object.assign(this, args);
   }
 }

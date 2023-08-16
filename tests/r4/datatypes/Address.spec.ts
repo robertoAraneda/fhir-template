@@ -1,8 +1,9 @@
 import FHIRContext from '../../../src';
-import { AddressTypeEnum } from '../../../src/r4/enums';
+import { AddressTypeEnum } from '../../../src/enums';
 import { IAddress } from '../../../src/r4/interfaces/datatypes';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 import { AddressBuilder } from '../../../src/r4/models/datatypes/AddressBuilder';
+
+import { AddressValidator } from '../../../src/r4/models/datatypes/AddressValidator';
 
 describe('Address FHIR R4', () => {
   let builder: AddressBuilder;
@@ -13,7 +14,7 @@ describe('Address FHIR R4', () => {
     builder = Address.builder();
   });
 
-  it('should be able to validate a new address [new Address()]', async () => {
+  it('should be able create a new address [new Address()]', async () => {
     const item = new Address({
       id: '123',
       type: AddressTypeEnum.BOTH,
@@ -23,9 +24,7 @@ describe('Address FHIR R4', () => {
       country: 'USA',
     });
 
-    const validate = await _validateDataType(item, 'Address');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new address [IAddress]', async () => {
@@ -36,11 +35,49 @@ describe('Address FHIR R4', () => {
       city: 'Anytown',
       line: ['123 Main St'],
       country: 'USA',
+      _city: {
+        extension: [
+          {
+            id: 'city',
+            url: 'city',
+            valueDateTime: '2021-01-01',
+          },
+        ],
+      },
     };
 
-    const validate = await _validateDataType(item, 'Address');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => AddressValidator(item)).not.toThrow();
+  });
+
+  it('should be able to validate multiple address', async () => {
+    const item = {
+      id: '123',
+      type: AddressTypeEnum.BOTH,
+      use: 'old',
+      city: 'Anytown',
+      line: ['123 Main St'],
+      country: 'USA',
+    };
+
+    const item2: IAddress = {
+      id: '123',
+      type: AddressTypeEnum.BOTH,
+      use: 'old',
+      city: 'Anytown',
+      line: ['123 Main St'],
+      country: 'USA',
+    };
+
+    const item3: IAddress = {
+      id: '123',
+      type: AddressTypeEnum.BOTH,
+      use: 'old',
+      city: 'Anytown',
+      line: ['123 Main St'],
+      country: 'USA',
+    };
+
+    expect(() => AddressValidator([item as IAddress, item2, item3])).not.toThrow();
   });
 
   it('should be able to create a new address using builder methods [new Address()]', async () => {
@@ -59,10 +96,6 @@ describe('Address FHIR R4', () => {
         ],
       })
       .build();
-
-    const validate = await _validateDataType(item, 'Address');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toEqual({
       _district: {
@@ -84,24 +117,29 @@ describe('Address FHIR R4', () => {
   it('should be get errors validators if new address has wrong data', async () => {
     const item = {
       id: '123',
-      wrongProperty: 'wrong',
+      period: {
+        start: '2021-01-01',
+      },
+      _use: {
+        extension: [
+          {
+            url: 'use',
+            valueDateTime: '2021-01-02',
+          },
+          {
+            url: 'use',
+            valueDateTime: '2021-01-02',
+          },
+          {
+            url: 'use',
+            valueDateTime: '2021-01-0',
+          },
+        ],
+      },
     };
 
-    const validate = await _validateDataType(item, 'Address');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => AddressValidator(item as IAddress)).toThrowError(
+      'Invalid dateTime: 2021-01-0 at path: Address._use.extension[2].valueDateTime',
+    );
   });
 });

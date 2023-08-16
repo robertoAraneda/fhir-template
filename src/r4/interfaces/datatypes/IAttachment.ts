@@ -10,11 +10,6 @@ import { IElement } from '../base';
  * @property {string} hash - Hash of the data (sha-1, base64ed)
  * @property {string} title - Label to display in place of the data
  * @property {string} creation - Date attachment was first created
- * @property {number} height - Height of the image in pixels (photo/video)
- * @property {number} width - Width of the image in pixels (photo/video)
- * @property {number} frames - Number of frames if > 1 (photo)
- * @property {number} duration - Length in seconds (audio / video)
- * @property {number} pages - Number of pages (document)
  * @property {IElement} _contentType - Extensions for contentType
  * @property {IElement} _language - Extensions for language
  * @property {IElement} _data - Extensions for data
@@ -23,11 +18,6 @@ import { IElement } from '../base';
  * @property {IElement} _hash - Extensions for hash
  * @property {IElement} _title - Extensions for title
  * @property {IElement} _creation - Extensions for creation
- * @property {IElement} _height - Extensions for height
- * @property {IElement} _width - Extensions for width
- * @property {IElement} _frames - Extensions for frames
- * @property {IElement} _duration - Extensions for duration
- * @property {IElement} _pages - Extensions for pages
  * @see http://hl7.org/fhir/R4/datatypes.html#Attachment http://hl7.org/fhir/R4/datatypes.html#Attachment
  * @description This type is for containing or referencing attachments - additional data content defined in other formats. The most common use of this type is to include images or reports in some report format such as PDF. However, it can be used for any data that has a MIME type.
  * @author Roberto Araneda
@@ -47,11 +37,6 @@ export interface IAttachment extends IElement {
    * @see https://hl7.org/fhir/datatypes.html#Attachment
    */
   creation?: string;
-  height?: number;
-  width?: number;
-  frames?: number;
-  duration?: number;
-  pages?: number;
   _contentType?: IElement;
   _language?: IElement;
   _data?: IElement;
@@ -60,9 +45,4 @@ export interface IAttachment extends IElement {
   _hash?: IElement;
   _title?: IElement;
   _creation?: IElement;
-  _height?: IElement;
-  _width?: IElement;
-  _frames?: IElement;
-  _duration?: IElement;
-  _pages?: IElement;
 }

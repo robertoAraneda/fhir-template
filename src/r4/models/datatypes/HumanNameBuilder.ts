@@ -2,8 +2,8 @@ import { IBuildable } from '../../../globals/interfaces';
 import { IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { NameUseEnum } from '../../enums';
-import { NameUseType } from '../../types';
+import { NameUseEnum } from '../../../enums';
+import { NameUseType } from '../../../types';
 import HumanName from './HumanName';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';
@@ -34,12 +34,12 @@ export interface IHumanNameBuilder extends IBuildable<IHumanName>, IElementBuild
 }
 
 export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implements IHumanNameBuilder {
-  private readonly humanName: HumanName;
+  private readonly humanName: IHumanName;
 
   constructor() {
     super();
 
-    this.humanName = new HumanName();
+    this.humanName = {} as IHumanName;
   }
 
   addParamExtension<T extends ParamType>(
@@ -113,6 +113,6 @@ export class HumanNameBuilder extends ElementBuilder<HumanNameBuilder> implement
 
   build(): HumanName {
     Object.assign(this.humanName, { ...super.entity() });
-    return this.humanName.toJson();
+    return new HumanName(this.humanName).toJson();
   }
 }

@@ -1,5 +1,5 @@
-import { IElement } from '../base/IElement';
-import { IPeriod } from './IPeriod';
+import IPeriod from './IPeriod';
+import { IElement } from '../base';
 
 /**
  * @description Not available during this time due to provided reason
@@ -9,10 +9,10 @@ import { IPeriod } from './IPeriod';
  * @see https://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.notAvailable NotAvailable
  * @since 2023-06-01
  * @interface INotAvailableTime
- * @extends {IElement} IElement
+ * @extends {IElement } IElement
  * @author Roberto Araneda
  */
-export interface INotAvailableTime extends IElement {
+export default interface INotAvailableTime extends IElement {
   /**
    * @description Reason presented to the user explaining why time not available
    * @see {@link http://hl7.org/fhir/metadatatypes-definitions.html#Availability.notAvailableTime.description description}
@@ -22,7 +22,7 @@ export interface INotAvailableTime extends IElement {
 
   /**
    * @description Extension of description
-   * @type {IElement} _description
+   * @type {IElement } _description
    */
   _description?: IElement;
 

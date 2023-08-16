@@ -1,8 +1,7 @@
 import { ICoding } from '../../interfaces/datatypes';
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { Coding } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 
 type ParamExtensionType = 'system' | 'version' | 'code' | 'display' | 'userSelected';
@@ -17,11 +16,11 @@ interface ICodingBuilder extends IBuildable<Coding>, IElementBuilder<CodingBuild
 }
 
 export default class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICodingBuilder {
-  private readonly coding: Coding;
+  private readonly coding: ICoding;
 
   constructor() {
     super();
-    this.coding = new Coding();
+    this.coding = {} as ICoding;
   }
 
   /**
@@ -114,6 +113,6 @@ export default class CodingBuilder extends ElementBuilder<CodingBuilder> impleme
    */
   build(): Coding {
     Object.assign(this.coding, { ...super.entity() });
-    return this.coding.toJson();
+    return new Coding(this.coding).toJson();
   }
 }

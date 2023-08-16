@@ -4,7 +4,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IPractitionerCommunication, IPractitionerQualification } from '../backbones';
 
-export interface IPractitioner extends IDomainResource {
+export default interface IPractitioner extends IDomainResource {
   resourceType: 'Practitioner';
   identifier?: IIdentifier[];
   active?: boolean;
@@ -18,6 +18,7 @@ export interface IPractitioner extends IDomainResource {
   _deceasedBoolean?: IElement;
   deceasedDateTime?: string;
   _deceasedDateTime?: IElement;
+  _gender?: IElement;
   address?: IAddress[];
   photo?: IAttachment[];
   qualification?: IPractitionerQualification[];

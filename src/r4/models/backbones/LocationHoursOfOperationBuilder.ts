@@ -1,9 +1,10 @@
 import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
-import { DaysOfWeekEnum } from '../../enums';
-import { DaysOfWeekType } from '../../types';
+import { DaysOfWeekEnum } from '../../../enums';
+import { DaysOfWeekType } from '../../../types';
 import LocationHoursOfOperation from './LocationHoursOfOperation';
+import { ILocationHoursOfOperation } from '../../interfaces/backbones';
 
 export interface ILocationHoursOfOperationBuilder
   extends IBuildable<LocationHoursOfOperation>,
@@ -24,11 +25,11 @@ export class LocationHoursOfOperationBuilder
   extends BackboneElementBuilder<LocationHoursOfOperationBuilder>
   implements ILocationHoursOfOperationBuilder
 {
-  private readonly locationHoursOfOperation: LocationHoursOfOperation;
+  private readonly locationHoursOfOperation: ILocationHoursOfOperation;
 
   constructor() {
     super();
-    this.locationHoursOfOperation = new LocationHoursOfOperation();
+    this.locationHoursOfOperation = {} as ILocationHoursOfOperation;
   }
 
   addDaysOfWeek(daysOfWeek: DaysOfWeekEnum | DaysOfWeekType): LocationHoursOfOperationBuilder {
@@ -39,7 +40,7 @@ export class LocationHoursOfOperationBuilder
 
   build(): LocationHoursOfOperation {
     Object.assign(this.locationHoursOfOperation, { ...super.entity() });
-    return this.locationHoursOfOperation.toJson();
+    return new LocationHoursOfOperation(this.locationHoursOfOperation).toJson();
   }
 
   setAllDay(allDay: boolean): LocationHoursOfOperationBuilder {

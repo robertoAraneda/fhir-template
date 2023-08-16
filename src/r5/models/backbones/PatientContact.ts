@@ -5,6 +5,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import BackboneElement from '../base/BackboneElement';
 import PatientContactBuilder from './PatientContactBuilder';
+import { PatientContactValidator } from './PatientContactValidator';
 
 export default class PatientContact extends BackboneElement implements IPatientContact {
   // PatientContact attributes
@@ -26,15 +27,16 @@ export default class PatientContact extends BackboneElement implements IPatientC
   }
 
   toString(): string {
-    return ` PatientContact${JSON.stringify(this.toJson())}`;
+    return `PatientContact${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return ` PatientContact${JSON.stringify(this.toJson(), null, 2)}`;
+    return `PatientContact${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPatientContact) {
+  constructor(args: IPatientContact) {
     super();
+    PatientContactValidator(args);
     Object.assign(this, args);
   }
 }

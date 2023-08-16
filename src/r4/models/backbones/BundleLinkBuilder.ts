@@ -3,12 +3,13 @@ import { IElement } from '../../interfaces/base';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
 import BundleLink from './BundleLink';
+import { IBundleLink } from '../../interfaces/backbones';
 
 export interface IBundleLinkBuilder
   extends IBuildable<BundleLink>,
     IBackboneElementBuilder<BundleLinkBuilder>,
     IElementBuilder<BundleLinkBuilder> {
-  addParamExtension(param: 'relation' | 'url', extension: IElement): BundleLinkBuilder;
+  addParamExtension(param: 'relation' | 'url', element: IElement): BundleLinkBuilder;
 
   setRelation(relation: string): BundleLinkBuilder;
 
@@ -16,21 +17,21 @@ export interface IBundleLinkBuilder
 }
 
 export class BundleLinkBuilder extends BackboneElementBuilder<BundleLinkBuilder> implements IBundleLinkBuilder {
-  private readonly bundleLink: BundleLink;
+  private readonly bundleLink: IBundleLink;
 
   constructor() {
     super();
-    this.bundleLink = new BundleLink();
+    this.bundleLink = {} as IBundleLink;
   }
 
-  addParamExtension(param: 'relation' | 'url', extension: IElement): BundleLinkBuilder {
-    this.bundleLink[`_${param}`] = extension;
+  addParamExtension(param: 'relation' | 'url', element: IElement): BundleLinkBuilder {
+    this.bundleLink[`_${param}`] = element;
     return this;
   }
 
   build(): BundleLink {
     Object.assign(this.bundleLink, { ...super.entity() });
-    return this.bundleLink.toJson();
+    return new BundleLink(this.bundleLink).toJson();
   }
 
   setRelation(relation: string): BundleLinkBuilder {

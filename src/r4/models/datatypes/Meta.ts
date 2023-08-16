@@ -2,6 +2,7 @@ import { ICoding, IMeta } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
 import { MetaBuilder } from './MetaBuilder';
+import { MetaValidator } from './MetaValidator';
 
 export default class Meta extends Element implements IMeta {
   // Meta Properties
@@ -16,6 +17,7 @@ export default class Meta extends Element implements IMeta {
   _versionId?: IElement;
   _lastUpdated?: IElement;
   _source?: IElement;
+  _profile?: IElement[];
 
   toJson(): Meta {
     return JSON.parse(JSON.stringify(this));
@@ -33,8 +35,9 @@ export default class Meta extends Element implements IMeta {
     return new MetaBuilder();
   }
 
-  constructor(args?: IMeta) {
+  constructor(args: IMeta) {
     super();
+    MetaValidator(args);
     Object.assign(this, args);
   }
 }

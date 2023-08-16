@@ -1,17 +1,25 @@
 import { IEndpoint } from '../../interfaces/resources';
-import { ICodeableConcept, ICoding, IContactPoint, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
-import { EndpointStatusEnum } from '../../enums';
-import { EndpointStatusType } from '../../types';
+import {
+  ICodeableConcept,
+  ICoding,
+  IContactPoint,
+  IIdentifier,
+  IPeriod,
+  IReference,
+} from '../../interfaces/datatypes';
+import { EndpointStatusEnum } from '../../../enums';
+import { EndpointStatusType } from '../../../types';
 import { IElement } from '../../interfaces/base';
 import DomainResource from '../base/DomainResource';
-import { EndpointBuilder, IEndpointBuilder } from './EndpointBuilder';
+import { EndpointBuilder } from './EndpointBuilder';
+import { EndpointValidator } from './EndpointValidator';
 
 export default class Endpoint extends DomainResource implements IEndpoint {
   resourceType = 'Endpoint' as const;
 
   // Endpoint attributes
   identifier?: IIdentifier[];
-  status: EndpointStatusEnum | EndpointStatusType;
+  status?: EndpointStatusEnum | EndpointStatusType;
   connectionType: ICoding;
   name?: string;
   managingOrganization?: IReference;
@@ -19,7 +27,7 @@ export default class Endpoint extends DomainResource implements IEndpoint {
   period?: IPeriod;
   payloadType: ICodeableConcept[];
   payloadMimeType?: string[];
-  address: string;
+  address?: string;
   header?: string[];
 
   // Extensions
@@ -45,8 +53,10 @@ export default class Endpoint extends DomainResource implements IEndpoint {
     return new EndpointBuilder();
   }
 
-  constructor(args?: IEndpoint) {
+  constructor(args: IEndpoint) {
     super();
+    args.resourceType = 'Endpoint';
+    EndpointValidator(args);
     Object.assign(this, args);
   }
 }

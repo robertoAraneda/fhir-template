@@ -4,6 +4,7 @@ import { IElementBuilder } from '../base/ElementBuilder';
 import { ICodeableConcept, IPeriod, IQuantity, IRange, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import GroupCharacteristic from './GroupCharacteristic';
+import { IGroupCharacteristic } from '../../interfaces/backbones';
 
 type ParamExtensionType = 'valueBoolean' | 'exclude';
 
@@ -37,33 +38,16 @@ export class GroupCharacteristicBuilder
   extends BackboneElementBuilder<GroupCharacteristicBuilder>
   implements IGroupCharacteristicBuilder
 {
-  private readonly groupCharacteristic: GroupCharacteristic;
+  private readonly groupCharacteristic: IGroupCharacteristic;
 
   constructor() {
     super();
-    this.groupCharacteristic = new GroupCharacteristic();
+    this.groupCharacteristic = {} as IGroupCharacteristic;
   }
 
   build(): GroupCharacteristic {
-    if (
-      !this.groupCharacteristic.valueBoolean &&
-      !this.groupCharacteristic.valueQuantity &&
-      !this.groupCharacteristic.valueRange &&
-      !this.groupCharacteristic.valueReference &&
-      !this.groupCharacteristic.valueCodeableConcept &&
-      !this.groupCharacteristic._valueBoolean
-    ) {
-      throw Error(
-        'GroupCharacteristicBuilder - build(): requires valueBoolean or valueQuantity or valueRange or valueReference or valueCodeableConcept or _valueBoolean',
-      );
-    }
-
-    if (!this.groupCharacteristic.exclude && !this.groupCharacteristic._exclude) {
-      throw Error('GroupCharacteristicBuilder - build(): requires exclude or _exclude');
-    }
-
     Object.assign(this.groupCharacteristic, { ...super.entity() });
-    return this.groupCharacteristic.toJson();
+    return new GroupCharacteristic(this.groupCharacteristic).toJson();
   }
 
   setCode(code: ICodeableConcept): GroupCharacteristicBuilder {

@@ -1,5 +1,5 @@
 import { IBuildable } from '../../../globals/interfaces';
-import { ICoding } from '../../interfaces/datatypes';
+import { ICodeableConcept, ICoding } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import CodeableConcept from './CodeableConcept';
@@ -15,12 +15,12 @@ export interface ICodeableConceptBuilder extends IBuildable<CodeableConcept>, IE
 }
 
 export class CodeableConceptBuilder extends ElementBuilder<CodeableConceptBuilder> implements ICodeableConceptBuilder {
-  private readonly codeableConcept: CodeableConcept;
+  private readonly codeableConcept: ICodeableConcept;
 
   constructor() {
     super();
 
-    this.codeableConcept = new CodeableConcept();
+    this.codeableConcept = {} as ICodeableConcept;
   }
 
   /**
@@ -78,6 +78,6 @@ export class CodeableConceptBuilder extends ElementBuilder<CodeableConceptBuilde
 
   build(): CodeableConcept {
     Object.assign(this.codeableConcept, { ...super.entity() });
-    return this.codeableConcept.toJson();
+    return new CodeableConcept(this.codeableConcept).toJson();
   }
 }

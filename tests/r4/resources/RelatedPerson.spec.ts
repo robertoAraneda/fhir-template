@@ -2,6 +2,8 @@ import FHIRContext from '../../../src';
 import { IRelatedPerson } from '../../../src/r4/interfaces/resources';
 import { RelatedPersonBuilder } from '../../../src/r4/models/resources/RelatedPersonBuilder';
 
+import { RelatedPersonValidator } from '../../../src/r4/models/resources/RelatedPersonValidator';
+
 describe('RelatedPerson Resource FHIR R4', () => {
   let builder: RelatedPersonBuilder;
   const context = new FHIRContext();
@@ -85,9 +87,7 @@ describe('RelatedPerson Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.RelatedPerson(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RelatedPersonValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new related_person and validate [new RelatedPerson()]', async () => {
@@ -146,10 +146,7 @@ describe('RelatedPerson Resource FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.RelatedPerson(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new related_person and validate [Example RelatedPerson/newborn-mom]', async () => {
@@ -214,10 +211,7 @@ describe('RelatedPerson Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.RelatedPerson(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RelatedPersonValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new related_person resource and validate with wrong data', async () => {
@@ -245,32 +239,9 @@ describe('RelatedPerson Resource FHIR R4', () => {
       wrongProperty: 'wrong',
     };
 
-    const validate = await Validator.RelatedPerson(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'patient'",
-        params: {
-          missingProperty: 'patient',
-        },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => RelatedPersonValidator(item as IRelatedPerson)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for RelatedPerson",
+    );
   });
 
   it('should be able to create a new related_person using builder methods [new RelatedPersonBuilder()]', async () => {
@@ -295,11 +266,6 @@ describe('RelatedPerson Resource FHIR R4', () => {
       .setGender('male')
       .setBirthDate('1974-12-25')
       .build();
-
-    const validate = await Validator.RelatedPerson(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

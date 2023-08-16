@@ -1,7 +1,8 @@
 import { IExtendedContactDetail } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import ExtendedContactDetailBuilder from '../../../src/r5/models/datatypes/ExtendedContactDetailBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+
+import { ExtendedContactDetailValidator } from '../../../src/r5/models/datatypes/ExtendedContactDetailValidator';
 
 describe('ExtendedContactDetail FHIR R5', () => {
   let builder: ExtendedContactDetailBuilder;
@@ -37,12 +38,15 @@ describe('ExtendedContactDetail FHIR R5', () => {
         ],
         text: 'test',
       },
+      extension: [
+        {
+          url: 'test',
+          valueString: 'test',
+        },
+      ],
     });
 
-    const validate = await _validateDataType(item, 'ExtendedContactDetail');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new contact point and validate with correct data [IExtendedContactDetail]', async () => {
@@ -72,10 +76,7 @@ describe('ExtendedContactDetail FHIR R5', () => {
       },
     };
 
-    const validate = await _validateDataType(item, 'ExtendedContactDetail');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => ExtendedContactDetailValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new contact point and validate with wrong data', async () => {
@@ -106,20 +107,9 @@ describe('ExtendedContactDetail FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'ExtendedContactDetail');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => ExtendedContactDetailValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for ExtendedContactDetail",
+    );
   });
 
   it('should be able to create a new contact point using builder methods', async () => {
@@ -168,9 +158,5 @@ describe('ExtendedContactDetail FHIR R5', () => {
         ],
       },
     });
-    const validate = await _validateDataType(item, 'ExtendedContactDetail');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

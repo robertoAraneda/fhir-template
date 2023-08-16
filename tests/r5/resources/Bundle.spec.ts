@@ -1,8 +1,9 @@
 import FHIRContext from '../../../src';
-import { IBundle } from '../../../src/r5/interfaces/resources/IBundle';
+import IBundle from '../../../src/r5/interfaces/resources/IBundle';
 import { BundleTypeEnum } from '../../../src/r5/enums';
-import { BundleBuilder } from '../../../src/r5/models/resources/BundleBuilder';
+import BundleBuilder from '../../../src/r5/models/resources/BundleBuilder';
 import { IPatient } from '../../../src/r5/interfaces/resources';
+import { BundleValidator } from '../../../src/r5/models/resources/BundleValidator';
 
 describe('Bundle FHIR R5', () => {
   let builder: BundleBuilder;
@@ -188,9 +189,7 @@ describe('Bundle FHIR R5', () => {
       ],
     });
 
-    const validate = await Validator.Bundle(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new bundle and validate with correct data [IBundle]', async () => {
@@ -408,10 +407,7 @@ describe('Bundle FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.Bundle(item);
-    console.log(JSON.stringify(validate, null, 2));
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => BundleValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new bundle and validate with correct data [Bundle-example-patientlist.json]', async () => {
@@ -672,11 +668,7 @@ describe('Bundle FHIR R5', () => {
         },
       ],
     };
-
-    const validate = await Validator.Bundle(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => BundleValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new bundle and validate with wrong data', async () => {
@@ -685,19 +677,10 @@ describe('Bundle FHIR R5', () => {
       id: 'xcda1',
       wrongProperty: 'wrong', // wrong property
     };
-    const validate = await Validator.Bundle(item);
 
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => BundleValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Bundle",
+    );
   });
 
   it('should be able to create a new bundle with builder methods [new BundleBuilder()]', async () => {
@@ -707,20 +690,25 @@ describe('Bundle FHIR R5', () => {
       .addEntry({
         fullUrl: 'http://localhost:8080/fhir/Patient/123',
         id: '123',
+        request: {
+          method: 'GET',
+          url: 'Patient/123',
+        },
       })
       .setTimestamp('2019-01-01T00:00:00.000Z')
       .build();
 
-    const validate = await Validator.Bundle(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       entry: [
         {
           fullUrl: 'http://localhost:8080/fhir/Patient/123',
           id: '123',
+          request: {
+            method: 'GET',
+            url: 'Patient/123',
+          },
         },
       ],
       id: '123',

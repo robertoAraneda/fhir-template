@@ -1,7 +1,8 @@
 import { IExtension } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 import { ExtensionBuilder } from '../../../src/r4/models/datatypes/ExtensionBuilder';
+
+import { ExtensionValidator } from '../../../src/r4/models/datatypes/ExtensionValidator';
 
 describe('Extension FHIR R4', () => {
   let builder: ExtensionBuilder;
@@ -16,13 +17,10 @@ describe('Extension FHIR R4', () => {
     const item = new Extension({
       id: '123',
       url: 'url',
-      valueBoolean: true,
+      valueDateTime: '2020-01-01T00:00:00.000Z',
     });
 
-    const validate = await _validateDataType(item, 'Extension');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new extension and validate with correct data [IExtension]', async () => {
@@ -32,34 +30,31 @@ describe('Extension FHIR R4', () => {
       valueBoolean: true,
     };
 
-    const validate = await _validateDataType(item, 'Extension');
+    expect(() => ExtensionValidator(item)).not.toThrow();
+  });
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+  it('should be validate: Must have either extensions or value[x], not both', async () => {
+    const item: IExtension = {
+      id: '123',
+      url: 'url',
+      valueBoolean: true,
+      extension: [], // extra property
+    };
+
+    expect(() => ExtensionValidator(item, 'this')).toThrow(
+      'ConstraintException: [Extension] must have either extensions or value[x], not both for this',
+    );
   });
 
   it('should be able to validate a new extension and validate with wrong data', async () => {
     const item = {
       id: '123',
-      url: 'url',
       valueBoolean: true,
       test: 'test', // wrong property
     };
-
-    const validate = await _validateDataType(item, 'Extension');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => ExtensionValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for Extension",
+    );
   });
 
   it('should be able to create a new extension using builder methods', async () => {
@@ -76,11 +71,6 @@ describe('Extension FHIR R4', () => {
         ],
       })
       .build();
-
-    const validate = await _validateDataType(item, 'Extension');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

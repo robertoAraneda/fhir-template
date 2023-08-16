@@ -2,6 +2,7 @@ import { ICoding, IContactPoint, IExtendedContactDetail, IVirtualServiceDetail }
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
 import VirtualServiceDetailBuilder from './VirtualServiceDetailBuilder';
+import { VirtualServiceDetailValidator } from './VirtualServiceDetailValidator';
 
 export default class VirtualServiceDetail extends Element implements IVirtualServiceDetail {
   // Own properties
@@ -37,8 +38,9 @@ export default class VirtualServiceDetail extends Element implements IVirtualSer
     return `VirtualServiceDetail${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IVirtualServiceDetail) {
+  constructor(args: IVirtualServiceDetail) {
     super();
+    VirtualServiceDetailValidator(args);
     Object.assign(this, args);
   }
 }

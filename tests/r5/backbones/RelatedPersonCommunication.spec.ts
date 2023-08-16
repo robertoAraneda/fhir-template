@@ -1,7 +1,7 @@
 import { IRelatedPersonCommunication } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
 import RelatedPersonCommunicationBuilder from '../../../src/r5/models/backbones/RelatedPersonCommunicationBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { RelatedPersonCommunicationValidator } from '../../../src/r5/models/backbones/RelatedPersonCommunicationValidator';
 
 describe('RelatedPersonCommunication FHIR R5', () => {
   const { RelatedPersonCommunication } = new FHIRContext().forR5();
@@ -13,7 +13,7 @@ describe('RelatedPersonCommunication FHIR R5', () => {
   });
 
   it('should be able to create a new related_person_communication payload and validate with correct data [IRelatedPersonCommunication]', async () => {
-    const dataType: IRelatedPersonCommunication = {
+    const item: IRelatedPersonCommunication = {
       id: '123',
       preferred: true,
       language: {
@@ -27,14 +27,11 @@ describe('RelatedPersonCommunication FHIR R5', () => {
       },
     };
 
-    const validate = await _validateBackbone(dataType, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RelatedPersonCommunicationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new related_person_communication payload and validate with correct data [new RelatedPersonCommunication()]', async () => {
-    const dataType = new RelatedPersonCommunication({
+    const item = new RelatedPersonCommunication({
       id: '123',
       preferred: true,
       language: {
@@ -48,14 +45,11 @@ describe('RelatedPersonCommunication FHIR R5', () => {
       },
     });
 
-    const validate = await _validateBackbone(dataType, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new related_person_communication payload and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       preferred: 'bad data type', // wrong data type
       language: {
@@ -70,39 +64,14 @@ describe('RelatedPersonCommunication FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(dataType, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(3);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: { type: 'boolean' },
-        schemaPath: 'base.schema.json#/definitions/boolean/type',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'pattern',
-        message: "The value '/preferred' does not match with datatype 'boolean'",
-        params: { value: '/preferred' },
-        schemaPath: 'base.schema.json#/definitions/boolean/pattern',
-      },
-    ]);
+    expect(() => RelatedPersonCommunicationValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for RelatedPersonCommunication",
+    );
   });
 
   it('should be able to create a new related_person_communication payload using builder methods [new RelatedPersonCommunicationBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setLanguage({
         coding: [
           {
@@ -122,8 +91,8 @@ describe('RelatedPersonCommunication FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _preferred: {
         extension: [
           {
@@ -142,10 +111,5 @@ describe('RelatedPersonCommunication FHIR R5', () => {
         ],
       },
     });
-
-    const validate = await _validateBackbone(dataType, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

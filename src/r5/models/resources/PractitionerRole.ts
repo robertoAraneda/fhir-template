@@ -10,6 +10,7 @@ import {
 } from '../../interfaces/datatypes';
 import DomainResource from '../base/DomainResource';
 import PractitionerRoleBuilder from './PractitionerRoleBuilder';
+import { PractitionerRoleValidator } from './PractitionerRoleValidator';
 
 export default class PractitionerRole extends DomainResource implements IPractitionerRole {
   _active?: IElement;
@@ -38,15 +39,16 @@ export default class PractitionerRole extends DomainResource implements IPractit
   }
 
   toString(): string {
-    return `Person${JSON.stringify(this.toJson())}`;
+    return `PractitionerRole${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return `Person${JSON.stringify(this.toJson(), null, 2)}`;
+    return `PractitionerRole${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: Partial<PractitionerRole>) {
+  constructor(args: IPractitionerRole) {
     super();
+    PractitionerRoleValidator(args);
     Object.assign(this, args);
   }
 }

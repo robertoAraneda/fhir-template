@@ -2,10 +2,10 @@ import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/Backbon
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, INarrative, IReference } from '../../interfaces/datatypes';
-import { CompositionSectionListModeEnum } from '../../enums';
-import { CompositionSectionListModeType } from '../../types';
+import { CompositionSectionListModeEnum } from '../../../enums';
+import { CompositionSectionListModeType } from '../../../types';
 import CompositionSection from './CompositionSection';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
+import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import { ICompositionSection } from '../../interfaces/backbones';
 import { IBuildable } from '../../../globals/interfaces';
 
@@ -32,16 +32,16 @@ export default class CompositionSectionBuilder
   extends BackboneElementBuilder<CompositionSectionBuilder>
   implements ICompositionSectionBuilder
 {
-  private readonly _compositionSection: CompositionSection;
+  private readonly _compositionSection: ICompositionSection;
 
   constructor() {
     super();
-    this._compositionSection = new CompositionSection();
+    this._compositionSection = {} as ICompositionSection;
   }
 
   addAuthor(reference: IReference): CompositionSectionBuilder {
     if (reference.reference) {
-      validateReferenceHelper(reference.reference, [
+      ValidateReferenceFormatHelper(reference.reference, [
         'Practitioner',
         'PractitionerRole',
         'Device',
@@ -57,7 +57,7 @@ export default class CompositionSectionBuilder
   }
 
   addEntry(reference: IReference): CompositionSectionBuilder {
-    if (reference.reference) validateReferenceHelper(reference.reference, 'all');
+    if (reference.reference) ValidateReferenceFormatHelper(reference.reference, 'all');
     this._compositionSection.entry = this._compositionSection.entry || [];
     this._compositionSection.entry.push(reference);
     return this;
@@ -72,7 +72,7 @@ export default class CompositionSectionBuilder
     if (section?.author?.length) {
       section.author.forEach((author) => {
         if (author.reference)
-          validateReferenceHelper(author.reference, [
+          ValidateReferenceFormatHelper(author.reference, [
             'Practitioner',
             'PractitionerRole',
             'Device',
@@ -85,11 +85,11 @@ export default class CompositionSectionBuilder
 
     if (section?.entry?.length) {
       section.entry.forEach((entry) => {
-        if (entry.reference) validateReferenceHelper(entry.reference, 'all');
+        if (entry.reference) ValidateReferenceFormatHelper(entry.reference, 'all');
       });
     }
 
-    if (section?.focus?.reference) validateReferenceHelper(section.focus.reference, 'all');
+    if (section?.focus?.reference) ValidateReferenceFormatHelper(section.focus.reference, 'all');
 
     this._compositionSection.section = this._compositionSection.section || [];
     this._compositionSection.section.push(section);
@@ -107,7 +107,7 @@ export default class CompositionSectionBuilder
   }
 
   setFocus(reference: IReference): CompositionSectionBuilder {
-    if (reference.reference) validateReferenceHelper(reference.reference, 'all');
+    if (reference.reference) ValidateReferenceFormatHelper(reference.reference, 'all');
     this._compositionSection.focus = reference;
     return this;
   }
@@ -149,6 +149,6 @@ export default class CompositionSectionBuilder
 
   build(): CompositionSection {
     Object.assign(this._compositionSection, { ...super.entity() });
-    return this._compositionSection.toJson();
+    return new CompositionSection(this._compositionSection).toJson();
   }
 }

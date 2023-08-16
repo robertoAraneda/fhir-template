@@ -1,9 +1,10 @@
 import { IContactPoint, IExtension, IPeriod } from '../../interfaces/datatypes';
-import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
-import { ContactPointSystemType, ContactPointUseType } from '../../types';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../../enums';
+import { ContactPointSystemType, ContactPointUseType } from '../../../types';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { ContactPointBuilder, IContactPointBuilder } from './ContactPointBuilder';
+import { ContactPointBuilder } from './ContactPointBuilder';
+import { ContactPointValidator } from './ContactPointValidator';
 
 /**
  * @description Details for all kinds of technology-mediated contact points for a person or organization, including telephone, email, etc.
@@ -96,8 +97,9 @@ export default class ContactPoint extends Element implements IContactPoint {
     return new ContactPointBuilder();
   }
 
-  constructor(args?: IContactPoint) {
+  constructor(args: IContactPoint) {
     super();
+    ContactPointValidator(args);
     Object.assign(this, args);
   }
 }

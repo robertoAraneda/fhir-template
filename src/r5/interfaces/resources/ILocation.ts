@@ -13,7 +13,7 @@ import { LocationModeEnum, LocationStatusEnum } from '../../enums';
 import { LocationModeType, LocationStatusType } from '../../types';
 import { ILocationPosition } from '../backbones';
 
-export interface ILocation extends IDomainResource {
+export default interface ILocation extends IDomainResource {
   resourceType: 'Location';
   identifier?: IIdentifier[];
   status?: LocationStatusEnum | LocationStatusType;

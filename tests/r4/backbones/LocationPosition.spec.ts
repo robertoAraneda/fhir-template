@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { ILocationPosition } from '../../../src/r4/interfaces/backbones';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { LocationPositionBuilder } from '../../../src/r4/models/backbones/LocationPositionBuilder';
+
+import { LocationPositionValidator } from '../../../src/r4/models/backbones/LocationPositionValidator';
 
 describe('LocationPosition FHIR R4', () => {
   let builder: LocationPositionBuilder;
@@ -20,9 +21,7 @@ describe('LocationPosition FHIR R4', () => {
       longitude: 123,
     });
 
-    const validate = await _validateBackbone(item, 'Location_Position');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new location_position [ILocationPosition]', async () => {
@@ -33,10 +32,7 @@ describe('LocationPosition FHIR R4', () => {
       longitude: 123,
     };
 
-    const validate = await _validateBackbone(item, 'Location_Position');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => LocationPositionValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new location_position using builder methods [LocationPosition.builder()]', async () => {
@@ -59,10 +55,7 @@ describe('LocationPosition FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'Location_Position');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       _latitude: {
@@ -94,20 +87,30 @@ describe('LocationPosition FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Location_Position');
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => LocationPositionValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for LocationPosition",
+    );
+  });
+
+  it('should get errors validators if new location_position dont have longitude required field', async () => {
+    const item = {
+      id: '123',
+      latitude: 123,
+    };
+
+    expect(() => LocationPositionValidator(item as any)).toThrowError(
+      'Missing required field longitude in LocationPosition',
+    );
+  });
+
+  it('should get errors validators if new location_position dont have latitude required field', async () => {
+    const item = {
+      id: '123',
+      longitude: 123,
+    };
+
+    expect(() => LocationPositionValidator(item as any)).toThrowError(
+      'Missing required field latitude in LocationPosition',
+    );
   });
 });

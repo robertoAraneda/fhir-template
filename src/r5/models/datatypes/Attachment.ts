@@ -2,6 +2,7 @@ import { IAttachment } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
 import AttachmentBuilder from './AttachmentBuilder';
+import { AttachmentValidator } from './AttachmentValidator';
 
 /**
  * @example ```json
@@ -67,8 +68,9 @@ export default class Attachment extends Element implements IAttachment {
     return `Attachment${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IAttachment) {
+  constructor(args: IAttachment) {
     super();
+    AttachmentValidator(args);
     Object.assign(this, args);
   }
 }

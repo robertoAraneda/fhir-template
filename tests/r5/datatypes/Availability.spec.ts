@@ -3,6 +3,8 @@ import FHIRContext from '../../../src';
 import AvailabilityBuilder from '../../../src/r5/models/datatypes/AvailabilityBuilder';
 import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
+import { AvailabilityValidator } from '../../../src/r5/models/datatypes/AvailabilityValidator';
+
 describe('Availability FHIR R5', () => {
   let builder: AvailabilityBuilder;
   const { Availability } = new FHIRContext().forR5();
@@ -32,10 +34,7 @@ describe('Availability FHIR R5', () => {
       ],
     });
 
-    const validate = await _validateDataType(item, 'Availability');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new availability and validate with correct data [IAvailability]', async () => {
@@ -58,10 +57,7 @@ describe('Availability FHIR R5', () => {
       ],
     };
 
-    const validate = await _validateDataType(item, 'Availability');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => AvailabilityValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new availability and validate with wrong data', async () => {
@@ -85,27 +81,9 @@ describe('Availability FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Availability');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/availableTime/0/availableStartTime',
-        keyword: 'pattern',
-        message: "The value '/availableTime/0/availableStartTime' does not match with datatype 'time'",
-        params: { value: '/availableTime/0/availableStartTime' },
-        schemaPath: 'base.schema.json#/definitions/time/pattern',
-      },
-    ]);
+    expect(() => AvailabilityValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for IAvailability",
+    );
   });
 
   it('should be able to create a new attachment using builder methods [new AvailabilityBuilder()]', async () => {

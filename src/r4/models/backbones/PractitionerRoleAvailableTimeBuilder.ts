@@ -1,10 +1,11 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { DaysOfWeekEnum } from '../../enums';
-import { DaysOfWeekType } from '../../types';
+import { DaysOfWeekEnum } from '../../../enums';
+import { DaysOfWeekType } from '../../../types';
 import { IElement } from '../../interfaces/base';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
 import PractitionerRoleAvailableTime from './PractitionerRoleAvailableTime';
+import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
 
 type ParamExtensionType = 'daysOfWeek' | 'allDay' | 'availableStartTime' | 'availableEndTime';
 
@@ -12,34 +13,34 @@ export interface IPractitionerRoleAvailableTimeBuilder
   extends IBuildable<PractitionerRoleAvailableTime>,
     IBackboneElementBuilder<PractitionerRoleAvailableTimeBuilder>,
     IElementBuilder<PractitionerRoleAvailableTimeBuilder> {
-  addDaysOfWeek(value: string): PractitionerRoleAvailableTimeBuilder;
+  addDaysOfWeek(value: string): this;
 
-  setMultipleDaysOfWeek(value: DaysOfWeekType[] | DaysOfWeekEnum): PractitionerRoleAvailableTimeBuilder;
+  setMultipleDaysOfWeek(value: (DaysOfWeekType | DaysOfWeekEnum)[]): this;
 
-  setAllDay(value: boolean): PractitionerRoleAvailableTimeBuilder;
+  setAllDay(value: boolean): this;
 
-  setAvailableStartTime(value: string): PractitionerRoleAvailableTimeBuilder;
+  setAvailableStartTime(value: string): this;
 
-  setAvailableEndTime(value: string): PractitionerRoleAvailableTimeBuilder;
+  setAvailableEndTime(value: string): this;
 
   addParamExtension<T extends ParamExtensionType>(
     param: T,
     extension: T extends 'daysOfWeek' ? IElement[] : IElement,
-  ): PractitionerRoleAvailableTimeBuilder;
+  ): this;
 }
 
 export class PractitionerRoleAvailableTimeBuilder
   extends BackboneElementBuilder<PractitionerRoleAvailableTimeBuilder>
   implements IPractitionerRoleAvailableTimeBuilder
 {
-  private readonly practitionerRoleAvailableTime: PractitionerRoleAvailableTime;
+  private readonly practitionerRoleAvailableTime: IPractitionerRoleAvailableTime;
 
   constructor() {
     super();
-    this.practitionerRoleAvailableTime = new PractitionerRoleAvailableTime();
+    this.practitionerRoleAvailableTime = {} as IPractitionerRoleAvailableTime;
   }
 
-  addDaysOfWeek(value: DaysOfWeekEnum | DaysOfWeekType): PractitionerRoleAvailableTimeBuilder {
+  addDaysOfWeek(value: DaysOfWeekEnum | DaysOfWeekType): this {
     this.practitionerRoleAvailableTime.daysOfWeek = this.practitionerRoleAvailableTime.daysOfWeek || [];
     this.practitionerRoleAvailableTime.daysOfWeek.push(value);
     return this;
@@ -48,7 +49,7 @@ export class PractitionerRoleAvailableTimeBuilder
   addParamExtension<T extends ParamExtensionType>(
     param: T,
     extension: T extends 'daysOfWeek' ? IElement[] : IElement,
-  ): PractitionerRoleAvailableTimeBuilder {
+  ): this {
     const includes = ['daysOfWeek'];
     if (includes.includes(param)) {
       const localMultipleParam = param as Exclude<
@@ -65,25 +66,25 @@ export class PractitionerRoleAvailableTimeBuilder
 
   build(): PractitionerRoleAvailableTime {
     Object.assign(this.practitionerRoleAvailableTime, { ...super.entity() });
-    return this.practitionerRoleAvailableTime.toJson();
+    return new PractitionerRoleAvailableTime(this.practitionerRoleAvailableTime).toJson();
   }
 
-  setAllDay(value: boolean): PractitionerRoleAvailableTimeBuilder {
+  setAllDay(value: boolean): this {
     this.practitionerRoleAvailableTime.allDay = value;
     return this;
   }
 
-  setAvailableEndTime(value: string): PractitionerRoleAvailableTimeBuilder {
+  setAvailableEndTime(value: string): this {
     this.practitionerRoleAvailableTime.availableEndTime = value;
     return this;
   }
 
-  setAvailableStartTime(value: string): PractitionerRoleAvailableTimeBuilder {
+  setAvailableStartTime(value: string): this {
     this.practitionerRoleAvailableTime.availableStartTime = value;
     return this;
   }
 
-  setMultipleDaysOfWeek(value: DaysOfWeekEnum[] | DaysOfWeekType[]): PractitionerRoleAvailableTimeBuilder {
+  setMultipleDaysOfWeek(value: (DaysOfWeekEnum | DaysOfWeekType)[]): this {
     this.practitionerRoleAvailableTime.daysOfWeek = value;
     return this;
   }

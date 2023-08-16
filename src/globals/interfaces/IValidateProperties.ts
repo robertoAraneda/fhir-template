@@ -1,4 +1,4 @@
 export interface IValidateProperties {
   isValid: boolean;
-  errors?: any[];
+  errors?: any[] | null;
 }

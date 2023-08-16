@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IEndpointPayload } from '../../../src/r5/interfaces/backbones';
 import EndpointPayloadBuilder from '../../../src/r5/models/backbones/EndpointPayloadBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { EndpointPayloadValidator } from '../../../src/r5/models/backbones/EndpointPayloadValidator';
 
 describe('EndpointPayload FHIR R5', () => {
   const { EndpointPayload } = new FHIRContext().forR5();
@@ -27,11 +27,7 @@ describe('EndpointPayload FHIR R5', () => {
         },
       ],
     };
-
-    const validate = await _validateBackbone(item, 'Endpoint_Payload');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new endpoint payload and validate with correct data [new EndpointPayload()]', async () => {
@@ -50,10 +46,7 @@ describe('EndpointPayload FHIR R5', () => {
       ],
     });
 
-    const validate = await _validateBackbone(item, 'Endpoint_Payload');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => EndpointPayloadValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new endpoint payload and validate with wrong data', async () => {
@@ -73,20 +66,9 @@ describe('EndpointPayload FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(item, 'Endpoint_Payload');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => EndpointPayloadValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for EndpointPayload",
+    );
   });
 
   it('should be able to create a new endpoint payload using builder methods [new EndpointPayloadBuilder()]', async () => {
@@ -113,11 +95,6 @@ describe('EndpointPayload FHIR R5', () => {
         },
       ])
       .build();
-
-    const validate = await _validateBackbone(item, 'Endpoint_Payload');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

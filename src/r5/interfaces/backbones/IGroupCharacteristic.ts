@@ -1,7 +1,7 @@
 import { IBackboneElement, IElement } from '../base';
 import { ICodeableConcept, IPeriod, IQuantity, IRange, IReference } from '../datatypes';
 
-export interface IGroupCharacteristic extends IBackboneElement {
+export default interface IGroupCharacteristic extends IBackboneElement {
   code: ICodeableConcept;
   valueCodeableConcept?: ICodeableConcept;
   valueBoolean?: boolean;

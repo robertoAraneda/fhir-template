@@ -1,8 +1,7 @@
 import { ICodeableConcept, ICodeableReference, IReference } from '../../interfaces/datatypes';
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { CodeableReference } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 
 interface ICodeableReferenceBuilder extends IBuildable<CodeableReference>, IElementBuilder<CodeableReferenceBuilder> {
   setConcept(concept: ICodeableConcept): CodeableReferenceBuilder;
@@ -13,12 +12,12 @@ export default class CodeableReferenceBuilder
   extends ElementBuilder<CodeableReferenceBuilder>
   implements ICodeableReferenceBuilder
 {
-  private readonly codeableReference: CodeableReference;
+  private readonly codeableReference: ICodeableReference;
 
   constructor() {
     super();
 
-    this.codeableReference = new CodeableReference();
+    this.codeableReference = {} as ICodeableReference;
   }
 
   /**
@@ -47,6 +46,6 @@ export default class CodeableReferenceBuilder
    */
   build(): CodeableReference {
     Object.assign(this.codeableReference, { ...super.entity() });
-    return this.codeableReference.toJson();
+    return new CodeableReference(this.codeableReference).toJson();
   }
 }

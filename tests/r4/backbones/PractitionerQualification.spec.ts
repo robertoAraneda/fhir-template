@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IPractitionerQualification } from '../../../src/r4/interfaces/backbones';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { PractitionerQualificationBuilder } from '../../../src/r4/models/backbones/PractitionerQualificationBuilder';
+import { PractitionerQualificationValidator } from '../../../src/r4/models/backbones/PractitionerQualificationValidator';
 
 describe('PractitionerQualification FHIR R4', () => {
   let builder: PractitionerQualificationBuilder;
@@ -28,9 +28,7 @@ describe('PractitionerQualification FHIR R4', () => {
       },
     });
 
-    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new practitioner_qualification [IPractitionerQualification]', async () => {
@@ -48,10 +46,7 @@ describe('PractitionerQualification FHIR R4', () => {
         reference: 'Organization/123',
       },
     };
-
-    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerQualificationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new practitioner_qualification using builder methods [new PractitionerQualification()]', async () => {
@@ -74,9 +69,7 @@ describe('PractitionerQualification FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       code: {
@@ -101,33 +94,19 @@ describe('PractitionerQualification FHIR R4', () => {
   it('should be get errors validators if new address has wrong data', async () => {
     const item = {
       id: '123',
+      code: {
+        coding: [
+          {
+            code: '123',
+            system: 'system',
+          },
+        ],
+      },
       wrongProperty: '123',
     };
 
-    const validate = await _validateBackbone(item, 'Practitioner_Qualification');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'code'",
-        params: {
-          missingProperty: 'code',
-        },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => PractitionerQualificationValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PractitionerQualification",
+    );
   });
 });

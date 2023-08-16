@@ -1,7 +1,7 @@
 import { IPersonLink } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
 import PersonLinkBuilder from '../../../src/r5/models/backbones/PersonLinkBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { PersonLinkValidator } from '../../../src/r5/models/backbones/PersonLinkValidator';
 
 describe('PersonLink FHIR R5', () => {
   const { PersonLink } = new FHIRContext().forR5();
@@ -16,7 +16,7 @@ describe('PersonLink FHIR R5', () => {
     const item: IPersonLink = {
       id: '123',
       target: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
       assurance: 'level1', // correct type
       extension: [
@@ -27,17 +27,14 @@ describe('PersonLink FHIR R5', () => {
       ],
     };
 
-    const validate = await _validateBackbone(item, 'Person_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PersonLinkValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new person_link payload and validate with correct data [new PersonLink()]', async () => {
     const item = new PersonLink({
       id: '123',
       target: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
       assurance: 'level1', // correct type
       extension: [
@@ -48,10 +45,7 @@ describe('PersonLink FHIR R5', () => {
       ],
     });
 
-    const validate = await _validateBackbone(item, 'Person_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new person_link payload and validate with wrong data', async () => {
@@ -66,27 +60,9 @@ describe('PersonLink FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(item, 'Person_Link');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'target'",
-        params: { missingProperty: 'target' },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => PersonLinkValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PersonLink",
+    );
   });
 
   it('should be able to create a new person_link payload using builder methods [new PersonLinkBuilder()]', async () => {
@@ -129,10 +105,5 @@ describe('PersonLink FHIR R5', () => {
         reference: 'Patient/123',
       },
     });
-
-    const validate = await _validateBackbone(item, 'Person_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

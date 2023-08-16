@@ -1,9 +1,10 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { QuantityComparatorEnum } from '../../enums';
-import { QuantityComparatorType } from '../../types';
+import { QuantityComparatorEnum } from '../../../enums';
+import { QuantityComparatorType } from '../../../types';
 import { IBuildable } from '../../../globals/interfaces';
 import Duration from './Duration';
+import { IDuration } from '../../interfaces/datatypes';
 
 type ParamExtensionType = 'value' | 'comparator' | 'unit' | 'system' | 'code';
 
@@ -22,12 +23,12 @@ export interface IDurationBuilder extends IBuildable<Duration>, IElementBuilder<
 }
 
 export class DurationBuilder extends ElementBuilder<DurationBuilder> implements IDurationBuilder {
-  private readonly duration: Duration;
+  private readonly duration: IDuration;
 
   constructor() {
     super();
 
-    this.duration = new Duration();
+    this.duration = {} as IDuration;
   }
 
   /**
@@ -35,28 +36,6 @@ export class DurationBuilder extends ElementBuilder<DurationBuilder> implements 
    * @param param
    * @param extension
    * @returns DurationBuilder The builder
-   * @example ```typescript
-   * const duration = new DurationBuilder()
-   * .addDurationParamExtension('value', {
-   *      "extension": [
-   *          {
-   *              url: "http://example.com",
-   *              valueString: "example"
-   *          }
-   *        ]
-   *      })
-   *      .build();
-   *  JSON generated:
-   *  {
-   *      "_value": {
-   *          "extension": [
-   *              {
-   *                  url: "http://example.com",
-   *                  valueString: "example"
-   *              }
-   *           ]
-   *      }
-   *  }
    */
   addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): DurationBuilder {
     this.duration[`_${param}`] = extension;
@@ -121,6 +100,6 @@ export class DurationBuilder extends ElementBuilder<DurationBuilder> implements 
 
   build(): Duration {
     Object.assign(this.duration, { ...super.entity() });
-    return this.duration.toJson();
+    return new Duration(this.duration).toJson();
   }
 }

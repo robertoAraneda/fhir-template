@@ -13,7 +13,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../backbones';
 
-export interface IRelatedPerson extends IDomainResource {
+export default interface IRelatedPerson extends IDomainResource {
   resourceType: 'RelatedPerson';
   identifier?: IIdentifier[];
   active?: boolean;

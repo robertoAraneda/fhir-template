@@ -1,13 +1,13 @@
 import { IDomainResource, IElement, IResource } from '../base';
 import { ICodeableConcept, IIdentifier, IReference } from '../datatypes';
-import { CompositionStatusEnum } from '../../enums';
-import { CompositionStatusType } from '../../types';
+import { CompositionStatusEnum } from '../../../enums';
+import { CompositionStatusType } from '../../../types';
 import { ICompositionAttester } from '../backbones';
 import ICompositionRelatesTo from '../backbones/ICompositionRelatesTo';
 import ICompositionEvent from '../backbones/ICompositionEvent';
 import ICompositionSection from '../backbones/ICompositionSection';
-import CompositionConfidentialityEnum from '../../enums/CompositionConfidentialityEnum';
-import CompositionConfidentialityType from '../../types/CompositionConfidentialityType';
+import CompositionConfidentialityEnum from '../../../enums/CompositionConfidentialityEnum';
+import CompositionConfidentialityType from '../../../types/CompositionConfidentialityType';
 
 export default interface IComposition extends IDomainResource {
   resourceType: 'Composition';

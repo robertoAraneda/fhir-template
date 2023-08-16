@@ -1,9 +1,15 @@
-import { ElementBuilder } from '../base/ElementBuilder';
-import { IAddress, ICodeableConcept, IContactPoint, IHumanName, IPeriod, IReference } from '../../interfaces/datatypes';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
+import {
+  IAddress,
+  ICodeableConcept,
+  IContactPoint,
+  IExtendedContactDetail,
+  IHumanName,
+  IPeriod,
+  IReference,
+} from '../../interfaces/datatypes';
 import { ExtendedContactDetail } from './index';
-import { validateReference } from '../../helpers/validateReference';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 
 /**
  * @description Represents a builder for an extended contact detail
@@ -13,24 +19,24 @@ import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 interface IExtendedContactDetailBuilder
   extends IBuildable<ExtendedContactDetail>,
     IElementBuilder<ExtendedContactDetailBuilder> {
-  setPurpose(purpose: ICodeableConcept): ExtendedContactDetailBuilder;
+  setPurpose(purpose: ICodeableConcept): this;
   addName(name: IHumanName): ExtendedContactDetailBuilder;
-  setMultipleName(names: IHumanName[]): ExtendedContactDetailBuilder;
-  addTelecom(telecom: IContactPoint): ExtendedContactDetailBuilder;
-  setMultipleTelecom(telecoms: IContactPoint[]): ExtendedContactDetailBuilder;
-  setAddress(address: IAddress): ExtendedContactDetailBuilder;
-  setPeriod(period: IPeriod): ExtendedContactDetailBuilder;
-  setOrganization(organization: IReference): ExtendedContactDetailBuilder;
+  setMultipleName(names: IHumanName[]): this;
+  addTelecom(telecom: IContactPoint): this;
+  setMultipleTelecom(telecoms: IContactPoint[]): this;
+  setAddress(address: IAddress): this;
+  setPeriod(period: IPeriod): this;
+  setOrganization(organization: IReference): this;
 }
 export default class ExtendedContactDetailBuilder
   extends ElementBuilder<ExtendedContactDetailBuilder>
   implements IExtendedContactDetailBuilder
 {
-  private readonly extendedContactDetail: ExtendedContactDetail;
+  private readonly extendedContactDetail: IExtendedContactDetail;
 
   constructor() {
     super();
-    this.extendedContactDetail = new ExtendedContactDetail();
+    this.extendedContactDetail = {} as IExtendedContactDetail;
   }
 
   /**
@@ -38,7 +44,7 @@ export default class ExtendedContactDetailBuilder
    * @param purpose
    * @returns ExtendedContactDetailBuilder The builder
    */
-  setPurpose(purpose: ICodeableConcept): ExtendedContactDetailBuilder {
+  setPurpose(purpose: ICodeableConcept): this {
     this.extendedContactDetail.purpose = purpose;
     return this;
   }
@@ -48,7 +54,7 @@ export default class ExtendedContactDetailBuilder
    * @param name
    * @returns ExtendedContactDetailBuilder The builder
    */
-  addName(name: IHumanName): ExtendedContactDetailBuilder {
+  addName(name: IHumanName): this {
     this.extendedContactDetail.name = this.extendedContactDetail.name || [];
     this.extendedContactDetail.name.push(name);
     return this;
@@ -59,7 +65,7 @@ export default class ExtendedContactDetailBuilder
    * @param names
    * @returns ExtendedContactDetailBuilder The builder
    */
-  setMultipleName(names: IHumanName[]): ExtendedContactDetailBuilder {
+  setMultipleName(names: IHumanName[]): this {
     this.extendedContactDetail.name = names;
     return this;
   }
@@ -69,7 +75,7 @@ export default class ExtendedContactDetailBuilder
    * @param telecom
    * @returns ExtendedContactDetailBuilder The builder
    */
-  addTelecom(telecom: IContactPoint): ExtendedContactDetailBuilder {
+  addTelecom(telecom: IContactPoint): this {
     this.extendedContactDetail.telecom = this.extendedContactDetail.telecom || [];
     this.extendedContactDetail.telecom.push(telecom);
     return this;
@@ -80,7 +86,7 @@ export default class ExtendedContactDetailBuilder
    * @param telecoms
    * @returns ExtendedContactDetailBuilder The builder
    */
-  setMultipleTelecom(telecoms: IContactPoint[]): ExtendedContactDetailBuilder {
+  setMultipleTelecom(telecoms: IContactPoint[]): this {
     this.extendedContactDetail.telecom = telecoms;
     return this;
   }
@@ -90,7 +96,7 @@ export default class ExtendedContactDetailBuilder
    * @param address
    * @returns ExtendedContactDetailBuilder The builder
    */
-  setAddress(address: IAddress): ExtendedContactDetailBuilder {
+  setAddress(address: IAddress): this {
     this.extendedContactDetail.address = address;
     return this;
   }
@@ -102,10 +108,7 @@ export default class ExtendedContactDetailBuilder
    * @throws {Error} if the reference is not of type Organization
    * @throws {Error} if the reference is not a valid FHIR reference
    */
-  setOrganization(organization: IReference): ExtendedContactDetailBuilder {
-    if (organization.reference) {
-      validateReference(organization.reference, ['Organization']);
-    }
+  setOrganization(organization: IReference): this {
     this.extendedContactDetail.organization = organization;
     return this;
   }
@@ -115,7 +118,7 @@ export default class ExtendedContactDetailBuilder
    * @param period
    * @returns ExtendedContactDetailBuilder The builder
    */
-  setPeriod(period: IPeriod): ExtendedContactDetailBuilder {
+  setPeriod(period: IPeriod): this {
     this.extendedContactDetail.period = period;
     return this;
   }
@@ -126,6 +129,6 @@ export default class ExtendedContactDetailBuilder
    */
   build(): ExtendedContactDetail {
     Object.assign(this.extendedContactDetail, { ...super.entity() });
-    return this.extendedContactDetail.toJson();
+    return new ExtendedContactDetail(this.extendedContactDetail).toJson();
   }
 }

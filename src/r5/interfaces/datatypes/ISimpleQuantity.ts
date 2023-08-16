@@ -1,6 +1,6 @@
 import { IElement } from '../base';
 
-export interface ISimpleQuantity extends IElement {
+export default interface ISimpleQuantity extends IElement {
   value?: number;
   unit?: string;
   system?: string;

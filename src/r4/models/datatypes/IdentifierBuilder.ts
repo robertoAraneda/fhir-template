@@ -2,9 +2,9 @@ import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { IdentifierUseEnum } from '../../enums';
-import { IdentifierUseType } from '../../types';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
+import { IdentifierUseEnum } from '../../../enums';
+import { IdentifierUseType } from '../../../types';
+import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import Identifier from './Identifier';
 
 export interface IIdentifierBuilder extends IBuildable<Identifier>, IElementBuilder<IdentifierBuilder> {
@@ -24,12 +24,12 @@ export interface IIdentifierBuilder extends IBuildable<Identifier>, IElementBuil
 }
 
 export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> implements IIdentifierBuilder {
-  private readonly identifier: Identifier;
+  private readonly identifier: IIdentifier;
 
   constructor() {
     super();
 
-    this.identifier = new Identifier();
+    this.identifier = {} as IIdentifier;
   }
 
   addParamExtension(param: 'use' | 'system' | 'value', extension: IElement): IdentifierBuilder {
@@ -70,7 +70,7 @@ export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> impleme
 
   setAssigner(value: IReference): IdentifierBuilder {
     if (value.reference) {
-      validateReferenceHelper(value.reference, ['Organization']);
+      ValidateReferenceFormatHelper(value.reference, ['Organization']);
     }
 
     this.identifier.assigner = value;
@@ -80,6 +80,6 @@ export class IdentifierBuilder extends ElementBuilder<IdentifierBuilder> impleme
 
   build(): Identifier {
     Object.assign(this.identifier, { ...super.entity() });
-    return this.identifier.toJson();
+    return new Identifier(this.identifier).toJson();
   }
 }

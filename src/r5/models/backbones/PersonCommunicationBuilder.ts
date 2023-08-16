@@ -1,31 +1,31 @@
-import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
+import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { ICodeableConcept } from '../../interfaces/datatypes';
 import { PersonCommunication } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IBackboneElementBuilder } from '../../../r4/models/base/BackboneElementBuilder';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
+import { IElementBuilder } from '../base/ElementBuilder';
+import { IPersonCommunication } from '../../interfaces/backbones';
 
-interface IPersonCommunicationBuilder
+export interface IPersonCommunicationBuilder
   extends IBuildable<PersonCommunication>,
     IBackboneElementBuilder<PersonCommunicationBuilder>,
     IElementBuilder<PersonCommunicationBuilder> {
-  addParamExtension(param: 'preferred', extension: IElement): PersonCommunicationBuilder;
+  addParamExtension(param: 'preferred', extension: IElement): this;
 
-  setLanguage(language: ICodeableConcept): PersonCommunicationBuilder;
+  setLanguage(language: ICodeableConcept): this;
 
-  setPreferred(preferred: boolean): PersonCommunicationBuilder;
+  setPreferred(preferred: boolean): this;
 }
 
 export default class PersonCommunicationBuilder
   extends BackboneElementBuilder<PersonCommunicationBuilder>
   implements IPersonCommunicationBuilder
 {
-  private readonly personCommunication: PersonCommunication;
+  private readonly personCommunication: IPersonCommunication;
 
   constructor() {
     super();
-    this.personCommunication = new PersonCommunication();
+    this.personCommunication = {} as IPersonCommunication;
   }
 
   addParamExtension(param: 'preferred', extension: IElement): this {
@@ -45,6 +45,6 @@ export default class PersonCommunicationBuilder
 
   build(): PersonCommunication {
     Object.assign(this.personCommunication, { ...super.entity() });
-    return this.personCommunication.toJson();
+    return new PersonCommunication(this.personCommunication).toJson();
   }
 }

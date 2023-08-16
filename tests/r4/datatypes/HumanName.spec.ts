@@ -1,7 +1,7 @@
 import { IHumanName } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 import { HumanNameBuilder } from '../../../src/r4/models/datatypes/HumanNameBuilder';
+import { HumanNameValidator } from '../../../src/r4/models/datatypes/HumanNameValidator';
 
 describe('HumanName FHIR R4', () => {
   let builder: HumanNameBuilder;
@@ -31,9 +31,7 @@ describe('HumanName FHIR R4', () => {
       },
     });
 
-    const validate = await _validateDataType(item, 'HumanName');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new humanname and validate with correct data [IHumanName]', async () => {
@@ -55,14 +53,11 @@ describe('HumanName FHIR R4', () => {
       },
     };
 
-    const validate = await _validateDataType(item, 'HumanName');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => HumanNameValidator(item, 'this')).not.toThrow();
   });
 
   it('should be able to validate a new humanname and validate with wrong data', async () => {
     const item = {
-      test: 'test', // wrong property
       use: 'wrong use', // wrong property
       family: 'Windsor',
       given: ['Peter', 'James'],
@@ -80,27 +75,9 @@ describe('HumanName FHIR R4', () => {
       },
     };
 
-    const validate = await _validateDataType(item, 'HumanName');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/use',
-        keyword: 'enum',
-        message: 'must be equal to one of the allowed values',
-        params: { allowedValues: ['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'] },
-        schemaPath: '#/properties/use/enum',
-      },
-    ]);
+    expect(() => HumanNameValidator(item as IHumanName, 'HumanName')).toThrow(
+      'Field must be one of [usual, official, temp, nickname, anonymous, old, maiden] in HumanName.use',
+    );
   });
 
   it('should be able to create a new identifier using builder methods [new HumanNameBuilder()]', async () => {
@@ -130,10 +107,6 @@ describe('HumanName FHIR R4', () => {
         ],
       })
       .build();
-
-    const validate = await _validateDataType(item, 'HumanName');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

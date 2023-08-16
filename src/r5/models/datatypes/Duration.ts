@@ -4,6 +4,7 @@ import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 import Element from '../base/Element';
 import DurationBuilder from './DurationBuilder';
+import { DurationValidator } from './DurationValidator';
 
 /**
  * @description A length of time.
@@ -93,8 +94,9 @@ export default class Duration extends Element implements IDuration {
     return `Duration${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IDuration) {
+  constructor(args: IDuration) {
     super();
+    DurationValidator(args);
     Object.assign(this, args);
   }
 }

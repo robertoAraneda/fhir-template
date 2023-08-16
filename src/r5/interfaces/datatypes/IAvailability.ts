@@ -1,6 +1,5 @@
+import { IAvailableTime, INotAvailableTime } from './index';
 import { IElement } from '../base';
-import { IAvailableTime } from './index';
-import { INotAvailableTime } from './index';
 
 /**
  * @description Availability data for an {item}
@@ -10,7 +9,7 @@ import { INotAvailableTime } from './index';
  * @author Roberto Araneda
  * @since 2023-06-01
  */
-export interface IAvailability extends IElement {
+export default interface IAvailability extends IElement {
   /**
    * @description Times the {item} is available
    * @see {@link http://hl7.org/fhir/R5/metadatatypes-definitions.html#Availability.availableTime availableTime}

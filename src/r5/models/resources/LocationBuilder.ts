@@ -15,8 +15,8 @@ import { LocationModeEnum, LocationStatusEnum } from '../../enums';
 import { LocationModeType, LocationStatusType } from '../../types';
 import { ILocationPosition } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IResourceBuilder } from '../base/ResourceBuilder';
+import { ILocation } from '../../interfaces/resources';
 
 type ParamExtensionType = 'status' | 'alias' | 'name' | 'description' | 'mode';
 type MultipleParamExtensionType = 'alias';
@@ -58,11 +58,11 @@ interface ILocationBuilder
 }
 
 export default class LocationBuilder extends DomainResourceBuilder<LocationBuilder> implements ILocationBuilder {
-  private readonly location: Location;
+  private readonly location: ILocation;
 
   constructor() {
     super();
-    this.location = new Location();
+    this.location = {} as ILocation;
   }
 
   addAlias(alias: string): this {
@@ -72,7 +72,6 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   addEndpoint(endpoint: IReference): this {
-    if (endpoint.reference) validateReferenceHelper(endpoint.reference, ['Endpoint']);
     this.location.endpoint = this.location.endpoint || [];
     this.location.endpoint.push(endpoint);
     return this;
@@ -107,7 +106,7 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
 
   build(): Location {
     Object.assign(this.location, { ...super.entity() });
-    return this.location.toJson();
+    return new Location(this.location).toJson();
   }
 
   setAddress(address: IAddress): this {
@@ -121,9 +120,6 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   setManagingOrganization(managingOrganization: IReference): this {
-    if (managingOrganization.reference) {
-      validateReferenceHelper(managingOrganization.reference, ['Organization']);
-    }
     this.location.managingOrganization = managingOrganization;
     return this;
   }
@@ -139,20 +135,17 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   setMultipleEndpoint(endpoints: IReference[]): this {
-    endpoints.forEach((endpoint) => {
-      if (endpoint.reference) validateReferenceHelper(endpoint.reference, ['Endpoint']);
-    });
-    this.location.endpoint = endpoints;
+    endpoints.forEach((endpoint) => this.addEndpoint(endpoint));
     return this;
   }
 
   setMultipleHoursOfOperation(hoursOfOperations: IAvailability[]): this {
-    this.location.hoursOfOperation = hoursOfOperations;
+    hoursOfOperations.forEach((hoursOfOperation) => this.addHoursOfOperation(hoursOfOperation));
     return this;
   }
 
   setMultipleIdentifier(identifiers: IIdentifier[]): this {
-    this.location.identifier = identifiers;
+    identifiers.forEach((identifier) => this.addIdentifier(identifier));
     return this;
   }
 
@@ -167,7 +160,6 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   setPartOf(partOf: IReference): this {
-    if (partOf.reference) validateReferenceHelper(partOf.reference, ['Location']);
     this.location.partOf = partOf;
     return this;
   }
@@ -189,12 +181,12 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   setMultipleType(types: ICodeableConcept[]): this {
-    this.location.type = types;
+    types.forEach((type) => this.addType(type));
     return this;
   }
 
   setMultipleContact(contacts: IExtendedContactDetail[]): this {
-    this.location.contact = contacts;
+    contacts.forEach((contact) => this.addContact(contact));
     return this;
   }
 
@@ -205,12 +197,12 @@ export default class LocationBuilder extends DomainResourceBuilder<LocationBuild
   }
 
   setMultipleCharacteristic(characteristics: ICodeableConcept[]): this {
-    this.location.characteristic = characteristics;
+    characteristics.forEach((characteristic) => this.addCharacteristic(characteristic));
     return this;
   }
 
   setMultipleVirtualService(virtualServices: IVirtualServiceDetail[]): this {
-    this.location.virtualService = virtualServices;
+    virtualServices.forEach((virtualService) => this.addVirtualService(virtualService));
     return this;
   }
 

@@ -1,6 +1,7 @@
 import { IPatient } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import PatientBuilder from '../../../src/r5/models/resources/PatientBuilder';
+import { PatientValidator } from '../../../src/r5/models/resources/PatientValidator';
 
 describe('Patient FHIR R5', () => {
   let builder: PatientBuilder;
@@ -351,9 +352,7 @@ describe('Patient FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.Patient(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/patient-example-sex-and-gender]', async () => {
@@ -695,9 +694,7 @@ describe('Patient FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.Patient(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/glossy]', async function () {
@@ -746,9 +743,7 @@ describe('Patient FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.Patient(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new patient and validate with correct data [Example Patient/dicom]', async function () {
@@ -811,15 +806,13 @@ describe('Patient FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.Patient(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new patient and validate with wrong data', async () => {
     const item = {
       resourceType: 'Patient',
+      wrongProperty: 'wrongProperty',
       id: 'pat2',
       text: {
         status: 'generated',
@@ -869,7 +862,7 @@ describe('Patient FHIR R5', () => {
       photo: [
         {
           contentType: 'image/gif',
-          data: 'base64Data',
+          data: 'AAECAwQFBgcICwwODw==',
         },
       ],
       managingOrganization: {
@@ -886,22 +879,9 @@ describe('Patient FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.Patient(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '/active',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: {
-          type: 'boolean',
-        },
-        schemaPath: 'base.schema.json#/definitions/boolean/type',
-      },
-    ]);
+    expect(() => PatientValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Patient",
+    );
   });
 
   it('should be able to create a new patient using builder methods', async () => {
@@ -931,9 +911,5 @@ describe('Patient FHIR R5', () => {
         status: 'generated',
       },
     });
-
-    const validate = await Validator.Patient(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

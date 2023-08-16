@@ -1,9 +1,9 @@
 import { IBuildable } from '../../../globals/interfaces';
-import { IPeriod } from '../../interfaces/datatypes';
+import { IContactPoint, IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
-import { ContactPointSystemType, ContactPointUseType } from '../../types';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../../enums';
+import { ContactPointSystemType, ContactPointUseType } from '../../../types';
 import CodeableConcept from './CodeableConcept';
 import ContactPoint from './ContactPoint';
 
@@ -24,12 +24,12 @@ export interface IContactPointBuilder extends IBuildable<CodeableConcept>, IElem
 }
 
 export class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> implements IContactPointBuilder {
-  private readonly contactPoint: ContactPoint;
+  private readonly contactPoint: IContactPoint;
 
   constructor() {
     super();
 
-    this.contactPoint = new ContactPoint();
+    this.contactPoint = {} as IContactPoint;
   }
 
   /**
@@ -127,6 +127,6 @@ export class ContactPointBuilder extends ElementBuilder<ContactPointBuilder> imp
    */
   build(): ContactPoint {
     Object.assign(this.contactPoint, { ...super.entity() });
-    return this.contactPoint.toJson();
+    return new ContactPoint(this.contactPoint).toJson();
   }
 }

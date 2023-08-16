@@ -1,10 +1,11 @@
 import { IPatientContact } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { IAddress, ICodeableConcept, IContactPoint, IHumanName, IPeriod, IReference } from '../../interfaces/datatypes';
-import { AdministrativeGenderEnum } from '../../enums';
-import { AdministrativeGenderType } from '../../types';
+import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderType } from '../../../types';
 import BackboneElement from '../base/BackboneElement';
 import { PatientContactBuilder } from './PatientContactBuilder';
+import { PatientContactValidator } from './PatientContactValidator';
 
 export default class PatientContact extends BackboneElement implements IPatientContact {
   // PatientContact attributes
@@ -34,8 +35,9 @@ export default class PatientContact extends BackboneElement implements IPatientC
     return new PatientContactBuilder();
   }
 
-  constructor(args?: IPatientContact) {
+  constructor(args: IPatientContact) {
     super();
+    PatientContactValidator(args);
     Object.assign(this, args);
   }
 }

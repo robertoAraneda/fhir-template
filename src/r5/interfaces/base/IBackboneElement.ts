@@ -1,6 +1,6 @@
 import { IExtension } from '../datatypes';
-import { IElement } from './IElement';
+import IElement from './IElement';
 
-export interface IBackboneElement extends IElement {
+export default interface IBackboneElement extends IElement {
   modifierExtension?: IExtension[];
 }

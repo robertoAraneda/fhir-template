@@ -10,7 +10,7 @@ import { ICodeableConcept } from '../datatypes';
  * @author Roberto Araneda
  * @since  2023-06-01
  */
-export interface IPractitionerCommunication extends IBackboneElement {
+export default interface IPractitionerCommunication extends IBackboneElement {
   /**
    * @description The language code used to communicate with the practitioner.
    * @description Binding: All Languages (Required)

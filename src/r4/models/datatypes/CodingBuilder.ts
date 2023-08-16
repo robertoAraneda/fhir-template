@@ -20,12 +20,12 @@ export interface ICodingBuilder extends IBuildable<Coding>, IElementBuilder<Codi
  *
  */
 export class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICodingBuilder {
-  private readonly coding: Coding;
+  private readonly coding: ICoding;
 
   constructor() {
     super();
 
-    this.coding = new Coding();
+    this.coding = {} as ICoding;
   }
 
   /**
@@ -118,6 +118,6 @@ export class CodingBuilder extends ElementBuilder<CodingBuilder> implements ICod
    */
   build(): Coding {
     Object.assign(this.coding, { ...super.entity() });
-    return this.coding.toJson();
+    return new Coding(this.coding).toJson();
   }
 }

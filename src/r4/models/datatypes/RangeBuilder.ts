@@ -10,16 +10,16 @@ export interface IRangeBuilder extends IBuildable<Range>, IElementBuilder<RangeB
 }
 
 export class RangeBuilder extends ElementBuilder<RangeBuilder> implements IRangeBuilder {
-  private readonly range: Range;
+  private readonly range: IRange;
 
   constructor() {
     super();
-    this.range = new Range();
+    this.range = {} as IRange;
   }
 
   build(): Range {
     Object.assign(this.range, { ...super.entity() });
-    return this.range.toJson();
+    return new Range(this.range).toJson();
   }
 
   setHigh(high: ISimpleQuantity): this {

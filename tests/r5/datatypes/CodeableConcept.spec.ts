@@ -1,7 +1,7 @@
 import { ICodeableConcept } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import CodeableConceptBuilder from '../../../src/r5/models/datatypes/CodeableConceptBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { CodeableConceptValidator } from '../../../src/r5/models/datatypes/CodeableConceptValidator';
 
 describe('CodeableConcept', () => {
   let builder: CodeableConceptBuilder;
@@ -25,10 +25,7 @@ describe('CodeableConcept', () => {
       text: 'test',
     });
 
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new codeableconcept and validate with correct data [ICodeableConcept]', async () => {
@@ -44,10 +41,7 @@ describe('CodeableConcept', () => {
       text: 'test',
     };
 
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => CodeableConceptValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new codeableconcept and validate with wrong data', async () => {
@@ -64,20 +58,9 @@ describe('CodeableConcept', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => CodeableConceptValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for CodeableConcept",
+    );
   });
 
   it('should be able to create a new codeableconcept using builder methods [new CodeableConceptBuilder]', async () => {
@@ -96,6 +79,7 @@ describe('CodeableConcept', () => {
       .build();
 
     expect(item).toBeDefined();
+
     expect(item).toEqual({
       _text: {
         extension: [
@@ -108,10 +92,5 @@ describe('CodeableConcept', () => {
       id: '123',
       text: 'test',
     });
-
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

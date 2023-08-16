@@ -4,6 +4,7 @@ import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 import QuantityBuilder from './QuantityBuilder';
 import Element from '../base/Element';
+import { QuantityValidator } from './QuantityValidator';
 
 export default class Quantity extends Element implements IQuantity {
   // Quantity Properties
@@ -36,8 +37,9 @@ export default class Quantity extends Element implements IQuantity {
     return `Quantity${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IQuantity) {
+  constructor(args: IQuantity) {
     super();
+    QuantityValidator(args);
     Object.assign(this, args);
   }
 }

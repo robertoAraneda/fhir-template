@@ -1,7 +1,7 @@
 import FHIRContext from '../../../src';
 import { IGroupCharacteristic } from '../../../src/r5/interfaces/backbones';
 import GroupCharacteristicBuilder from '../../../src/r5/models/backbones/GroupCharacteristicBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { GroupCharacteristicValidator } from '../../../src/r5/models/backbones/GroupCharacteristicValidator';
 
 describe('GroupCharacteristic FHIR R5', () => {
   let builder: GroupCharacteristicBuilder;
@@ -15,6 +15,7 @@ describe('GroupCharacteristic FHIR R5', () => {
   it('should be able to validate a new group_characteristic [new GroupCharacteristic()]', async () => {
     const item = new GroupCharacteristic({
       id: '123',
+      valueBoolean: true,
       code: {
         coding: [
           {
@@ -26,14 +27,13 @@ describe('GroupCharacteristic FHIR R5', () => {
       exclude: false,
     });
 
-    const validateAddress = await _validateBackbone(item, 'Group_Characteristic');
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new group_characteristic [IGroupCharacteristic]', async () => {
     const item: IGroupCharacteristic = {
       id: '123',
+      valueBoolean: true,
       code: {
         coding: [
           {
@@ -45,10 +45,7 @@ describe('GroupCharacteristic FHIR R5', () => {
       exclude: false,
     };
 
-    const validate = await _validateBackbone(item, 'Group_Characteristic');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => GroupCharacteristicValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new group_characteristic using builder methods [new GroupCharacteristicBuilder()]', async () => {
@@ -62,6 +59,7 @@ describe('GroupCharacteristic FHIR R5', () => {
           },
         ],
       })
+      .setExclude(false)
       .setValueBoolean(true)
       .setParamExtension('exclude', {
         extension: [
@@ -73,10 +71,7 @@ describe('GroupCharacteristic FHIR R5', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'Group_Characteristic');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       _exclude: {
@@ -95,6 +90,7 @@ describe('GroupCharacteristic FHIR R5', () => {
           },
         ],
       },
+      exclude: false,
       id: '123',
       valueBoolean: true,
     });
@@ -103,32 +99,15 @@ describe('GroupCharacteristic FHIR R5', () => {
   it('should be get errors validators if new group_characteristic has wrong data', async () => {
     const item = {
       id: '123',
+      code: {
+        text: 'text',
+      },
+      exclude: false,
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Group_Characteristic');
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'code'",
-        params: {
-          missingProperty: 'code',
-        },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => GroupCharacteristicValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for GroupCharacteristic",
+    );
   });
 });

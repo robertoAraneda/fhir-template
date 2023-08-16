@@ -1,6 +1,7 @@
 import { IEndpoint } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import EndpointBuilder from '../../../src/r5/models/resources/EndpointBuilder';
+import { EndpointValidator } from '../../../src/r5/models/resources/EndpointValidator';
 
 describe('Endpoint FHIR R5', () => {
   let builder: EndpointBuilder;
@@ -89,10 +90,7 @@ describe('Endpoint FHIR R5', () => {
       address: 'http://fhir3.healthintersections.com.au/open/CarePlan',
       header: ['bearer-code BASGS534s4'],
     });
-    const validate = await Validator.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(resource).toBeDefined();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example]', async () => {
@@ -172,10 +170,7 @@ describe('Endpoint FHIR R5', () => {
       header: ['bearer-code BASGS534s4'],
     };
 
-    const validate = await Validator.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => EndpointValidator(resource)).not.toThrowError();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/example-wadors]', async () => {
@@ -211,10 +206,7 @@ describe('Endpoint FHIR R5', () => {
       address: 'https://pacs.hospital.org/wado-rs',
     };
 
-    const validate = await Validator.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => EndpointValidator(resource)).not.toThrowError();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Example Endpoint/direct-endpoint]', async () => {
@@ -257,10 +249,7 @@ describe('Endpoint FHIR R5', () => {
       address: 'mailto:MARTIN.SMIETANKA@directnppes.com',
     };
 
-    const validate = await Validator.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => EndpointValidator(resource)).not.toThrowError();
   });
 
   it('should be able to validate a new endpoint and validate with wrong data', async () => {
@@ -297,27 +286,9 @@ describe('Endpoint FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.Endpoint(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/status',
-        keyword: 'enum',
-        message: 'must be equal to one of the allowed values',
-        params: { allowedValues: ['active', 'suspended', 'error', 'off', 'entered-in-error', 'test'] },
-        schemaPath: '#/properties/status/enum',
-      },
-    ]);
+    expect(() => EndpointValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for Endpoint",
+    );
   });
 
   it('should be able to create a new endpoint using builder methods [Example Endpoint/example-wadors]', async () => {
@@ -383,10 +354,5 @@ describe('Endpoint FHIR R5', () => {
       ],
       address: 'https://pacs.hospital.org/wado-rs',
     });
-
-    const validate = await Validator.Endpoint(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

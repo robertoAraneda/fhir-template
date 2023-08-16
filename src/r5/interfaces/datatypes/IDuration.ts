@@ -1,6 +1,6 @@
-import { IElement } from '../base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
+import { IElement } from '../base';
 
 /**
  * @description A length of time.
@@ -10,15 +10,15 @@ import { QuantityComparatorType } from '../../types';
  * @property {string} unit - A human-readable form of the unit.
  * @property {string} system - The identification of the system that provides the coded form of the unit.
  * @property {string} code - A computer processable form of the unit in some unit representation system.
- * @property {IElement} _value - Extensions for value
- * @property {IElement} _comparator - Extensions for comparator
- * @property {IElement} _unit - Extensions for unit
- * @property {IElement} _system - Extensions for system
- * @property {IElement} _code - Extensions for code
+ * @property {IElement<'R5'>} _value - Extensions for value
+ * @property {IElement<'R5'>} _comparator - Extensions for comparator
+ * @property {IElement<'R5'>} _unit - Extensions for unit
+ * @property {IElement<'R5'>} _system - Extensions for system
+ * @property {IElement<'R5'>} _code - Extensions for code
  * @see https://www.hl7.org/fhir/datatypes.html#Duration Duration
  * @author Roberto Araneda
  */
-export interface IDuration extends IElement {
+export default interface IDuration extends IElement {
   /**
    * @description The value of the measured amount. The value includes an implicit precision in the presentation of the value.
    */

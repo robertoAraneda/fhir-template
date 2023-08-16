@@ -14,7 +14,7 @@ import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../datatypes
  * @export
  * @author Roberto Araneda
  */
-export interface IOrganizationQualification extends IBackboneElement {
+export default interface IOrganizationQualification extends IBackboneElement {
   /**
    * Coded representation of the qualification
    * @type {CodeableConcept} code

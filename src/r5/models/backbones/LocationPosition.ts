@@ -2,6 +2,7 @@ import { ILocationPosition } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import LocationPositionBuilder from './LocationPositionBuilder';
+import { LocationPositionValidator } from './LocationPositionValidator';
 
 export default class LocationPosition extends BackboneElement implements ILocationPosition {
   longitude: number;
@@ -28,8 +29,9 @@ export default class LocationPosition extends BackboneElement implements ILocati
     return `LocationPosition${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: ILocationPosition) {
+  constructor(args: ILocationPosition) {
     super();
+    LocationPositionValidator(args);
     Object.assign(this, args);
   }
 }

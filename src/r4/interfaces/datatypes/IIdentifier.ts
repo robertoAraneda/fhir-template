@@ -1,5 +1,5 @@
-import { IdentifierUseEnum } from '../../enums';
-import { IdentifierUseType } from '../../types';
+import { IdentifierUseEnum } from '../../../enums';
+import { IdentifierUseType } from '../../../types';
 import { IElement } from '../base';
 import { IPeriod } from './IPeriod';
 import { ICodeableConcept } from './ICodeableConcept';

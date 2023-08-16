@@ -1,6 +1,6 @@
 import { IElement } from '../base';
-import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
-import { ContactPointSystemType, ContactPointUseType } from '../../types';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../../enums';
+import { ContactPointSystemType, ContactPointUseType } from '../../../types';
 import { IPeriod } from './IPeriod';
 
 /**

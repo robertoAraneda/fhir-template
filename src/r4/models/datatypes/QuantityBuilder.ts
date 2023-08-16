@@ -1,8 +1,8 @@
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { IQuantity } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
-import { QuantityComparatorEnum } from '../../enums';
-import { QuantityComparatorType } from '../../types';
+import { QuantityComparatorEnum } from '../../../enums';
+import { QuantityComparatorType } from '../../../types';
 import { IElement } from '../../interfaces/base';
 import Quantity from './Quantity';
 
@@ -23,11 +23,11 @@ export interface IQuantityBuilder extends IBuildable<Quantity>, IElementBuilder<
 }
 
 export class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
-  private readonly quantity: Quantity;
+  private readonly quantity: IQuantity;
 
   constructor() {
     super();
-    this.quantity = new Quantity();
+    this.quantity = {} as IQuantity;
   }
 
   addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): QuantityBuilder {
@@ -38,7 +38,7 @@ export class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements 
 
   build(): Quantity {
     Object.assign(this.quantity, { ...super.entity() });
-    return this.quantity.toJson();
+    return new Quantity(this.quantity).toJson();
   }
 
   setCode(value: string): QuantityBuilder {

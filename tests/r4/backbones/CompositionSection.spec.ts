@@ -1,117 +1,20 @@
 import FHIRContext from '../../../src';
 import { ICompositionSection } from '../../../src/r4/interfaces/backbones';
 import CompositionSectionBuilder from '../../../src/r4/models/backbones/CompositionSectionBuilder';
+import ReferenceException from '../../../src/globals/exceptions/ReferenceException';
+import { CompositionSectionValidator } from '../../../src/r4/models/backbones/CompositionSectionValidator';
 
 describe('CompositionSection FHIR R4', () => {
   let builder: CompositionSectionBuilder;
-  const { CompositionSection: Entity } = new FHIRContext().forR4();
+  const { CompositionSection } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = Entity.builder();
+    builder = CompositionSection.builder();
   });
 
-  it('should be able to validate a new composition_section [new CompositionSection()]', async () => {
-    expect(
-      () =>
-        new Entity({
-          id: '123',
-          mode: 'working',
-          focus: {
-            reference: 'Patient/id',
-          },
-          author: [
-            {
-              reference: 'Practitioner/id',
-            },
-          ],
-          code: {
-            coding: [
-              {
-                system: 'http://loinc.org',
-                code: '34133-9',
-                display: 'Summarization of episode note',
-              },
-            ],
-          },
-          text: {
-            status: 'generated',
-            div: '<div xmlns="http://www.w3.org/1999/xhtml">A human-readable rendering of the composition</div>',
-          },
-          title: 'Title',
-          orderedBy: {
-            coding: [
-              {
-                system: 'http://terminology.hl7.org/CodeSystem/list-order',
-                code: 'event-date',
-                display: 'Sorted by Event Date',
-              },
-            ],
-          },
-          entry: [
-            {
-              reference: 'Observation/id',
-            },
-            {
-              reference: 'Observation/id',
-            },
-          ],
-          section: [
-            {
-              title: 'Title',
-              code: {
-                coding: [
-                  {
-                    system: 'http://loinc.org',
-                    code: '34133-9',
-                    display: 'Summarization of episode note',
-                  },
-                ],
-              },
-              text: {
-                status: 'generated',
-                div: '<div xmlns="http://www.w3.org/1999/xhtml">A human-readable rendering of the composition</div>',
-              },
-              entry: [
-                {
-                  reference: 'Observation/id',
-                },
-                {
-                  reference: 'Observation/id',
-                },
-              ],
-              section: [
-                {
-                  entry: [
-                    {
-                      reference: 'Observation/id',
-                    },
-                    {
-                      reference: 'Observation/id',
-                    },
-                  ],
-                  section: [
-                    {
-                      entry: [
-                        {
-                          reference: 'Observation/id',
-                        },
-                        {
-                          reference: 'Observation/id',
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        }),
-    ).not.toThrow();
-  });
-
-  it('should be able to validate a new composition_section [ICompositionSection]', async () => {
-    const item: ICompositionSection = {
+  it('should be able to validate a new composition_section [new CompositionSection()]', () => {
+    const item = new CompositionSection({
       id: '123',
       mode: 'working',
       focus: {
@@ -177,8 +80,11 @@ describe('CompositionSection FHIR R4', () => {
               reference: 'Observation/id',
             },
           ],
+          mode: 'working',
           section: [
             {
+              mode: 'working',
+              title: 'Title',
               entry: [
                 {
                   reference: 'Observation/id',
@@ -189,6 +95,111 @@ describe('CompositionSection FHIR R4', () => {
               ],
               section: [
                 {
+                  mode: 'working',
+                  title: 'Title',
+                  entry: [
+                    {
+                      reference: 'Observation/id',
+                    },
+                    {
+                      reference: 'Observation/id',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(item).toBeDefined();
+  });
+
+  it('should be able to validate a new composition_section [ICompositionSection]', () => {
+    const item: ICompositionSection = {
+      id: '123',
+      mode: 'working',
+      focus: {
+        reference: 'Patient/id',
+      },
+      author: [
+        {
+          reference: 'Practitioner/id',
+        },
+      ],
+      code: {
+        coding: [
+          {
+            system: 'http://loinc.org',
+            code: '34133-9',
+            display: 'Summarization of episode note',
+          },
+        ],
+      },
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">A human-readable rendering of the composition</div>',
+      },
+      title: 'Title',
+      orderedBy: {
+        coding: [
+          {
+            system: 'http://terminology.hl7.org/CodeSystem/list-order',
+            code: 'event-date',
+            display: 'Sorted by Event Date',
+          },
+        ],
+      },
+      entry: [
+        {
+          reference: 'Observation/id',
+        },
+        {
+          reference: 'Observation/id',
+        },
+      ],
+      section: [
+        {
+          title: 'Title',
+          mode: 'changes',
+          code: {
+            coding: [
+              {
+                system: 'http://loinc.org',
+                code: '34133-9',
+                display: 'Summarization of episode note',
+              },
+            ],
+          },
+          text: {
+            status: 'generated',
+            div: '<div xmlns="http://www.w3.org/1999/xhtml">A human-readable rendering of the composition</div>',
+          },
+          entry: [
+            {
+              reference: 'Observation/id',
+            },
+            {
+              reference: 'Observation/id',
+            },
+          ],
+          section: [
+            {
+              mode: 'working',
+              title: 'Title',
+              entry: [
+                {
+                  reference: 'Observation/id',
+                },
+                {
+                  reference: 'Observation/id',
+                },
+              ],
+              section: [
+                {
+                  mode: 'working',
+                  title: 'Title',
                   focus: {
                     reference: 'Patient/id',
                     identifier: {
@@ -216,18 +227,18 @@ describe('CompositionSection FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item)).not.toThrow();
+    expect(() => CompositionSectionValidator(item)).not.toThrow();
 
     /*
 
-    expect(() => CompositionSection.validate(item, 'ajv')).toThrow(
+    expect(() => CompositionSectionValidator(item, 'ajv')).toThrow(
       "Invalid Backbone Element CompositionSection: \"The value '/party/reference' does not match with datatype 'string'\"",
     );
 
      */
   });
 
-  it('should be able to create a new composition_section using builder methods [CompositionSection.builder()]', async () => {
+  it('should be able to create a new composition_section using builder methods [CompositionSection.builder()]', () => {
     const item = builder
       .setId('123')
       .setMode('changes')
@@ -239,7 +250,8 @@ describe('CompositionSection FHIR R4', () => {
       })
       .setTitle('Title')
       .addSection(
-        Entity.builder()
+        CompositionSection.builder()
+          .setMode('working')
           .setTitle('Title')
           .setFocus({ reference: 'Patient/123' })
           .addEntry({
@@ -249,7 +261,8 @@ describe('CompositionSection FHIR R4', () => {
             reference: 'Observation/id',
           })
           .addSection(
-            Entity.builder()
+            CompositionSection.builder()
+              .setTitle('Title')
               .setMode('snapshot')
               .setFocus({ reference: 'Patient/123' })
               .addEntry({
@@ -285,6 +298,7 @@ describe('CompositionSection FHIR R4', () => {
           focus: {
             reference: 'Patient/123',
           },
+          mode: 'working',
           section: [
             {
               entry: [
@@ -296,6 +310,7 @@ describe('CompositionSection FHIR R4', () => {
                 reference: 'Patient/123',
               },
               mode: 'snapshot',
+              title: 'Title',
             },
           ],
           title: 'Title',
@@ -305,32 +320,39 @@ describe('CompositionSection FHIR R4', () => {
     });
   });
 
-  it('should be get errors validators if new composition_section has wrong data', async () => {
+  it('should be get errors validators if new composition_section has wrong data', () => {
     const item = {
+      mode: 'working',
+      title: 'Title',
       wrongProperty: 'wrongProperty', // Wrong property
     };
 
-    expect(() => Entity.validate(item as any, 'format')).toThrowError(
-      'Invalid Backbone Element Composition_Section: "must NOT have additional properties: [wrongProperty]',
+    expect(() => CompositionSectionValidator(item as ICompositionSection)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for CompositionSection",
     );
   });
 
-  it('should be get errors validators if new composition_section has wrong references format', async () => {
+  it('should be get errors validators if new composition_section has wrong references format', () => {
     const item = {
       id: '123',
       mode: 'working',
+      title: 'Title',
       focus: {
         reference: '/id',
       },
     };
 
-    expect(() => Entity.validate(item as any, 'reference')).toThrowError('Invalid Reference');
+    expect(() => CompositionSectionValidator(item as ICompositionSection)).toThrowError(ReferenceException);
+    expect(() => CompositionSectionValidator(item as ICompositionSection)).toThrowError(
+      'ReferenceException: [value=/id]. Reference must be in the format {ResourceType}/{id}. Path: CompositionSection.focus.reference',
+    );
   });
 
-  it('should be get errors validators if new composition_section has wrong references resource', async () => {
+  it('should be get errors validators if new composition_section has wrong references resource', () => {
     const item = {
       id: '123',
       mode: 'working',
+      title: 'Title',
       focus: {
         reference: 'Patient/id',
       },
@@ -349,6 +371,9 @@ describe('CompositionSection FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item as any, 'reference')).toThrowError('Invalid Reference');
+    expect(() => CompositionSectionValidator(item as ICompositionSection)).toThrowError(ReferenceException);
+    expect(() => CompositionSectionValidator(item as ICompositionSection)).toThrowError(
+      'ReferenceException: [value=Observation]. ResourceType must be one of the following: [Practitioner, PractitionerRole, Device, Patient, RelatedPerson, Organization]. Path: CompositionSection.author[0].reference',
+    );
   });
 });

@@ -13,11 +13,11 @@ export interface IPeriodBuilder extends IBuildable<Period>, IElementBuilder<Peri
 }
 
 export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IPeriodBuilder {
-  private readonly period: Period;
+  private readonly period: IPeriod;
 
   constructor() {
     super();
-    this.period = new Period();
+    this.period = {} as IPeriod;
   }
 
   addParamExtension(param: 'start' | 'end', extension: IElement): PeriodBuilder {
@@ -40,6 +40,6 @@ export class PeriodBuilder extends ElementBuilder<PeriodBuilder> implements IPer
 
   build(): Period {
     Object.assign(this.period, { ...super.entity() });
-    return this.period.toJson();
+    return new Period(this.period).toJson();
   }
 }

@@ -1,7 +1,8 @@
 import { IVirtualServiceDetail } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import VirtualServiceDetailBuilder from '../../../src/r5/models/datatypes/VirtualServiceDetailBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+
+import { VirtualServiceDetailValidator } from '../../../src/r5/models/datatypes/VirtualServiceDetailValidator';
 
 describe('VirtualServiceDetail', () => {
   let builder: VirtualServiceDetailBuilder;
@@ -21,9 +22,7 @@ describe('VirtualServiceDetail', () => {
       sessionKey: '123',
     });
 
-    const validateAddress = await _validateDataType(dataType, 'VirtualServiceDetail');
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    expect(dataType).toBeDefined();
   });
 
   it('should be able to validate a new virtual_service_detail [IVirtualServiceDetail]', async () => {
@@ -35,9 +34,7 @@ describe('VirtualServiceDetail', () => {
       sessionKey: '123',
     };
 
-    const validateAddress = await _validateDataType(dataType, 'VirtualServiceDetail');
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
+    expect(() => VirtualServiceDetailValidator(dataType)).not.toThrow();
   });
 
   it('should be able to create a new virtual_service_detail using builder methods [new VirtualServiceDetailBuilder()]', async () => {
@@ -48,15 +45,13 @@ describe('VirtualServiceDetail', () => {
       .setAddressUrl('http://example.com')
       .build();
 
+    expect(dataType).toBeDefined();
+
     expect(dataType).toEqual({
       additionalInfo: ['info', 'info2'],
       addressString: '123 Main St',
       addressUrl: 'http://example.com',
     });
-
-    const validateAddress = await _validateDataType(dataType, 'VirtualServiceDetail');
-    expect(validateAddress.isValid).toBeTruthy();
-    expect(validateAddress.errors).toBeUndefined();
   });
 
   it('should be get errors validators if new virtual_service_detail has wrong data', async () => {
@@ -69,21 +64,8 @@ describe('VirtualServiceDetail', () => {
       wrongProperty: 'wrong', // wrong property
     };
 
-    const validateAddress = await _validateDataType(dataType, 'VirtualServiceDetail');
-
-    expect(validateAddress.isValid).toBeFalsy();
-    expect(validateAddress.errors).toBeDefined();
-    expect(validateAddress.errors?.length).toBe(1);
-    expect(validateAddress.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => VirtualServiceDetailValidator(dataType)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for VirtualServiceDetail",
+    );
   });
 });

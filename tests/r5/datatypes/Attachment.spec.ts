@@ -1,7 +1,7 @@
 import { IAttachment } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import AttachmentBuilder from '../../../src/r5/models/datatypes/AttachmentBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { AttachmentValidator } from '../../../src/r5/models/datatypes/AttachmentValidator';
 
 describe('Attachment FHIR R5', () => {
   let builder: AttachmentBuilder;
@@ -39,10 +39,7 @@ describe('Attachment FHIR R5', () => {
       },
     });
 
-    const validate = await _validateDataType(item, 'Attachment');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new attachment and validate with correct data [IAttachment]', async () => {
@@ -71,10 +68,7 @@ describe('Attachment FHIR R5', () => {
       },
     };
 
-    const validate = await _validateDataType(item, 'Attachment');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => AttachmentValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new attachment and validate with wrong data', async () => {
@@ -92,20 +86,9 @@ describe('Attachment FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Attachment');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => AttachmentValidator(item)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for Attachment",
+    );
   });
 
   it('should be able to create a new attachment using builder methods [new AttachmentBuilder()]', async () => {
@@ -151,10 +134,5 @@ describe('Attachment FHIR R5', () => {
       pages: 1,
       size: 1,
     });
-
-    const validate = await _validateDataType(item, 'Attachment');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

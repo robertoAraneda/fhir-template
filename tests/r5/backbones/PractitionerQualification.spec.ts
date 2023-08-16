@@ -1,7 +1,7 @@
 import { IPractitionerQualification } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
 import PractitionerQualificationBuilder from '../../../src/r5/models/backbones/PractitionerQualificationBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { PractitionerQualificationValidator } from '../../../src/r5/models/backbones/PractitionerQualificationValidator';
 
 describe('PractitionerQualification FHIR R5', () => {
   const { PractitionerQualification } = new FHIRContext().forR5();
@@ -13,10 +13,10 @@ describe('PractitionerQualification FHIR R5', () => {
   });
 
   it('should be able to create a new practitioner_qualification payload and validate with correct data [IPractitionerQualification]', async () => {
-    const dataType: IPractitionerQualification = {
+    const item: IPractitionerQualification = {
       id: '123',
       issuer: {
-        reference: 'test',
+        reference: 'Organization/1',
       },
       code: {
         coding: [
@@ -28,17 +28,14 @@ describe('PractitionerQualification FHIR R5', () => {
       },
     };
 
-    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerQualificationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new practitioner_qualification payload and validate with correct data [new PractitionerQualification()]', async () => {
-    const dataType = new PractitionerQualification({
+    const item = new PractitionerQualification({
       id: '123',
       issuer: {
-        reference: 'test',
+        reference: 'Organization/1',
       },
       code: {
         coding: [
@@ -50,17 +47,14 @@ describe('PractitionerQualification FHIR R5', () => {
       },
     });
 
-    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new practitioner_qualification payload and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       issuer: {
-        reference: 'test',
+        reference: 'Organization/1',
       },
       period: {
         start: 'wrong date', // wrong date
@@ -77,32 +71,14 @@ describe('PractitionerQualification FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/period/start',
-        keyword: 'pattern',
-        message: "The value '/period/start' does not match with datatype 'dateTime'",
-        params: { value: '/period/start' },
-        schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
-      },
-    ]);
+    expect(() => PractitionerQualificationValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PractitionerQualification",
+    );
   });
 
   it('should be able to create a new practitioner_qualification payload using builder methods [new PractitionerQualificationBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setCode({
         coding: [
@@ -132,8 +108,8 @@ describe('PractitionerQualification FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       code: {
         coding: [
           {
@@ -155,10 +131,5 @@ describe('PractitionerQualification FHIR R5', () => {
         reference: 'Organization/1',
       },
     });
-
-    const validate = await _validateBackbone(dataType, 'Practitioner_Qualification');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

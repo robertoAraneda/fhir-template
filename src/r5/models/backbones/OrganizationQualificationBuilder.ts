@@ -1,73 +1,57 @@
-import { IOrganizationQualification } from '../../interfaces/backbones';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
-import { validateReference } from '../../helpers/validateReference';
-import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
+import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { OrganizationQualification } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IBackboneElementBuilder } from '../../../r4/models/base/BackboneElementBuilder';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
+import { IElementBuilder } from '../base/ElementBuilder';
+import { IOrganizationQualification } from '../../interfaces/backbones';
 
 interface IOrganizationQualificationBuilder
   extends IBuildable<OrganizationQualification>,
     IBackboneElementBuilder<OrganizationQualificationBuilder>,
     IElementBuilder<OrganizationQualificationBuilder> {
-  setCode(code: ICodeableConcept): OrganizationQualificationBuilder;
+  setCode(code: ICodeableConcept): this;
 
-  addIdentifier(identifier: IIdentifier): OrganizationQualificationBuilder;
+  addIdentifier(identifier: IIdentifier): this;
 
-  setMultipleIdentifier(identifier: IIdentifier[]): OrganizationQualificationBuilder;
+  setMultipleIdentifier(identifier: IIdentifier[]): this;
 
-  setIssuer(issuer: IReference): OrganizationQualificationBuilder;
+  setIssuer(issuer: IReference): this;
 
-  setPeriod(period: IPeriod): OrganizationQualificationBuilder;
+  setPeriod(period: IPeriod): this;
 }
 
 export default class OrganizationQualificationBuilder
   extends BackboneElementBuilder<OrganizationQualificationBuilder>
   implements IOrganizationQualificationBuilder
 {
-  private readonly organizationQualification: OrganizationQualification;
+  private readonly organizationQualification: IOrganizationQualification;
 
   constructor() {
     super();
-    this.organizationQualification = new OrganizationQualification();
+    this.organizationQualification = {} as IOrganizationQualification;
   }
 
-  setCode(code: ICodeableConcept): OrganizationQualificationBuilder {
+  setCode(code: ICodeableConcept): this {
     this.organizationQualification.code = code;
     return this;
   }
 
-  setMultipleIdentifier(identifier: IIdentifier[]): OrganizationQualificationBuilder {
-    for (const id of identifier) {
-      if (id.assigner?.reference) {
-        validateReference(id.assigner?.reference, ['Organization']);
-      }
-    }
-
-    this.organizationQualification.identifier = identifier;
+  setMultipleIdentifier(identifier: IIdentifier[]): this {
+    identifier.forEach((identifier) => this.addIdentifier(identifier));
     return this;
   }
 
-  setIssuer(issuer: IReference): OrganizationQualificationBuilder {
-    if (issuer.reference) {
-      validateReference(issuer.reference, ['Organization']);
-    }
-
+  setIssuer(issuer: IReference): this {
     this.organizationQualification.issuer = issuer;
     return this;
   }
 
-  setPeriod(period: IPeriod): OrganizationQualificationBuilder {
+  setPeriod(period: IPeriod): this {
     this.organizationQualification.period = period;
     return this;
   }
 
-  addIdentifier(identifier: IIdentifier): OrganizationQualificationBuilder {
-    if (identifier.assigner?.reference) {
-      validateReference(identifier.assigner?.reference, ['Organization']);
-    }
-
+  addIdentifier(identifier: IIdentifier): this {
     this.organizationQualification.identifier = this.organizationQualification.identifier || [];
     this.organizationQualification.identifier.push(identifier);
     return this;
@@ -75,6 +59,6 @@ export default class OrganizationQualificationBuilder
 
   build(): OrganizationQualification {
     Object.assign(this.organizationQualification, { ...super.entity() });
-    return this.organizationQualification.toJson();
+    return new OrganizationQualification(this.organizationQualification).toJson();
   }
 }

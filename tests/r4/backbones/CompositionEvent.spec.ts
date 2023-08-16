@@ -2,42 +2,42 @@ import FHIRContext from '../../../src';
 import { ICompositionEvent } from '../../../src/r4/interfaces/backbones';
 import CompositionEventBuilder from '../../../src/r4/models/backbones/CompositionEventBuilder';
 
+import { CompositionEventValidator } from '../../../src/r4/models/backbones/CompositionEventValidator';
+
 describe('CompositionEvent FHIR R4', () => {
   let builder: CompositionEventBuilder;
-  const { CompositionEvent: Entity } = new FHIRContext().forR4();
+  const { CompositionEvent } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = Entity.builder();
+    builder = CompositionEvent.builder();
   });
 
   it('should be able to validate a new composition_event [new CompositionEvent()]', async () => {
-    expect(
-      () =>
-        new Entity({
-          id: '123',
-          code: [
+    const item = new CompositionEvent({
+      id: '123',
+      code: [
+        {
+          coding: [
             {
-              coding: [
-                {
-                  system: 'http://loinc.org',
-                  code: '34133-9',
-                  display: 'Summarization of episode note',
-                },
-              ],
+              system: 'http://loinc.org',
+              code: '34133-9',
+              display: 'Summarization of episode note',
             },
           ],
-          period: {
-            start: '2020-01-01T00:00:00.000Z',
-            end: '2020-01-01T00:00:00.000Z',
-          },
-          detail: [
-            {
-              reference: 'Observation/id',
-            },
-          ],
-        }),
-    ).not.toThrow();
+        },
+      ],
+      period: {
+        start: '2020-01-01T00:00:00.000Z',
+        end: '2020-01-01T00:00:00.000Z',
+      },
+      detail: [
+        {
+          reference: 'Observation/id',
+        },
+      ],
+    });
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new composition_event [ICompositionEvent]', async () => {
@@ -65,7 +65,7 @@ describe('CompositionEvent FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item)).not.toThrow();
+    expect(() => CompositionEventValidator(item)).not.toThrow();
 
     /*
     
@@ -117,8 +117,8 @@ describe('CompositionEvent FHIR R4', () => {
       wrongProperty: 'wrongProperty', // Wrong property
     };
 
-    expect(() => Entity.validate(item as any, 'format')).toThrowError(
-      'Invalid Backbone Element Composition_Event: "must NOT have additional properties: [wrongProperty]',
+    expect(() => CompositionEventValidator(item as ICompositionEvent)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for CompositionEvent",
     );
   });
 
@@ -132,7 +132,9 @@ describe('CompositionEvent FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item as any, 'reference')).toThrowError('Invalid Reference');
+    expect(() => CompositionEventValidator(item as ICompositionEvent)).toThrowError(
+      'ReferenceException: [value=/id]. Reference must be in the format {ResourceType}/{id}. Path: CompositionEvent.detail[0].reference',
+    );
   });
 
   it('should be get errors validators if new composition_event has wrong references resource', async () => {
@@ -145,6 +147,8 @@ describe('CompositionEvent FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item as any, 'reference')).toThrowError('Invalid Reference');
+    expect(() => CompositionEventValidator(item as ICompositionEvent)).toThrowError(
+      'ReferenceException: [value=WrongReference]. ResourceType can be any FHIR resource type. Path: CompositionEvent.detail[0].reference',
+    );
   });
 });

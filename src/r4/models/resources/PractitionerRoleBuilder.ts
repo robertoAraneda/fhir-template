@@ -4,8 +4,8 @@ import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, IContactPoint, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { IPractitionerRoleAvailableTime, IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import PractitionerRole from './PractitionerRole';
+import { IPractitionerRole } from '../../interfaces/resources';
 
 type ParamExtensionType = 'implicitRules' | 'language' | 'active' | 'availabilityExceptions';
 
@@ -13,241 +13,197 @@ export interface IPractitionerRoleBuilder
   extends IBuildable<PractitionerRole>,
     IDomainResourceBuilder<PractitionerRoleBuilder>,
     IResourceBuilder<PractitionerRoleBuilder> {
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): PractitionerRoleBuilder;
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this;
 
-  addIdentifier(identifier: IIdentifier): PractitionerRoleBuilder;
+  addIdentifier(identifier: IIdentifier): this;
 
-  setActive(active: boolean): PractitionerRoleBuilder;
+  setActive(active: boolean): this;
 
-  setPeriod(period: IPeriod): PractitionerRoleBuilder;
+  setPeriod(period: IPeriod): this;
 
-  setPractitioner(practitioner: IReference): PractitionerRoleBuilder;
+  setPractitioner(practitioner: IReference): this;
 
-  setOrganization(organization: IReference): PractitionerRoleBuilder;
+  setOrganization(organization: IReference): this;
 
-  addCode(code: ICodeableConcept): PractitionerRoleBuilder;
+  addCode(code: ICodeableConcept): this;
 
-  addSpecialty(specialty: ICodeableConcept): PractitionerRoleBuilder;
+  addSpecialty(specialty: ICodeableConcept): this;
 
-  addLocation(location: IReference): PractitionerRoleBuilder;
+  addLocation(location: IReference): this;
 
-  addHealthcareService(healthcareService: IReference): PractitionerRoleBuilder;
+  addHealthcareService(healthcareService: IReference): this;
 
-  addTelecom(telecom: IContactPoint): PractitionerRoleBuilder;
+  addTelecom(telecom: IContactPoint): this;
 
-  addAvailableTime(availableTime: IPractitionerRoleAvailableTime): PractitionerRoleBuilder;
+  addAvailableTime(availableTime: IPractitionerRoleAvailableTime): this;
 
-  addNotAvailable(notAvailable: IPractitionerRoleNotAvailable): PractitionerRoleBuilder;
+  addNotAvailable(notAvailable: IPractitionerRoleNotAvailable): this;
 
-  setAvailabilityExceptions(availabilityExceptions: string): PractitionerRoleBuilder;
+  setAvailabilityExceptions(availabilityExceptions: string): this;
 
-  addEndpoint(endpoint: IReference): PractitionerRoleBuilder;
+  addEndpoint(endpoint: IReference): this;
 
-  setMultipleIdentifier(identifiers: IIdentifier[]): PractitionerRoleBuilder;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this;
 
-  setMultipleCode(codes: ICodeableConcept[]): PractitionerRoleBuilder;
+  setMultipleCode(codes: ICodeableConcept[]): this;
 
-  setMultipleSpecialty(specialties: ICodeableConcept[]): PractitionerRoleBuilder;
+  setMultipleSpecialty(specialties: ICodeableConcept[]): this;
 
-  setMultipleLocation(locations: IReference[]): PractitionerRoleBuilder;
+  setMultipleLocation(locations: IReference[]): this;
 
-  setMultipleHealthcareService(healthcareServices: IReference[]): PractitionerRoleBuilder;
+  setMultipleHealthcareService(healthcareServices: IReference[]): this;
 
-  setMultipleEndpoint(endpoints: IReference[]): PractitionerRoleBuilder;
+  setMultipleEndpoint(endpoints: IReference[]): this;
 
-  setMultipleTelecom(telecoms: IContactPoint[]): PractitionerRoleBuilder;
+  setMultipleTelecom(telecoms: IContactPoint[]): this;
 
-  setMultipleAvailableTime(availableTimes: IPractitionerRoleAvailableTime[]): PractitionerRoleBuilder;
+  setMultipleAvailableTime(availableTimes: IPractitionerRoleAvailableTime[]): this;
 
-  setMultipleNotAvailable(notAvailables: IPractitionerRoleNotAvailable[]): PractitionerRoleBuilder;
+  setMultipleNotAvailable(notAvailables: IPractitionerRoleNotAvailable[]): this;
 }
 
 export class PractitionerRoleBuilder
   extends DomainResourceBuilder<PractitionerRoleBuilder>
   implements IPractitionerRoleBuilder
 {
-  private readonly practitionerRole: PractitionerRole;
+  private readonly practitionerRole: IPractitionerRole;
 
   constructor() {
     super();
-    this.practitionerRole = new PractitionerRole();
+    this.practitionerRole = {} as IPractitionerRole;
   }
 
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): PractitionerRoleBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this {
     this.practitionerRole[`_${param}`] = extension;
     return this;
   }
 
-  addIdentifier(identifier: IIdentifier): PractitionerRoleBuilder {
-    if (identifier.assigner?.reference) {
-      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
-    }
+  addIdentifier(identifier: IIdentifier): this {
     this.practitionerRole.identifier = this.practitionerRole.identifier || [];
     this.practitionerRole.identifier.push(identifier);
     return this;
   }
 
-  setMultipleIdentifier(identifiers: IIdentifier[]): PractitionerRoleBuilder {
-    identifiers.forEach((identifier) => {
-      if (identifier.assigner?.reference) {
-        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
-      }
-    });
+  setMultipleIdentifier(identifiers: IIdentifier[]): this {
     this.practitionerRole.identifier = identifiers;
     return this;
   }
 
-  setActive(active: boolean): PractitionerRoleBuilder {
+  setActive(active: boolean): this {
     this.practitionerRole.active = active;
     return this;
   }
 
-  setPeriod(period: IPeriod): PractitionerRoleBuilder {
+  setPeriod(period: IPeriod): this {
     this.practitionerRole.period = period;
     return this;
   }
 
-  setPractitioner(practitioner: IReference): PractitionerRoleBuilder {
-    if (practitioner.reference) {
-      validateReferenceHelper(practitioner.reference, ['Practitioner']);
-    }
-
+  setPractitioner(practitioner: IReference): this {
     this.practitionerRole.practitioner = practitioner;
     return this;
   }
 
-  setOrganization(organization: IReference): PractitionerRoleBuilder {
-    if (organization.reference) {
-      validateReferenceHelper(organization.reference, ['Organization']);
-    }
-
+  setOrganization(organization: IReference): this {
     this.practitionerRole.organization = organization;
     return this;
   }
 
-  addCode(code: ICodeableConcept): PractitionerRoleBuilder {
+  addCode(code: ICodeableConcept): this {
     this.practitionerRole.code = this.practitionerRole.code || [];
     this.practitionerRole.code.push(code);
     return this;
   }
 
-  setMultipleCode(codes: ICodeableConcept[]): PractitionerRoleBuilder {
+  setMultipleCode(codes: ICodeableConcept[]): this {
     this.practitionerRole.code = codes;
     return this;
   }
 
-  addSpecialty(specialty: ICodeableConcept): PractitionerRoleBuilder {
+  addSpecialty(specialty: ICodeableConcept): this {
     this.practitionerRole.specialty = this.practitionerRole.specialty || [];
     this.practitionerRole.specialty.push(specialty);
     return this;
   }
 
-  setMultipleSpecialty(specialties: ICodeableConcept[]): PractitionerRoleBuilder {
+  setMultipleSpecialty(specialties: ICodeableConcept[]): this {
     this.practitionerRole.specialty = specialties;
     return this;
   }
 
-  addLocation(location: IReference): PractitionerRoleBuilder {
-    if (location.reference) {
-      validateReferenceHelper(location.reference, ['Location']);
-    }
-
+  addLocation(location: IReference): this {
     this.practitionerRole.location = this.practitionerRole.location || [];
     this.practitionerRole.location.push(location);
     return this;
   }
 
-  setMultipleLocation(locations: IReference[]): PractitionerRoleBuilder {
-    locations.forEach((location) => {
-      if (location.reference) {
-        validateReferenceHelper(location.reference, ['Location']);
-      }
-    });
+  setMultipleLocation(locations: IReference[]): this {
     this.practitionerRole.location = locations;
     return this;
   }
 
-  addHealthcareService(healthcareService: IReference): PractitionerRoleBuilder {
-    if (healthcareService.reference) {
-      validateReferenceHelper(healthcareService.reference, ['HealthcareService']);
-    }
-
+  addHealthcareService(healthcareService: IReference): this {
     this.practitionerRole.healthcareService = this.practitionerRole.healthcareService || [];
     this.practitionerRole.healthcareService.push(healthcareService);
     return this;
   }
 
-  setMultipleHealthcareService(healthcareServices: IReference[]): PractitionerRoleBuilder {
-    healthcareServices.forEach((healthcareService) => {
-      if (healthcareService.reference) {
-        validateReferenceHelper(healthcareService.reference, ['HealthcareService']);
-      }
-    });
+  setMultipleHealthcareService(healthcareServices: IReference[]): this {
     this.practitionerRole.healthcareService = healthcareServices;
     return this;
   }
 
-  addEndpoint(endpoint: IReference): PractitionerRoleBuilder {
-    if (endpoint.reference) {
-      validateReferenceHelper(endpoint.reference, ['Endpoint']);
-    }
-
+  addEndpoint(endpoint: IReference): this {
     this.practitionerRole.endpoint = this.practitionerRole.endpoint || [];
     this.practitionerRole.endpoint.push(endpoint);
     return this;
   }
 
-  setMultipleEndpoint(endpoints: IReference[]): PractitionerRoleBuilder {
-    endpoints.forEach((endpoint) => {
-      if (endpoint.reference) {
-        validateReferenceHelper(endpoint.reference, ['Endpoint']);
-      }
-    });
-
+  setMultipleEndpoint(endpoints: IReference[]): this {
     this.practitionerRole.endpoint = endpoints;
     return this;
   }
 
-  addAvailableTime(availableTime: IPractitionerRoleAvailableTime): PractitionerRoleBuilder {
+  addAvailableTime(availableTime: IPractitionerRoleAvailableTime): this {
     this.practitionerRole.availableTime = this.practitionerRole.availableTime || [];
     this.practitionerRole.availableTime.push(availableTime);
     return this;
   }
 
-  addNotAvailable(notAvailable: IPractitionerRoleNotAvailable): PractitionerRoleBuilder {
+  addNotAvailable(notAvailable: IPractitionerRoleNotAvailable): this {
     this.practitionerRole.notAvailable = this.practitionerRole.notAvailable || [];
     this.practitionerRole.notAvailable.push(notAvailable);
     return this;
   }
 
-  addTelecom(telecom: IContactPoint): PractitionerRoleBuilder {
+  addTelecom(telecom: IContactPoint): this {
     this.practitionerRole.telecom = this.practitionerRole.telecom || [];
     this.practitionerRole.telecom.push(telecom);
     return this;
   }
 
-  setAvailabilityExceptions(availabilityExceptions: string): PractitionerRoleBuilder {
+  setAvailabilityExceptions(availabilityExceptions: string): this {
     this.practitionerRole.availabilityExceptions = availabilityExceptions;
     return this;
   }
 
-  setMultipleAvailableTime(availableTimes: IPractitionerRoleAvailableTime[]): PractitionerRoleBuilder {
+  setMultipleAvailableTime(availableTimes: IPractitionerRoleAvailableTime[]): this {
     this.practitionerRole.availableTime = availableTimes;
     return this;
   }
 
-  setMultipleNotAvailable(notAvailables: IPractitionerRoleNotAvailable[]): PractitionerRoleBuilder {
+  setMultipleNotAvailable(notAvailables: IPractitionerRoleNotAvailable[]): this {
     this.practitionerRole.notAvailable = notAvailables;
     return this;
   }
 
-  setMultipleTelecom(telecoms: IContactPoint[]): PractitionerRoleBuilder {
+  setMultipleTelecom(telecoms: IContactPoint[]): this {
     this.practitionerRole.telecom = telecoms;
     return this;
   }
 
   build(): PractitionerRole {
     Object.assign(this.practitionerRole, { ...super.entity() });
-    return this.practitionerRole.toJson();
+    return new PractitionerRole(this.practitionerRole).toJson();
   }
 }

@@ -1,16 +1,21 @@
-import { IElement } from '../base/IElement';
-import { IAddress } from './IAddress';
-import { ICodeableConcept } from './ICodeableConcept';
-import { IPeriod } from './IPeriod';
-import { IReference } from './IReference';
-import { ICodeableReference } from './ICodeableReference';
-import { ICoding } from './ICoding';
-import { IAttachment } from './IAttachment';
-import { IContactPoint } from './IContactPoint';
-import { IIdentifier } from './IIdentifier';
-import { IQuantity } from './IQuantity';
+import IAttachment from './IAttachment';
+import ICodeableReference from './ICodeableReference';
+import IQuantity from './IQuantity';
+import { IElement } from '../base';
+import IAddress from './IAddress';
+import ICodeableConcept from './ICodeableConcept';
+import IReference from './IReference';
+import ICoding from './ICoding';
+import IContactPoint from './IContactPoint';
+import IIdentifier from './IIdentifier';
+import IPeriod from './IPeriod';
+import IHumanName from './IHumanName';
+import IDuration from './IDuration';
+import IRange from './IRange';
+import ISignature from './ISignature';
+import IMeta from './IMeta';
 
-export interface IExtension extends IElement {
+export default interface IExtension extends IElement {
   url: string;
   _url?: IElement;
   valueBase64Binary?: string;
@@ -62,7 +67,12 @@ export interface IExtension extends IElement {
   valueCoding?: ICoding;
   valueContactPoint?: IContactPoint;
   valueIdentifier?: IIdentifier;
+  valueHumanName?: IHumanName;
+  valueDuration?: IDuration;
+  valueRange?: IRange;
 
   valuePeriod?: IPeriod;
   valueQuantity?: IQuantity;
+  valueSignature?: ISignature;
+  valueMeta?: IMeta;
 }

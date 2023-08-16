@@ -12,7 +12,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import { IPatientContact, IPatientCommunication, IPatientLink } from '../backbones';
 
-export interface IPatient extends IDomainResource {
+export default interface IPatient extends IDomainResource {
   resourceType: 'Patient';
   /**
    * An identifier for this patient

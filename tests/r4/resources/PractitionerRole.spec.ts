@@ -2,6 +2,7 @@ import { IPractitionerRole } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
 import { PractitionerRoleBuilder } from '../../../src/r4/models/resources/PractitionerRoleBuilder';
+import { PractitionerRoleValidator } from '../../../src/r4/models/resources/PractitionerRoleValidator';
 
 describe('PractitionerRole Resource FHIR R4', () => {
   let builder: PractitionerRoleBuilder;
@@ -110,10 +111,7 @@ describe('PractitionerRole Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.PractitionerRole(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerRoleValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new practitioner role and validate with correct data [new PractitionerRole()]', async () => {
@@ -156,10 +154,7 @@ describe('PractitionerRole Resource FHIR R4', () => {
       ],
     });
 
-    const validate = await Validator.PractitionerRole(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new contact point using builder methods [new PractitionerRoleBuilder()]', async () => {
@@ -186,11 +181,6 @@ describe('PractitionerRole Resource FHIR R4', () => {
         reference: 'HealthcareService/example',
       })
       .build();
-
-    const validate = await Validator.PractitionerRole(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({
@@ -252,25 +242,8 @@ describe('PractitionerRole Resource FHIR R4', () => {
         },
       ],
     };
-    const validate = await Validator.Practitioner(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-      {
-        instancePath: '/name/0/use',
-        schemaPath: '#/properties/use/enum',
-        keyword: 'enum',
-        params: { allowedValues: ['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'] },
-        message: 'must be equal to one of the allowed values',
-      },
-    ]);
+    expect(() => PractitionerRoleValidator(item as IPractitionerRole)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty, name' is not a valid for PractitionerRole",
+    );
   });
 });

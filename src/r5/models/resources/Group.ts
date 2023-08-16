@@ -6,6 +6,7 @@ import { GroupMembershipBasisEnum, GroupTypeEnum } from '../../enums';
 import { GroupMembershipBasisType, GroupType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import GroupBuilder from './GroupBuilder';
+import { GroupValidator } from './GroupValidator';
 
 export default class Group extends DomainResource implements IGroup {
   // Resource Attributes
@@ -16,7 +17,6 @@ export default class Group extends DomainResource implements IGroup {
   active?: boolean;
   type: GroupTypeEnum | GroupType;
   membership: GroupMembershipBasisEnum | GroupMembershipBasisType;
-  actual: boolean;
   code?: ICodeableConcept;
   name?: string;
   description?: string;
@@ -29,7 +29,6 @@ export default class Group extends DomainResource implements IGroup {
   _active?: IElement;
   _type?: IElement;
   _membership?: IElement;
-  _actual?: IElement;
   _name?: IElement;
   _description?: IElement;
   _quantity?: IElement;
@@ -50,8 +49,9 @@ export default class Group extends DomainResource implements IGroup {
     return `Group${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IGroup) {
+  constructor(args: IGroup) {
     super();
+    GroupValidator(args);
     Object.assign(this, args);
   }
 }

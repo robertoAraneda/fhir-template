@@ -10,7 +10,7 @@ import { ICodeableConcept } from '../datatypes';
  * @since 2021-10-06
  * @author Roberto Araneda
  */
-export interface IRelatedPersonCommunication extends IBackboneElement {
+export default interface IRelatedPersonCommunication extends IBackboneElement {
   /**
    * @description The language which can be used to communicate with the related person about the patient's health.
    * @type {ICodeableConcept} language

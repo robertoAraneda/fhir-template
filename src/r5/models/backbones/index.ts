@@ -16,6 +16,9 @@ import BundleLink from './BundleLink';
 import BundleEntryRequest from './BundleEntryRequest';
 import BundleEntryResponse from './BundleEntryResponse';
 import BundleEntrySearch from './BundleEntrySearch';
+import CompositionAttester from './CompositionAttester';
+import CompositionEvent from './CompositionEvent';
+import CompositionSection from './CompositionSection';
 
 export {
   BundleEntryRequest,
@@ -36,4 +39,7 @@ export {
   GroupMember,
   GroupCharacteristic,
   LocationPosition,
+  CompositionAttester,
+  CompositionEvent,
+  CompositionSection,
 };

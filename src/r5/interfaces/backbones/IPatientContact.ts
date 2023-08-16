@@ -3,7 +3,7 @@ import { IAddress, ICodeableConcept, IContactPoint, IHumanName, IPeriod, IRefere
 import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 
-export interface IPatientContact extends IBackboneElement {
+export default interface IPatientContact extends IBackboneElement {
   relationship?: ICodeableConcept[];
   name?: IHumanName;
   telecom?: IContactPoint[];

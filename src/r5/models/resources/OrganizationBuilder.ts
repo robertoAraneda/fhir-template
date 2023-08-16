@@ -2,10 +2,10 @@ import { IOrganizationQualification } from '../../interfaces/backbones';
 import { Organization } from './index';
 import { IExtendedContactDetail, IIdentifier, ICodeableConcept, IReference } from '../../interfaces/datatypes';
 import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainResourceBuilder';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import { IElement } from '../../interfaces/base';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IBuildable } from '../../../globals/interfaces';
+import { IOrganization } from '../../interfaces/resources';
 
 type ParamsExtensionType = 'active' | 'alias' | 'description' | 'name';
 
@@ -16,39 +16,39 @@ interface IOrganizationBuilder
   addParamExtension<T extends ParamsExtensionType>(
     param: T,
     extension: T extends 'alias' ? IElement[] : IElement,
-  ): OrganizationBuilder;
-  addIdentifier(identifier: IIdentifier): OrganizationBuilder;
-  setMultipleIdentifier(identifiers: IIdentifier[]): OrganizationBuilder;
-  setActive(active: boolean): OrganizationBuilder;
-  addType(type: ICodeableConcept): OrganizationBuilder;
-  setMultipleType(types: ICodeableConcept[]): OrganizationBuilder;
-  setName(name: string): OrganizationBuilder;
-  addAlias(alias: string): OrganizationBuilder;
-  setMultipleAlias(aliases: string[]): OrganizationBuilder;
-  setDescription(description: string): OrganizationBuilder;
-  addContact(contact: IExtendedContactDetail): OrganizationBuilder;
-  setMultipleContact(contacts: IExtendedContactDetail[]): OrganizationBuilder;
-  setPartOf(partOf: IReference): OrganizationBuilder;
-  addEndpoint(endpoint: IReference): OrganizationBuilder;
-  setMultipleEndpoint(endpoints: IReference[]): OrganizationBuilder;
-  addQualification(qualification: IOrganizationQualification): OrganizationBuilder;
-  setMultipleQualification(qualifications: IOrganizationQualification[]): OrganizationBuilder;
+  ): this;
+  addIdentifier(identifier: IIdentifier): this;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this;
+  setActive(active: boolean): this;
+  addType(type: ICodeableConcept): this;
+  setMultipleType(types: ICodeableConcept[]): this;
+  setName(name: string): this;
+  addAlias(alias: string): this;
+  setMultipleAlias(aliases: string[]): this;
+  setDescription(description: string): this;
+  addContact(contact: IExtendedContactDetail): this;
+  setMultipleContact(contacts: IExtendedContactDetail[]): this;
+  setPartOf(partOf: IReference): this;
+  addEndpoint(endpoint: IReference): this;
+  setMultipleEndpoint(endpoints: IReference[]): this;
+  addQualification(qualification: IOrganizationQualification): this;
+  setMultipleQualification(qualifications: IOrganizationQualification[]): this;
 }
 export default class OrganizationBuilder
   extends DomainResourceBuilder<OrganizationBuilder>
   implements IOrganizationBuilder
 {
-  private readonly organization: Organization;
+  private readonly organization: IOrganization;
 
   constructor() {
     super();
-    this.organization = new Organization();
+    this.organization = {} as IOrganization;
   }
 
   addParamExtension<T extends ParamsExtensionType>(
     param: T,
     extension: T extends 'alias' ? IElement[] : IElement,
-  ): OrganizationBuilder {
+  ): this {
     if (param === 'alias') {
       this.organization._alias = extension as IElement[];
     } else {
@@ -65,10 +65,7 @@ export default class OrganizationBuilder
    * @param identifier
    * @returns {OrganizationBuilder}
    */
-  addIdentifier(identifier: IIdentifier): OrganizationBuilder {
-    if (identifier.assigner?.reference) {
-      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
-    }
+  addIdentifier(identifier: IIdentifier): this {
     this.organization.identifier = this.organization.identifier || [];
     this.organization.identifier.push(identifier);
 
@@ -80,13 +77,8 @@ export default class OrganizationBuilder
    * @param identifiers Array of Identifiers
    * @returns {OrganizationBuilder} OrganizationBuilder
    */
-  setMultipleIdentifier(identifiers: IIdentifier[]): OrganizationBuilder {
-    for (const identifier of identifiers) {
-      if (identifier.assigner?.reference) {
-        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
-      }
-    }
-    this.organization.identifier = identifiers;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this {
+    identifiers.forEach((identifier) => this.addIdentifier(identifier));
 
     return this;
   }
@@ -96,100 +88,97 @@ export default class OrganizationBuilder
    * @param active boolean
    * @returns {OrganizationBuilder} OrganizationBuilder
    */
-  setActive(active: boolean): OrganizationBuilder {
+  setActive(active: boolean): this {
     this.organization.active = active;
 
     return this;
   }
 
-  addType(type: ICodeableConcept): OrganizationBuilder {
+  addType(type: ICodeableConcept): this {
     this.organization.type = this.organization.type || [];
     this.organization.type.push(type);
 
     return this;
   }
 
-  setMultipleType(types: ICodeableConcept[]): OrganizationBuilder {
-    this.organization.type = types;
+  setMultipleType(types: ICodeableConcept[]): this {
+    types.forEach((type) => this.addType(type));
 
     return this;
   }
 
-  setName(name: string): OrganizationBuilder {
+  setName(name: string): this {
     this.organization.name = name;
 
     return this;
   }
 
-  addAlias(alias: string): OrganizationBuilder {
+  addAlias(alias: string): this {
     this.organization.alias = this.organization.alias || [];
     this.organization.alias.push(alias);
 
     return this;
   }
 
-  setMultipleAlias(aliases: string[]): OrganizationBuilder {
-    this.organization.alias = aliases;
+  setMultipleAlias(aliases: string[]): this {
+    aliases.forEach((alias) => this.addAlias(alias));
 
     return this;
   }
 
-  setDescription(description: string): OrganizationBuilder {
+  setDescription(description: string): this {
     this.organization.description = description;
 
     return this;
   }
 
-  addContact(contact: IExtendedContactDetail): OrganizationBuilder {
+  addContact(contact: IExtendedContactDetail): this {
     this.organization.contact = this.organization.contact || [];
     this.organization.contact.push(contact);
 
     return this;
   }
 
-  setMultipleContact(contacts: IExtendedContactDetail[]): OrganizationBuilder {
-    this.organization.contact = contacts;
+  setMultipleContact(contacts: IExtendedContactDetail[]): this {
+    contacts.forEach((contact) => this.addContact(contact));
 
     return this;
   }
 
-  setPartOf(partOf: IReference): OrganizationBuilder {
-    if (partOf.reference) {
-      validateReferenceHelper(partOf.reference, ['Organization']);
-    }
+  setPartOf(partOf: IReference): this {
     this.organization.partOf = partOf;
 
     return this;
   }
 
-  addEndpoint(endpoint: IReference): OrganizationBuilder {
+  addEndpoint(endpoint: IReference): this {
     this.organization.endpoint = this.organization.endpoint || [];
     this.organization.endpoint.push(endpoint);
 
     return this;
   }
 
-  setMultipleEndpoint(endpoints: IReference[]): OrganizationBuilder {
-    this.organization.endpoint = endpoints;
+  setMultipleEndpoint(endpoints: IReference[]): this {
+    endpoints.forEach((endpoint) => this.addEndpoint(endpoint));
 
     return this;
   }
 
-  addQualification(qualification: IOrganizationQualification): OrganizationBuilder {
+  addQualification(qualification: IOrganizationQualification): this {
     this.organization.qualification = this.organization.qualification || [];
     this.organization.qualification.push(qualification);
 
     return this;
   }
 
-  setMultipleQualification(qualifications: IOrganizationQualification[]): OrganizationBuilder {
-    this.organization.qualification = qualifications;
+  setMultipleQualification(qualifications: IOrganizationQualification[]): this {
+    qualifications.forEach((qualification) => this.addQualification(qualification));
 
     return this;
   }
 
   build(): Organization {
     Object.assign(this.organization, { ...super.entity() });
-    return this.organization.toJson();
+    return new Organization(this.organization).toJson();
   }
 }

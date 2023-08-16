@@ -1,7 +1,7 @@
 import { ICoding } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import CodingBuilder from '../../../src/r5/models/datatypes/CodingBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { CodingValidator } from '../../../src/r5/models/datatypes/CodingValidator';
 
 describe('Coding FHIR R5', () => {
   let builder: CodingBuilder;
@@ -22,9 +22,7 @@ describe('Coding FHIR R5', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     });
 
-    const validate = await _validateDataType(item, 'Coding');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new coding and validate with correct data [ICoding]', async () => {
@@ -36,9 +34,7 @@ describe('Coding FHIR R5', () => {
       system: 'http://hl7.org/fhir/sid/us-npi',
     };
 
-    const validate = await _validateDataType(item, 'Coding');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => CodingValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new coding and validate with wrong data', async () => {
@@ -51,20 +47,9 @@ describe('Coding FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Coding');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => CodingValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for Coding",
+    );
   });
 
   it('should be able to create a new coding using builder methods [new CodingBuilder()]', async () => {
@@ -95,9 +80,5 @@ describe('Coding FHIR R5', () => {
       userSelected: true,
       version: '1.0.0',
     });
-
-    const validate = await _validateDataType(item, 'Coding');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

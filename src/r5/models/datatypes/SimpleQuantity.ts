@@ -2,6 +2,7 @@ import { ISimpleQuantity } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import SimpleQuantityBuilder from './SimpleQuantityBuilder';
 import Element from '../base/Element';
+import { SimpleQuantityValidator } from './SimpleQuantityValidator';
 
 export default class SimpleQuantity extends Element implements ISimpleQuantity {
   // SimpleQuantity attributes
@@ -32,8 +33,9 @@ export default class SimpleQuantity extends Element implements ISimpleQuantity {
     return `SimpleQuantity${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: ISimpleQuantity) {
+  constructor(args: ISimpleQuantity) {
     super();
+    SimpleQuantityValidator(args);
     Object.assign(this, args);
   }
 }

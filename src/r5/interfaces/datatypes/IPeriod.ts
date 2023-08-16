@@ -1,15 +1,16 @@
 import { IElement } from '../base';
 
 /**
+ * @summary FHIR R5
  * @description Time range defined by start and end date/time.
  * @property {string} start - Starting time with inclusive boundary
  * @property {string} end - End time with inclusive boundary, if not ongoing
  * @property {IElement} _start - Extension of start
  * @property {IElement} _end - Extension of end
- * @see {@link http://www.hl7.org/fhir/datatypes.html#Period Period}
+ * @see http://www.hl7.org/fhir/R4/datatypes.html#Period http://www.hl7.org/fhir/R4/datatypes.html#Period
  * @author Roberto Araneda
  */
-export interface IPeriod extends IElement {
+export default interface IPeriod extends IElement {
   /**
    * @description Starting time with inclusive boundary
    * @description A date, date-time or partial date (e.g. just year or year + month) as used in human communication. The format is YYYY, YYYY-MM, YYYY-MM-DD or YYYY-MM-DDThh:mm:ss+zz:zz

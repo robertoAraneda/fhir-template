@@ -1,8 +1,8 @@
-import { INarrative } from '../datatypes/INarrative';
-import { IResource } from './IResource';
+import INarrative from '../datatypes/INarrative';
 import { IExtension } from '../datatypes';
+import IResource from './IResource';
 
-export interface IDomainResource extends IResource {
+export default interface IDomainResource extends IResource {
   text?: INarrative;
   // TODO: Figure out how to handle this
   contained?: any[];

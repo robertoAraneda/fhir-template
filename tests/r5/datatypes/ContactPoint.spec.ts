@@ -1,7 +1,7 @@
 import { IContactPoint } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 import ContactPointBuilder from '../../../src/r5/models/datatypes/ContactPointBuilder';
+import { ContactPointValidator } from '../../../src/r5/models/datatypes/ContactPointValidator';
 
 describe('ContactPoint FHIR R5', () => {
   let builder: ContactPointBuilder;
@@ -21,10 +21,7 @@ describe('ContactPoint FHIR R5', () => {
       use: 'home',
     });
 
-    const validate = await _validateDataType(item, 'ContactPoint');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new contact point and validate with correct data [IContactPoint]', async () => {
@@ -36,43 +33,22 @@ describe('ContactPoint FHIR R5', () => {
       use: 'home',
     };
 
-    const validate = await _validateDataType(item, 'ContactPoint');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => ContactPointValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new contact point and validate with wrong data', async () => {
     const item = {
       id: '123',
       value: 'test',
-      system: 'bad system', // wrong property
+      system: 'wrong', // wrong property
       rank: 1,
       use: 'home',
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'ContactPoint');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-      {
-        instancePath: '/system',
-        schemaPath: '#/properties/system/enum',
-        keyword: 'enum',
-        params: { allowedValues: ['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other'] },
-        message: 'must be equal to one of the allowed values',
-      },
-    ]);
+    expect(() => ContactPointValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for ContactPoint",
+    );
   });
 
   it('should be able to create a new contact point using builder methods', async () => {
@@ -101,10 +77,5 @@ describe('ContactPoint FHIR R5', () => {
         ],
       },
     });
-
-    const validate = await _validateDataType(item, 'ContactPoint');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

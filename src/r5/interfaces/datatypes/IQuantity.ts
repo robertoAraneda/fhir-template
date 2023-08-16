@@ -1,8 +1,8 @@
-import { IElement } from '../base';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
+import { IElement } from '../base';
 
-export interface IQuantity extends IElement {
+export default interface IQuantity extends IElement {
   value?: number;
   _value?: IElement;
   comparator?: QuantityComparatorEnum | QuantityComparatorType;

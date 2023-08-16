@@ -1,17 +1,18 @@
 import Element from '../base/Element';
 import { ICoding, IReference, ISignature } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { ISignatureBuilder, SignatureBuilder } from './SignatureBuilder';
+import { SignatureBuilder } from './SignatureBuilder';
+import { SignatureValidator } from './SignatureValidator';
 
 export default class Signature extends Element implements ISignature {
   // Signature attributes
-  data: string;
-  onBehalfOf: IReference;
-  sigFormat: string;
-  targetFormat: string;
-  type: ICoding[];
-  when: string;
-  who: IReference;
+  data?: string;
+  onBehalfOf?: IReference;
+  sigFormat?: string;
+  targetFormat?: string;
+  type?: ICoding[];
+  when?: string;
+  who?: IReference;
 
   // Extensions of signature attributes
   _data: IElement;
@@ -35,8 +36,9 @@ export default class Signature extends Element implements ISignature {
     return new SignatureBuilder();
   }
 
-  constructor(args?: ISignature) {
+  constructor(args: ISignature) {
     super();
+    SignatureValidator(args);
     Object.assign(this, args);
   }
 }

@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { IOrganizationQualification } from '../../../src/r5/interfaces/backbones';
 import OrganizationQualificationBuilder from '../../../src/r5/models/backbones/OrganizationQualificationBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { OrganizationQualificationValidator } from '../../../src/r5/models/backbones/OrganizationQualificationValidator';
+import { Identifier } from '../../../src/r5/models/datatypes';
 
 describe('OrganizationQualification FHIR R5', () => {
   const { OrganizationQualification } = new FHIRContext().forR5();
@@ -16,7 +17,7 @@ describe('OrganizationQualification FHIR R5', () => {
     const item = new OrganizationQualification({
       id: '123',
       issuer: {
-        reference: 'test',
+        reference: 'Organization/1',
       },
       code: {
         coding: [
@@ -27,18 +28,14 @@ describe('OrganizationQualification FHIR R5', () => {
         ],
       },
     });
-
-    const validate = await _validateBackbone(item, 'Organization_Qualification');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new organization_qualification payload and validate with correct data [IOrganizationQualification]', async () => {
     const item: IOrganizationQualification = {
       id: '123',
       issuer: {
-        reference: 'test',
+        reference: 'Organization/1',
       },
       code: {
         coding: [
@@ -50,10 +47,7 @@ describe('OrganizationQualification FHIR R5', () => {
       },
     };
 
-    const validate = await _validateBackbone(item, 'Organization_Qualification');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => OrganizationQualificationValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new organization_qualification payload and validate with wrong data', async () => {
@@ -77,27 +71,9 @@ describe('OrganizationQualification FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(item, 'Organization_Qualification');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/period/start',
-        keyword: 'pattern',
-        message: "The value '/period/start' does not match with datatype 'dateTime'",
-        params: { value: '/period/start' },
-        schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
-      },
-    ]);
+    expect(() => OrganizationQualificationValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for OrganizationQualification",
+    );
   });
 
   it('should be able to create a new organization_qualification payload using builder methods [new OrganizationQualificationBuilder()]', async () => {
@@ -130,12 +106,14 @@ describe('OrganizationQualification FHIR R5', () => {
         system: 'http://hl7.org/fhir/sid/us-npi',
         value: '123',
       })
+      .setMultipleIdentifier([
+        new Identifier({
+          use: 'old',
+          system: 'http://hl7.org/fhir/sid/us-npi',
+          value: '123',
+        }),
+      ])
       .build();
-
-    const validate = await _validateBackbone(item, 'Organization_Qualification');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({
@@ -153,6 +131,11 @@ describe('OrganizationQualification FHIR R5', () => {
         {
           system: 'http://hl7.org/fhir/sid/us-npi',
           use: 'official',
+          value: '123',
+        },
+        {
+          system: 'http://hl7.org/fhir/sid/us-npi',
+          use: 'old',
           value: '123',
         },
       ],

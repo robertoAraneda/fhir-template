@@ -1,7 +1,7 @@
 import { IBackboneElement, IElement } from '../base';
 
 export interface IBundleEntryResponse extends IBackboneElement {
-  status: string;
+  status?: string;
   location?: string;
   etag?: string;
   lastModified?: string;

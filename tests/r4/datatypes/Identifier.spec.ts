@@ -1,7 +1,7 @@
 import { IIdentifier } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 import { IdentifierBuilder } from '../../../src/r4/models/datatypes/IdentifierBuilder';
+import { IdentifierValidator } from '../../../src/r4/models/datatypes/IdentifierValidator';
 
 describe('Identifier FHIR R4', () => {
   let builder: IdentifierBuilder;
@@ -27,9 +27,7 @@ describe('Identifier FHIR R4', () => {
       },
     });
 
-    const validate = await _validateDataType(item, 'Identifier');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new identifier and validate with correct data [IIdentifier]', async () => {
@@ -47,9 +45,47 @@ describe('Identifier FHIR R4', () => {
       },
     };
 
-    const validate = await _validateDataType(item, 'Identifier');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => IdentifierValidator(item, 'Identifier')).not.toThrow();
+  });
+
+  it('should be validate: Malformed assigner reference', async () => {
+    const item: IIdentifier = {
+      id: '123',
+      use: 'official',
+      value: '1234567890',
+      system: 'http://hl7.org/fhir/sid/us-npi',
+      period: {
+        start: '2020-01-01',
+        end: '2020-01-02',
+      },
+      assigner: {
+        reference: 'malformed reference',
+      },
+    };
+
+    expect(() => IdentifierValidator(item, 'Identifier')).toThrow(
+      'ReferenceException: [value=malformed reference]. Reference must be in the format {ResourceType}/{id}. Path: Identifier.assigner.reference',
+    );
+  });
+
+  it('should be validate: Malformed assigner reference', async () => {
+    const item: IIdentifier = {
+      id: '123',
+      use: 'official',
+      value: '1234567890',
+      system: 'http://hl7.org/fhir/sid/us-npi',
+      period: {
+        start: '2020-01-01',
+        end: '2020-01-02',
+      },
+      assigner: {
+        reference: 'WrongResourceType/id',
+      },
+    };
+
+    expect(() => IdentifierValidator(item, 'Identifier')).toThrow(
+      'ReferenceException: [value=WrongResourceType]. ResourceType must be one of the following: [Organization]. Path: Identifier.assigner.reference',
+    );
   });
 
   it('should be able to validate a new reference and validate with wrong data', async () => {
@@ -68,20 +104,9 @@ describe('Identifier FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Identifier');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => IdentifierValidator(item as IIdentifier, 'Identifier')).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for Identifier",
+    );
   });
 
   it('should be able to create a new identifier using builder methods [new IdentifierBuilder()]', async () => {
@@ -96,10 +121,6 @@ describe('Identifier FHIR R4', () => {
       .setValue('1234567890')
       .setAssigner({ reference: 'Organization/123' })
       .build();
-
-    const validate = await _validateDataType(item, 'Identifier');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

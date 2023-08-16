@@ -32,7 +32,7 @@ import { IElement } from '../base';
  * @description This type is for containing or referencing attachments - additional data content defined in other formats. The most common use of this type is to include images or reports in some report format such as PDF. However, it can be used for any data that has a MIME type.
  * @author Roberto Araneda
  */
-export interface IAttachment extends IElement {
+export default interface IAttachment extends IElement {
   contentType?: string;
   language?: string;
   data?: string;

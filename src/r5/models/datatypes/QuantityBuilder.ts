@@ -1,30 +1,29 @@
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IQuantity } from '../../interfaces/datatypes';
 import { Quantity } from './index';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 
 type ParamExtensionType = 'code' | 'system' | 'unit' | 'value' | 'comparator';
 interface IQuantityBuilder extends IBuildable<Quantity>, IElementBuilder<QuantityBuilder> {
-  setCode(value: string): QuantityBuilder;
-  setSystem(value: string): QuantityBuilder;
-  setUnit(value: string): QuantityBuilder;
-  setValue(value: number): QuantityBuilder;
-  setComparator(value: QuantityComparatorEnum | QuantityComparatorType): QuantityBuilder;
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IQuantity): QuantityBuilder;
+  setCode(value: string): this;
+  setSystem(value: string): this;
+  setUnit(value: string): this;
+  setValue(value: number): this;
+  setComparator(value: QuantityComparatorEnum | QuantityComparatorType): this;
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IQuantity): this;
 }
 
 export default class QuantityBuilder extends ElementBuilder<QuantityBuilder> implements IQuantityBuilder {
-  private readonly quantity: Quantity;
+  private readonly quantity: IQuantity;
 
   constructor() {
     super();
-    this.quantity = new Quantity();
+    this.quantity = {} as IQuantity;
   }
 
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IQuantity): QuantityBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IQuantity): this {
     this.quantity[`_${param}`] = extension;
 
     return this;
@@ -32,31 +31,31 @@ export default class QuantityBuilder extends ElementBuilder<QuantityBuilder> imp
 
   build(): Quantity {
     Object.assign(this.quantity, { ...super.entity() });
-    return this.quantity.toJson();
+    return new Quantity(this.quantity).toJson();
   }
 
-  setCode(value: string): QuantityBuilder {
+  setCode(value: string): this {
     this.quantity.code = value;
 
     return this;
   }
 
-  setComparator(value: QuantityComparatorEnum | QuantityComparatorType): QuantityBuilder {
+  setComparator(value: QuantityComparatorEnum | QuantityComparatorType): this {
     this.quantity.comparator = value;
     return this;
   }
 
-  setSystem(value: string): QuantityBuilder {
+  setSystem(value: string): this {
     this.quantity.system = value;
     return this;
   }
 
-  setUnit(value: string): QuantityBuilder {
+  setUnit(value: string): this {
     this.quantity.unit = value;
     return this;
   }
 
-  setValue(value: number): QuantityBuilder {
+  setValue(value: number): this {
     this.quantity.value = value;
     return this;
   }

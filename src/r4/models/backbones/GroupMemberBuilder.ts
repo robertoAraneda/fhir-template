@@ -2,8 +2,8 @@ import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IExtension, IPeriod, IReference } from '../../interfaces/datatypes';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
 import GroupMember from './GroupMember';
+import { IGroupMember } from '../../interfaces/backbones';
 
 type ParamExtensionType = 'inactive';
 
@@ -21,30 +21,19 @@ export interface IGroupMemberBuilder
 }
 
 export class GroupMemberBuilder extends BackboneElementBuilder<GroupMemberBuilder> implements IGroupMemberBuilder {
-  private readonly groupMember: GroupMember;
+  private readonly groupMember: IGroupMember;
 
   constructor() {
     super();
-    this.groupMember = new GroupMember();
+    this.groupMember = {} as IGroupMember;
   }
 
   build(): GroupMember {
     Object.assign(this.groupMember, { ...super.entity() });
-    return this.groupMember.toJson();
+    return new GroupMember(this.groupMember).toJson();
   }
 
   setEntity(entity: IReference): GroupMemberBuilder {
-    if (entity.reference) {
-      validateReferenceHelper(entity.reference, [
-        'Patient',
-        'Practitioner',
-        'PractitionerRole',
-        'Device',
-        'Medication',
-        'Substance',
-        'Group',
-      ]);
-    }
     this.groupMember.entity = entity;
     return this;
   }

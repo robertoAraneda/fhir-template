@@ -1,23 +1,22 @@
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IBuildable } from '../../../globals/interfaces';
 import { IRange, ISimpleQuantity } from '../../interfaces/datatypes';
 import { Range } from './index';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 
 interface IRangeBuilder extends IBuildable<Range>, IElementBuilder<RangeBuilder> {
   setLow(low: ISimpleQuantity): this;
   setHigh(high: ISimpleQuantity): this;
 }
 export default class RangeBuilder extends ElementBuilder<RangeBuilder> implements IRangeBuilder {
-  private readonly range: Range;
+  private readonly range: IRange;
   constructor() {
     super();
-    this.range = new Range();
+    this.range = {} as IRange;
   }
 
   build(): Range {
     Object.assign(this.range, { ...super.entity() });
-    return this.range.toJson();
+    return new Range(this.range).toJson();
   }
 
   setHigh(high: ISimpleQuantity): this {

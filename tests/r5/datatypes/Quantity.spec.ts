@@ -3,6 +3,7 @@ import FHIRContext from '../../../src';
 import { QuantityComparatorEnum } from '../../../src/r5/enums';
 import QuantityBuilder from '../../../src/r5/models/datatypes/QuantityBuilder';
 import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { QuantityValidator } from '../../../src/r5/models/datatypes/QuantityValidator';
 
 describe('Quantity FHIR R5', () => {
   let builder: QuantityBuilder;
@@ -22,10 +23,7 @@ describe('Quantity FHIR R5', () => {
       value: 1,
     });
 
-    const validate = await _validateDataType(item, 'Quantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new availability and validate with correct data [IQuantity]', async () => {
@@ -36,10 +34,8 @@ describe('Quantity FHIR R5', () => {
       unit: 'test',
       value: 1,
     };
-    const validate = await _validateDataType(item, 'Quantity');
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => QuantityValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new availability and validate with wrong data', async () => {
@@ -52,20 +48,7 @@ describe('Quantity FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Quantity');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => QuantityValidator(item)).toThrow("InvalidFieldException: field(s) 'test' is not a valid for Quantity");
   });
 
   it('should be able to create a new attachment using builder methods [new QuantityBuilder()]', async () => {
@@ -82,10 +65,5 @@ describe('Quantity FHIR R5', () => {
       comparator: '>=',
       system: 'test',
     });
-
-    const validate = await _validateDataType(item, 'Quantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

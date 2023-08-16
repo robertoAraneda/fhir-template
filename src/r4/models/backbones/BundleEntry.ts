@@ -8,7 +8,7 @@ import {
 } from '../../interfaces/backbones';
 import BackboneElement from '../base/BackboneElement';
 import { BundleEntryBuilder } from './BundleEntryBuilder';
-import { _validateBaseResource } from '../../../r5/validators/BaseValidator';
+import { BundleEntryValidator } from './BundleEntryValidator';
 
 export default class BundleEntry extends BackboneElement implements IBundleEntry {
   // BundleEntry attributes
@@ -27,29 +27,21 @@ export default class BundleEntry extends BackboneElement implements IBundleEntry
   }
 
   toString(): string {
-    return `BundleEntry${JSON.stringify(this.toJson())}`;
+    return `Bundle${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return `BundleEntry${JSON.stringify(this.toJson(), null, 2)}`;
+    return `Bundle${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
   static builder(): BundleEntryBuilder {
     return new BundleEntryBuilder();
   }
 
-  constructor(args?: IBundleEntry) {
+  constructor(args: IBundleEntry) {
     super();
-    if (args) {
-      Object.assign(this, args);
-      if (this.resource) {
-        if (!this.resource.resourceType) throw new Error('BundleEntry must have a resourceType');
-        const validate = _validateBaseResource(this.resource, this.resource.resourceType);
+    BundleEntryValidator(args);
 
-        if (!validate.isValid) {
-          throw new Error(`Invalid resource for BundleEntry: ${JSON.stringify(validate.errors, null, 2)}`);
-        }
-      }
-    }
+    Object.assign(this, args);
   }
 }

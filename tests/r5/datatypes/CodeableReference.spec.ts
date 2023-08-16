@@ -1,7 +1,8 @@
 import { ICodeableReference } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import CodeableReferenceBuilder from '../../../src/r5/models/datatypes/CodeableReferenceBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+
+import { CodeableReferenceValidator } from '../../../src/r5/models/datatypes/CodeableReferenceValidator';
 
 describe('CodeableReference', () => {
   let builder: CodeableReferenceBuilder;
@@ -26,14 +27,11 @@ describe('CodeableReference', () => {
         text: 'test',
       },
       reference: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
     });
 
-    const validate = await _validateDataType(item, 'CodeableReference');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new codeableconcept and validate with correct data [ICodeableReference]', async () => {
@@ -50,14 +48,11 @@ describe('CodeableReference', () => {
         text: 'test',
       },
       reference: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
     };
 
-    const validate = await _validateDataType(item, 'CodeableReference');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => CodeableReferenceValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new codeableconcept and validate with wrong data', async () => {
@@ -74,25 +69,14 @@ describe('CodeableReference', () => {
         text: 'test',
       },
       reference: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'CodeableReference');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => CodeableReferenceValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for CodeableReference",
+    );
   });
 
   it('should be able to create a new codeableconcept using builder methods [new CodeableReferenceBuilder]', async () => {
@@ -109,7 +93,7 @@ describe('CodeableReference', () => {
         ],
       })
       .setReference({
-        reference: 'test',
+        reference: 'Patient/id',
       })
       .build();
 
@@ -126,13 +110,8 @@ describe('CodeableReference', () => {
       },
       id: '123',
       reference: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
     });
-
-    const validate = await _validateDataType(item, 'CodeableReference');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

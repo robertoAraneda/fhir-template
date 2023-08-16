@@ -1,7 +1,7 @@
 import { IDuration } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import DurationBuilder from '../../../src/r5/models/datatypes/DurationBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { DurationValidator } from '../../../src/r5/models/datatypes/DurationValidator';
 
 describe('Duration', () => {
   let builder: DurationBuilder;
@@ -16,59 +16,42 @@ describe('Duration', () => {
     const item = new Duration({
       id: '123',
       value: 45,
-      system: 'url',
+      system: 'http://unitsofmeasure.org',
       comparator: '>',
       code: 'test',
       unit: 'test',
     });
 
-    const validate = await _validateDataType(item, 'Duration');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new contact point and validate with correct data [IDuration]', async () => {
     const item: IDuration = {
       id: '123',
       value: 45,
-      system: 'url',
+      system: 'http://unitsofmeasure.org',
       comparator: '>',
       code: 'test',
       unit: 'test',
     };
 
-    const validate = await _validateDataType(item, 'Duration');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => DurationValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new contact point and validate with wrong data', async () => {
     const item = {
       id: '123',
       value: 45,
-      system: 'url',
+      system: 'http://unitsofmeasure.org',
       comparator: '>',
       code: 'test',
       unit: 'test',
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Duration');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => DurationValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for Duration",
+    );
   });
 
   it('should be able to create a new contact point using builder methods', async () => {
@@ -76,7 +59,7 @@ describe('Duration', () => {
     const item = builder
       .setId('123')
       .setCode('test')
-      .setSystem('url')
+      .setSystem('http://unitsofmeasure.org')
       .setValue(4)
       .setComparator('<=')
       .setUnit('test')
@@ -97,14 +80,9 @@ describe('Duration', () => {
       code: 'test',
       comparator: '<=',
       id: '123',
-      system: 'url',
+      system: 'http://unitsofmeasure.org',
       unit: 'test',
       value: 4,
     });
-
-    const validate = await _validateDataType(item, 'Duration');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

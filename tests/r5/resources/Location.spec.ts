@@ -1,6 +1,7 @@
 import { ILocation } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import LocationBuilder from '../../../src/r5/models/resources/LocationBuilder';
+import { LocationValidator } from '../../../src/r5/models/resources/LocationValidator';
 
 describe('Location FHIR R5', () => {
   let builder: LocationBuilder;
@@ -101,9 +102,7 @@ describe('Location FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.Location(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => LocationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new location and validate with correct data [new Location()]', async () => {
@@ -167,10 +166,7 @@ describe('Location FHIR R5', () => {
       },
     });
 
-    const validate = await Validator.Location(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new location and validate with correct data [Example Location/ph (JSON)]', async () => {
@@ -210,10 +206,7 @@ describe('Location FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.Location(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => LocationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new location and validate with correct data [Example Location/hl7 (JSON)]', async () => {
@@ -278,10 +271,8 @@ describe('Location FHIR R5', () => {
         latitude: -83.69471,
       },
     };
-    const validate = await Validator.Location(item);
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => LocationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new location and validate with correct data [Example Location/ukp (JSON)]', async () => {
@@ -318,10 +309,7 @@ describe('Location FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.Location(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => LocationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new location and validate with wrong data', async () => {
@@ -330,19 +318,10 @@ describe('Location FHIR R5', () => {
       id: 'xcda1',
       wrongProperty: 'wrong', // wrong property
     };
-    const validate = await Validator.Location(item);
 
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => LocationValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Location",
+    );
   });
 
   it('should be able to create a new location with builder methods [new LocationBuilder()]', async () => {
@@ -374,6 +353,8 @@ describe('Location FHIR R5', () => {
       })
       .build();
 
+    expect(item).toBeDefined();
+
     expect(item).toEqual({
       address: {
         text: '534 Erewhon St PeasantVille, Rainbow, Vic  3999',
@@ -404,9 +385,5 @@ describe('Location FHIR R5', () => {
       name: 'South Wing Neuro OR 1',
       resourceType: 'Location',
     });
-
-    const validate = await Validator.Location(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

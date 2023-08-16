@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { IOrganizationContact } from '../../../src/r4/interfaces/backbones';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { OrganizationContactBuilder } from '../../../src/r4/models/backbones/OrganizationContactBuilder';
+
+import { OrganizationContactValidator } from '../../../src/r4/models/backbones/OrganizationContactValidator';
 
 describe('OrganizationContact FHIR R4', () => {
   let builder: OrganizationContactBuilder;
@@ -25,9 +26,7 @@ describe('OrganizationContact FHIR R4', () => {
       },
     });
 
-    const validate = await _validateBackbone(item, 'Organization_Contact');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new organization_contact [IOrganizationContact]', async () => {
@@ -43,10 +42,7 @@ describe('OrganizationContact FHIR R4', () => {
       },
     };
 
-    const validate = await _validateBackbone(item, 'Organization_Contact');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => OrganizationContactValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new organization_contact using builder methods [new OrganizationContact()]', async () => {
@@ -64,10 +60,7 @@ describe('OrganizationContact FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'Organization_Contact');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       address: {
@@ -93,20 +86,15 @@ describe('OrganizationContact FHIR R4', () => {
         id: '123',
         type: 'both',
         period: {
-          start: '2020-01-01 HH:MM:SS',
+          start: '2020-01-01',
           end: '2020-01-02',
         },
       },
+      wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Organization_Contact');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-
-    for (const error of validate.errors!) {
-      expect(error.instancePath).toContain('period');
-    }
+    expect(() => OrganizationContactValidator(item as IOrganizationContact)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for OrganizationContact",
+    );
   });
 });

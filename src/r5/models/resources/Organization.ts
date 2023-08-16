@@ -4,23 +4,25 @@ import { IElement } from '../../interfaces/base';
 import { IOrganizationQualification } from '../../interfaces/backbones';
 import DomainResource from '../base/DomainResource';
 import OrganizationBuilder from './OrganizationBuilder';
+import { OrganizationValidator } from './OrganizationValidator';
 
 export default class Organization extends DomainResource implements IOrganization {
+  resourceType = 'Organization' as const;
+  identifier?: IIdentifier[];
+  active?: boolean;
+  type?: ICodeableConcept[];
+  name?: string;
+  alias?: string[];
+  description?: string;
+  contact?: IExtendedContactDetail[];
+  partOf?: IReference;
+  endpoint?: IReference[];
+  qualification?: IOrganizationQualification[];
+
   _active?: IElement;
   _alias?: IElement[];
   _description?: IElement;
   _name?: IElement;
-  active?: boolean;
-  alias?: string[];
-  contact?: IExtendedContactDetail[];
-  description?: string;
-  endpoint?: IReference[];
-  identifier?: IIdentifier[];
-  name?: string;
-  partOf?: IReference;
-  qualification?: IOrganizationQualification[];
-  resourceType = 'Organization' as const;
-  type?: ICodeableConcept[];
 
   static builder(): OrganizationBuilder {
     return new OrganizationBuilder();
@@ -31,15 +33,16 @@ export default class Organization extends DomainResource implements IOrganizatio
   }
 
   toString(): string {
-    return `Group${JSON.stringify(this.toJson())}`;
+    return `Organization${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return `Group${JSON.stringify(this.toJson(), null, 2)}`;
+    return `Organization${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IOrganization) {
+  constructor(args: IOrganization) {
     super();
+    OrganizationValidator(args);
     Object.assign(this, args);
   }
 }

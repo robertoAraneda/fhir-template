@@ -4,6 +4,7 @@ import { NameUseEnum } from '../../enums';
 import { NameUseType } from '../../types';
 import Element from '../base/Element';
 import HumanNameBuilder from './HumanNameBuilder';
+import { HumanNameValidator } from './HumanNameValidator';
 
 /**
  * @description Name of a human or other living entity - parts and usage
@@ -121,8 +122,9 @@ export default class HumanName extends Element implements IHumanName {
     return `HumanName${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IHumanName) {
+  constructor(args: IHumanName) {
     super();
+    HumanNameValidator(args);
     Object.assign(this, args);
   }
 }

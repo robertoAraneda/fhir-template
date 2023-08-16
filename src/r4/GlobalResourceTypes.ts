@@ -36,6 +36,8 @@ export const ResourcesListR4 = [
   'Immunization',
   'HealthcareService',
   'Substance',
+  'MessageHeader',
+  'MedicationStatement',
 ] as const;
 
 export type ResourceTypeR4FromArray = (typeof ResourcesListR4)[number];

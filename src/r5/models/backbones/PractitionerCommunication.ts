@@ -3,6 +3,7 @@ import { ICodeableConcept } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import PractitionerCommunicationBuilder from './PractitionerCommunicationBuilder';
 import BackboneElement from '../base/BackboneElement';
+import { PractitionerCommunicationValidator } from './PractitionerCommunicationValidator';
 
 export default class PractitionerCommunication extends BackboneElement implements IPractitionerCommunication {
   // PractitionerCommunication attributes
@@ -26,8 +27,9 @@ export default class PractitionerCommunication extends BackboneElement implement
     return `PractitionerCommunication${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPractitionerCommunication) {
+  constructor(args: IPractitionerCommunication) {
     super();
+    PractitionerCommunicationValidator(args);
     Object.assign(this, args);
   }
 }

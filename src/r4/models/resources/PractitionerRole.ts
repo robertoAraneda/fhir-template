@@ -3,7 +3,8 @@ import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { IPractitionerRoleAvailableTime, IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 import DomainResource from '../base/DomainResource';
-import { IPractitionerRoleBuilder, PractitionerRoleBuilder } from './PractitionerRoleBuilder';
+import { PractitionerRoleBuilder } from './PractitionerRoleBuilder';
+import { PractitionerRoleValidator } from './PractitionerRoleValidator';
 
 /**
  * @summary FHIR R4
@@ -47,8 +48,9 @@ export default class PractitionerRole extends DomainResource implements IPractit
     return new PractitionerRoleBuilder();
   }
 
-  constructor(args?: IPractitionerRole) {
+  constructor(args: IPractitionerRole) {
     super();
+    PractitionerRoleValidator(args);
     Object.assign(this, args);
   }
 }

@@ -1,42 +1,37 @@
-import { IPeriod } from '../../interfaces/datatypes';
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { Address } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
+import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
+import { AddressTypeType, AddressUseType } from '../../../types';
 import { IElement } from '../../interfaces/base';
+import { IAddress, IPeriod } from '../../interfaces/datatypes';
 
 type ParamExtensionType = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
 
 interface IAddressBuilder extends IBuildable<Address>, IElementBuilder<AddressBuilder> {
-  addParamExtension<T extends ParamExtensionType>(
-    param: T,
-    extension: T extends 'line' ? IElement[] : IElement,
-  ): AddressBuilder;
-  setUse(value: string): AddressBuilder;
-  setType(value: string): AddressBuilder;
-  setText(value: string): AddressBuilder;
-  addLine(value: string): AddressBuilder;
-  setMultipleLines(value: string[]): AddressBuilder;
-  setCity(value: string): AddressBuilder;
-  setDistrict(value: string): AddressBuilder;
-  setState(value: string): AddressBuilder;
-  setPostalCode(value: string): AddressBuilder;
-  setCountry(value: string): AddressBuilder;
-  setPeriod(value: IPeriod): AddressBuilder;
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: T extends 'line' ? IElement[] : IElement): this;
+  setUse(value: AddressUseEnum | AddressUseType): this;
+  setType(value: AddressTypeEnum | AddressTypeType): this;
+  setText(value: string): this;
+  addLine(value: string): this;
+  setMultipleLines(value: string[]): this;
+  setCity(value: string): this;
+  setDistrict(value: string): this;
+  setState(value: string): this;
+  setPostalCode(value: string): this;
+  setCountry(value: string): this;
+  setPeriod(value: IPeriod): this;
 }
 
 export default class AddressBuilder extends ElementBuilder<AddressBuilder> implements IAddressBuilder {
-  private readonly address: Address;
+  private readonly address: IAddress;
 
   constructor() {
     super();
-    this.address = new Address();
+    this.address = {} as IAddress;
   }
 
-  addParamExtension<T extends ParamExtensionType>(
-    param: T,
-    extension: T extends 'line' ? IElement[] : IElement,
-  ): AddressBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: T extends 'line' ? IElement[] : IElement): this {
     if (param === 'line') {
       this.address._line = extension as IElement[];
     } else {
@@ -47,64 +42,64 @@ export default class AddressBuilder extends ElementBuilder<AddressBuilder> imple
     return this;
   }
 
-  setUse(value: string): AddressBuilder {
+  setUse(value: AddressUseEnum | AddressUseType): this {
     this.address.use = value;
     return this;
   }
 
-  setType(value: string): AddressBuilder {
+  setType(value: AddressTypeEnum | AddressTypeType): this {
     this.address.type = value;
     return this;
   }
 
-  setText(value: string): AddressBuilder {
+  setText(value: string): this {
     this.address.text = value;
     return this;
   }
 
-  addLine(value: string): AddressBuilder {
+  addLine(value: string): this {
     this.address.line = this.address.line || [];
     this.address.line.push(value);
     return this;
   }
 
-  setMultipleLines(value: string[]): AddressBuilder {
+  setMultipleLines(value: string[]): this {
     this.address.line = value;
     return this;
   }
 
-  setCity(value: string): AddressBuilder {
+  setCity(value: string): this {
     this.address.city = value;
     return this;
   }
 
-  setDistrict(value: string): AddressBuilder {
+  setDistrict(value: string): this {
     this.address.district = value;
     return this;
   }
 
-  setState(value: string): AddressBuilder {
+  setState(value: string): this {
     this.address.state = value;
     return this;
   }
 
-  setPostalCode(value: string): AddressBuilder {
+  setPostalCode(value: string): this {
     this.address.postalCode = value;
     return this;
   }
 
-  setCountry(value: string): AddressBuilder {
+  setCountry(value: string): this {
     this.address.country = value;
     return this;
   }
 
-  setPeriod(value: IPeriod): AddressBuilder {
+  setPeriod(value: IPeriod): this {
     this.address.period = value;
     return this;
   }
 
   build(): Address {
     Object.assign(this.address, { ...super.entity() });
-    return this.address.toJson();
+    return new Address(this.address).toJson();
   }
 }

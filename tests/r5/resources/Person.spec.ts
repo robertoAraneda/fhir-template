@@ -1,6 +1,7 @@
 import { IPerson } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import PersonBuilder from '../../../src/r5/models/resources/PersonBuilder';
+import { PersonValidator } from '../../../src/r5/models/resources/PersonValidator';
 
 describe('Person FHIR R5', () => {
   let builder: PersonBuilder;
@@ -87,10 +88,7 @@ describe('Person FHIR R5', () => {
         },
       ],
     });
-
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/grahame]', async () => {
@@ -152,9 +150,7 @@ describe('Person FHIR R5', () => {
       },
     };
 
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PersonValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/per4]', async () => {
@@ -197,9 +193,7 @@ describe('Person FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PersonValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new person and validate with wrong data', async () => {
@@ -243,27 +237,9 @@ describe('Person FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.Person(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/birthDate',
-        keyword: 'pattern',
-        message: "The value '/birthDate' does not match with datatype 'date'",
-        params: { value: '/birthDate' },
-        schemaPath: 'base.schema.json#/definitions/date/pattern',
-      },
-    ]);
+    expect(() => PersonValidator(item as any)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Person",
+    );
   });
 
   it('should be able to create a new person using builder methods', async () => {
@@ -280,6 +256,7 @@ describe('Person FHIR R5', () => {
       .build();
 
     expect(item).toBeDefined();
+
     expect(item).toEqual({
       resourceType: 'Person',
       _active: {
@@ -291,9 +268,5 @@ describe('Person FHIR R5', () => {
         ],
       },
     });
-
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

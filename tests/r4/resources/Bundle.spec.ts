@@ -1,7 +1,9 @@
 import FHIRContext from '../../../src';
-import { IBundle } from '../../../src/r4/interfaces/resources/IBundle';
-import { BundleTypeEnum } from '../../../src/r4/enums';
+import { IBundle } from '../../../src/r4/interfaces/resources';
+import { BundleTypeEnum } from '../../../src/enums';
 import { BundleBuilder } from '../../../src/r4/models/resources/BundleBuilder';
+
+import { BundleValidator } from '../../../src/r4/models/resources/BundleValidator';
 
 describe('Bundle FHIR R4', () => {
   let builder: BundleBuilder;
@@ -19,6 +21,19 @@ describe('Bundle FHIR R4', () => {
       id: 'bundle-transaction',
       meta: {
         lastUpdated: '2014-08-18T01:43:30Z',
+      },
+      identifier: {
+        system: 'http://example.org/fhir/Bundle/123',
+        value: '123',
+        period: {
+          start: '2014-08-18T01:43:30Z',
+        },
+        extension: [
+          {
+            url: 'http://example.org/fhir/StructureDefinition/ext-message',
+            valueString: 'Fetch Patient from EMR',
+          },
+        ],
       },
       type: 'transaction',
       entry: [
@@ -187,9 +202,8 @@ describe('Bundle FHIR R4', () => {
       ],
     });
 
-    const validate = Validator.Bundle(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
+    expect(item.resourceType).toBe('Bundle');
   });
 
   it('should be able to create a new bundle and validate with correct data [Bundle-example-patientlist.json]', () => {
@@ -450,61 +464,52 @@ describe('Bundle FHIR R4', () => {
         },
       ],
     };
-
-    const validate = Validator.Bundle(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => BundleValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new bundle and validate with wrong data', () => {
     const item = {
       resourceType: 'Bundle',
       id: 'xcda1',
+      type: 'history',
       wrongProperty: 'wrong', // wrong property
     };
-    const validate = Validator.Bundle(item);
 
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => BundleValidator(item as IBundle)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Bundle",
+    );
   });
 
   it('should be able to create a new bundle with builder methods [new BundleBuilder()]', () => {
     const item = builder
       .setId('123')
-      .setType(BundleTypeEnum.TRANSACTION)
+      .setType(BundleTypeEnum.HISTORY)
       .addEntry({
         fullUrl: 'http://localhost:8080/fhir/Patient/123',
         id: '123',
+        response: {
+          status: '200',
+        },
       })
       .setTimestamp('2019-01-01T00:00:00.000Z')
       .build();
 
-    const validate = Validator.Bundle(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       entry: [
         {
           fullUrl: 'http://localhost:8080/fhir/Patient/123',
           id: '123',
+          response: {
+            status: '200',
+          },
         },
       ],
       id: '123',
       resourceType: 'Bundle',
       timestamp: '2019-01-01T00:00:00.000Z',
-      type: 'transaction',
+      type: 'history',
     });
   });
 });

@@ -1,7 +1,7 @@
 import { IRange } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import RangeBuilder from '../../../src/r5/models/datatypes/RangeBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { RangeValidator } from '../../../src/r5/models/datatypes/RangeValidator';
 
 describe('Range FHIR R5', () => {
   let builder: RangeBuilder;
@@ -17,16 +17,15 @@ describe('Range FHIR R5', () => {
       id: 'test',
       low: {
         code: 'test',
+        system: 'test',
       },
       high: {
         code: 'test',
+        system: 'test',
       },
     });
 
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new range and validate with correct data [IRange]', async () => {
@@ -34,16 +33,14 @@ describe('Range FHIR R5', () => {
       id: 'test',
       low: {
         code: 'test',
+        system: 'test',
       },
       high: {
         code: 'test',
+        system: 'test',
       },
     };
-
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RangeValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new range and validate with wrong data', async () => {
@@ -58,40 +55,28 @@ describe('Range FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => RangeValidator(item)).toThrow("InvalidFieldException: field(s) 'test' is not a valid for Range");
   });
 
   it('should be able to create a new attachment using builder methods [new RangeBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const item = builder.setId('123').setLow({ code: 'code' }).setHigh({ code: 'code' }).build();
+    const item = builder
+      .setId('123')
+      .setLow({ code: 'code', system: 'system' })
+      .setHigh({ code: 'code', system: 'system' })
+      .build();
 
     expect(item).toBeDefined();
     expect(item).toEqual({
       high: {
         code: 'code',
+        system: 'system',
       },
       id: '123',
       low: {
         code: 'code',
+        system: 'system',
       },
     });
-
-    const validate = await _validateDataType(item, 'Range');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

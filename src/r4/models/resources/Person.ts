@@ -1,11 +1,19 @@
 import { IPerson } from '../../interfaces/resources';
 import { IElement } from '../../interfaces/base';
-import { IAddress, IAttachment, IContactPoint, IHumanName, IIdentifier, IReference } from '../../interfaces/datatypes';
+import {
+  IAddress,
+  IAttachment,
+  IContactPoint,
+  IHumanName,
+  IIdentifier,
+  IReference,
+} from '../../interfaces/datatypes';
 import { IPersonLink } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../enums';
-import { AdministrativeGenderType } from '../../types';
+import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderType } from '../../../types';
 import DomainResource from '../base/DomainResource';
-import { IPersonBuilder, PersonBuilder } from './PersonBuilder';
+import { PersonBuilder } from './PersonBuilder';
+import { PersonValidator } from './PersonValidator';
 
 export default class Person extends DomainResource implements IPerson {
   resourceType = 'Person' as const;
@@ -42,8 +50,9 @@ export default class Person extends DomainResource implements IPerson {
     return new PersonBuilder();
   }
 
-  constructor(args?: IPerson) {
+  constructor(args: IPerson) {
     super();
+    PersonValidator(args);
     Object.assign(this, args);
   }
 }

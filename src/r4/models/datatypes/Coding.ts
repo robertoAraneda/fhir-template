@@ -1,7 +1,8 @@
 import { ICoding, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { CodingBuilder, ICodingBuilder } from './CodingBuilder';
+import { CodingBuilder } from './CodingBuilder';
+import { CodingValidator } from './CodingValidator';
 
 /**
  * @description A reference to a code defined by a terminology system.
@@ -99,8 +100,9 @@ export default class Coding extends Element implements ICoding {
     return new CodingBuilder();
   }
 
-  constructor(args?: ICoding) {
+  constructor(args: ICoding) {
     super();
+    CodingValidator(args);
     Object.assign(this, args);
   }
 }

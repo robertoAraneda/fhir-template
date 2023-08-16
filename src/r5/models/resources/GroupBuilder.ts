@@ -6,73 +6,54 @@ import { GroupMembershipBasisEnum, GroupTypeEnum } from '../../enums';
 import { GroupType } from '../../types';
 import { IGroupCharacteristic, IGroupMember } from '../../interfaces/backbones';
 import Group from './Group';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
+import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import GroupMembershipBasisType from '../../types/GroupMembershipBasisType';
 import { IResourceBuilder } from '../base/ResourceBuilder';
+import { IGroup } from '../../interfaces/resources';
 
-type ParamExtensionType = 'active' | 'type' | 'actual' | 'name' | 'quantity' | 'membership' | 'description';
-interface IGroupBuilder
+type ParamExtensionType = 'active' | 'type' | 'name' | 'quantity' | 'membership' | 'description';
+export interface IGroupBuilder
   extends IBuildable<Group>,
     IDomainResourceBuilder<GroupBuilder>,
     IResourceBuilder<GroupBuilder> {
-  setParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): GroupBuilder;
-  addIdentifier(identifier: IIdentifier): GroupBuilder;
-  setActive(active: boolean): GroupBuilder;
-  setType(type: GroupTypeEnum | GroupType): GroupBuilder;
-  setMembership(membership: GroupMembershipBasisEnum | GroupMembershipBasisType): GroupBuilder;
-  setActual(actual: boolean): GroupBuilder;
-  setCode(code: ICodeableConcept): GroupBuilder;
-  setName(name: string): GroupBuilder;
-  setDescription(description: string): GroupBuilder;
-  setQuantity(quantity: number): GroupBuilder;
-  setManagingEntity(managingEntity: IReference): GroupBuilder;
-  addCharacteristic(characteristic: IGroupCharacteristic): GroupBuilder;
-  addMember(member: IGroupMember): GroupBuilder;
-  setMultipleIdentifier(identifiers: IIdentifier[]): GroupBuilder;
-  setMultipleCharacteristic(characteristics: IGroupCharacteristic[]): GroupBuilder;
-  setMultipleMember(members: IGroupMember[]): GroupBuilder;
+  setParamExtension(param: ParamExtensionType, extension: IElement): this;
+  addIdentifier(identifier: IIdentifier): this;
+  setActive(active: boolean): this;
+  setType(type: GroupTypeEnum | GroupType): this;
+  setMembership(membership: GroupMembershipBasisEnum | GroupMembershipBasisType): this;
+  setCode(code: ICodeableConcept): this;
+  setName(name: string): this;
+  setDescription(description: string): this;
+  setQuantity(quantity: number): this;
+  setManagingEntity(managingEntity: IReference): this;
+  addCharacteristic(characteristic: IGroupCharacteristic): this;
+  addMember(member: IGroupMember): this;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this;
+  setMultipleCharacteristic(characteristics: IGroupCharacteristic[]): this;
+  setMultipleMember(members: IGroupMember[]): this;
 }
 
 export default class GroupBuilder extends DomainResourceBuilder<GroupBuilder> implements IGroupBuilder {
-  private readonly group: Group;
+  private readonly group: IGroup;
 
   constructor() {
     super();
-    this.group = new Group();
+    this.group = {} as IGroup;
   }
 
-  addCharacteristic(characteristic: IGroupCharacteristic): GroupBuilder {
-    // TODO Validate references
+  addCharacteristic(characteristic: IGroupCharacteristic): this {
     this.group.characteristic = this.group.characteristic || [];
     this.group.characteristic.push(characteristic);
     return this;
   }
 
-  addIdentifier(identifier: IIdentifier): GroupBuilder {
-    if (identifier.assigner?.reference) {
-      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
-    }
+  addIdentifier(identifier: IIdentifier): this {
     this.group.identifier = this.group.identifier || [];
     this.group.identifier.push(identifier);
     return this;
   }
 
-  addMember(member: IGroupMember): GroupBuilder {
-    if (member.entity?.reference) {
-      validateReferenceHelper(member.entity.reference, [
-        'CareTeam',
-        'Device',
-        'Group',
-        'HealthcareService',
-        'Location',
-        'Organization',
-        'Patient',
-        'Practitioner',
-        'PractitionerRole',
-        'RelatedPerson',
-        'Specimen',
-      ]);
-    }
+  addMember(member: IGroupMember): this {
     this.group.member = this.group.member || [];
     this.group.member.push(member);
     return this;
@@ -80,98 +61,66 @@ export default class GroupBuilder extends DomainResourceBuilder<GroupBuilder> im
 
   build(): Group {
     Object.assign(this.group, { ...super.entity() });
-    return this.group.toJson();
+    return new Group(this.group).toJson();
   }
 
-  setActive(active: boolean): GroupBuilder {
+  setActive(active: boolean): this {
     this.group.active = active;
     return this;
   }
 
-  setActual(actual: boolean): GroupBuilder {
-    this.group.actual = actual;
-    return this;
-  }
-
-  setCode(code: ICodeableConcept): GroupBuilder {
+  setCode(code: ICodeableConcept): this {
     this.group.code = code;
     return this;
   }
 
-  setManagingEntity(managingEntity: IReference): GroupBuilder {
-    if (managingEntity.reference) {
-      validateReferenceHelper(managingEntity.reference, [
-        'Organization',
-        'RelatedPerson',
-        'Practitioner',
-        'PractitionerRole',
-      ]);
-    }
-
+  setManagingEntity(managingEntity: IReference): this {
     this.group.managingEntity = managingEntity;
     return this;
   }
 
-  setMultipleCharacteristic(characteristics: IGroupCharacteristic[]): GroupBuilder {
-    // TODO Validate references
-    this.group.characteristic = characteristics;
+  setMultipleCharacteristic(characteristics: IGroupCharacteristic[]): this {
+    characteristics.forEach((characteristic) => this.addCharacteristic(characteristic));
     return this;
   }
 
-  setMultipleIdentifier(identifiers: IIdentifier[]): GroupBuilder {
-    identifiers.forEach((identifier) => {
-      if (identifier.assigner?.reference) {
-        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
-      }
-    });
-    this.group.identifier = identifiers;
+  setMultipleIdentifier(identifiers: IIdentifier[]): this {
+    identifiers.forEach((identifier) => this.addIdentifier(identifier));
+
     return this;
   }
 
-  setMultipleMember(members: IGroupMember[]): GroupBuilder {
-    members.forEach((member) => {
-      if (member.entity?.reference) {
-        validateReferenceHelper(member.entity.reference, [
-          'Patient',
-          'Practitioner',
-          'PractitionerRole',
-          'Device',
-          'Medication',
-          'Substance',
-          'Group',
-        ]);
-      }
-    });
-    this.group.member = members;
+  setMultipleMember(members: IGroupMember[]): this {
+    members.forEach((member) => this.addMember(member));
     return this;
   }
 
-  setName(name: string): GroupBuilder {
+  setName(name: string): this {
     this.group.name = name;
     return this;
   }
 
-  setDescription(description: string): GroupBuilder {
+  setDescription(description: string): this {
     this.group.description = description;
     return this;
   }
 
-  setParamExtension(param: ParamExtensionType, extension: IElement): GroupBuilder {
+  setParamExtension(param: ParamExtensionType, extension: IElement): this {
     this.group[`_${param}`] = extension;
     return this;
   }
 
-  setQuantity(quantity: number): GroupBuilder {
+  setQuantity(quantity: number): this {
     this.group.quantity = quantity;
     return this;
   }
 
-  setType(type: GroupTypeEnum | GroupType): GroupBuilder {
+  setType(type: GroupTypeEnum | GroupType): this {
     this.group.type = type;
     return this;
   }
 
-  setMembership(membership: GroupMembershipBasisEnum | GroupMembershipBasisType): GroupBuilder {
+  setMembership(membership: GroupMembershipBasisEnum | GroupMembershipBasisType): this {
     this.group.membership = membership;
     return this;
   }

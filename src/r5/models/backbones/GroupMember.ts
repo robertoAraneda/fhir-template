@@ -3,6 +3,7 @@ import { IPeriod, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import GroupMemberBuilder from './GroupMemberBuilder';
+import { GroupMemberValidator } from './GroupMemberValidator';
 
 export default class GroupMember extends BackboneElement implements IGroupMember {
   // GroupMember attributes
@@ -29,8 +30,9 @@ export default class GroupMember extends BackboneElement implements IGroupMember
     return `GroupMember${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IGroupMember) {
+  constructor(args: IGroupMember) {
     super();
+    GroupMemberValidator(args);
     Object.assign(this, args);
   }
 }

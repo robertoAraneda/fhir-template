@@ -8,7 +8,7 @@ import {
   IReference,
 } from '../datatypes';
 
-export interface IPractitionerRole extends IDomainResource {
+export default interface IPractitionerRole extends IDomainResource {
   resourceType: 'PractitionerRole';
   identifier?: IIdentifier[];
   active?: boolean;

@@ -3,12 +3,13 @@ import { IPeriod, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import { GroupMemberBuilder } from './GroupMemberBuilder';
+import { GroupMemberValidator } from './GroupMemberValidator';
 
 export default class GroupMember extends BackboneElement implements IGroupMember {
   // GroupMember attributes
   entity: IReference;
-  period: IPeriod;
-  inactive: boolean;
+  period?: IPeriod;
+  inactive?: boolean;
 
   // Extensions
   _inactive?: IElement;
@@ -29,8 +30,9 @@ export default class GroupMember extends BackboneElement implements IGroupMember
     return new GroupMemberBuilder();
   }
 
-  constructor(args?: IGroupMember) {
+  constructor(args: IGroupMember) {
     super();
+    GroupMemberValidator(args);
     Object.assign(this, args);
   }
 }

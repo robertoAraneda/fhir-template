@@ -1,9 +1,10 @@
 import { ICodeableConcept, IExtension, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { IdentifierUseEnum } from '../../enums';
-import { IdentifierUseType } from '../../types';
+import { IdentifierUseEnum } from '../../../enums';
+import { IdentifierUseType } from '../../../types';
 import Element from '../base/Element';
-import { IdentifierBuilder, IIdentifierBuilder } from './IdentifierBuilder';
+import { IdentifierBuilder } from './IdentifierBuilder';
+import { IdentifierValidator } from './IdentifierValidator';
 
 /**
  * @description An identifier intended for computation
@@ -93,8 +94,25 @@ export default class Identifier extends Element implements IIdentifier {
     return new IdentifierBuilder();
   }
 
-  constructor(args?: IIdentifier) {
+  static getFields(): { [key: string]: string } {
+    return {
+      id: 'string',
+      extension: 'Array<Extension>',
+      use: 'IdentifierUseEnum',
+      type: 'CodeableConcept',
+      system: 'string',
+      value: 'string',
+      period: 'Period',
+      assigner: 'Reference',
+      _use: 'Element',
+      _system: 'Element',
+      _value: 'Element',
+    };
+  }
+
+  constructor(args: IIdentifier) {
     super();
+    IdentifierValidator(args);
     Object.assign(this, args);
   }
 }

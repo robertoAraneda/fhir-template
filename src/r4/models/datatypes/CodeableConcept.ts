@@ -1,7 +1,8 @@
 import { ICodeableConcept, ICoding, IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { CodeableConceptBuilder, ICodeableConceptBuilder } from './CodeableConceptBuilder';
+import { CodeableConceptBuilder } from './CodeableConceptBuilder';
+import { CodeableConceptValidator } from './CodeableConceptValidator';
 
 /**
  * @description Concept - reference to a terminology or just text.
@@ -51,8 +52,9 @@ export default class CodeableConcept extends Element implements ICodeableConcept
     return new CodeableConceptBuilder();
   }
 
-  constructor(args?: ICodeableConcept) {
+  constructor(args: ICodeableConcept) {
     super();
+    CodeableConceptValidator(args);
     Object.assign(this, args);
   }
 }

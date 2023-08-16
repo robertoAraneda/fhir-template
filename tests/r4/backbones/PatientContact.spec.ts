@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { IPatientContact } from '../../../src/r4/interfaces/backbones';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { PatientContactBuilder } from '../../../src/r4/models/backbones/PatientContactBuilder';
+
+import { PatientContactValidator } from '../../../src/r4/models/backbones/PatientContactValidator';
 
 describe('PatientContact FHIR R4', () => {
   let builder: PatientContactBuilder;
@@ -31,9 +32,11 @@ describe('PatientContact FHIR R4', () => {
       },
     });
 
-    const validate = await _validateBackbone(item, 'Patient_Contact');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeInstanceOf(PatientContact);
+    expect(item).toBeDefined();
+    expect(item._gender).toBeDefined();
+    expect(item.organization).toBeDefined();
+    expect(item.id).toEqual('123');
   });
 
   it('should be able to validate a new patient_contact [IPatientContact]', async () => {
@@ -53,11 +56,7 @@ describe('PatientContact FHIR R4', () => {
         display: 'display',
       },
     };
-
-    const validate = await _validateBackbone(item, 'Patient_Contact');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientContactValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new patient_contact using builder methods [new PatientContact()]', async () => {
@@ -85,10 +84,7 @@ describe('PatientContact FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'Patient_Contact');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       _gender: {
@@ -123,20 +119,8 @@ describe('PatientContact FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Patient_Contact');
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => PatientContactValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PatientContact",
+    );
   });
 });

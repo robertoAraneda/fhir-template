@@ -1,7 +1,8 @@
 import { IExtension, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
-import { IPeriodBuilder, PeriodBuilder } from './PeriodBuilder';
+import { PeriodBuilder } from './PeriodBuilder';
+import { PeriodValidator } from './PeriodValidator';
 
 /**
  * @description Time range defined by start and end date/time.
@@ -57,8 +58,11 @@ export default class Period extends Element implements IPeriod {
     return new PeriodBuilder();
   }
 
-  constructor(args?: IPeriod) {
+  constructor(args: IPeriod) {
     super();
+    PeriodValidator(args);
     Object.assign(this, args);
   }
 }
+
+//TODO: add validator constraint

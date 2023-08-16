@@ -1,8 +1,7 @@
 import FHIRContext from '../../../src';
 import { IAttachment } from '../../../src/r4/interfaces/datatypes';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
-
 import { AttachmentBuilder } from '../../../src/r4/models/datatypes/AttachmentBuilder';
+import { AttachmentValidator } from '../../../src/r4/models/datatypes/AttachmentValidator';
 
 describe('Attachment FHIR R4', () => {
   let builder: AttachmentBuilder;
@@ -23,9 +22,7 @@ describe('Attachment FHIR R4', () => {
       contentType: 'application/pdf',
     });
 
-    const validate = await _validateDataType(item, 'Attachment');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new attachment [IAttachment]', async () => {
@@ -36,11 +33,59 @@ describe('Attachment FHIR R4', () => {
       title: 'title',
       language: 'en',
       contentType: 'application/pdf',
+      _data: {
+        extension: [
+          {
+            id: 'data',
+            url: 'data',
+            valueString: 'data',
+          },
+        ],
+      },
     };
 
-    const validate = await _validateDataType(item, 'Attachment');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => AttachmentValidator(item)).not.toThrowError();
+  });
+
+  it('should be able to validate a multiple attachment', async () => {
+    const item1 = {
+      id: '123',
+      _data: {
+        extension: [
+          {
+            id: 'data',
+            url: 'data',
+            valueString: 'data',
+          },
+        ],
+      },
+    };
+    const item2: IAttachment = {
+      id: '123',
+      _data: {
+        extension: [
+          {
+            id: 'data',
+            url: 'data',
+            valueString: 'data',
+          },
+        ],
+      },
+    };
+    const item3: IAttachment = {
+      id: '123',
+      _data: {
+        extension: [
+          {
+            id: 'data',
+            url: 'data',
+            valueString: 'data',
+          },
+        ],
+      },
+    };
+
+    expect(() => AttachmentValidator([item1, item2, item3])).not.toThrowError();
   });
 
   it('should be able to create a new attachment using builder methods [new Attachment()]', async () => {
@@ -50,7 +95,7 @@ describe('Attachment FHIR R4', () => {
       .setContentType('application/pdf')
       .setCreation('2020-01-01')
       .setUrl('http://example.com')
-      .addParamExtension('pages', {
+      .addParamExtension('url', {
         extension: [
           {
             url: 'pages',
@@ -60,13 +105,10 @@ describe('Attachment FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateDataType(item, 'Attachment');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-
+    expect(item).toBeDefined();
     expect(item).toEqual({
       id: '123',
-      _pages: {
+      _url: {
         extension: [
           {
             url: 'pages',
@@ -87,21 +129,32 @@ describe('Attachment FHIR R4', () => {
       wrongProperty: 'wrong',
     };
 
-    const validate = await _validateDataType(item, 'Attachment');
+    expect(() => AttachmentValidator(item)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Attachment",
+    );
+  });
 
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
+  it('should be get errors validators If the Attachment has data, it SHALL have a contentType (att-1)', async () => {
+    const item: IAttachment = {
+      id: '123',
+      url: 'http://example.com',
+      data: 'data',
+      title: 'title',
+      language: 'en',
+      contentType: undefined, // missing contentType
+      _data: {
+        extension: [
+          {
+            id: 'data',
+            url: 'data',
+            valueString: 'data',
+          },
+        ],
       },
-    ]);
+    };
+
+    expect(() => AttachmentValidator(item)).toThrow(
+      'ConstraintException: [Attachment] If the Attachment has data, it SHALL have a contentType (att-1)',
+    );
   });
 });

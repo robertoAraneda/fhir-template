@@ -18,6 +18,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import RelatedPersonBuilder from './RelatedPersonBuilder';
+import { RelatedPersonValidator } from './RelatedPersonValidator';
 
 export default class RelatedPerson extends DomainResource implements IRelatedPerson {
   _active?: IElement;
@@ -46,15 +47,16 @@ export default class RelatedPerson extends DomainResource implements IRelatedPer
   }
 
   toString(): string {
-    return `Person${JSON.stringify(this.toJson())}`;
+    return `RelatedPerson${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return `Person${JSON.stringify(this.toJson(), null, 2)}`;
+    return `RelatedPerson${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IRelatedPerson) {
+  constructor(args: IRelatedPerson) {
     super();
+    RelatedPersonValidator(args);
     Object.assign(this, args);
   }
 }

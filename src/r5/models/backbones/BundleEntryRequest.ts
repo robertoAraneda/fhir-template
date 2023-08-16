@@ -4,6 +4,7 @@ import { IElement } from '../../interfaces/base';
 import { BundleEntryRequestMethodType } from '../../types';
 import { BundleEntryRequestMethodEnum } from '../../enums';
 import { BundleEntryRequestBuilder } from './BundleEntryRequestBuilder';
+import { BundleEntryRequestValidator } from './BundleEntryRequestValidator';
 
 export default class BundleEntryRequest extends BackboneElement implements IBundleEntryRequest {
   // BundleEntryRequest attributes
@@ -38,8 +39,9 @@ export default class BundleEntryRequest extends BackboneElement implements IBund
     return new BundleEntryRequestBuilder();
   }
 
-  constructor(args?: IBundleEntryRequest) {
+  constructor(args: IBundleEntryRequest) {
     super();
+    BundleEntryRequestValidator(args);
     Object.assign(this, args);
   }
 }

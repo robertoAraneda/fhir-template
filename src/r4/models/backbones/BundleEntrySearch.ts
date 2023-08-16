@@ -1,13 +1,13 @@
 import { IBundleEntrySearch } from '../../interfaces/backbones';
-import { IExtension } from '../../interfaces/datatypes';
 import BackboneElement from '../base/BackboneElement';
 import { BundleEntrySearchBuilder } from './BundleEntrySearchBuilder';
 import { IElement } from '../../interfaces/base';
+import { bundleEntrySearchAttributes, BundleEntrySearchValidator } from './BundleEntrySearchValidator';
 
 export default class BundleEntrySearch extends BackboneElement implements IBundleEntrySearch {
   // BundleEntrySearchBuilder attributes
-  mode: string;
-  score: number;
+  mode?: string;
+  score?: number;
 
   // Extensions of bundle entry search attributes
   _mode?: IElement;
@@ -29,8 +29,13 @@ export default class BundleEntrySearch extends BackboneElement implements IBundl
     return new BundleEntrySearchBuilder();
   }
 
-  constructor(args?: IBundleEntrySearch) {
+  static getAttributes(): readonly string[] {
+    return bundleEntrySearchAttributes;
+  }
+
+  constructor(args: IBundleEntrySearch) {
     super();
+    BundleEntrySearchValidator(args);
     Object.assign(this, args);
   }
 }

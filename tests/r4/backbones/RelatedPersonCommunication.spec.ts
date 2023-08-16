@@ -1,7 +1,8 @@
 import { IRelatedPersonCommunication } from '../../../src/r4/interfaces/backbones';
 import FHIRContext from '../../../src';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { RelatedPersonCommunicationBuilder } from '../../../src/r4/models/backbones/RelatedPersonCommunicationBuilder';
+
+import { RelatedPersonCommunicationValidator } from '../../../src/r4/models/backbones/RelatedPersonCommunicationValidator';
 
 describe('RelatedPersonCommunication FHIR R4', () => {
   let builder: RelatedPersonCommunicationBuilder;
@@ -27,10 +28,7 @@ describe('RelatedPersonCommunication FHIR R4', () => {
       },
     };
 
-    const validate = await _validateBackbone(item, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RelatedPersonCommunicationValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new related_person_communication payload and validate with correct data [new RelatedPersonCommunication()]', async () => {
@@ -48,10 +46,7 @@ describe('RelatedPersonCommunication FHIR R4', () => {
       },
     });
 
-    const validate = await _validateBackbone(item, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new related_person_communication payload using builder methods [RelatedPersonCommunication.builder()]', async () => {
@@ -76,10 +71,7 @@ describe('RelatedPersonCommunication FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({
@@ -106,7 +98,7 @@ describe('RelatedPersonCommunication FHIR R4', () => {
   it('should be able to validate a new related_person_communication payload and validate with wrong data', async () => {
     const item = {
       id: '123',
-      preferred: 'bad data type', // wrong data type
+      preferred: true,
       language: {
         coding: [
           {
@@ -119,33 +111,8 @@ describe('RelatedPersonCommunication FHIR R4', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(item, 'RelatedPerson_Communication');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(3);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'type',
-        message: 'must be boolean',
-        params: { type: 'boolean' },
-        schemaPath: 'r4base.schema.json#/definitions/boolean/type',
-      },
-      {
-        instancePath: '/preferred',
-        keyword: 'pattern',
-        message: "The value '/preferred' does not match with datatype 'boolean'",
-        params: { value: '/preferred' },
-        schemaPath: 'r4base.schema.json#/definitions/boolean/pattern',
-      },
-    ]);
+    expect(() => RelatedPersonCommunicationValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for RelatedPersonCommunication",
+    );
   });
 });

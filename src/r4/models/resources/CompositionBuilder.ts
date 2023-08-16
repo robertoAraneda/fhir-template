@@ -9,40 +9,40 @@ import {
   ICompositionSection,
 } from '../../interfaces/backbones';
 import { ICodeableConcept, IIdentifier, IReference } from '../../interfaces/datatypes';
-import { CompositionStatusEnum } from '../../enums';
-import { CompositionStatusType } from '../../types';
+import { CompositionStatusEnum } from '../../../enums';
+import { CompositionStatusType } from '../../../types';
 import { IElement } from '../../interfaces/base';
 import CompositionSection from '../backbones/CompositionSection';
 import IComposition from '../../interfaces/resources/IComposition';
-import CompositionConfidentialityEnum from '../../enums/CompositionConfidentialityEnum';
-import CompositionConfidentialityType from '../../types/CompositionConfidentialityType';
+import CompositionConfidentialityEnum from '../../../enums/CompositionConfidentialityEnum';
+import CompositionConfidentialityType from '../../../types/CompositionConfidentialityType';
 
 export interface ICompositionBuilder
   extends IBuildable<Composition>,
     IDomainResourceBuilder<CompositionBuilder>,
     IResourceBuilder<CompositionBuilder> {
-  addParamExtension(param: 'status' | 'title' | 'date', element: IElement): CompositionBuilder;
-  addAttester(value: ICompositionAttester): CompositionBuilder;
-  setMultipleAttesters(values: ICompositionAttester[]): CompositionBuilder;
-  addAuthor(value: IReference): CompositionBuilder;
-  setMultipleAuthors(values: IReference[]): CompositionBuilder;
-  addCategory(value: ICodeableConcept): CompositionBuilder;
-  setMultipleCategories(values: ICodeableConcept[]): CompositionBuilder;
-  setConfidentiality(value: CompositionConfidentialityEnum | CompositionConfidentialityType): CompositionBuilder;
-  setCustodian(value: IReference): CompositionBuilder;
-  setDate(value: string): CompositionBuilder;
-  setEncounter(value: IReference): CompositionBuilder;
-  addEvent(value: ICompositionEvent): CompositionBuilder;
-  setMultipleEvents(values: ICompositionEvent[]): CompositionBuilder;
-  setIdentifier(value: IIdentifier): CompositionBuilder;
-  addRelatesTo(value: ICompositionRelatesTo): CompositionBuilder;
-  setMultipleRelatesTo(values: ICompositionRelatesTo[]): CompositionBuilder;
-  addSection(value: ICompositionSection): CompositionBuilder;
-  setMultipleSections(values: ICompositionSection[]): CompositionBuilder;
-  setStatus(value: CompositionStatusEnum | CompositionStatusType): CompositionBuilder;
-  setSubject(value: IReference): CompositionBuilder;
-  setTitle(value: string): CompositionBuilder;
-  setType(value: ICodeableConcept): CompositionBuilder;
+  addParamExtension(param: 'status' | 'title' | 'date', element: IElement): this;
+  addAttester(value: ICompositionAttester): this;
+  setMultipleAttesters(values: ICompositionAttester[]): this;
+  addAuthor(value: IReference): this;
+  setMultipleAuthors(values: IReference[]): this;
+  addCategory(value: ICodeableConcept): this;
+  setMultipleCategories(values: ICodeableConcept[]): this;
+  setConfidentiality(value: CompositionConfidentialityEnum | CompositionConfidentialityType): this;
+  setCustodian(value: IReference): this;
+  setDate(value: string): this;
+  setEncounter(value: IReference): this;
+  addEvent(value: ICompositionEvent): this;
+  setMultipleEvents(values: ICompositionEvent[]): this;
+  setIdentifier(value: IIdentifier): this;
+  addRelatesTo(value: ICompositionRelatesTo): this;
+  setMultipleRelatesTo(values: ICompositionRelatesTo[]): this;
+  addSection(value: ICompositionSection): this;
+  setMultipleSections(values: ICompositionSection[]): this;
+  setStatus(value: CompositionStatusEnum | CompositionStatusType): this;
+  setSubject(value: IReference): this;
+  setTitle(value: string): this;
+  setType(value: ICodeableConcept): this;
 }
 
 export default class CompositionBuilder
@@ -56,44 +56,42 @@ export default class CompositionBuilder
     this._composition = {} as IComposition;
   }
 
-  addAttester(value: ICompositionAttester): CompositionBuilder {
+  addAttester(value: ICompositionAttester): this {
     this._composition.attester = this._composition.attester || [];
     this._composition.attester.push(value);
     return this;
   }
 
-  addAuthor(value: IReference): CompositionBuilder {
+  addAuthor(value: IReference): this {
     this._composition.author = this._composition.author || [];
     this._composition.author.push(value);
     return this;
   }
 
-  addCategory(value: ICodeableConcept): CompositionBuilder {
+  addCategory(value: ICodeableConcept): this {
     this._composition.category = this._composition.category || [];
     this._composition.category.push(value);
     return this;
   }
 
-  addEvent(value: ICompositionEvent): CompositionBuilder {
+  addEvent(value: ICompositionEvent): this {
     this._composition.event = this._composition.event || [];
     this._composition.event.push(value);
     return this;
   }
 
-  addParamExtension(param: 'status' | 'title' | 'date', element: IElement): CompositionBuilder {
+  addParamExtension(param: 'status' | 'title' | 'date', element: IElement): this {
     this._composition[`_${param}`] = element;
     return this;
   }
 
-  addRelatesTo(value: ICompositionRelatesTo): CompositionBuilder {
+  addRelatesTo(value: ICompositionRelatesTo): this {
     this._composition.relatesTo = this._composition.relatesTo || [];
     this._composition.relatesTo.push(value);
     return this;
   }
 
-  addSection(value: ICompositionSection): CompositionBuilder {
-    CompositionSection.validate(value);
-
+  addSection(value: ICompositionSection): this {
     this._composition.section = this._composition.section || [];
     this._composition.section.push(value);
     return this;
@@ -106,77 +104,77 @@ export default class CompositionBuilder
     return composition.toJson();
   }
 
-  setConfidentiality(value: CompositionConfidentialityEnum | CompositionConfidentialityType): CompositionBuilder {
+  setConfidentiality(value: CompositionConfidentialityEnum | CompositionConfidentialityType): this {
     this._composition.confidentiality = value;
     return this;
   }
 
-  setCustodian(value: IReference): CompositionBuilder {
+  setCustodian(value: IReference): this {
     this._composition.custodian = value;
     return this;
   }
 
-  setDate(value: string): CompositionBuilder {
+  setDate(value: string): this {
     this._composition.date = value;
     return this;
   }
 
-  setEncounter(value: IReference): CompositionBuilder {
+  setEncounter(value: IReference): this {
     this._composition.encounter = value;
     return this;
   }
 
-  setIdentifier(value: IIdentifier): CompositionBuilder {
+  setIdentifier(value: IIdentifier): this {
     this._composition.identifier = value;
     return this;
   }
 
-  setMultipleAttesters(values: ICompositionAttester[]): CompositionBuilder {
+  setMultipleAttesters(values: ICompositionAttester[]): this {
     this._composition.attester = values;
     return this;
   }
 
-  setMultipleAuthors(values: IReference[]): CompositionBuilder {
+  setMultipleAuthors(values: IReference[]): this {
     this._composition.author = values;
     return this;
   }
 
-  setMultipleCategories(values: ICodeableConcept[]): CompositionBuilder {
+  setMultipleCategories(values: ICodeableConcept[]): this {
     this._composition.category = values;
     return this;
   }
 
-  setMultipleEvents(values: ICompositionEvent[]): CompositionBuilder {
+  setMultipleEvents(values: ICompositionEvent[]): this {
     this._composition.event = values;
     return this;
   }
 
-  setMultipleRelatesTo(values: ICompositionRelatesTo[]): CompositionBuilder {
+  setMultipleRelatesTo(values: ICompositionRelatesTo[]): this {
     this._composition.relatesTo = values;
     return this;
   }
 
-  setMultipleSections(values: ICompositionSection[]): CompositionBuilder {
+  setMultipleSections(values: ICompositionSection[]): this {
     this._composition.section = values;
     return this;
   }
 
-  setStatus(value: CompositionStatusEnum | CompositionStatusType): CompositionBuilder {
+  setStatus(value: CompositionStatusEnum | CompositionStatusType): this {
     this._composition.status = value;
     return this;
   }
 
-  setSubject(value: IReference): CompositionBuilder {
+  setSubject(value: IReference): this {
     this._composition.subject = value;
     return this;
   }
 
-  setTitle(value: string): CompositionBuilder {
+  setTitle(value: string): this {
     this._composition.title = value;
     return this;
   }
 
-  setType(value: ICodeableConcept): CompositionBuilder {
+  setType(value: ICodeableConcept): this {
     this._composition.type = value;
     return this;
   }

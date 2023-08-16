@@ -2,186 +2,187 @@ import FHIRContext from '../../../src';
 import { IComposition } from '../../../src/r4/interfaces/resources';
 import CompositionBuilder from '../../../src/r4/models/resources/CompositionBuilder';
 
+import { CompositionValidator } from '../../../src/r4/models/resources/CompositionValidator';
+
 describe('Composition FHIR R4', () => {
   let builder: CompositionBuilder;
-  const { Composition: Entity, CompositionAttester, CompositionEvent, CompositionSection } = new FHIRContext().forR4();
+  const { Composition, CompositionAttester, CompositionEvent, CompositionSection } = new FHIRContext().forR4();
 
   // create global
   beforeEach(() => {
-    builder = Entity.builder();
+    builder = Composition.builder();
   });
 
   it('should be able to validate a new composition [new Composition()]', async () => {
-    expect(
-      () =>
-        new Entity({
-          resourceType: 'Composition',
-          id: 'example',
-          text: {
-            status: 'generated',
-            div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\t<p>Consultation note for Henry Levin the 7th</p>\n\t\t\t<p>Managed by Good Health Clinic</p>\n\t\t</div>',
+    const item = new Composition({
+      resourceType: 'Composition',
+      id: 'example',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\t<p>Consultation note for Henry Levin the 7th</p>\n\t\t\t<p>Managed by Good Health Clinic</p>\n\t\t</div>',
+      },
+      identifier: {
+        system: 'http://healthintersections.com.au/test',
+        value: '1',
+      },
+      status: 'final',
+      type: {
+        coding: [
+          {
+            system: 'http://loinc.org',
+            code: '11488-4',
+            display: 'Consult note',
           },
-          identifier: {
-            system: 'http://healthintersections.com.au/test',
-            value: '1',
+        ],
+      },
+      category: [
+        {
+          coding: [
+            {
+              system: 'http://loinc.org',
+              code: 'LP173421-1',
+              display: 'Report',
+            },
+          ],
+        },
+      ],
+      subject: {
+        reference: 'Patient/xcda',
+        display: 'Henry Levin the 7th',
+      },
+      encounter: {
+        reference: 'Encounter/xcda',
+      },
+      date: '2012-01-04T09:10:14Z',
+      author: [
+        {
+          reference: 'Practitioner/xcda-author',
+          display: 'Harold Hippocrates, MD',
+        },
+      ],
+      title: 'Consultation Note',
+      confidentiality: 'N',
+      attester: [
+        {
+          mode: 'legal',
+          time: '2012-01-04T09:10:14Z',
+          party: {
+            reference: 'Practitioner/xcda-author',
+            display: 'Harold Hippocrates, MD',
           },
-          status: 'final',
-          type: {
-            coding: [
-              {
-                system: 'http://loinc.org',
-                code: '11488-4',
-                display: 'Consult note',
-              },
-            ],
+        },
+      ],
+      custodian: {
+        reference: 'Organization/2.16.840.1.113883.19.5',
+        display: 'Good Health Clinic',
+      },
+      relatesTo: [
+        {
+          code: 'replaces',
+          targetReference: {
+            reference: 'Composition/old-example',
           },
-          category: [
+        },
+        {
+          code: 'appends',
+          targetIdentifier: {
+            system: 'http://example.org/fhir/NamingSystem/document-ids',
+            value: 'ABC123',
+          },
+        },
+      ],
+      event: [
+        {
+          code: [
             {
               coding: [
                 {
-                  system: 'http://loinc.org',
-                  code: 'LP173421-1',
-                  display: 'Report',
+                  system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+                  code: 'HEALTHREC',
+                  display: 'health record',
                 },
               ],
             },
           ],
-          subject: {
-            reference: 'Patient/xcda',
-            display: 'Henry Levin the 7th',
+          period: {
+            start: '2010-07-18',
+            end: '2012-11-12',
           },
-          encounter: {
-            reference: 'Encounter/xcda',
+          detail: [
+            {
+              reference: 'Observation/example',
+            },
+          ],
+        },
+      ],
+      section: [
+        {
+          title: 'History of present illness',
+          code: {
+            coding: [
+              {
+                system: 'http://loinc.org',
+                code: '11348-0',
+                display: 'History of past illness Narrative',
+              },
+            ],
           },
-          date: '2012-01-04T09:10:14Z',
-          author: [
-            {
-              reference: 'Practitioner/xcda-author',
-              display: 'Harold Hippocrates, MD',
-            },
-          ],
-          title: 'Consultation Note',
-          confidentiality: 'N',
-          attester: [
-            {
-              mode: 'legal',
-              time: '2012-01-04T09:10:14Z',
-              party: {
-                reference: 'Practitioner/xcda-author',
-                display: 'Harold Hippocrates, MD',
-              },
-            },
-          ],
-          custodian: {
-            reference: 'Organization/2.16.840.1.113883.19.5',
-            display: 'Good Health Clinic',
+          text: {
+            status: 'generated',
+            div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\t\t<table>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Code</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Date</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Type</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>BodySite</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Severity</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Stroke</td>\n\t\t\t\t\t\t<td>2010-07-18</td>\n\t\t\t\t\t\t<td>Diagnosis</td>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Burnt Ear</td>\n\t\t\t\t\t\t<td>2012-05-24</td>\n\t\t\t\t\t\t<td>Diagnosis</td>\n\t\t\t\t\t\t<td>Left Ear</td>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Asthma</td>\n\t\t\t\t\t\t<td>2012-11-12</td>\n\t\t\t\t\t\t<td>Finding</td>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t<td>Mild</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</table>\n\t\t\t</div>',
           },
-          relatesTo: [
-            {
-              code: 'replaces',
-              targetReference: {
-                reference: 'Composition/old-example',
+          mode: 'snapshot',
+          orderedBy: {
+            coding: [
+              {
+                system: 'http://terminology.hl7.org/CodeSystem/list-order',
+                code: 'event-date',
+                display: 'Sorted by Event Date',
               },
+            ],
+          },
+          entry: [
+            {
+              reference: 'Condition/stroke',
             },
             {
-              code: 'appends',
-              targetIdentifier: {
-                system: 'http://example.org/fhir/NamingSystem/document-ids',
-                value: 'ABC123',
-              },
+              reference: 'Condition/example',
             },
-          ],
-          event: [
             {
-              code: [
-                {
-                  coding: [
-                    {
-                      system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-                      code: 'HEALTHREC',
-                      display: 'health record',
-                    },
-                  ],
-                },
-              ],
-              period: {
-                start: '2010-07-18',
-                end: '2012-11-12',
-              },
-              detail: [
-                {
-                  reference: 'Observation/example',
-                },
-              ],
+              reference: 'Condition/example2',
             },
           ],
-          section: [
-            {
-              title: 'History of present illness',
-              code: {
-                coding: [
-                  {
-                    system: 'http://loinc.org',
-                    code: '11348-0',
-                    display: 'History of past illness Narrative',
-                  },
-                ],
+        },
+        {
+          title: 'History of family member diseases',
+          code: {
+            coding: [
+              {
+                system: 'http://loinc.org',
+                code: '10157-6',
+                display: 'History of family member diseases Narrative',
               },
-              text: {
-                status: 'generated',
-                div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\t\t<table>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Code</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Date</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Type</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>BodySite</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<b>Severity</b>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Stroke</td>\n\t\t\t\t\t\t<td>2010-07-18</td>\n\t\t\t\t\t\t<td>Diagnosis</td>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Burnt Ear</td>\n\t\t\t\t\t\t<td>2012-05-24</td>\n\t\t\t\t\t\t<td>Diagnosis</td>\n\t\t\t\t\t\t<td>Left Ear</td>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>Asthma</td>\n\t\t\t\t\t\t<td>2012-11-12</td>\n\t\t\t\t\t\t<td>Finding</td>\n\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t<td>Mild</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</table>\n\t\t\t</div>',
+            ],
+          },
+          text: {
+            status: 'generated',
+            div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\t\t<p>History of family member diseases - not available</p>\n\t\t\t</div>',
+          },
+          mode: 'snapshot',
+          emptyReason: {
+            coding: [
+              {
+                system: 'http://terminology.hl7.org/CodeSystem/list-empty-reason',
+                code: 'withheld',
+                display: 'Information Withheld',
               },
-              mode: 'snapshot',
-              orderedBy: {
-                coding: [
-                  {
-                    system: 'http://terminology.hl7.org/CodeSystem/list-order',
-                    code: 'event-date',
-                    display: 'Sorted by Event Date',
-                  },
-                ],
-              },
-              entry: [
-                {
-                  reference: 'Condition/stroke',
-                },
-                {
-                  reference: 'Condition/example',
-                },
-                {
-                  reference: 'Condition/example2',
-                },
-              ],
-            },
-            {
-              title: 'History of family member diseases',
-              code: {
-                coding: [
-                  {
-                    system: 'http://loinc.org',
-                    code: '10157-6',
-                    display: 'History of family member diseases Narrative',
-                  },
-                ],
-              },
-              text: {
-                status: 'generated',
-                div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\t\t<p>History of family member diseases - not available</p>\n\t\t\t</div>',
-              },
-              mode: 'snapshot',
-              emptyReason: {
-                coding: [
-                  {
-                    system: 'http://terminology.hl7.org/CodeSystem/list-empty-reason',
-                    code: 'withheld',
-                    display: 'Information Withheld',
-                  },
-                ],
-              },
-            },
-          ],
-        }),
-    ).not.toThrow();
+            ],
+          },
+        },
+      ],
+    });
+
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new composition [IComposition]', async () => {
@@ -224,6 +225,7 @@ describe('Composition FHIR R4', () => {
       section: [
         {
           title: 'Reason for admission',
+          mode: 'snapshot',
           code: {
             coding: [
               {
@@ -279,6 +281,7 @@ describe('Composition FHIR R4', () => {
               },
             ],
           },
+          mode: 'snapshot',
           text: {
             status: 'additional',
             div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\n              <table>\n\n                <thead>\n\n                  <tr>\n\n                    <td>Allergen</td>\n\n                    <td>Reaction</td>\n\n                  </tr>\n\n                </thead>\n\n                <tbody>\n\n                  <tr>\n\n                    <td>Doxycycline</td>\n\n                    <td>Hives</td>\n\n                  </tr>\n\n                </tbody>\n\n              </table>\n\n            </div>',
@@ -292,7 +295,7 @@ describe('Composition FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item)).not.toThrow();
+    expect(() => CompositionValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new composition [Composition-example-mixed.json]', async () => {
@@ -354,6 +357,7 @@ describe('Composition FHIR R4', () => {
       section: [
         {
           title: "Child's Details",
+          mode: 'snapshot',
           code: {
             coding: [
               {
@@ -370,6 +374,7 @@ describe('Composition FHIR R4', () => {
         },
         {
           title: "Mpther's Details",
+          mode: 'snapshot',
           code: {
             coding: [
               {
@@ -386,7 +391,7 @@ describe('Composition FHIR R4', () => {
         },
       ],
     };
-    expect(() => Entity.validate(item)).not.toThrow();
+    expect(() => CompositionValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new composition using builder methods [Composition.builder()]', async () => {
@@ -395,6 +400,7 @@ describe('Composition FHIR R4', () => {
       .addAuthor({
         reference: 'Patient/123',
       })
+      .setStatus('final')
       .addParamExtension('status', {
         extension: [
           {
@@ -442,7 +448,10 @@ describe('Composition FHIR R4', () => {
       .setType({ coding: [{ system: 'http://loinc.org', code: 'LP173421-1', display: 'Report' }] })
       .build();
 
+    expect(item).toBeDefined();
+
     expect(item).toEqual({
+      status: 'final',
       _status: {
         extension: [
           {
@@ -543,6 +552,9 @@ describe('Composition FHIR R4', () => {
           },
         ],
       },
+      date: '2020-01-01T00:00:00.000Z',
+      title: "Mother's Details",
+      status: 'preliminary',
       author: [
         {
           reference: 'badReference', // Wrong reference
@@ -551,15 +563,16 @@ describe('Composition FHIR R4', () => {
       wrongProperty: 'wrongProperty', // Wrong property
     };
 
-    expect(() => Entity.validate(item as any, 'format')).toThrowError(
-      'Invalid Resource: Composition: "must NOT have additional properties: [wrongProperty]',
+    expect(() => CompositionValidator(item as IComposition)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Composition",
     );
   });
 
   it('should be get errors validators if new composition has wrong references format', async () => {
-    const item = {
+    const item: IComposition = {
       id: '123',
       resourceType: 'Composition',
+      status: 'preliminary',
       type: {
         coding: [
           {
@@ -569,6 +582,8 @@ describe('Composition FHIR R4', () => {
           },
         ],
       },
+      title: "Mother's Details",
+      date: '2020-01-01T00:00:00.000Z',
       author: [
         {
           reference: 'badReference', // Wrong reference
@@ -576,11 +591,13 @@ describe('Composition FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item as any, 'reference')).toThrowError('Invalid Reference');
+    expect(() => CompositionValidator(item)).toThrowError(
+      'ReferenceException: [value=badReference]. Reference must be in the format {ResourceType}/{id}. Path: Composition.author[0].reference',
+    );
   });
 
   it('should be get errors validators if new composition has wrong references resource', async () => {
-    const item = {
+    const item: IComposition = {
       id: '123',
       resourceType: 'Composition',
       type: {
@@ -592,6 +609,9 @@ describe('Composition FHIR R4', () => {
           },
         ],
       },
+      title: "Mother's Details",
+      date: '2020-01-01T00:00:00.000Z',
+      status: 'preliminary',
       author: [
         {
           reference: 'WrongReference/123', // Wrong reference
@@ -599,17 +619,18 @@ describe('Composition FHIR R4', () => {
       ],
     };
 
-    expect(() => Entity.validate(item as any, 'reference')).toThrowError('Invalid Reference');
+    expect(() => CompositionValidator(item)).toThrowError(
+      'ReferenceException: [value=WrongReference]. ResourceType must be one of the following: [Device, Practitioner, PractitionerRole, Organization, Patient, RelatedPerson]. Path: Composition.author[0].reference',
+    );
   });
 
   it('should be get errors validators if new composition has not a valid constraint [comp-1] ', async () => {
     const item: IComposition = {
       resourceType: 'Composition',
       id: 'example-mixed',
-      text: {
-        status: 'generated',
-        div: "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: example-mixed</p><p><b>status</b>: final</p><p><b>type</b>: Neonatal perinatal medicine Discharge summary <span>(Details : {LOINC code '78418-1' = 'Neonatal perinatal medicine Discharge summary', given as 'Neonatal perinatal medicine Discharge summary'})</span></p><p><b>category</b>: Report <span>(Details : {LOINC code 'LP173421-1' = 'Report', given as 'Report'})</span></p><p><b>date</b>: 30/10/2018 4:56:04 PM</p><p><b>author</b>: <a>Harold Hippocrates, MD</a></p><p><b>title</b>: Discharge Summary (Neonatal Service)</p><p><b>confidentiality</b>: N</p><h3>Attesters</h3><table><tr><td>-</td><td><b>Mode</b></td><td><b>Time</b></td><td><b>Party</b></td></tr><tr><td>*</td><td>legal</td><td>04/01/2012 9:10:14 AM</td><td><a>Harold Hippocrates, MD</a></td></tr></table><p><b>custodian</b>: <a>Good Health Clinic</a></p></div>",
-      },
+      status: 'final',
+      title: 'Discharge Summary (Neonatal Service)',
+      date: '2018-10-30T16:56:04+11:00',
       type: {
         coding: [
           {
@@ -628,6 +649,7 @@ describe('Composition FHIR R4', () => {
       section: [
         {
           title: "Child's Details",
+          mode: 'snapshot',
           code: {
             coding: [
               {
@@ -640,7 +662,9 @@ describe('Composition FHIR R4', () => {
         },
       ],
     };
-    expect(() => Entity.validate(item, 'constraint')).toThrow('(comp-1)');
+    expect(() => CompositionValidator(item)).toThrow(
+      'Invalid Resource: Composition: A section must contain at least one of text, entries, or sub-sections. (comp-1)',
+    );
   });
 
   it('should be get errors validators if new composition has not a valid constraint [comp-2] ', async () => {
@@ -651,6 +675,9 @@ describe('Composition FHIR R4', () => {
         status: 'generated',
         div: "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: example-mixed</p><p><b>status</b>: final</p><p><b>type</b>: Neonatal perinatal medicine Discharge summary <span>(Details : {LOINC code '78418-1' = 'Neonatal perinatal medicine Discharge summary', given as 'Neonatal perinatal medicine Discharge summary'})</span></p><p><b>category</b>: Report <span>(Details : {LOINC code 'LP173421-1' = 'Report', given as 'Report'})</span></p><p><b>date</b>: 30/10/2018 4:56:04 PM</p><p><b>author</b>: <a>Harold Hippocrates, MD</a></p><p><b>title</b>: Discharge Summary (Neonatal Service)</p><p><b>confidentiality</b>: N</p><h3>Attesters</h3><table><tr><td>-</td><td><b>Mode</b></td><td><b>Time</b></td><td><b>Party</b></td></tr><tr><td>*</td><td>legal</td><td>04/01/2012 9:10:14 AM</td><td><a>Harold Hippocrates, MD</a></td></tr></table><p><b>custodian</b>: <a>Good Health Clinic</a></p></div>",
       },
+      status: 'final',
+      title: 'Discharge Summary (Neonatal Service)',
+      date: '2018-10-30T16:56:04+11:00',
       type: {
         coding: [
           {
@@ -669,6 +696,7 @@ describe('Composition FHIR R4', () => {
       section: [
         {
           title: "Child's Details",
+          mode: 'snapshot',
           code: {
             coding: [
               {
@@ -699,6 +727,8 @@ describe('Composition FHIR R4', () => {
         },
       ],
     };
-    expect(() => Entity.validate(item, 'constraint')).toThrow('(comp-2)');
+    expect(() => CompositionValidator(item)).toThrow(
+      'Invalid Resource: Composition: A section can only have an emptyReason if it is empty. (comp-2)',
+    );
   });
 });

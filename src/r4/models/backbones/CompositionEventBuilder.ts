@@ -3,7 +3,8 @@ import CompositionEvent from './CompositionEvent';
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IBuildable } from '../../../globals/interfaces';
 import { ICodeableConcept, IPeriod, IReference } from '../../interfaces/datatypes';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
+import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
+import { ICompositionEvent } from '../../interfaces/backbones';
 
 export interface ICompositionEventBuilder
   extends IBuildable<CompositionEvent>,
@@ -20,15 +21,15 @@ export default class CompositionEventBuilder
   extends BackboneElementBuilder<CompositionEventBuilder>
   implements ICompositionEventBuilder
 {
-  private readonly _compositionEvent: CompositionEvent;
+  private readonly _compositionEvent: ICompositionEvent;
 
   constructor() {
     super();
-    this._compositionEvent = new CompositionEvent();
+    this._compositionEvent = {} as ICompositionEvent;
   }
 
   addDetail(detail: IReference): CompositionEventBuilder {
-    if (detail.reference) validateReferenceHelper(detail.reference, 'all');
+    if (detail.reference) ValidateReferenceFormatHelper(detail.reference, 'all');
     this._compositionEvent.detail = this._compositionEvent.detail || [];
     this._compositionEvent.detail.push(detail);
     return this;
@@ -57,6 +58,6 @@ export default class CompositionEventBuilder
 
   build(): CompositionEvent {
     Object.assign(this._compositionEvent, { ...super.entity() });
-    return this._compositionEvent.toJson();
+    return new CompositionEvent(this._compositionEvent).toJson();
   }
 }

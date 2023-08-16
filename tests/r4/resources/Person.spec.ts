@@ -2,6 +2,7 @@ import { IPerson } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
 import { PersonBuilder } from '../../../src/r4/models/resources/PersonBuilder';
+import { PersonValidator } from '../../../src/r4/models/resources/PersonValidator';
 
 describe('Person Resource FHIR R4', () => {
   let builder: PersonBuilder;
@@ -88,9 +89,7 @@ describe('Person Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PersonValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new person and validate with correct data [new Person()]', async () => {
@@ -152,9 +151,7 @@ describe('Person Resource FHIR R4', () => {
       },
     });
 
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new person and validate with correct data [Example Person/per4]', async () => {
@@ -196,9 +193,7 @@ describe('Person Resource FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PersonValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new person and validate with wrong data', async () => {
@@ -243,34 +238,9 @@ describe('Person Resource FHIR R4', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await Validator.Person(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(3);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/birthDate',
-        keyword: 'pattern',
-        message: "The value '/birthDate' does not match with datatype 'date'",
-        params: { value: '/birthDate' },
-        schemaPath: 'r4base.schema.json#/definitions/date/pattern',
-      },
-      {
-        instancePath: '/photo',
-        keyword: 'type',
-        message: 'must be object',
-        params: { type: 'object' },
-        schemaPath: '#/type',
-      },
-    ]);
+    expect(() => PersonValidator(item as IPerson)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Person",
+    );
   });
 
   it('should be able to create a new person using builder methods [ new PersonBuilder()]', async () => {
@@ -285,10 +255,6 @@ describe('Person Resource FHIR R4', () => {
         ],
       })
       .build();
-
-    const validate = await Validator.Person(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

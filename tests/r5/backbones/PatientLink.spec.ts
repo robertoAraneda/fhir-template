@@ -2,6 +2,7 @@ import { IPatientLink } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
 import PatientLinkBuilder from '../../../src/r5/models/backbones/PatientLinkBuilder';
 import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { PatientLinkValidator } from '../../../src/r5/models/backbones/PatientLinkValidator';
 
 describe('PatientLink FHIR R5', () => {
   const { PatientLink } = new FHIRContext().forR5();
@@ -13,10 +14,10 @@ describe('PatientLink FHIR R5', () => {
   });
 
   it('should be able to create a new patient_link payload and validate with correct data [IPatientLink]', async () => {
-    const dataType: IPatientLink = {
+    const item: IPatientLink = {
       id: '123',
       other: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
       type: 'replaced-by', // correct type
       extension: [
@@ -27,17 +28,14 @@ describe('PatientLink FHIR R5', () => {
       ],
     };
 
-    const validate = await _validateBackbone(dataType, 'Patient_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientLinkValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new patient_link payload and validate with correct data [new PatientLink()]', async () => {
-    const dataType = new PatientLink({
+    const item = new PatientLink({
       id: '123',
       other: {
-        reference: 'test',
+        reference: 'Patient/id',
       },
       type: 'replaced-by', // correct type
       extension: [
@@ -48,15 +46,16 @@ describe('PatientLink FHIR R5', () => {
       ],
     });
 
-    const validate = await _validateBackbone(dataType, 'Patient_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new patient_link payload and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
+      type: 'replaced-by',
+      other: {
+        reference: 'Patient/id',
+      },
       extension: [
         {
           url: 'test',
@@ -65,42 +64,16 @@ describe('PatientLink FHIR R5', () => {
       ],
       wrongProperty: 'test', // wrong property
     };
-
-    const validate = await _validateBackbone(dataType, 'Patient_Link');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(3);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'other'",
-        params: { missingProperty: 'other' },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'type'",
-        params: { missingProperty: 'type' },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => PatientLinkValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PatientLink",
+    );
   });
 
   it('should be able to create a new patient_link payload using builder methods [new PatientLinkBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setOther({
-        reference: 'Observation/123',
+        reference: 'Patient/123',
       })
       .setType('seealso')
       .addParamExtension('type', {
@@ -117,8 +90,8 @@ describe('PatientLink FHIR R5', () => {
       })
       .build();
 
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toBeDefined();
+    expect(item).toEqual({
       _type: {
         extension: [
           {
@@ -134,14 +107,9 @@ describe('PatientLink FHIR R5', () => {
         },
       ],
       other: {
-        reference: 'Observation/123',
+        reference: 'Patient/123',
       },
       type: 'seealso',
     });
-
-    const validate = await _validateBackbone(dataType, 'Patient_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

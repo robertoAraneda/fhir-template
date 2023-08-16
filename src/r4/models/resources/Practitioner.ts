@@ -9,10 +9,11 @@ import {
   IIdentifier,
 } from '../../interfaces/datatypes';
 import { IPractitionerQualification } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../enums';
-import { AdministrativeGenderType } from '../../types';
+import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderType } from '../../../types';
 import DomainResource from '../base/DomainResource';
-import { IPractitionerBuilder, PractitionerBuilder } from './PractitionerBuilder';
+import { PractitionerBuilder } from './PractitionerBuilder';
+import { PractitionerValidator } from './PractitionerValidator';
 
 export default class Practitioner extends DomainResource implements IPractitioner {
   resourceType = 'Practitioner' as const;
@@ -49,8 +50,9 @@ export default class Practitioner extends DomainResource implements IPractitione
     return new PractitionerBuilder();
   }
 
-  constructor(args?: IPractitioner) {
+  constructor(args: IPractitioner) {
     super();
+    PractitionerValidator(args);
     Object.assign(this, args);
   }
 }

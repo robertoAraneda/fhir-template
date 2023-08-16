@@ -1,8 +1,8 @@
 import FHIRContext from '../../../src';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { IPractitionerRoleAvailableTime } from '../../../src/r4/interfaces/backbones';
-
 import { PractitionerRoleAvailableTimeBuilder } from '../../../src/r4/models/backbones/PractitionerRoleAvailableTimeBuilder';
+
+import { PractitionerRoleAvailableTimeValidator } from '../../../src/r4/models/backbones/PractitionerRoleAvailableTimeValidator';
 
 describe('PractitionerRoleAvailableTime FHIR R4', () => {
   let builder: PractitionerRoleAvailableTimeBuilder;
@@ -20,9 +20,7 @@ describe('PractitionerRoleAvailableTime FHIR R4', () => {
       allDay: true,
     });
 
-    const validate = await _validateBackbone(item, 'PractitionerRole_AvailableTime');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new practitioner_role_available_time [IPractitionerRoleAvailableTime]', async () => {
@@ -32,17 +30,13 @@ describe('PractitionerRoleAvailableTime FHIR R4', () => {
       allDay: true,
     };
 
-    const validate = await _validateBackbone(item, 'PractitionerRole_AvailableTime');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerRoleAvailableTimeValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new practitioner_role_available_time using builder methods [new PractitionerRoleAvailableTime()]', async () => {
     const item = builder.setId('123').addDaysOfWeek('mon').build();
 
-    const validate = await _validateBackbone(item, 'PractitionerRole_AvailableTime');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       daysOfWeek: ['mon'],
@@ -56,21 +50,8 @@ describe('PractitionerRoleAvailableTime FHIR R4', () => {
       wrongProperty: '123',
     };
 
-    const validate = await _validateBackbone(item, 'PractitionerRole_AvailableTime');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => PractitionerRoleAvailableTimeValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for PractitionerRoleAvailableTime",
+    );
   });
 });

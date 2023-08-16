@@ -1,8 +1,7 @@
-import { IExtendedContactDetail, IVirtualServiceDetail } from '../../interfaces/datatypes';
+import { IContactPoint, IExtendedContactDetail, IVirtualServiceDetail } from '../../interfaces/datatypes';
 import { VirtualServiceDetail } from './index';
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 
 type ParamsExtensionType = 'addressUrl' | 'maxParticipants' | 'sessionKey' | 'additionalInfo' | 'addressString';
@@ -12,31 +11,31 @@ interface IVirtualServiceDetailBuilder
   addParamExtension<T extends ParamsExtensionType>(
     param: T,
     extension: T extends 'additionalInfo' ? IElement[] : IElement,
-  ): VirtualServiceDetailBuilder;
-  addAdditionalInfo(info: string): VirtualServiceDetailBuilder;
-  setMultipleAdditionalInfo(info: string[]): VirtualServiceDetailBuilder;
-  setAddressString(address: string): VirtualServiceDetailBuilder;
-  setAddressUrl(url: string): VirtualServiceDetailBuilder;
-  setMaxParticipants(max: number): VirtualServiceDetailBuilder;
-  setSessionKey(key: string): VirtualServiceDetailBuilder;
-  setAddressContactPoint(contactPoint: IElement): VirtualServiceDetailBuilder;
-  setAddressExtendedContactDetail(extendedContactDetail: IExtendedContactDetail): VirtualServiceDetailBuilder;
+  ): this;
+  addAdditionalInfo(info: string): this;
+  setMultipleAdditionalInfo(info: string[]): this;
+  setAddressString(address: string): this;
+  setAddressUrl(url: string): this;
+  setMaxParticipants(max: number): this;
+  setSessionKey(key: string): this;
+  setAddressContactPoint(contactPoint: IContactPoint): this;
+  setAddressExtendedContactDetail(extendedContactDetail: IExtendedContactDetail): this;
 }
 
 export default class VirtualServiceDetailBuilder
   extends ElementBuilder<VirtualServiceDetailBuilder>
   implements IVirtualServiceDetailBuilder
 {
-  private virtualServiceDetail: VirtualServiceDetail;
+  private virtualServiceDetail: IVirtualServiceDetail;
   constructor() {
     super();
-    this.virtualServiceDetail = new VirtualServiceDetail();
+    this.virtualServiceDetail = {} as IVirtualServiceDetail;
   }
 
   addParamExtension<T extends ParamsExtensionType>(
     param: T,
     extension: T extends 'additionalInfo' ? IElement[] : IElement,
-  ): VirtualServiceDetailBuilder {
+  ): this {
     if (param === 'additionalInfo') {
       this.virtualServiceDetail._additionalInfo = extension as IElement[];
     } else {
@@ -52,49 +51,49 @@ export default class VirtualServiceDetailBuilder
    * @param info
    * @returns
    */
-  addAdditionalInfo(info: string): VirtualServiceDetailBuilder {
+  addAdditionalInfo(info: string): this {
     this.virtualServiceDetail.additionalInfo = this.virtualServiceDetail.additionalInfo || [];
     this.virtualServiceDetail.additionalInfo.push(info);
     return this;
   }
 
-  setMultipleAdditionalInfo(info: string[]): VirtualServiceDetailBuilder {
+  setMultipleAdditionalInfo(info: string[]): this {
     this.virtualServiceDetail.additionalInfo = info;
     return this;
   }
 
-  setAddressString(address: string): VirtualServiceDetailBuilder {
+  setAddressString(address: string): this {
     this.virtualServiceDetail.addressString = address;
     return this;
   }
 
-  setAddressUrl(uri: string): VirtualServiceDetailBuilder {
+  setAddressUrl(uri: string): this {
     this.virtualServiceDetail.addressUrl = uri;
     return this;
   }
 
-  setMaxParticipants(max: number): VirtualServiceDetailBuilder {
+  setMaxParticipants(max: number): this {
     this.virtualServiceDetail.maxParticipants = max;
     return this;
   }
 
-  setSessionKey(key: string): VirtualServiceDetailBuilder {
+  setSessionKey(key: string): this {
     this.virtualServiceDetail.sessionKey = key;
     return this;
   }
 
-  setAddressContactPoint(contactPoint: IElement): VirtualServiceDetailBuilder {
+  setAddressContactPoint(contactPoint: IElement): this {
     this.virtualServiceDetail.addressContactPoint = contactPoint;
     return this;
   }
 
-  setAddressExtendedContactDetail(extendedContactDetail: IExtendedContactDetail): VirtualServiceDetailBuilder {
+  setAddressExtendedContactDetail(extendedContactDetail: IExtendedContactDetail): this {
     this.virtualServiceDetail.addressExtendedContactDetail = extendedContactDetail;
     return this;
   }
 
   build(): VirtualServiceDetail {
     Object.assign(this.virtualServiceDetail, { ...super.entity() });
-    return this.virtualServiceDetail.toJson();
+    return new VirtualServiceDetail(this.virtualServiceDetail).toJson();
   }
 }

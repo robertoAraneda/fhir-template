@@ -2,6 +2,7 @@ import { IOrganizationContact } from '../../interfaces/backbones';
 import { IAddress, ICodeableConcept, IContactPoint, IHumanName } from '../../interfaces/datatypes';
 import BackboneElement from '../base/BackboneElement';
 import { OrganizationContactBuilder } from './OrganizationContactBuilder';
+import { OrganizationContactValidator } from './OrganizationContactValidator';
 
 export default class OrganizationContact extends BackboneElement implements IOrganizationContact {
   // OrganizationContact attributes
@@ -26,8 +27,9 @@ export default class OrganizationContact extends BackboneElement implements IOrg
     return new OrganizationContactBuilder();
   }
 
-  constructor(args?: IOrganizationContact) {
+  constructor(args: IOrganizationContact) {
     super();
+    OrganizationContactValidator(args);
     Object.assign(this, args);
   }
 }

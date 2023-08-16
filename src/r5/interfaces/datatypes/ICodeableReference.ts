@@ -1,6 +1,6 @@
 import { IElement } from '../base';
-import { ICodeableConcept } from './ICodeableConcept';
-import { IReference } from './IReference';
+import ICodeableConcept from './ICodeableConcept';
+import IReference from './IReference';
 
 /**
  * @description Reference to a resource or a concept.
@@ -10,7 +10,7 @@ import { IReference } from './IReference';
  * @see https://www.hl7.org/fhir/references.html#CodeableReference CodeableReference
  * @author Roberto Araneda
  */
-export interface ICodeableReference extends IElement {
+export default interface ICodeableReference extends IElement {
   /**
    * @description Reference to a concept (by class)
    */

@@ -1,16 +1,14 @@
 import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { DaysOfWeekEnum } from '../../enums';
-import { DaysOfWeekType } from '../../types';
+import { DaysOfWeekEnum } from '../../../enums';
+import { DaysOfWeekType } from '../../../types';
 import BackboneElement from '../base/BackboneElement';
-import {
-  IPractitionerRoleAvailableTimeBuilder,
-  PractitionerRoleAvailableTimeBuilder,
-} from './PractitionerRoleAvailableTimeBuilder';
+import { PractitionerRoleAvailableTimeBuilder } from './PractitionerRoleAvailableTimeBuilder';
+import { PractitionerRoleAvailableTimeValidator } from './PractitionerRoleAvailableTimeValidator';
 
 export default class PractitionerRoleAvailableTime extends BackboneElement implements IPractitionerRoleAvailableTime {
   // PractitionerRoleAvailableTime attributes
-  daysOfWeek?: DaysOfWeekEnum[] | DaysOfWeekType[];
+  daysOfWeek?: (DaysOfWeekEnum | DaysOfWeekType)[];
   allDay?: boolean;
   availableStartTime?: string;
   availableEndTime?: string;
@@ -37,8 +35,9 @@ export default class PractitionerRoleAvailableTime extends BackboneElement imple
     return new PractitionerRoleAvailableTimeBuilder();
   }
 
-  constructor(args?: IPractitionerRoleAvailableTime) {
+  constructor(args: IPractitionerRoleAvailableTime) {
     super();
+    PractitionerRoleAvailableTimeValidator(args);
     Object.assign(this, args);
   }
 }

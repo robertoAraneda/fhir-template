@@ -5,6 +5,7 @@ import {
   ICodeableConcept,
   ICoding,
   IContactPoint,
+  IExtension,
   IHumanName,
   IIdentifier,
   IMeta,
@@ -103,11 +104,11 @@ export interface IExtensionBuilder extends IBuildable<Extension>, IElementBuilde
 }
 
 export class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implements IExtensionBuilder {
-  private readonly extension: Extension;
+  private readonly extension: IExtension;
 
   constructor() {
     super();
-    this.extension = new Extension();
+    this.extension = {} as IExtension;
   }
 
   addParamExtension<T extends ExtensionParamType>(param: T, extension: IElement): Build {
@@ -327,6 +328,6 @@ export class ExtensionBuilder extends ElementBuilder<ExtensionBuilder> implement
 
   build(): Extension {
     Object.assign(this.extension, { ...super.entity() });
-    return this.extension.toJson();
+    return new Extension(this.extension).toJson();
   }
 }

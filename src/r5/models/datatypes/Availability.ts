@@ -1,4 +1,4 @@
-import { IAvailability, IAvailableTime, IExtension, INotAvailableTime } from '../../interfaces/datatypes';
+import { IAvailability, IAvailableTime, INotAvailableTime } from '../../interfaces/datatypes';
 import Element from '../base/Element';
 import AvailabilityBuilder from './AvailabilityBuilder';
 

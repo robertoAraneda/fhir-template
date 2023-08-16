@@ -2,6 +2,7 @@ import BackboneElement from '../base/BackboneElement';
 import { IBundleEntryResponse } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { BundleEntryResponseBuilder } from './BundleEntryResponseBuilder';
+import { BundleEntryResponseValidator } from './BundleEntryResponseValidator';
 
 export default class BundleEntryResponse extends BackboneElement implements IBundleEntryResponse {
   // BundleEntryResponse attributes
@@ -33,8 +34,9 @@ export default class BundleEntryResponse extends BackboneElement implements IBun
     return new BundleEntryResponseBuilder();
   }
 
-  constructor(args?: IBundleEntryResponse) {
+  constructor(args: IBundleEntryResponse) {
     super();
+    BundleEntryResponseValidator(args);
     Object.assign(this, args);
   }
 }

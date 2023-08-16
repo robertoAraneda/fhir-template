@@ -1,6 +1,7 @@
 import { IRange, ISimpleQuantity } from '../../interfaces/datatypes';
 import RangeBuilder from './RangeBuilder';
 import Element from '../base/Element';
+import { RangeValidator } from './RangeValidator';
 
 export default class Range extends Element implements IRange {
   // Range attributes
@@ -23,8 +24,9 @@ export default class Range extends Element implements IRange {
     return `Range${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IRange) {
+  constructor(args: IRange) {
     super();
+    RangeValidator(args);
     Object.assign(this, args);
   }
 }

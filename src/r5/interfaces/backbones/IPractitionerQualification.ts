@@ -11,7 +11,7 @@ import { IBackboneElement } from '../base';
  * @author Roberto Araneda
  * @since  2023-06-01
  */
-export interface IPractitionerQualification extends IBackboneElement {
+export default interface IPractitionerQualification extends IBackboneElement {
   /**
    * Coded representation of the qualification
    * @type {ICodeableConcept} code

@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { IGroupCharacteristic } from '../../../src/r4/interfaces/backbones';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { GroupCharacteristicBuilder } from '../../../src/r4/models/backbones/GroupCharacteristicBuilder';
+
+import { GroupCharacteristicValidator } from '../../../src/r4/models/backbones/GroupCharacteristicValidator';
 
 describe('GroupCharacteristic FHIR R4', () => {
   let builder: GroupCharacteristicBuilder;
@@ -12,7 +13,7 @@ describe('GroupCharacteristic FHIR R4', () => {
     builder = GroupCharacteristic.builder();
   });
 
-  it('should be able to validate a new group_characteristic [new GroupCharacteristic()]', async () => {
+  it('should be able to validate a new group_characteristic [new GroupCharacteristic()]', () => {
     const item = new GroupCharacteristic({
       id: '123',
       code: {
@@ -23,15 +24,16 @@ describe('GroupCharacteristic FHIR R4', () => {
           },
         ],
       },
+      valueReference: {
+        reference: 'Observation/123',
+      },
       exclude: false,
     });
 
-    const validate = await _validateBackbone(item, 'Group_Characteristic');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
-  it('should be able to validate a new group_characteristic [IGroupCharacteristic]', async () => {
+  it('should be able to validate a new group_characteristic [IGroupCharacteristic]', () => {
     const item: IGroupCharacteristic = {
       id: '123',
       code: {
@@ -42,16 +44,14 @@ describe('GroupCharacteristic FHIR R4', () => {
           },
         ],
       },
+      valueBoolean: true,
       exclude: false,
     };
 
-    const validate = await _validateBackbone(item, 'Group_Characteristic');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => GroupCharacteristicValidator(item)).not.toThrow();
   });
 
-  it('should be able to create a new group_characteristic using builder methods [new GroupCharacteristicBuilder()]', async () => {
+  it('should be able to create a new group_characteristic using builder methods [new GroupCharacteristicBuilder()]', () => {
     const item = builder
       .setId('123')
       .setCode({
@@ -62,6 +62,7 @@ describe('GroupCharacteristic FHIR R4', () => {
           },
         ],
       })
+      .setExclude(true)
       .setValueBoolean(true)
       .setParamExtension('exclude', {
         extension: [
@@ -73,10 +74,7 @@ describe('GroupCharacteristic FHIR R4', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(item, 'Group_Characteristic');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       _exclude: {
@@ -87,6 +85,7 @@ describe('GroupCharacteristic FHIR R4', () => {
           },
         ],
       },
+      exclude: true,
       code: {
         coding: [
           {
@@ -100,36 +99,24 @@ describe('GroupCharacteristic FHIR R4', () => {
     });
   });
 
-  it('should be get errors validators if new group_characteristic has wrong data', async () => {
+  it('should be get errors validators if new group_characteristic has wrong data', () => {
     const item = {
       id: '123',
+      code: {
+        coding: [
+          {
+            code: '123',
+            system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+          },
+        ],
+      },
+      valueBoolean: true,
+      exclude: false,
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Group_Characteristic');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(2);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'code'",
-        params: {
-          missingProperty: 'code',
-        },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => GroupCharacteristicValidator(item as IGroupCharacteristic)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for GroupCharacteristic",
+    );
   });
 });

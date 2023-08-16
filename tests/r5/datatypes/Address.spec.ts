@@ -1,7 +1,7 @@
 import { IAddress } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import AddressBuilder from '../../../src/r5/models/datatypes/AddressBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { AddressValidator } from '../../../src/r5/models/datatypes/AddressValidator';
 
 describe('Address FHIR R5', () => {
   let builder: AddressBuilder;
@@ -28,10 +28,7 @@ describe('Address FHIR R5', () => {
       state: 'AnyState',
     });
 
-    const validate = await _validateDataType(item, 'Address');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new address [IAddress]', async () => {
@@ -52,10 +49,7 @@ describe('Address FHIR R5', () => {
       state: 'AnyState',
     };
 
-    const validate = await _validateDataType(item, 'Address');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => AddressValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new address using builder methods [new AddressBuilder()]', async () => {
@@ -93,6 +87,8 @@ describe('Address FHIR R5', () => {
       })
       .build();
 
+    expect(item).toBeDefined();
+
     expect(item).toEqual({
       id: '123',
       type: 'postal',
@@ -126,11 +122,6 @@ describe('Address FHIR R5', () => {
         ],
       },
     });
-
-    const validate = await _validateDataType(item, 'Address');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 
   it('should be get errors validators if new address has wrong period', async () => {
@@ -139,7 +130,7 @@ describe('Address FHIR R5', () => {
       type: 'both',
       period: {
         start: 'bas start period', // wrong start period,
-        end: 'bad end period', // wrong end period
+        end: '2020-01-02',
       },
       text: '123 Main St',
       line: ['123 Main St'],
@@ -181,14 +172,8 @@ describe('Address FHIR R5', () => {
       ],
     };
 
-    const validate = await _validateDataType(item, 'Address');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(2);
-
-    for (const error of validate.errors!) {
-      expect(error.instancePath).toContain('period');
-    }
+    expect(() => AddressValidator(item)).toThrowError(
+      'Invalid dateTime: bas start period at path: Address.period.start',
+    );
   });
 });

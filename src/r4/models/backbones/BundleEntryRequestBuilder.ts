@@ -1,10 +1,11 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { BundleEntryRequestMethodEnum } from '../../enums';
-import { BundleEntryRequestMethodType } from '../../types';
+import { BundleEntryRequestMethodEnum } from '../../../enums';
+import { BundleEntryRequestMethodType } from '../../../types';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
 import BundleEntryRequest from './BundleEntryRequest';
+import { IBundleEntryRequest } from '../../interfaces/backbones';
 
 type ParamExtensionType = 'method' | 'url' | 'ifNoneMatch' | 'ifModifiedSince' | 'ifMatch' | 'ifNoneExist';
 
@@ -31,11 +32,11 @@ export class BundleEntryRequestBuilder
   extends BackboneElementBuilder<BundleEntryRequestBuilder>
   implements IBundleEntryRequestBuilder
 {
-  private readonly bundleEntryRequest: BundleEntryRequest;
+  private readonly bundleEntryRequest: IBundleEntryRequest;
 
   constructor() {
     super();
-    this.bundleEntryRequest = new BundleEntryRequest();
+    this.bundleEntryRequest = {} as IBundleEntryRequest;
   }
 
   addParamExtension(param: ParamExtensionType, extension: IElement): BundleEntryRequestBuilder {
@@ -45,7 +46,7 @@ export class BundleEntryRequestBuilder
 
   build(): BundleEntryRequest {
     Object.assign(this.bundleEntryRequest, { ...super.entity() });
-    return this.bundleEntryRequest.toJson();
+    return new BundleEntryRequest(this.bundleEntryRequest).toJson();
   }
 
   setIfMatch(ifMatch: string): BundleEntryRequestBuilder {

@@ -1,7 +1,6 @@
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { Period } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 
 interface IPeriodBuilder extends IBuildable<Period>, IElementBuilder<PeriodBuilder> {

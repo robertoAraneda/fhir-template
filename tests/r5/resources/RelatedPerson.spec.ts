@@ -1,6 +1,7 @@
 import { IRelatedPerson } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import RelatedPersonBuilder from '../../../src/r5/models/resources/RelatedPersonBuilder';
+import { RelatedPersonValidator } from '../../../src/r5/models/resources/RelatedPersonValidator';
 
 describe('RelatedPerson FHIR R5', () => {
   let builder: RelatedPersonBuilder;
@@ -85,9 +86,7 @@ describe('RelatedPerson FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.RelatedPerson(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RelatedPersonValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/f001]', async () => {
@@ -142,9 +141,7 @@ describe('RelatedPerson FHIR R5', () => {
       gender: 'female',
     });
 
-    const validate = await Validator.RelatedPerson(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new coding and validate with wrong data [Example RelatedPerson/newborn-mom]', async () => {
@@ -209,9 +206,7 @@ describe('RelatedPerson FHIR R5', () => {
       ],
     };
 
-    const validate = await Validator.RelatedPerson(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => RelatedPersonValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new coding using builder methods [new RelatedPersonBuilder()]', async () => {
@@ -263,10 +258,5 @@ describe('RelatedPerson FHIR R5', () => {
       },
       resourceType: 'RelatedPerson',
     });
-
-    const validate = await Validator.RelatedPerson(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

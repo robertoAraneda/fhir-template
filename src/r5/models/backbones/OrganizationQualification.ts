@@ -2,6 +2,7 @@ import { IOrganizationQualification } from '../../interfaces/backbones';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import BackboneElement from '../base/BackboneElement';
 import OrganizationQualificationBuilder from './OrganizationQualificationBuilder';
+import { OrganizationQualificationValidator } from './OrganizationQualificationValidator';
 
 export default class OrganizationQualification extends BackboneElement implements IOrganizationQualification {
   // OrganizationQualification Properties
@@ -26,8 +27,9 @@ export default class OrganizationQualification extends BackboneElement implement
     return `OrganizationQualification${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IOrganizationQualification) {
+  constructor(args: IOrganizationQualification) {
     super();
+    OrganizationQualificationValidator(args);
     Object.assign(this, args);
   }
 }

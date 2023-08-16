@@ -3,4 +3,5 @@ export enum QuantityComparatorEnum {
   LESS_OR_EQUAL = '<=',
   GREATER_OR_EQUAL = '>=',
   GREATER_THAN = '>',
+  AD = 'ad',
 }

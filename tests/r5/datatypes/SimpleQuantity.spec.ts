@@ -1,7 +1,7 @@
 import { ISimpleQuantity } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import SimpleQuantityBuilder from '../../../src/r5/models/datatypes/SimpleQuantityBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { SimpleQuantityValidator } from '../../../src/r5/models/datatypes/SimpleQuantityValidator';
 
 describe('SimpleQuantity FHIR R5', () => {
   let builder: SimpleQuantityBuilder;
@@ -20,10 +20,7 @@ describe('SimpleQuantity FHIR R5', () => {
       value: 1,
     });
 
-    const validate = await _validateDataType(item, 'SimpleQuantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new simple_quantity and validate with correct data [ISimpleQuantity]', async () => {
@@ -33,10 +30,7 @@ describe('SimpleQuantity FHIR R5', () => {
       value: 1,
     };
 
-    const validate = await _validateDataType(item, 'SimpleQuantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => SimpleQuantityValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new simple_quantity and validate with wrong data', async () => {
@@ -47,20 +41,9 @@ describe('SimpleQuantity FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'SimpleQuantity');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => SimpleQuantityValidator(item)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for SimpleQuantity",
+    );
   });
 
   it('should be able to create a new attachment using builder methods [new SimpleQuantityBuilder()]', async () => {
@@ -72,10 +55,5 @@ describe('SimpleQuantity FHIR R5', () => {
       code: 'test',
       system: 'test',
     });
-
-    const validate = await _validateDataType(item, 'SimpleQuantity');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

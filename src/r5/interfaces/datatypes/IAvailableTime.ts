@@ -1,6 +1,6 @@
-import { DaysOfWeekEnum } from '../../enums/DaysOfWeekEnum';
-import { DaysOfWeekType } from '../../types/DaysOfWeekType';
-import { IElement } from '../base/IElement';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
+import { IElement } from '../base';
 
 /**
  * @description Times the Service Site is available
@@ -16,13 +16,13 @@ import { IElement } from '../base/IElement';
  * @since 2023-06-01
  * @author Roberto Araneda
  */
-export interface IAvailableTime extends IElement {
+export default interface IAvailableTime extends IElement {
   /**
    * @description 	mon | tue | wed | thu | fri | sat | sun
    * @description Binding: {@link http://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.availableTime.daysOfWeek Days Of Week} (Required)
    * @see {@link http://hl7.org/fhir/practitionerrole-definitions.html#PractitionerRole.availableTime.daysOfWeek DaysOfWeek}
    */
-  daysOfWeek?: DaysOfWeekEnum[] | DaysOfWeekType[];
+  daysOfWeek?: (DaysOfWeekEnum | DaysOfWeekType)[];
 
   /**
    * @description Always available? e.g. 24 hour service

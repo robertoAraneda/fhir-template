@@ -11,4 +11,5 @@ export interface IMeta extends IElement {
   _versionId?: IElement;
   _lastUpdated?: IElement;
   _source?: IElement;
+  _profile?: IElement[];
 }

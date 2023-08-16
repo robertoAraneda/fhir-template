@@ -1,5 +1,4 @@
 import { IExtension } from '../datatypes';
-import Element from '../../models/base/Element';
 
 /**
  * @summary FHIR R4
@@ -9,6 +8,7 @@ import Element from '../../models/base/Element';
  * @see http://hl7.org/fhir/R4/element.html http://hl7.org/fhir/R4/element.html
  * @author Roberto Araneda
  */
+
 export interface IElement {
   /**
    * @description Unique id for inter-element referencing

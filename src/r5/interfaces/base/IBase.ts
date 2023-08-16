@@ -1,1 +1,1 @@
-export interface IBase {}
+export default interface IBase {}

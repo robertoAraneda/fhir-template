@@ -3,7 +3,7 @@ import { IdentityAssuranceLevelEnum } from '../../enums';
 import { IdentityAssuranceLevelType } from '../../types';
 import { IReference } from '../datatypes';
 
-export interface IPersonLink extends IBackboneElement {
+export default interface IPersonLink extends IBackboneElement {
   target: IReference;
   assurance?: IdentityAssuranceLevelEnum | IdentityAssuranceLevelType;
   _assurance?: IElement;

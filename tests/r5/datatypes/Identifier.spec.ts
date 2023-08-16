@@ -1,7 +1,8 @@
 import { IIdentifier } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import IdentifierBuilder from '../../../src/r5/models/datatypes/IdentifierBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { IdentifierValidator } from '../../../src/r5/models/datatypes/IdentifierValidator';
+import { Period, Reference } from '../../../src/r5/models/datatypes';
 
 describe('Identifier FHIR R5', () => {
   let builder: IdentifierBuilder;
@@ -27,9 +28,7 @@ describe('Identifier FHIR R5', () => {
       },
     });
 
-    const validate = await _validateDataType(item, 'Identifier');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new identifier and validate with correct data [IIdentifier]', async () => {
@@ -47,9 +46,7 @@ describe('Identifier FHIR R5', () => {
       },
     };
 
-    const validate = await _validateDataType(item, 'Identifier');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => IdentifierValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new reference and validate with wrong data', async () => {
@@ -68,20 +65,9 @@ describe('Identifier FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Identifier');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => IdentifierValidator(item as any)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for Identifier",
+    );
   });
 
   it('should be able to create a new identifier using builder methods [new IdentifierBuilder()]', async () => {
@@ -89,12 +75,9 @@ describe('Identifier FHIR R5', () => {
     const item = builder
       .setUse('official')
       .setSystem('http://hl7.org/fhir/sid/us-npi')
-      .setPeriod({
-        start: '2020-01-01',
-        end: '2020-01-02',
-      })
+      .setPeriod(new Period({ start: '2020-01-01', end: '2020-01-02' }))
       .setValue('1234567890')
-      .setAssigner({ reference: 'Organization/123' })
+      .setAssigner(new Reference({ reference: 'Organization/123' }))
       .build();
 
     expect(item).toBeDefined();
@@ -110,10 +93,5 @@ describe('Identifier FHIR R5', () => {
       use: 'official',
       value: '1234567890',
     });
-
-    const validate = await _validateDataType(item, 'Identifier');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

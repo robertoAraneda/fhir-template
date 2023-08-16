@@ -1,7 +1,8 @@
 import FHIRContext from '../../../src';
 import { IBundleLink } from '../../../src/r4/interfaces/backbones';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
 import { BundleLinkBuilder } from '../../../src/r4/models/backbones/BundleLinkBuilder';
+import InvalidFieldException from '../../../src/globals/exceptions/InvalidFieldException';
+import { BundleLinkValidator } from '../../../src/r4/models/backbones/BundleLinkValidator';
 
 describe('BundleLink FHIR R4', () => {
   let builder: BundleLinkBuilder;
@@ -19,9 +20,7 @@ describe('BundleLink FHIR R4', () => {
       relation: 'self',
     });
 
-    const validate = await _validateBackbone(item, 'Bundle_Link');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new bundle_link [IBundleLink]', async () => {
@@ -31,19 +30,13 @@ describe('BundleLink FHIR R4', () => {
       relation: 'self',
     };
 
-    const validate = await _validateBackbone(item, 'Bundle_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => BundleLinkValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new bundle_link using builder methods [BundleLink.builder()]', async () => {
     const item = builder.setId('123').setUrl('http://example.com').setRelation('self').build();
 
-    const validate = await _validateBackbone(item, 'Bundle_Link');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
     expect(item).toEqual({
       id: '123',
       relation: 'self',
@@ -57,20 +50,9 @@ describe('BundleLink FHIR R4', () => {
       wrongProperty: 'wrongProperty',
     };
 
-    const validate = await _validateBackbone(item, 'Bundle_Link');
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors?.length).toBe(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'wrongProperty',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => BundleLinkValidator(item)).toThrow(InvalidFieldException);
+    expect(() => BundleLinkValidator(item)).toThrow(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for BundleLink",
+    );
   });
 });

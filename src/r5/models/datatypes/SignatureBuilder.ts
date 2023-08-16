@@ -1,5 +1,5 @@
 import { IBuildable } from '../../../globals/interfaces';
-import { ICoding, IReference } from '../../interfaces/datatypes';
+import { ICoding, IReference, ISignature } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import Signature from './Signature';
@@ -27,11 +27,11 @@ export interface ISignatureBuilder extends IBuildable<Signature>, IElementBuilde
 }
 
 export class SignatureBuilder extends ElementBuilder<SignatureBuilder> implements ISignatureBuilder {
-  private readonly signature: Signature;
+  private readonly signature: ISignature;
 
   constructor() {
     super();
-    this.signature = new Signature();
+    this.signature = {} as ISignature;
   }
 
   addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this {
@@ -47,7 +47,7 @@ export class SignatureBuilder extends ElementBuilder<SignatureBuilder> implement
 
   build(): Signature {
     Object.assign(this.signature, { ...super.entity() });
-    return this.signature.toJson();
+    return new Signature(this.signature).toJson();
   }
 
   setData(data: string): this {

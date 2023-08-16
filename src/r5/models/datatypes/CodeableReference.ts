@@ -1,6 +1,7 @@
-import { ICodeableConcept, ICodeableReference, IExtension, IReference } from '../../interfaces/datatypes';
+import { ICodeableConcept, ICodeableReference, IReference } from '../../interfaces/datatypes';
 import Element from '../base/Element';
 import CodeableReferenceBuilder from './CodeableReferenceBuilder';
+import { CodeableReferenceValidator } from './CodeableReferenceValidator';
 
 /**
  * @description Reference to a resource or a concept.
@@ -39,8 +40,9 @@ export default class CodeableReference extends Element implements ICodeableRefer
     return `CodeableReference${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: ICodeableReference) {
+  constructor(args: ICodeableReference) {
     super();
+    CodeableReferenceValidator(args);
     Object.assign(this, args);
   }
 }

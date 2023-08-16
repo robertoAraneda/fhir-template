@@ -1,5 +1,5 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
-import { IIdentifier } from '../../interfaces/datatypes';
+import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import Element from '../base/Element';
 import { IDomainResource } from '../../interfaces/base';
 import { transformReference } from '../../../globals/helpers/transformReference';
@@ -19,12 +19,12 @@ export interface IReferenceBuilder extends IBuildable<Reference>, IElementBuilde
 }
 
 export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implements IReferenceBuilder {
-  private readonly reference: Reference;
+  private readonly reference: IReference;
 
   constructor() {
     super();
 
-    this.reference = new Reference();
+    this.reference = {} as IReference;
   }
 
   addParamExtension(param: 'display' | 'type' | 'reference', extension: Element): ReferenceBuilder {
@@ -59,6 +59,6 @@ export class ReferenceBuilder extends ElementBuilder<ReferenceBuilder> implement
 
   build(): Reference {
     Object.assign(this.reference, { ...super.entity() });
-    return this.reference.toJson();
+    return new Reference(this.reference);
   }
 }

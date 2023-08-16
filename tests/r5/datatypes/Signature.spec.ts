@@ -1,7 +1,7 @@
 import { ISignature } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 import { SignatureBuilder } from '../../../src/r5/models/datatypes/SignatureBuilder';
+import { SignatureValidator } from '../../../src/r5/models/datatypes/SignatureValidator';
 
 describe('Signature FHIR R5', () => {
   let builder: SignatureBuilder;
@@ -27,11 +27,7 @@ describe('Signature FHIR R5', () => {
       ],
       when: '2021-01-01T00:00:00.000Z',
     });
-
-    const validate = await _validateDataType(item, 'Signature');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new signature and validate with correct data [ISignature]', async () => {
@@ -49,10 +45,7 @@ describe('Signature FHIR R5', () => {
       when: '2021-01-01T00:00:00.000Z',
     };
 
-    const validate = await _validateDataType(item, 'Signature');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => SignatureValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new signature and validate with wrong data', async () => {
@@ -71,20 +64,9 @@ describe('Signature FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Signature');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'test' },
-        schemaPath: '#/additionalProperties',
-      },
-    ]);
+    expect(() => SignatureValidator(item)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for Signature",
+    );
   });
 
   it('should be able to create a new attachment using builder methods [new SignatureBuilder()]', async () => {
@@ -95,11 +77,6 @@ describe('Signature FHIR R5', () => {
       .setWho({ reference: 'Patient/123' })
       .setWhen('2021-01-01T00:00:00.000Z')
       .build();
-
-    const validate = await _validateDataType(item, 'Signature');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

@@ -1,51 +1,51 @@
-import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
+import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { ICodeableConcept } from '../../interfaces/datatypes';
 import { PractitionerCommunication } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { IBackboneElementBuilder } from '../../../r4/models/base/BackboneElementBuilder';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
+import { IElementBuilder } from '../base/ElementBuilder';
+import { IPractitionerCommunication } from '../../interfaces/backbones';
 
 interface IPractitionerCommunicationBuilder
   extends IBuildable<PractitionerCommunication>,
     IBackboneElementBuilder<PractitionerCommunicationBuilder>,
     IElementBuilder<PractitionerCommunicationBuilder> {
-  addParamExtension(param: 'preferred', extension: IElement): PractitionerCommunicationBuilder;
+  addParamExtension(param: 'preferred', extension: IElement): this;
 
-  setLanguage(language: ICodeableConcept): PractitionerCommunicationBuilder;
+  setLanguage(language: ICodeableConcept): this;
 
-  setPreferred(preferred: boolean): PractitionerCommunicationBuilder;
+  setPreferred(preferred: boolean): this;
 }
 
 export default class PractitionerCommunicationBuilder
   extends BackboneElementBuilder<PractitionerCommunicationBuilder>
   implements IPractitionerCommunicationBuilder
 {
-  private readonly practitionerCommunication: PractitionerCommunication;
+  private readonly practitionerCommunication: IPractitionerCommunication;
 
   constructor() {
     super();
-    this.practitionerCommunication = new PractitionerCommunication();
+    this.practitionerCommunication = {} as IPractitionerCommunication;
   }
 
-  addParamExtension(param: 'preferred', extension: IElement): PractitionerCommunicationBuilder {
+  addParamExtension(param: 'preferred', extension: IElement): this {
     this.practitionerCommunication[`_${param}`] = extension;
     return this;
   }
 
-  setLanguage(language: ICodeableConcept): PractitionerCommunicationBuilder {
+  setLanguage(language: ICodeableConcept): this {
     this.practitionerCommunication.language = language;
 
     return this;
   }
 
-  setPreferred(preferred: boolean): PractitionerCommunicationBuilder {
+  setPreferred(preferred: boolean): this {
     this.practitionerCommunication.preferred = preferred;
     return this;
   }
 
   build(): PractitionerCommunication {
     Object.assign(this.practitionerCommunication, { ...super.entity() });
-    return this.practitionerCommunication.toJson();
+    return new PractitionerCommunication(this.practitionerCommunication).toJson();
   }
 }

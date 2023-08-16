@@ -5,6 +5,7 @@ import { IdentityAssuranceLevelType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import PersonLinkBuilder from './PersonLinkBuilder';
+import { PersonLinkValidator } from './PersonLinkValidator';
 
 export default class PersonLink extends BackboneElement implements IPersonLink {
   // PersonLink attributes
@@ -28,8 +29,9 @@ export default class PersonLink extends BackboneElement implements IPersonLink {
     return ` PersonLink${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPersonLink) {
+  constructor(args: IPersonLink) {
     super();
+    PersonLinkValidator(args);
     Object.assign(this, args);
   }
 }

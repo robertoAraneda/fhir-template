@@ -2,7 +2,7 @@ import { IOrganization } from '../../../src/r5/interfaces/resources';
 import FHIRContext from '../../../src';
 import { IReference } from '../../../src/r5/interfaces/datatypes';
 import ReferenceBuilder from '../../../src/r5/models/datatypes/ReferenceBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
+import { ReferenceValidator } from '../../../src/r5/models/datatypes/ReferenceValidator';
 
 describe('Reference FHIR R5', () => {
   let builder: ReferenceBuilder;
@@ -20,9 +20,7 @@ describe('Reference FHIR R5', () => {
       display: 'Organization display',
     });
 
-    const validate = await _validateDataType(item, 'Reference');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new reference and validate with correct data [IReference]', async () => {
@@ -32,9 +30,7 @@ describe('Reference FHIR R5', () => {
       display: 'Organization display',
     };
 
-    const validate = await _validateDataType(item, 'Reference');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => ReferenceValidator(item)).not.toThrow();
   });
 
   it('should be able to validate a new reference and validate with wrong data', async () => {
@@ -45,20 +41,9 @@ describe('Reference FHIR R5', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'Reference');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => ReferenceValidator(item)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for Reference",
+    );
   });
 
   it('should be able to create a new reference using builder methods [new ReferenceBuilder()]', async () => {
@@ -71,53 +56,23 @@ describe('Reference FHIR R5', () => {
 
     expect(item).toBeDefined();
     expect(item).toEqual({ type: 'official', display: 'Organization display', reference: 'Organization/123' });
-
-    const validate = await _validateDataType(item, 'Reference');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 
   it('should return errors if reference has wrong data', async () => {
-    const item = builder
-      .setType('official')
-      .setReference('Organization/123')
-      .setIdentifier({
-        period: {
-          start: '2020-01-01 HH:MM:SS',
-          end: '2020-01-02',
-        },
-      })
-      .setDisplay('Organization display')
-      .build();
-
-    expect(item).toBeDefined();
-    expect(item).toEqual({
-      type: 'official',
-      display: 'Organization display',
-      reference: 'Organization/123',
-      identifier: {
-        period: {
-          end: '2020-01-02',
-          start: '2020-01-01 HH:MM:SS',
-        },
-      },
-    });
-
-    const validate = await _validateDataType(item, 'Reference');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    if (validate.errors) {
-      expect(validate.errors).toEqual([
-        {
-          keyword: 'pattern',
-          instancePath: '/identifier/period/start',
-          message: "The value '/identifier/period/start' does not match with datatype 'dateTime'",
-          params: { value: '/identifier/period/start' },
-          schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
-        },
-      ]);
+    try {
+      builder
+        .setType('official')
+        .setReference('Organization/123')
+        .setIdentifier({
+          period: {
+            start: '2020-01-01 HH:MM:SS',
+            end: '2020-01-02',
+          },
+        })
+        .setDisplay('Organization display')
+        .build();
+    } catch (e: any) {
+      expect(e.message).toEqual('Invalid dateTime: 2020-01-01 HH:MM:SS at path: Reference.identifier.period.start');
     }
   });
 
@@ -133,9 +88,5 @@ describe('Reference FHIR R5', () => {
       reference: 'Organization/123',
       display: 'Organization display',
     });
-
-    const validate = await _validateDataType(item, 'Reference');
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

@@ -1,30 +1,44 @@
 export default class ResourceException extends Error {
-  constructor(entity: string, errors?: any[]) {
-    const message = `Invalid Resource: ${entity}: ${JSON.stringify(
-      errors
-        ?.map((error) => {
-          const { keyword, message: msg, params, constraint } = error;
+  constructor(entity: string, errors?: any[] | null) {
+    const error = errors
+      ?.map((error) => {
+        const { keyword, message: msg, params, constraint } = error;
 
-          if (keyword === 'pattern') {
-            return msg;
-          }
+        if (keyword === 'pattern') {
+          return msg;
+        }
 
-          if (keyword === 'required') {
-            return msg;
-          }
+        if (keyword === 'required') {
+          return msg;
+        }
 
-          if (keyword === 'additionalProperties') {
-            return `${msg}: [${params.additionalProperty}]`;
-          }
+        if (keyword === 'type') {
+          return msg;
+        }
 
-          if (constraint) {
-            return `${constraint.description} (${constraint.id})`;
-          }
-        })
-        .join(', '),
-      null,
-      2,
-    )}`;
+        if (keyword === 'const') {
+          return msg;
+        }
+
+        if (keyword === 'oneOf') {
+          return msg;
+        }
+
+        if (keyword === 'enum') {
+          return msg;
+        }
+
+        if (keyword === 'additionalProperties') {
+          return `${msg}: [${params.additionalProperty}]`;
+        }
+
+        if (constraint) {
+          return `${constraint.description} (${constraint.id})`;
+        }
+      })
+      .join(', ');
+
+    const message = `Invalid Resource: ${entity}: ${error}`;
     super(message);
   }
 }

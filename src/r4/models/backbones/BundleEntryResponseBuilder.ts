@@ -3,6 +3,7 @@ import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/Backbon
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import BundleEntryResponse from './BundleEntryResponse';
+import { IBundleEntryResponse } from '../../interfaces/backbones';
 
 type ParamExtensionType = 'status' | 'location' | 'etag' | 'lastModified';
 
@@ -27,11 +28,11 @@ export class BundleEntryResponseBuilder
   extends BackboneElementBuilder<BundleEntryResponseBuilder>
   implements IBundleEntryResponseBuilder
 {
-  private readonly bundleEntryResponse: BundleEntryResponse;
+  private readonly bundleEntryResponse: IBundleEntryResponse;
 
   constructor() {
     super();
-    this.bundleEntryResponse = new BundleEntryResponse();
+    this.bundleEntryResponse = {} as IBundleEntryResponse;
   }
 
   addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): BundleEntryResponseBuilder {
@@ -41,7 +42,7 @@ export class BundleEntryResponseBuilder
 
   build(): BundleEntryResponse {
     Object.assign(this.bundleEntryResponse, { ...super.entity() });
-    return this.bundleEntryResponse.toJson();
+    return new BundleEntryResponse(this.bundleEntryResponse).toJson();
   }
 
   setEtag(etag: string): BundleEntryResponseBuilder {

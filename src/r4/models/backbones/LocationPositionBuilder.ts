@@ -1,4 +1,4 @@
-import { IBuildable, ISerializable } from '../../../globals/interfaces';
+import { IBuildable } from '../../../globals/interfaces';
 import { ILocationPosition } from '../../interfaces/backbones';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
@@ -7,52 +7,51 @@ import LocationPosition from './LocationPosition';
 
 type ParamExtensionType = 'longitude' | 'latitude' | 'altitude';
 
-export interface ILocationPositionBuilder
-  extends IBuildable<LocationPosition>,
-    IBackboneElementBuilder<LocationPositionBuilder>,
-    IElementBuilder<LocationPositionBuilder> {
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): LocationPositionBuilder;
+interface IBuilders<T> extends IBackboneElementBuilder<T>, IElementBuilder<T> {}
 
-  setLongitude(longitude: number): LocationPositionBuilder;
+export interface ILocationPositionBuilder extends IBuildable<LocationPosition>, IBuilders<LocationPositionBuilder> {
+  addParamExtension<T extends ParamExtensionType>(param: T, element: IElement): this;
 
-  setLatitude(latitude: number): LocationPositionBuilder;
+  setLongitude(longitude: number): this;
 
-  setAltitude(altitude: number): LocationPositionBuilder;
+  setLatitude(latitude: number): this;
+
+  setAltitude(altitude: number): this;
 }
 
 export class LocationPositionBuilder
   extends BackboneElementBuilder<LocationPositionBuilder>
   implements ILocationPositionBuilder
 {
-  private readonly locationPosition: LocationPosition;
+  private readonly locationPosition: ILocationPosition;
 
   constructor() {
     super();
-    this.locationPosition = new LocationPosition();
+    this.locationPosition = {} as ILocationPosition;
   }
 
   build(): LocationPosition {
     Object.assign(this.locationPosition, { ...super.entity() });
-    return this.locationPosition.toJson();
+    return new LocationPosition(this.locationPosition).toJson();
   }
 
-  setAltitude(altitude: number): LocationPositionBuilder {
+  setAltitude(altitude: number): this {
     this.locationPosition.altitude = altitude;
     return this;
   }
 
-  setLatitude(latitude: number): LocationPositionBuilder {
+  setLatitude(latitude: number): this {
     this.locationPosition.latitude = latitude;
     return this;
   }
 
-  setLongitude(longitude: number): LocationPositionBuilder {
+  setLongitude(longitude: number): this {
     this.locationPosition.longitude = longitude;
     return this;
   }
 
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): LocationPositionBuilder {
-    this.locationPosition[`_${param}`] = extension;
+  addParamExtension<T extends ParamExtensionType>(param: T, element: IElement): this {
+    this.locationPosition[`_${param}`] = element;
     return this;
   }
 }

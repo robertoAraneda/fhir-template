@@ -4,7 +4,7 @@ import { IDomainResource, IElement } from '../base';
 import { ICodeableConcept, IContactPoint, IIdentifier, IPeriod, IReference } from '../datatypes';
 import { IEndpointPayload } from '../backbones';
 
-export interface IEndpoint extends IDomainResource {
+export default interface IEndpoint extends IDomainResource {
   resourceType: 'Endpoint';
   /**
    * Identifies this endpoint across multiple systems.

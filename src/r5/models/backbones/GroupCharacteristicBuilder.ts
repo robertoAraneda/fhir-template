@@ -1,10 +1,10 @@
-import { BackboneElementBuilder } from '../base/BackboneElementBuilder';
+import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IBuildable } from '../../../globals/interfaces';
 import { GroupCharacteristic } from './index';
 import { ICodeableConcept, IPeriod, IQuantity, IRange, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { IBackboneElementBuilder } from '../../../r4/models/base/BackboneElementBuilder';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
+import { IElementBuilder } from '../base/ElementBuilder';
+import { IGroupCharacteristic } from '../../interfaces/backbones';
 
 type ParamExtensionType = 'valueBoolean' | 'exclude';
 
@@ -12,98 +12,81 @@ interface IGroupCharacteristicBuilder
   extends IBuildable<GroupCharacteristic>,
     IBackboneElementBuilder<GroupCharacteristicBuilder>,
     IElementBuilder<GroupCharacteristicBuilder> {
-  setCode(code: ICodeableConcept): GroupCharacteristicBuilder;
+  setCode(code: ICodeableConcept): this;
 
-  setValueBoolean(value: boolean): GroupCharacteristicBuilder;
+  setValueBoolean(value: boolean): this;
 
-  setValueQuantity(value: IQuantity): GroupCharacteristicBuilder;
+  setValueQuantity(value: IQuantity): this;
 
-  setValueRange(value: IRange): GroupCharacteristicBuilder;
+  setValueRange(value: IRange): this;
 
-  setValueReference(value: IReference): GroupCharacteristicBuilder;
+  setValueReference(value: IReference): this;
 
-  setValueCodeableConcept(value: ICodeableConcept): GroupCharacteristicBuilder;
+  setValueCodeableConcept(value: ICodeableConcept): this;
 
-  setParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): GroupCharacteristicBuilder;
+  setParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this;
 
-  setExclude(exclude: boolean): GroupCharacteristicBuilder;
+  setExclude(exclude: boolean): this;
 
-  setPeriod(period: IPeriod): GroupCharacteristicBuilder;
+  setPeriod(period: IPeriod): this;
 }
 
 export default class GroupCharacteristicBuilder
   extends BackboneElementBuilder<GroupCharacteristicBuilder>
   implements IGroupCharacteristicBuilder
 {
-  private readonly groupCharacteristic: GroupCharacteristic;
+  private readonly groupCharacteristic: IGroupCharacteristic;
   constructor() {
     super();
-    this.groupCharacteristic = new GroupCharacteristic();
+    this.groupCharacteristic = {} as IGroupCharacteristic;
   }
 
   build(): GroupCharacteristic {
-    if (
-      !this.groupCharacteristic.valueBoolean &&
-      !this.groupCharacteristic.valueQuantity &&
-      !this.groupCharacteristic.valueRange &&
-      !this.groupCharacteristic.valueReference &&
-      !this.groupCharacteristic.valueCodeableConcept &&
-      !this.groupCharacteristic._valueBoolean
-    ) {
-      throw Error(
-        'GroupCharacteristicBuilder - build(): requires valueBoolean or valueQuantity or valueRange or valueReference or valueCodeableConcept or _valueBoolean',
-      );
-    }
-
-    if (!this.groupCharacteristic.exclude && !this.groupCharacteristic._exclude) {
-      throw Error('GroupCharacteristicBuilder - build(): requires exclude or _exclude');
-    }
-
     Object.assign(this.groupCharacteristic, { ...super.entity() });
-    return this.groupCharacteristic.toJson();
+    return new GroupCharacteristic(this.groupCharacteristic).toJson();
   }
 
-  setCode(code: ICodeableConcept): GroupCharacteristicBuilder {
+  setCode(code: ICodeableConcept): this {
     this.groupCharacteristic.code = code;
     return this;
   }
 
-  setExclude(exclude: boolean): GroupCharacteristicBuilder {
+  setExclude(exclude: boolean): this {
     this.groupCharacteristic.exclude = exclude;
     return this;
   }
 
-  setParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): GroupCharacteristicBuilder {
+  setParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this {
     this.groupCharacteristic[`_${param}`] = extension;
     return this;
   }
 
-  setPeriod(period: IPeriod): GroupCharacteristicBuilder {
+  setPeriod(period: IPeriod): this {
     this.groupCharacteristic.period = period;
     return this;
   }
 
-  setValueBoolean(value: boolean): GroupCharacteristicBuilder {
+  setValueBoolean(value: boolean): this {
     this.groupCharacteristic.valueBoolean = value;
     return this;
   }
 
-  setValueCodeableConcept(value: ICodeableConcept): GroupCharacteristicBuilder {
+  setValueCodeableConcept(value: ICodeableConcept): this {
     this.groupCharacteristic.valueCodeableConcept = value;
     return this;
   }
 
-  setValueQuantity(value: IQuantity): GroupCharacteristicBuilder {
+  setValueQuantity(value: IQuantity): this {
     this.groupCharacteristic.valueQuantity = value;
     return this;
   }
 
-  setValueRange(value: IRange): GroupCharacteristicBuilder {
+  setValueRange(value: IRange): this {
     this.groupCharacteristic.valueRange = value;
     return this;
   }
 
-  setValueReference(value: IReference): GroupCharacteristicBuilder {
+  setValueReference(value: IReference): this {
     this.groupCharacteristic.valueReference = value;
     return this;
   }

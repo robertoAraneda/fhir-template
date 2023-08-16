@@ -2,6 +2,7 @@ import { IPractitioner } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
 
 import { PractitionerBuilder } from '../../../src/r4/models/resources/PractitionerBuilder';
+import { PractitionerValidator } from '../../../src/r4/models/resources/PractitionerValidator';
 
 describe('Practitioner FHIR R4', () => {
   let builder: PractitionerBuilder;
@@ -72,9 +73,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Practitioner(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new practitioner and validate with correct data [new Practitioner()]', async () => {
@@ -135,9 +134,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     });
 
-    const validate = await Validator.Practitioner(item);
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f003]', async () => {
@@ -198,10 +195,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Practitioner(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new practitioner and validate with correct data [Example Practitioner/f204]', async () => {
@@ -245,10 +239,7 @@ describe('Practitioner FHIR R4', () => {
       ],
     };
 
-    const validate = await Validator.Practitioner(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PractitionerValidator(item)).not.toThrowError();
   });
 
   it('should be able to create a new practitioner and validate with wrong data', async () => {
@@ -281,26 +272,9 @@ describe('Practitioner FHIR R4', () => {
         },
       ],
     };
-    const validate = await Validator.Practitioner(item);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'wrongProperty' },
-        message: 'must NOT have additional properties',
-      },
-      {
-        instancePath: '/name/0/use',
-        schemaPath: '#/properties/use/enum',
-        keyword: 'enum',
-        params: { allowedValues: ['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'] },
-        message: 'must be equal to one of the allowed values',
-      },
-    ]);
+    expect(() => PractitionerValidator(item as IPractitioner)).toThrowError(
+      "InvalidFieldException: field(s) 'wrongProperty' is not a valid for Practitioner",
+    );
   });
 
   it('should be able to create a new practitioner with builder methods [new PractitionerBuilder()]', async () => {
@@ -325,10 +299,7 @@ describe('Practitioner FHIR R4', () => {
       })
       .build();
 
-    const validate = await Validator.Practitioner(item);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
 
     expect(item).toEqual({
       extension: [

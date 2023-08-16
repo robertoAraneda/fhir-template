@@ -6,6 +6,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import PractitionerBuilder from './PractitionerBuilder';
+import { PractitionerValidator } from './PractitionerValidator';
 
 export default class Practitioner extends DomainResource implements IPractitioner {
   _active?: IElement;
@@ -35,15 +36,16 @@ export default class Practitioner extends DomainResource implements IPractitione
   }
 
   toString(): string {
-    return `Person${JSON.stringify(this.toJson())}`;
+    return `Practitioner${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return `Person${JSON.stringify(this.toJson(), null, 2)}`;
+    return `Practitioner${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPractitioner) {
+  constructor(args: IPractitioner) {
     super();
+    PractitionerValidator(args);
     Object.assign(this, args);
   }
 }

@@ -5,6 +5,7 @@ import { BundleEntryRequestMethodType } from '../../types';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
 import BundleEntryRequest from './BundleEntryRequest';
+import { IBundleEntryRequest } from '../../interfaces/backbones';
 
 type ParamExtensionType = 'method' | 'url' | 'ifNoneMatch' | 'ifModifiedSince' | 'ifMatch' | 'ifNoneExist';
 
@@ -12,68 +13,68 @@ export interface IBundleEntryRequestBuilder
   extends IBuildable<BundleEntryRequest>,
     IBackboneElementBuilder<BundleEntryRequestBuilder>,
     IElementBuilder<BundleEntryRequestBuilder> {
-  addParamExtension(param: ParamExtensionType, extension: IElement): BundleEntryRequestBuilder;
+  addParamExtension(param: ParamExtensionType, extension: IElement): this;
 
-  setMethod(method: string): BundleEntryRequestBuilder;
+  setMethod(method: string): this;
 
-  setUrl(url: string): BundleEntryRequestBuilder;
+  setUrl(url: string): this;
 
-  setIfNoneMatch(ifNoneMatch: string): BundleEntryRequestBuilder;
+  setIfNoneMatch(ifNoneMatch: string): this;
 
-  setIfModifiedSince(ifModifiedSince: string): BundleEntryRequestBuilder;
+  setIfModifiedSince(ifModifiedSince: string): this;
 
-  setIfMatch(ifMatch: string): BundleEntryRequestBuilder;
+  setIfMatch(ifMatch: string): this;
 
-  setIfNoneExist(ifNoneExist: string): BundleEntryRequestBuilder;
+  setIfNoneExist(ifNoneExist: string): this;
 }
 
 export class BundleEntryRequestBuilder
   extends BackboneElementBuilder<BundleEntryRequestBuilder>
   implements IBundleEntryRequestBuilder
 {
-  private readonly bundleEntryRequest: BundleEntryRequest;
+  private readonly bundleEntryRequest: IBundleEntryRequest;
 
   constructor() {
     super();
-    this.bundleEntryRequest = new BundleEntryRequest();
+    this.bundleEntryRequest = {} as IBundleEntryRequest;
   }
 
-  addParamExtension(param: ParamExtensionType, extension: IElement): BundleEntryRequestBuilder {
+  addParamExtension(param: ParamExtensionType, extension: IElement): this {
     this.bundleEntryRequest[`_${param}`] = extension;
     return this;
   }
 
   build(): BundleEntryRequest {
     Object.assign(this.bundleEntryRequest, { ...super.entity() });
-    return this.bundleEntryRequest.toJson();
+    return new BundleEntryRequest(this.bundleEntryRequest).toJson();
   }
 
-  setIfMatch(ifMatch: string): BundleEntryRequestBuilder {
+  setIfMatch(ifMatch: string): this {
     this.bundleEntryRequest.ifMatch = ifMatch;
     return this;
   }
 
-  setIfModifiedSince(ifModifiedSince: string): BundleEntryRequestBuilder {
+  setIfModifiedSince(ifModifiedSince: string): this {
     this.bundleEntryRequest.ifModifiedSince = ifModifiedSince;
     return this;
   }
 
-  setIfNoneExist(ifNoneExist: string): BundleEntryRequestBuilder {
+  setIfNoneExist(ifNoneExist: string): this {
     this.bundleEntryRequest.ifNoneExist = ifNoneExist;
     return this;
   }
 
-  setIfNoneMatch(ifNoneMatch: string): BundleEntryRequestBuilder {
+  setIfNoneMatch(ifNoneMatch: string): this {
     this.bundleEntryRequest.ifNoneMatch = ifNoneMatch;
     return this;
   }
 
-  setMethod(method: BundleEntryRequestMethodEnum | BundleEntryRequestMethodType): BundleEntryRequestBuilder {
+  setMethod(method: BundleEntryRequestMethodEnum | BundleEntryRequestMethodType): this {
     this.bundleEntryRequest.method = method;
     return this;
   }
 
-  setUrl(url: string): BundleEntryRequestBuilder {
+  setUrl(url: string): this {
     this.bundleEntryRequest.url = url;
     return this;
   }

@@ -1,12 +1,15 @@
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import BackboneElement from '../base/BackboneElement';
 import { RelatedPersonCommunicationBuilder } from './RelatedPersonCommunicationBuilder';
+import { IElement } from '../../interfaces/base';
+import { ICodeableConcept } from '../../interfaces/datatypes';
+import { RelatedPersonCommunicationValidator } from './RelatedPersonCommunicationValidator';
 
 export default class RelatedPersonCommunication extends BackboneElement implements IRelatedPersonCommunication {
   // RelatedPersonCommunication attributes
-  language: any;
+  language: ICodeableConcept;
   preferred?: boolean;
-  _preferred?: any;
+  _preferred?: IElement;
 
   toJson(): RelatedPersonCommunication {
     return JSON.parse(JSON.stringify(this));
@@ -24,8 +27,9 @@ export default class RelatedPersonCommunication extends BackboneElement implemen
     return new RelatedPersonCommunicationBuilder();
   }
 
-  constructor(args?: IRelatedPersonCommunication) {
+  constructor(args: IRelatedPersonCommunication) {
     super();
+    RelatedPersonCommunicationValidator(args);
     Object.assign(this, args);
   }
 }

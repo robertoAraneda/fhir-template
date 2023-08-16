@@ -10,10 +10,11 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../enums';
-import { AdministrativeGenderType } from '../../types';
+import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderType } from '../../../types';
 import DomainResource from '../base/DomainResource';
 import { PatientBuilder } from './PatientBuilder';
+import { PatientValidator } from './PatientValidator';
 
 /**
  * @description FHIR R4
@@ -73,8 +74,9 @@ export default class Patient extends DomainResource implements IPatient {
     return new PatientBuilder();
   }
 
-  constructor(args?: IPatient) {
+  constructor(args: IPatient) {
     super();
+    PatientValidator(args);
     Object.assign(this, args);
   }
 }

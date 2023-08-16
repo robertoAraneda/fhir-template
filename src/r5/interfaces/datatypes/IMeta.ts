@@ -1,7 +1,7 @@
 import { IElement } from '../base';
-import { ICoding } from './ICoding';
+import ICoding from './ICoding';
 
-export interface IMeta extends IElement {
+export default interface IMeta extends IElement {
   versionId?: string | number;
   lastUpdated?: string;
   source?: string;
@@ -11,4 +11,5 @@ export interface IMeta extends IElement {
   _versionId?: IElement;
   _lastUpdated?: IElement;
   _source?: IElement;
+  _profile?: IElement[];
 }

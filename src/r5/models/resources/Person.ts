@@ -14,6 +14,7 @@ import { AdministrativeGenderEnum } from '../../enums';
 import { AdministrativeGenderType } from '../../types';
 import PersonBuilder from './PersonBuilder';
 import DomainResource from '../base/DomainResource';
+import { PersonValidator } from './PersonValidator';
 
 export default class Person extends DomainResource implements IPerson {
   _active?: IElement;
@@ -53,8 +54,9 @@ export default class Person extends DomainResource implements IPerson {
     return `Person${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPerson) {
+  constructor(args: IPerson) {
     super();
+    PersonValidator(args);
     Object.assign(this, args);
   }
 }

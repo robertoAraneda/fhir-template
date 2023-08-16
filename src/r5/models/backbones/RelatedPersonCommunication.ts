@@ -1,6 +1,7 @@
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import BackboneElement from '../base/BackboneElement';
 import RelatedPersonCommunicationBuilder from './RelatedPersonCommunicationBuilder';
+import { RelatedPersonCommunicationValidator } from './RelatedPersonCommunicationValidator';
 
 export default class RelatedPersonCommunication extends BackboneElement implements IRelatedPersonCommunication {
   // RelatedPersonCommunication attributes
@@ -24,8 +25,9 @@ export default class RelatedPersonCommunication extends BackboneElement implemen
     return `RelatedPersonCommunication${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IRelatedPersonCommunication) {
+  constructor(args: IRelatedPersonCommunication) {
     super();
+    RelatedPersonCommunicationValidator(args);
     Object.assign(this, args);
   }
 }

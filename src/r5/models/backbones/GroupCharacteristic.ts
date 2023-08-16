@@ -3,6 +3,7 @@ import { ICodeableConcept, IPeriod, IQuantity, IRange, IReference } from '../../
 import { IElement } from '../../interfaces/base';
 import GroupCharacteristicBuilder from './GroupCharacteristicBuilder';
 import BackboneElement from '../base/BackboneElement';
+import { GroupCharacteristicValidator } from './GroupCharacteristicValidator';
 
 export default class GroupCharacteristic extends BackboneElement implements IGroupCharacteristic {
   // GroupCharacteristic attributes
@@ -35,8 +36,9 @@ export default class GroupCharacteristic extends BackboneElement implements IGro
     return `GroupCharacteristic${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IGroupCharacteristic) {
+  constructor(args: IGroupCharacteristic) {
     super();
+    GroupCharacteristicValidator(args);
     Object.assign(this, args);
   }
 }

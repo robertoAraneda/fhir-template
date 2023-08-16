@@ -2,8 +2,8 @@ import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/Backbon
 import CompositionAttester from './CompositionAttester';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
-import { CompositionAttestationModeEnum } from '../../enums';
-import { CompositionAttestationModeType } from '../../types';
+import { CompositionAttestationModeEnum } from '../../../enums';
+import { CompositionAttestationModeType } from '../../../types';
 import { IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { ICompositionAttester } from '../../interfaces/backbones';

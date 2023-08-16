@@ -1,9 +1,10 @@
 import { IAddress, IExtension, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { AddressTypeEnum, AddressUseEnum } from '../../enums';
-import { AddressTypeType, AddressUseType } from '../../types';
+import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
+import { AddressTypeType, AddressUseType } from '../../../types';
 import Element from '../base/Element';
 import { AddressBuilder } from './AddressBuilder';
+import { AddressValidator } from './AddressValidator';
 
 /**
  * @description An address expressed using postal conventions (as opposed to GPS or other location definition formats)
@@ -32,12 +33,9 @@ import { AddressBuilder } from './AddressBuilder';
  * @author Roberto Araneda
  */
 export default class Address extends Element implements IAddress {
-  static builder(): AddressBuilder {
-    return new AddressBuilder();
-  }
-
-  constructor(args?: IAddress) {
+  constructor(args: IAddress) {
     super();
+    AddressValidator(args);
     Object.assign(this, args);
   }
 
@@ -51,6 +49,10 @@ export default class Address extends Element implements IAddress {
 
   toString(): string {
     return `Address${JSON.stringify(this.toJson())}`;
+  }
+
+  static builder(): AddressBuilder {
+    return new AddressBuilder();
   }
 
   /**

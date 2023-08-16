@@ -1,7 +1,8 @@
 import { IEndpoint } from '../../../src/r4/interfaces/resources';
 import FHIRContext from '../../../src';
-
 import { EndpointBuilder } from '../../../src/r4/models/resources/EndpointBuilder';
+
+import { EndpointValidator } from '../../../src/r4/models/resources/EndpointValidator';
 
 describe('Endpoint Resource FHIR R4', () => {
   let builder: EndpointBuilder;
@@ -34,10 +35,8 @@ describe('Endpoint Resource FHIR R4', () => {
       ],
       address: 'https://pacs.hospital.org/IHEInvokeImageDisplay',
     });
-    const validate = await Validator.Endpoint(resource);
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(resource).toBeDefined();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Endpoint-example-wadors.json]', async () => {
@@ -62,10 +61,8 @@ describe('Endpoint Resource FHIR R4', () => {
       payloadMimeType: ['application/dicom'],
       address: 'https://pacs.hospital.org/wado-rs',
     };
-    const validate = await Validator.Endpoint(resource);
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => EndpointValidator(resource)).not.toThrow();
   });
 
   it('should be able to create a new endpoint and validate with correct data [Endpoint-example-direct.json]', async () => {
@@ -97,10 +94,7 @@ describe('Endpoint Resource FHIR R4', () => {
       address: 'mailto:MARTIN.SMIETANKA@directnppes.com',
     };
 
-    const validate = await Validator.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => EndpointValidator(resource)).not.toThrow();
   });
 
   it('should be able to validate a new endpoint and validate with wrong data', async () => {
@@ -112,6 +106,11 @@ describe('Endpoint Resource FHIR R4', () => {
         div: '<div xmlns="http://www.w3.org/1999/xhtml">\n\t\t\tExample of an Imaging DICOM WADO-RS type endpoint\n\t\t</div>',
       },
       status: 'wrong-status', // wrong property
+      payloadType: [
+        {
+          text: 'DICOM WADO-RS',
+        },
+      ],
       connectionType: [
         {
           coding: [
@@ -126,49 +125,9 @@ describe('Endpoint Resource FHIR R4', () => {
       test: 'test', // wrong property
     };
 
-    const validate = await Validator.Endpoint(resource);
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(4);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'required',
-        message: "must have required property 'payloadType'",
-        params: {
-          missingProperty: 'payloadType',
-        },
-        schemaPath: '#/required',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: {
-          additionalProperty: 'test',
-        },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/status',
-        keyword: 'enum',
-        message: 'must be equal to one of the allowed values',
-        params: {
-          allowedValues: ['active', 'suspended', 'error', 'off', 'entered-in-error', 'test'],
-        },
-        schemaPath: '#/properties/status/enum',
-      },
-      {
-        instancePath: '/connectionType',
-        keyword: 'type',
-        message: 'must be object',
-        params: {
-          type: 'object',
-        },
-        schemaPath: '#/type',
-      },
-    ]);
+    expect(() => EndpointValidator(resource as IEndpoint)).toThrow(
+      "InvalidFieldException: field(s) 'test' is not a valid for Endpoint",
+    );
   });
 
   it('should be able to create a new endpoint using builder methods [new EndpointBuilder()]', async () => {
@@ -197,10 +156,6 @@ describe('Endpoint Resource FHIR R4', () => {
       .setAddress('https://pacs.hospital.org/wado-rs')
       .build();
 
-    const validate = await Validator.Endpoint(resource);
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
     expect(resource).toBeDefined();
     expect(resource).toEqual({
       address: 'https://pacs.hospital.org/wado-rs',

@@ -3,6 +3,7 @@ import { ICodeableConcept } from '../../interfaces/datatypes';
 import BackboneElement from '../base/BackboneElement';
 import PersonCommunicationBuilder from './PersonCommunicationBuilder';
 import { IElement } from '../../interfaces/base';
+import { PersonCommunicationValidator } from './PersonCommunicationValidator';
 
 export default class PersonCommunication extends BackboneElement implements IPersonCommunication {
   // PersonCommunication Properties
@@ -19,15 +20,17 @@ export default class PersonCommunication extends BackboneElement implements IPer
   }
 
   toString(): string {
-    return ` PersonCommunication${JSON.stringify(this.toJson())}`;
+    return `PersonCommunication${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return ` PersonCommunication${JSON.stringify(this.toJson(), null, 2)}`;
+    return `PersonCommunication${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPersonCommunication) {
+  constructor(args: IPersonCommunication) {
     super();
+
+    PersonCommunicationValidator(args);
     Object.assign(this, args);
   }
 }

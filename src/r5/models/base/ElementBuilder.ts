@@ -1,6 +1,6 @@
+import { BaseBuilder } from './BaseBuilder';
 import { IExtension } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { BaseBuilder } from './BaseBuilder';
 
 export interface IElementBuilder<BuilderClass> {
   setId(id: string): BuilderClass;

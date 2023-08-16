@@ -9,7 +9,7 @@ import {
   IPractitionerRole,
   IRelatedPerson,
 } from './interfaces/resources';
-import { IBundle } from './interfaces/resources/IBundle';
+import IBundle from './interfaces/resources/IBundle';
 
 export const ResourcesListR5 = [
   'Patient',
@@ -36,6 +36,8 @@ export const ResourcesListR5 = [
   'Immunization',
   'HealthcareService',
   'Substance',
+  'MessageHeader',
+  'SubscriptionStatus',
 ] as const;
 
 export type ResourceTypeR5FromArray = (typeof ResourcesListR5)[number];

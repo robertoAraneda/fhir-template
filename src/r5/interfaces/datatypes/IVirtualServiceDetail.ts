@@ -1,9 +1,9 @@
+import IExtendedContactDetail from './IExtendedContactDetail';
 import { IElement } from '../base';
-import { ICoding } from './ICoding';
-import { IContactPoint } from './IContactPoint';
-import { IExtendedContactDetail } from './IExtendedContactDetail';
+import ICoding from './ICoding';
+import IContactPoint from './IContactPoint';
 
-export interface IVirtualServiceDetail extends IElement {
+export default interface IVirtualServiceDetail extends IElement {
   channelType?: ICoding[];
   addressUrl?: string;
   addressString?: string;

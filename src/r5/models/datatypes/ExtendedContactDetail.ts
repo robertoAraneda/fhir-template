@@ -3,12 +3,13 @@ import {
   ICodeableConcept,
   IContactPoint,
   IExtendedContactDetail,
-  IExtension,
   IHumanName,
   IPeriod,
   IReference,
 } from '../../interfaces/datatypes';
 import ExtendedContactDetailBuilder from './ExtendedContactDetailBuilder';
+import Element from '../base/Element';
+import { ExtendedContactDetailValidator } from './ExtendedContactDetailValidator';
 
 /**
  * @description Contact information
@@ -34,17 +35,7 @@ import ExtendedContactDetailBuilder from './ExtendedContactDetailBuilder';
  * }
  * ```
  */
-export default class ExtendedContactDetail implements IExtendedContactDetail {
-  /**
-   * @description Unique id for inter-element referencing
-   */
-  id?: string;
-
-  /**
-   * @description Additional content defined by implementations
-   */
-  extension?: IExtension[];
-
+export default class ExtendedContactDetail extends Element implements IExtendedContactDetail {
   /**
    * @description The type of contact icon
    */
@@ -90,7 +81,9 @@ export default class ExtendedContactDetail implements IExtendedContactDetail {
     return `ExtendedContactDetail${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IExtendedContactDetail) {
+  constructor(args: IExtendedContactDetail) {
+    super();
+    ExtendedContactDetailValidator(args);
     Object.assign(this, args);
   }
 }

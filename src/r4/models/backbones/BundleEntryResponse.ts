@@ -2,6 +2,7 @@ import BackboneElement from '../base/BackboneElement';
 import { IBundleEntryResponse } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { BundleEntryResponseBuilder } from './BundleEntryResponseBuilder';
+import { bundleEntryResponseAttributes, BundleEntryResponseValidator } from './BundleEntryResponseValidator';
 
 export default class BundleEntryResponse extends BackboneElement implements IBundleEntryResponse {
   // BundleEntryResponse attributes
@@ -9,7 +10,7 @@ export default class BundleEntryResponse extends BackboneElement implements IBun
   outcome?: any;
   lastModified?: string;
   location?: string;
-  status: string;
+  status?: string;
 
   // Extensions of bundle entry response attributes
   _etag?: IElement;
@@ -33,8 +34,13 @@ export default class BundleEntryResponse extends BackboneElement implements IBun
     return new BundleEntryResponseBuilder();
   }
 
-  constructor(args?: IBundleEntryResponse) {
+  static getAttributes(): readonly string[] {
+    return bundleEntryResponseAttributes;
+  }
+
+  constructor(args: IBundleEntryResponse) {
     super();
+    BundleEntryResponseValidator(args);
     Object.assign(this, args);
   }
 }

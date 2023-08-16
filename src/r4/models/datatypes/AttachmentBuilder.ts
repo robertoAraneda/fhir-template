@@ -2,21 +2,9 @@ import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { IBuildable } from '../../../globals/interfaces';
 import Attachment from './Attachment';
+import { IAttachment } from '../../interfaces/datatypes';
 
-type ParamExtensionType =
-  | 'contentType'
-  | 'creation'
-  | 'data'
-  | 'duration'
-  | 'frames'
-  | 'hash'
-  | 'height'
-  | 'language'
-  | 'pages'
-  | 'size'
-  | 'title'
-  | 'url'
-  | 'width';
+type ParamExtensionType = 'contentType' | 'creation' | 'data' | 'hash' | 'language' | 'title' | 'url' | 'size';
 
 export interface IAttachmentBuilder extends IBuildable<Attachment>, IElementBuilder<AttachmentBuilder> {
   addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): AttachmentBuilder;
@@ -36,24 +24,14 @@ export interface IAttachmentBuilder extends IBuildable<Attachment>, IElementBuil
   setHash(hash: string): AttachmentBuilder;
 
   setSize(size: number): AttachmentBuilder;
-
-  setDuration(duration: number): AttachmentBuilder;
-
-  setWidth(width: number): AttachmentBuilder;
-
-  setHeight(height: number): AttachmentBuilder;
-
-  setFrames(frames: number): AttachmentBuilder;
-
-  setPages(pages: number): AttachmentBuilder;
 }
 
 export class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> implements IAttachmentBuilder {
-  private readonly attachment: Attachment;
+  private readonly attachment: IAttachment;
 
   constructor() {
     super();
-    this.attachment = new Attachment();
+    this.attachment = {} as IAttachment;
   }
 
   addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): AttachmentBuilder {
@@ -101,33 +79,8 @@ export class AttachmentBuilder extends ElementBuilder<AttachmentBuilder> impleme
     return this;
   }
 
-  setHeight(height: number): AttachmentBuilder {
-    this.attachment.height = height;
-    return this;
-  }
-
-  setWidth(width: number): AttachmentBuilder {
-    this.attachment.width = width;
-    return this;
-  }
-
-  setFrames(frames: number): AttachmentBuilder {
-    this.attachment.frames = frames;
-    return this;
-  }
-
-  setDuration(duration: number): AttachmentBuilder {
-    this.attachment.duration = duration;
-    return this;
-  }
-
-  setPages(pages: number): AttachmentBuilder {
-    this.attachment.pages = pages;
-    return this;
-  }
-
   build(): Attachment {
     Object.assign(this.attachment, { ...super.entity() });
-    return this.attachment.toJson();
+    return new Attachment(this.attachment).toJson();
   }
 }

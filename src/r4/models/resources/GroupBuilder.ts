@@ -3,10 +3,10 @@ import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainRes
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, IIdentifier, IReference } from '../../interfaces/datatypes';
-import { GroupTypeEnum } from '../../enums';
-import { GroupType } from '../../types';
+import { GroupTypeEnum } from '../../../enums';
+import { GroupType } from '../../../types';
 import { IGroupCharacteristic, IGroupMember } from '../../interfaces/backbones';
-import { validateReferenceHelper } from '../../../globals/helpers/validateReferenceHelper';
+import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import Group from './Group';
 
 type ParamExtensionType = 'active' | 'type' | 'actual' | 'name' | 'quantity';
@@ -61,7 +61,7 @@ export class GroupBuilder extends DomainResourceBuilder<GroupBuilder> implements
 
   addIdentifier(identifier: IIdentifier): GroupBuilder {
     if (identifier.assigner?.reference) {
-      validateReferenceHelper(identifier.assigner.reference, ['Organization']);
+      ValidateReferenceFormatHelper(identifier.assigner.reference, ['Organization']);
     }
     this.group.identifier = this.group.identifier || [];
     this.group.identifier.push(identifier);
@@ -70,7 +70,7 @@ export class GroupBuilder extends DomainResourceBuilder<GroupBuilder> implements
 
   addMember(member: IGroupMember): GroupBuilder {
     if (member.entity?.reference) {
-      validateReferenceHelper(member.entity.reference, [
+      ValidateReferenceFormatHelper(member.entity.reference, [
         'Patient',
         'Practitioner',
         'PractitionerRole',
@@ -106,7 +106,7 @@ export class GroupBuilder extends DomainResourceBuilder<GroupBuilder> implements
 
   setManagingEntity(managingEntity: IReference): GroupBuilder {
     if (managingEntity.reference) {
-      validateReferenceHelper(managingEntity.reference, [
+      ValidateReferenceFormatHelper(managingEntity.reference, [
         'Organization',
         'Practitioner',
         'PractitionerRole',
@@ -127,7 +127,7 @@ export class GroupBuilder extends DomainResourceBuilder<GroupBuilder> implements
   setMultipleIdentifier(identifiers: IIdentifier[]): GroupBuilder {
     identifiers.forEach((identifier) => {
       if (identifier.assigner?.reference) {
-        validateReferenceHelper(identifier.assigner.reference, ['Organization']);
+        ValidateReferenceFormatHelper(identifier.assigner.reference, ['Organization']);
       }
     });
     this.group.identifier = identifiers;
@@ -137,7 +137,7 @@ export class GroupBuilder extends DomainResourceBuilder<GroupBuilder> implements
   setMultipleMember(members: IGroupMember[]): GroupBuilder {
     members.forEach((member) => {
       if (member.entity?.reference) {
-        validateReferenceHelper(member.entity.reference, [
+        ValidateReferenceFormatHelper(member.entity.reference, [
           'Patient',
           'Practitioner',
           'PractitionerRole',

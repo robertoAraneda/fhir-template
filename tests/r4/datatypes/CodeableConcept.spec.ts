@@ -1,7 +1,7 @@
 import { ICodeableConcept } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { _validateDataType } from '../../../src/r4/validators/BaseValidator';
 import { CodeableConceptBuilder } from '../../../src/r4/models/datatypes/CodeableConceptBuilder';
+import { CodeableConceptValidator } from '../../../src/r4/models/datatypes/CodeableConceptValidator';
 
 describe('CodeableConcept FHIR R4', () => {
   let builder: CodeableConceptBuilder;
@@ -23,12 +23,15 @@ describe('CodeableConcept FHIR R4', () => {
         },
       ],
       text: 'test',
+      extension: [
+        {
+          id: '123',
+          url: 'http://example.com',
+        },
+      ],
     });
 
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to create a new codeable_concept and validate with correct data [ICodeableConcept]', async () => {
@@ -39,15 +42,20 @@ describe('CodeableConcept FHIR R4', () => {
           code: '123',
           system: 'http://hl7.org/fhir/sid/us-npi',
           display: 'test',
+          _code: {
+            extension: [
+              {
+                id: '123',
+                url: 'http://example.com',
+              },
+            ],
+          },
         },
       ],
       text: 'test',
     };
 
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => CodeableConceptValidator(item)).not.toThrowError();
   });
 
   it('should be able to validate a new codeable_concept and validate with wrong data', async () => {
@@ -60,24 +68,13 @@ describe('CodeableConcept FHIR R4', () => {
           display: 'test',
         },
       ],
-      text: 'test',
+      text: 'text',
       test: 'test', // wrong property
     };
 
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(1);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        schemaPath: '#/additionalProperties',
-        keyword: 'additionalProperties',
-        params: { additionalProperty: 'test' },
-        message: 'must NOT have additional properties',
-      },
-    ]);
+    expect(() => CodeableConceptValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'test' is not a valid for CodeableConcept",
+    );
   });
 
   it('should be able to create a new codeable_concept using builder methods [new CodeableConceptBuilder]', async () => {
@@ -94,11 +91,6 @@ describe('CodeableConcept FHIR R4', () => {
         ],
       })
       .build();
-
-    const validate = await _validateDataType(item, 'CodeableConcept');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
 
     expect(item).toBeDefined();
     expect(item).toEqual({

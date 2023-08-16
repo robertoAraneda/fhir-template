@@ -3,7 +3,7 @@ import { IAddress, ICodeableConcept, IContactPoint, IIdentifier, IReference } fr
 import { IElement } from '../../interfaces/base';
 import { IOrganizationContact } from '../../interfaces/backbones';
 import DomainResource from '../base/DomainResource';
-import { IOrganizationBuilder, OrganizationBuilder } from './OrganizationBuilder';
+import { OrganizationBuilder } from './OrganizationBuilder';
 
 export default class Organization extends DomainResource implements IOrganization {
   resourceType = 'Organization' as const;

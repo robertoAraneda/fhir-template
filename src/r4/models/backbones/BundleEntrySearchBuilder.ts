@@ -3,6 +3,7 @@ import { IElement } from '../../interfaces/base';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
 import BundleEntrySearch from './BundleEntrySearch';
+import { IBundleEntrySearch } from '../../interfaces/backbones';
 
 export interface IBundleEntrySearchBuilder
   extends IBuildable<BundleEntrySearch>,
@@ -19,11 +20,11 @@ export class BundleEntrySearchBuilder
   extends BackboneElementBuilder<BundleEntrySearchBuilder>
   implements IBundleEntrySearchBuilder
 {
-  private readonly bundleEntrySearch: BundleEntrySearch;
+  private readonly bundleEntrySearch: IBundleEntrySearch;
 
   constructor() {
     super();
-    this.bundleEntrySearch = new BundleEntrySearch();
+    this.bundleEntrySearch = {} as IBundleEntrySearch;
   }
 
   addParamExtension(param: 'mode' | 'score', extension: IElement): BundleEntrySearchBuilder {
@@ -33,7 +34,7 @@ export class BundleEntrySearchBuilder
 
   build(): BundleEntrySearch {
     Object.assign(this.bundleEntrySearch, { ...super.entity() });
-    return this.bundleEntrySearch.toJson();
+    return new BundleEntrySearch(this.bundleEntrySearch).toJson();
   }
 
   setMode(mode: string): BundleEntrySearchBuilder {

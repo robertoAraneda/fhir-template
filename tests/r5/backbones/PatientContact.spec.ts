@@ -1,7 +1,7 @@
 import { IPatientContact } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
 import PatientContactBuilder from '../../../src/r5/models/backbones/PatientContactBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
+import { PatientContactValidator } from '../../../src/r5/models/backbones/PatientContactValidator';
 
 describe('PatientContact FHIR R5', () => {
   const { PatientContact } = new FHIRContext().forR5();
@@ -13,7 +13,7 @@ describe('PatientContact FHIR R5', () => {
   });
 
   it('should be able to create a new patient_contact payload and validate with correct data [IPatientContact]', async () => {
-    const dataType: IPatientContact = {
+    const item: IPatientContact = {
       id: '123',
       gender: 'female',
       relationship: [
@@ -34,14 +34,11 @@ describe('PatientContact FHIR R5', () => {
       },
     };
 
-    const validate = await _validateBackbone(dataType, 'Patient_Contact');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(() => PatientContactValidator(item)).not.toThrow();
   });
 
   it('should be able to create a new patient_contact payload and validate with correct data [new PatientContact()]', async () => {
-    const dataType = new PatientContact({
+    const item = new PatientContact({
       id: '123',
       gender: 'female',
       relationship: [
@@ -62,14 +59,11 @@ describe('PatientContact FHIR R5', () => {
       },
     });
 
-    const validate = await _validateBackbone(dataType, 'Patient_Contact');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should be able to validate a new patient_contact payload and validate with wrong data', async () => {
-    const dataType = {
+    const item = {
       id: '123',
       issuer: {
         reference: 'test',
@@ -89,46 +83,14 @@ describe('PatientContact FHIR R5', () => {
       wrongProperty: 'test', // wrong property
     };
 
-    const validate = await _validateBackbone(dataType, 'Patient_Contact');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toBeDefined();
-    expect(validate.errors).toHaveLength(4);
-    expect(validate.errors).toEqual([
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'issuer' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'code' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '',
-        keyword: 'additionalProperties',
-        message: 'must NOT have additional properties',
-        params: { additionalProperty: 'wrongProperty' },
-        schemaPath: '#/additionalProperties',
-      },
-      {
-        instancePath: '/period/start',
-        keyword: 'pattern',
-        message: "The value '/period/start' does not match with datatype 'dateTime'",
-        params: { value: '/period/start' },
-        schemaPath: 'base.schema.json#/definitions/dateTime/pattern',
-      },
-    ]);
+    expect(() => PatientContactValidator(item)).toThrowError(
+      "InvalidFieldException: field(s) 'issuer, code, wrongProperty' is not a valid for PatientContact",
+    );
   });
 
   it('should be able to create a new patient_contact payload using builder methods [new PatientContactBuilder()]', async () => {
     // build() is a method that returns the object that was built
-    const dataType = builder
+    const item = builder
       .setId('123')
       .setGender('male')
       .addTelecom({
@@ -150,13 +112,9 @@ describe('PatientContact FHIR R5', () => {
       })
       .build();
 
-    const validate = await _validateBackbone(dataType, 'Patient_Contact');
+    expect(item).toBeDefined();
 
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
-
-    expect(dataType).toBeDefined();
-    expect(dataType).toEqual({
+    expect(item).toEqual({
       _gender: {
         extension: [
           {

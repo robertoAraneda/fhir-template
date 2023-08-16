@@ -1,28 +1,28 @@
-import { ElementBuilder } from '../base/ElementBuilder';
+import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { Duration } from './index';
 import { QuantityComparatorEnum } from '../../enums';
 import { QuantityComparatorType } from '../../types';
 import { IBuildable } from '../../../globals/interfaces';
-import { IElementBuilder } from '../../../r4/models/base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
+import { IDuration } from '../../interfaces/datatypes';
 
 type ParamExtensionType = 'value' | 'comparator' | 'unit' | 'system' | 'code';
 
 interface IDurationBuilder extends IBuildable<Duration>, IElementBuilder<DurationBuilder> {
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): DurationBuilder;
-  setValue(value: number): DurationBuilder;
-  setComparator(value: QuantityComparatorEnum | QuantityComparatorType): DurationBuilder;
-  setUnit(value: string): DurationBuilder;
-  setSystem(value: string): DurationBuilder;
-  setCode(value: string): DurationBuilder;
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this;
+  setValue(value: number): this;
+  setComparator(value: QuantityComparatorEnum | QuantityComparatorType): this;
+  setUnit(value: string): this;
+  setSystem(value: string): this;
+  setCode(value: string): this;
 }
 export default class DurationBuilder extends ElementBuilder<DurationBuilder> implements IDurationBuilder {
-  private readonly duration: Duration;
+  private readonly duration: IDuration;
 
   constructor() {
     super();
 
-    this.duration = new Duration();
+    this.duration = {} as IDuration;
   }
 
   /**
@@ -53,7 +53,7 @@ export default class DurationBuilder extends ElementBuilder<DurationBuilder> imp
    *      }
    *  }
    */
-  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): DurationBuilder {
+  addParamExtension<T extends ParamExtensionType>(param: T, extension: IElement): this {
     this.duration[`_${param}`] = extension;
 
     return this;
@@ -64,7 +64,7 @@ export default class DurationBuilder extends ElementBuilder<DurationBuilder> imp
    * @param value
    * @returns DurationBuilder The builder
    */
-  setValue(value: number): DurationBuilder {
+  setValue(value: number): this {
     this.duration.value = value;
 
     return this;
@@ -75,7 +75,7 @@ export default class DurationBuilder extends ElementBuilder<DurationBuilder> imp
    * @param comparator
    * @returns DurationBuilder The builder
    */
-  setComparator(comparator: QuantityComparatorEnum | QuantityComparatorType): DurationBuilder {
+  setComparator(comparator: QuantityComparatorEnum | QuantityComparatorType): this {
     this.duration.comparator = comparator;
 
     return this;
@@ -86,7 +86,7 @@ export default class DurationBuilder extends ElementBuilder<DurationBuilder> imp
    * @param unit
    * @returns DurationBuilder The builder
    */
-  setUnit(unit: string): DurationBuilder {
+  setUnit(unit: string): this {
     this.duration.unit = unit;
 
     return this;
@@ -97,7 +97,7 @@ export default class DurationBuilder extends ElementBuilder<DurationBuilder> imp
    * @param system
    * @returns DurationBuilder The builder
    */
-  setSystem(system: string): DurationBuilder {
+  setSystem(system: string): this {
     this.duration.system = system;
 
     return this;
@@ -108,7 +108,7 @@ export default class DurationBuilder extends ElementBuilder<DurationBuilder> imp
    * @param code
    * @returns DurationBuilder The builder
    */
-  setCode(code: string): DurationBuilder {
+  setCode(code: string): this {
     this.duration.code = code;
 
     return this;
@@ -116,6 +116,6 @@ export default class DurationBuilder extends ElementBuilder<DurationBuilder> imp
 
   build(): Duration {
     Object.assign(this.duration, { ...super.entity() });
-    return this.duration.toJson();
+    return new Duration(this.duration).toJson();
   }
 }

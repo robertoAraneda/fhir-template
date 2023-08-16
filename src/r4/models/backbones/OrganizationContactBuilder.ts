@@ -3,34 +3,36 @@ import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/Backbon
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IAddress, ICodeableConcept, IContactPoint, IHumanName } from '../../interfaces/datatypes';
 import OrganizationContact from './OrganizationContact';
+import { IOrganizationContact } from '../../interfaces/backbones';
 
-export interface IOrganizationContactBuilder
-  extends IBuildable<OrganizationContact>,
-    IBackboneElementBuilder<OrganizationContactBuilder>,
-    IElementBuilder<OrganizationContactBuilder> {
-  setPurpose(purpose: ICodeableConcept): OrganizationContactBuilder;
+interface IBuilders
+  extends IBackboneElementBuilder<OrganizationContactBuilder>,
+    IElementBuilder<OrganizationContactBuilder> {}
 
-  setName(name: IHumanName): OrganizationContactBuilder;
+export interface IOrganizationContactBuilder extends IBuildable<OrganizationContact>, IBuilders {
+  setPurpose(purpose: ICodeableConcept): this;
 
-  addTelecom(telecom: IContactPoint): OrganizationContactBuilder;
+  setName(name: IHumanName): this;
 
-  setMultipleTelecom(telecom: IContactPoint[]): OrganizationContactBuilder;
+  addTelecom(telecom: IContactPoint): this;
 
-  setAddress(address: IAddress): OrganizationContactBuilder;
+  setMultipleTelecom(telecom: IContactPoint[]): this;
+
+  setAddress(address: IAddress): this;
 }
 
 export class OrganizationContactBuilder
   extends BackboneElementBuilder<OrganizationContactBuilder>
   implements IOrganizationContactBuilder
 {
-  private readonly organizationContact: OrganizationContact;
+  private readonly organizationContact: IOrganizationContact;
 
   constructor() {
     super();
-    this.organizationContact = new OrganizationContact();
+    this.organizationContact = {} as IOrganizationContact;
   }
 
-  addTelecom(telecom: IContactPoint): OrganizationContactBuilder {
+  addTelecom(telecom: IContactPoint): this {
     this.organizationContact.telecom = this.organizationContact.telecom || [];
     this.organizationContact.telecom.push(telecom);
     return this;
@@ -38,25 +40,25 @@ export class OrganizationContactBuilder
 
   build(): OrganizationContact {
     Object.assign(this.organizationContact, { ...super.entity() });
-    return this.organizationContact.toJson();
+    return new OrganizationContact(this.organizationContact).toJson();
   }
 
-  setAddress(address: IAddress): OrganizationContactBuilder {
+  setAddress(address: IAddress): this {
     this.organizationContact.address = address;
     return this;
   }
 
-  setMultipleTelecom(telecom: IContactPoint[]): OrganizationContactBuilder {
+  setMultipleTelecom(telecom: IContactPoint[]): this {
     this.organizationContact.telecom = telecom;
     return this;
   }
 
-  setName(name: IHumanName): OrganizationContactBuilder {
+  setName(name: IHumanName): this {
     this.organizationContact.name = name;
     return this;
   }
 
-  setPurpose(purpose: ICodeableConcept): OrganizationContactBuilder {
+  setPurpose(purpose: ICodeableConcept): this {
     this.organizationContact.purpose = purpose;
     return this;
   }

@@ -1,9 +1,9 @@
 import { IBuildable } from '../../../globals/interfaces';
-import { IPeriod } from '../../interfaces/datatypes';
+import { IAddress, IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { AddressTypeEnum, AddressUseEnum } from '../../enums';
-import { AddressTypeType, AddressUseType } from '../../types';
+import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
+import { AddressTypeType, AddressUseType } from '../../../types';
 import Address from './Address';
 
 type ParamExtensionType = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';
@@ -38,11 +38,11 @@ export interface IAddressBuilder extends IBuildable<Address>, IElementBuilder<Ad
 }
 
 export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IAddressBuilder {
-  private readonly address: Address;
+  private readonly address: IAddress;
 
   constructor() {
     super();
-    this.address = new Address();
+    this.address = {} as IAddress;
   }
 
   addParamExtension<T extends ParamExtensionType>(
@@ -117,6 +117,6 @@ export class AddressBuilder extends ElementBuilder<AddressBuilder> implements IA
 
   build(): Address {
     Object.assign(this.address, { ...super.entity() });
-    return this.address.toJson();
+    return new Address(this.address).toJson();
   }
 }

@@ -81,14 +81,14 @@ export default class Extension extends Element implements IExtension {
   }
 
   toString(): string {
-    return `ExtendedContactDetail${JSON.stringify(this.toJson())}`;
+    return `Extension${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return `ExtendedContactDetail${JSON.stringify(this.toJson(), null, 2)}`;
+    return `Extension${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IExtension) {
+  constructor(args: IExtension) {
     super();
     Object.assign(this, args);
   }

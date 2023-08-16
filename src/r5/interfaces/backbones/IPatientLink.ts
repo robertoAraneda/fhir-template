@@ -3,7 +3,7 @@ import { LinkTypeEnum } from '../../enums';
 import { LinkTypeType } from '../../types';
 import { IReference } from '../datatypes';
 
-export interface IPatientLink extends IBackboneElement {
+export default interface IPatientLink extends IBackboneElement {
   other: IReference;
   type: LinkTypeEnum | LinkTypeType;
   _type?: IElement;

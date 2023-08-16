@@ -5,6 +5,7 @@ import { LinkTypeType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import PatientLinkBuilder from './PatientLinkBuilder';
+import { PatientLinkValidator } from './PatientLinkValidator';
 
 export default class PatientLink extends BackboneElement implements IPatientLink {
   // PatientLink attributes
@@ -21,15 +22,16 @@ export default class PatientLink extends BackboneElement implements IPatientLink
   }
 
   toString(): string {
-    return ` PatientLink${JSON.stringify(this.toJson())}`;
+    return `PatientLink${JSON.stringify(this.toJson())}`;
   }
 
   toPrettyString(): string {
-    return ` PatientLink${JSON.stringify(this.toJson(), null, 2)}`;
+    return `PatientLink${JSON.stringify(this.toJson(), null, 2)}`;
   }
 
-  constructor(args?: IPatientLink) {
+  constructor(args: IPatientLink) {
     super();
+    PatientLinkValidator(args);
     Object.assign(this, args);
   }
 }

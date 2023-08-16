@@ -9,3 +9,5 @@ export default abstract class DomainResource extends Resource implements IDomain
   modifierExtension?: IExtension[];
   text?: INarrative;
 }
+
+export const domainResourceAttributes: readonly string[] = ['contained', 'extension', 'modifierExtension', 'text'];

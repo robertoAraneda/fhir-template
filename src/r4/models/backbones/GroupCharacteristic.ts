@@ -3,17 +3,18 @@ import { ICodeableConcept, IPeriod, IQuantity, IRange, IReference } from '../../
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import { GroupCharacteristicBuilder } from './GroupCharacteristicBuilder';
+import { GroupCharacteristicValidator } from './GroupCharacteristicValidator';
 
 export default class GroupCharacteristic extends BackboneElement implements IGroupCharacteristic {
   // GroupCharacteristic attributes
   code: ICodeableConcept;
-  valueCodeableConcept: ICodeableConcept;
-  valueBoolean: boolean;
-  valueQuantity: IQuantity;
-  valueRange: IRange;
-  valueReference: IReference;
+  valueCodeableConcept?: ICodeableConcept;
+  valueBoolean?: boolean;
+  valueQuantity?: IQuantity;
+  valueRange?: IRange;
+  valueReference?: IReference;
   exclude: boolean;
-  period: IPeriod;
+  period?: IPeriod;
 
   // Extensions
   _valueBoolean?: IElement;
@@ -35,8 +36,9 @@ export default class GroupCharacteristic extends BackboneElement implements IGro
     return new GroupCharacteristicBuilder();
   }
 
-  constructor(args?: IGroupCharacteristic) {
+  constructor(args: IGroupCharacteristic) {
     super();
+    GroupCharacteristicValidator(args);
     Object.assign(this, args);
   }
 }

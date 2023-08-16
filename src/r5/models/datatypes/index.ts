@@ -18,6 +18,9 @@ import Reference from './Reference';
 import Range from './Range';
 import SimpleQuantity from './SimpleQuantity';
 import Signature from './Signature';
+import NotAvailableTime from './NotAvailableTime';
+import AvailableTime from './AvailableTime';
+import RelatedArtifact from './RelatedArtifact';
 
 export {
   ExtendedContactDetail,
@@ -40,4 +43,7 @@ export {
   Range,
   SimpleQuantity,
   Signature,
+  NotAvailableTime,
+  AvailableTime,
+  RelatedArtifact,
 };

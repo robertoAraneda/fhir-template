@@ -9,10 +9,11 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 import { ILocationHoursOfOperation, ILocationPosition } from '../../interfaces/backbones';
-import { LocationModeEnum, LocationStatusEnum } from '../../enums';
-import { LocationModeType, LocationStatusType } from '../../types';
+import { LocationModeEnum, LocationStatusEnum } from '../../../enums';
+import { LocationModeType, LocationStatusType } from '../../../types';
 import DomainResource from '../base/DomainResource';
-import { ILocationBuilder, LocationBuilder } from './LocationBuilder';
+import { LocationBuilder } from './LocationBuilder';
+import { LocationValidator } from './LocationValidator';
 
 export default class Location extends DomainResource implements ILocation {
   // Resource Attributes
@@ -61,8 +62,9 @@ export default class Location extends DomainResource implements ILocation {
     return new LocationBuilder();
   }
 
-  constructor(args?: ILocation) {
+  constructor(args: ILocation) {
     super();
+    LocationValidator(args);
     Object.assign(this, args);
   }
 }

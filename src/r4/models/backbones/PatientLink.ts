@@ -1,15 +1,16 @@
 import { IPatientLink } from '../../interfaces/backbones';
 import { IReference } from '../../interfaces/datatypes';
-import { LinkTypeEnum } from '../../enums';
-import { LinkTypeType } from '../../types';
+import { LinkTypeEnum } from '../../../enums';
+import { LinkTypeType } from '../../../types';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import { PatientLinkBuilder } from './PatientLinkBuilder';
+import { PatientLinkValidator } from './PatientLinkValidator';
 
 export default class PatientLink extends BackboneElement implements IPatientLink {
   // PatientLink attributes
   other: IReference;
-  type: LinkTypeEnum | LinkTypeType;
+  type?: LinkTypeEnum | LinkTypeType;
   _type?: IElement;
 
   toJson(): PatientLink {
@@ -28,8 +29,9 @@ export default class PatientLink extends BackboneElement implements IPatientLink
     return new PatientLinkBuilder();
   }
 
-  constructor(args?: IPatientLink) {
+  constructor(args: IPatientLink) {
     super();
+    PatientLinkValidator(args);
     Object.assign(this, args);
   }
 }

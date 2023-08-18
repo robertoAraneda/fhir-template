@@ -38,6 +38,9 @@ export const ResourcesListR5 = [
   'Substance',
   'MessageHeader',
   'SubscriptionStatus',
+  'PlanDefinition',
+  'ResearchStudy',
+  'InsurancePlan',
 ] as const;
 
 export type ResourceTypeR5FromArray = (typeof ResourcesListR5)[number];

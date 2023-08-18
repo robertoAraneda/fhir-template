@@ -36,6 +36,7 @@ import {
   Practitioner,
   PractitionerRole,
   RelatedPerson,
+  Composition,
 } from './models/resources';
 
 import {
@@ -97,6 +98,7 @@ export class FhirContextR5 {
       CompositionAttester,
       CompositionEvent,
       CompositionSection,
+      Composition,
       Endpoint,
       EndpointPayload,
       Group,

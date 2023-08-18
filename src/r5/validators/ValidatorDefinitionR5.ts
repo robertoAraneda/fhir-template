@@ -53,6 +53,9 @@ import { OrganizationValidator } from '../models/resources/OrganizationValidator
 import { LocationValidator } from '../models/resources/LocationValidator';
 import { BundleValidator } from '../models/resources/BundleValidator';
 import { CompositionValidator } from '../../r4/models/resources/CompositionValidator';
+import { UsageContextValidator } from '../models/datatypes/UsageContext';
+import { AnnotationValidator } from '../models/datatypes/AnnotationValidator';
+import { RelatedArtifactValidator } from '../models/datatypes/RelatedArtifactValidator';
 
 const Base64BinaryValidator = (value: string, path: string) => {
   // regex for /^(\s*([0-9a-zA-Z\+\=]){4}\s*)+$/
@@ -282,7 +285,10 @@ export type ValidatorType = {
   Signature: typeof SignatureValidator;
   Meta: typeof MetaValidator;
   Narrative: typeof NarrativeValidator;
+  Annotation: typeof AnnotationValidator;
   Resource: typeof ResourceValidator;
+  UsageContext: typeof UsageContextValidator;
+  RelatedArtifact: typeof RelatedArtifactValidator;
   AvailableTime: typeof AvailableTimeValidator;
   NotAvailableTime: typeof NotAvailableTimeValidator;
   VirtualServiceDetail: typeof VirtualServiceDetailValidator;
@@ -360,6 +366,9 @@ export const Validator: ValidatorType = {
   Signature: SignatureValidator,
   SimpleQuantity: SimpleQuantityValidator,
   Narrative: NarrativeValidator,
+  UsageContext: UsageContextValidator,
+  Annotation: AnnotationValidator,
+  RelatedArtifact: RelatedArtifactValidator,
   Resource: ResourceValidator,
   AvailableTime: AvailableTimeValidator,
   NotAvailableTime: NotAvailableTimeValidator,

@@ -62,8 +62,6 @@ export const ValidatorHelperR4 = <T extends {}>(
         payloadArray.forEach((item: any, index: number) => {
           if (validator) {
             validator(item, `${path}.${String(element.name)}[${index}]`);
-          } else {
-            console.warn("Validator doesn't exist", element.type);
           }
         });
       }

@@ -2,7 +2,7 @@ import { elementAttributes } from '../base/Element';
 import { IExtension } from '../../interfaces/datatypes';
 import ConstraintException from '../../../globals/exceptions/ConstraintException';
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const extensionAttributes: string[] = [
   ...elementAttributes,

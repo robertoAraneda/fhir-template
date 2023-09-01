@@ -1,7 +1,7 @@
 import { IGroupCharacteristic } from '../../interfaces/backbones';
 import RequiredException from '../../../globals/exceptions/RequiredException';
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const groupCharacteristicKeysDefinitions = BackboneAttributesHelperR4<IGroupCharacteristic>([
   {

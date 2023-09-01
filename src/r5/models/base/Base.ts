@@ -1,4 +1,4 @@
-import { IBase } from '../../../globals/interfaces';
+import { IBase } from '../../interfaces/base';
 
 export default abstract class Base implements IBase {
   abstract toJson(): any;

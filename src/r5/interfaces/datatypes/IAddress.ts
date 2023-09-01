@@ -1,6 +1,6 @@
 import { IElement } from '../base';
-import { AddressUseType, AddressTypeType } from '../../../types';
-import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
+import { AddressUseType, AddressTypeType } from '../../../r4/types';
+import { AddressTypeEnum, AddressUseEnum } from '../../../r4/enums';
 import IPeriod from './IPeriod';
 
 /**

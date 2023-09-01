@@ -1,6 +1,6 @@
 import { IContactPoint, IExtension, IPeriod } from '../../interfaces/datatypes';
-import { ContactPointSystemEnum, ContactPointUseEnum } from '../../../enums';
-import { ContactPointSystemType, ContactPointUseType } from '../../../types';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
+import { ContactPointSystemType, ContactPointUseType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import Element from '../base/Element';
 import { ContactPointBuilder } from './ContactPointBuilder';

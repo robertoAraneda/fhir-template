@@ -8,7 +8,7 @@ import IDomainResourceR5 from '../../r5/interfaces/base/IDomainResource';
 import IBackboneElementR5 from '../../r5/interfaces/base/IBackboneElement';
 import IElementR5 from '../../r5/interfaces/base/IElement';
 import IResourceR5 from '../../r5/interfaces/base/IResource';
-import { ValidatorType as ValidatorTypeR4 } from './ValidatorDefinitionR4';
+import { ValidatorType as ValidatorTypeR4 } from '../../r4/validators/ValidatorDefinitionR4';
 import { ValidatorType as ValidatorTypeR5 } from '../../r5/validators/ValidatorDefinitionR5';
 import { ResourceTypeR4FromArray } from '../../r4/GlobalResourceTypes';
 import { ResourceTypeR5FromArray } from '../../r5/GlobalResourceTypes';

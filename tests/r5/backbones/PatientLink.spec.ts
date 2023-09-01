@@ -1,7 +1,6 @@
 import { IPatientLink } from '../../../src/r5/interfaces/backbones';
 import FHIRContext from '../../../src';
 import PatientLinkBuilder from '../../../src/r5/models/backbones/PatientLinkBuilder';
-import { _validateBackbone } from '../../../src/r5/validators/BaseValidator';
 import { PatientLinkValidator } from '../../../src/r5/models/backbones/PatientLinkValidator';
 
 describe('PatientLink FHIR R5', () => {

@@ -3,7 +3,7 @@ import {
   BackboneAttributesHelperR4,
   BackboneAttributesHelperR5,
 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../../r4/validators/ValidatorHelperR4';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const groupMemberKeysDefinitions = BackboneAttributesHelperR5<IGroupMember>([

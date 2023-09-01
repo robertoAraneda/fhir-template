@@ -1,7 +1,7 @@
 import { IPatientLink } from '../../interfaces/backbones';
 import { IReference } from '../../interfaces/datatypes';
-import { LinkTypeEnum } from '../../../enums';
-import { LinkTypeType } from '../../../types';
+import { LinkTypeEnum } from '../../enums';
+import { LinkTypeType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import { PatientLinkBuilder } from './PatientLinkBuilder';

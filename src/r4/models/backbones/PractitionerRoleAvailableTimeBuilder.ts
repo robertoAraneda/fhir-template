@@ -1,6 +1,6 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
-import { DaysOfWeekEnum } from '../../../enums';
-import { DaysOfWeekType } from '../../../types';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';

@@ -1,5 +1,5 @@
-import { NameUseEnum } from '../../../enums';
-import { NameUseType } from '../../../types';
+import { NameUseEnum } from '../../../r4/enums';
+import { NameUseType } from '../../../r4/types';
 import IPeriod from './IPeriod';
 import { IElement } from '../base';
 

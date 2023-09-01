@@ -1,7 +1,6 @@
 import FHIRContext from '../../../src';
 import { IBundleEntrySearch } from '../../../src/r4/interfaces/backbones';
-import { BundleEntrySearchModeEnum } from '../../../src/enums';
-import { _validateBackbone } from '../../../src/r4/validators/BaseValidator';
+import { BundleEntrySearchModeEnum } from '../../../src/r4/enums';
 import { BundleEntrySearchBuilder } from '../../../src/r4/models/backbones/BundleEntrySearchBuilder';
 
 import { BundleEntrySearchValidator } from '../../../src/r4/models/backbones/BundleEntrySearchValidator';

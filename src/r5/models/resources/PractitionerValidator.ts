@@ -3,8 +3,8 @@ import {
   ResourceAttributesHelperR5,
 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IPractitioner } from '../../interfaces/resources';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { AdministrativeGenderEnum } from '../../../r4/enums';
+import { ValidatorHelperR4 } from '../../../r4/validators/ValidatorHelperR4';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const practitionerKeysDefinitions = ResourceAttributesHelperR5<IPractitioner>([

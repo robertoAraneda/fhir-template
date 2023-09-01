@@ -2,7 +2,7 @@ import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateLis
 import { IPatientCommunication } from '../../interfaces/backbones';
 
 import { CodeableConceptValidator } from '../datatypes/CodeableConceptValidator';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const patientCommunicationKeysDefinitions = BackboneAttributesHelperR4<IPatientCommunication>([
   {

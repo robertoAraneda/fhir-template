@@ -1,10 +1,9 @@
 import { IBundle } from '../../interfaces/resources';
-import { BundleTypeEnum } from '../../../enums';
+import { BundleTypeEnum } from '../../enums';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidateResourceFormatHelper } from '../../../globals/helpers/validateFormatHelper';
 import Bundle from './Bundle';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const isBundle = (obj: unknown): obj is Bundle => {
   return obj !== undefined && obj !== null && (obj as Bundle).resourceType === 'Bundle';

@@ -1,7 +1,7 @@
 import { IExtension, IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { NameUseEnum } from '../../../enums';
-import { NameUseType } from '../../../types';
+import { NameUseEnum } from '../../enums';
+import { NameUseType } from '../../types';
 import Element from '../base/Element';
 import { HumanNameBuilder } from './HumanNameBuilder';
 import { HumanNameValidator } from './HumanNameValidator';

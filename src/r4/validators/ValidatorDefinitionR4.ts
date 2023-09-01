@@ -1,53 +1,53 @@
-import { ExtensionValidator } from '../../r4/models/datatypes/ExtensionValidator';
-import { ElementValidator } from '../../r4/models/base/ElementValidator';
-import { PeriodValidator } from '../../r4/models/datatypes/PeriodValidator';
-import { AddressValidator } from '../../r4/models/datatypes/AddressValidator';
-import { ContactPointValidator } from '../../r4/models/datatypes/ContactPointValidator';
-import { HumanNameValidator } from '../../r4/models/datatypes/HumanNameValidator';
-import { IdentifierValidator } from '../../r4/models/datatypes/IdentifierValidator';
-import { ReferenceValidator } from '../../r4/models/datatypes/ReferenceValidator';
-import { QuantityValidator } from '../../r4/models/datatypes/QuantityValidator';
-import { RangeValidator } from '../../r4/models/datatypes/RangeValidator';
-import { CodeableConceptValidator } from '../../r4/models/datatypes/CodeableConceptValidator';
-import { CodingValidator } from '../../r4/models/datatypes/CodingValidator';
-import { DurationValidator } from '../../r4/models/datatypes/DurationValidator';
-import { SimpleQuantityValidator } from '../../r4/models/datatypes/SimpleQuantityValidator';
-import { SignatureValidator } from '../../r4/models/datatypes/SignatureValidator';
-import { MetaValidator } from '../../r4/models/datatypes/MetaValidator';
-import { AttachmentValidator } from '../../r4/models/datatypes/AttachmentValidator';
-import { ResourceValidator } from '../../r4/models/base/ResourceValidator';
-import { BundleEntryValidator } from '../../r4/models/backbones/BundleEntryValidator';
-import { BundleLinkValidator } from '../../r4/models/backbones/BundleLinkValidator';
-import { BundleEntryRequestValidator } from '../../r4/models/backbones/BundleEntryRequestValidator';
-import { BundleEntryResponseValidator } from '../../r4/models/backbones/BundleEntryResponseValidator';
-import { BundleEntrySearchValidator } from '../../r4/models/backbones/BundleEntrySearchValidator';
-import { NarrativeValidator } from '../../r4/models/datatypes/NarrativeValidator';
-import { CompositionSectionValidator } from '../../r4/models/backbones/CompositionSectionValidator';
-import { CompositionAttesterValidator } from '../../r4/models/backbones/CompositionAttesterValidator';
-import { CompositionRelatesToValidator } from '../../r4/models/backbones/CompositionRelatesToValidator';
-import { CompositionEventValidator } from '../../r4/models/backbones/CompositionEventValidator';
-import { GroupCharacteristicValidator } from '../../r4/models/backbones/GroupCharacteristicValidator';
-import { GroupMemberValidator } from '../../r4/models/backbones/GroupMemberValidator';
-import { LocationPositionValidator } from '../../r4/models/backbones/LocationPositionValidator';
-import { LocationHoursOfOperationValidator } from '../../r4/models/backbones/LocationHoursOfOperationValidator';
-import { OrganizationContactValidator } from '../../r4/models/backbones/OrganizationContactValidator';
-import { PatientContactValidator } from '../../r4/models/backbones/PatientContactValidator';
-import { PatientCommunicationValidator } from '../../r4/models/backbones/PatientCommunicationValidator';
-import { PatientLinkValidator } from '../../r4/models/backbones/PatientLinkValidator';
-import { PersonLinkValidator } from '../../r4/models/backbones/PersonLinkValidator';
-import { PractitionerQualificationValidator } from '../../r4/models/backbones/PractitionerQualificationValidator';
-import { PractitionerRoleAvailableTimeValidator } from '../../r4/models/backbones/PractitionerRoleAvailableTimeValidator';
-import { PractitionerRoleNotAvailableValidator } from '../../r4/models/backbones/PractitionerRoleNotAvailableValidator';
-import { RelatedPersonCommunicationValidator } from '../../r4/models/backbones/RelatedPersonCommunicationValidator';
-import { PatientValidator } from '../../r4/models/resources/PatientValidator';
-import { BundleValidator } from '../../r4/models/resources/BundleValidator';
-import { CompositionValidator } from '../../r4/models/resources/CompositionValidator';
-import { LocationValidator } from '../../r4/models/resources/LocationValidator';
-import { OrganizationValidator } from '../../r4/models/resources/OrganizationValidator';
-import { GroupValidator } from '../../r4/models/resources/GroupValidator';
-import { RelatedPersonValidator } from '../../r4/models/resources/RelatedPersonValidator';
-import { PractitionerRoleValidator } from '../../r4/models/resources/PractitionerRoleValidator';
-import { PractitionerValidator } from '../../r4/models/resources/PractitionerValidator';
+import { ExtensionValidator } from '../models/datatypes/ExtensionValidator';
+import { ElementValidator } from '../models/base/ElementValidator';
+import { PeriodValidator } from '../models/datatypes/PeriodValidator';
+import { AddressValidator } from '../models/datatypes/AddressValidator';
+import { ContactPointValidator } from '../models/datatypes/ContactPointValidator';
+import { HumanNameValidator } from '../models/datatypes/HumanNameValidator';
+import { IdentifierValidator } from '../models/datatypes/IdentifierValidator';
+import { ReferenceValidator } from '../models/datatypes/ReferenceValidator';
+import { QuantityValidator } from '../models/datatypes/QuantityValidator';
+import { RangeValidator } from '../models/datatypes/RangeValidator';
+import { CodeableConceptValidator } from '../models/datatypes/CodeableConceptValidator';
+import { CodingValidator } from '../models/datatypes/CodingValidator';
+import { DurationValidator } from '../models/datatypes/DurationValidator';
+import { SimpleQuantityValidator } from '../models/datatypes/SimpleQuantityValidator';
+import { SignatureValidator } from '../models/datatypes/SignatureValidator';
+import { MetaValidator } from '../models/datatypes/MetaValidator';
+import { AttachmentValidator } from '../models/datatypes/AttachmentValidator';
+import { ResourceValidator } from '../models/base/ResourceValidator';
+import { BundleEntryValidator } from '../models/backbones/BundleEntryValidator';
+import { BundleLinkValidator } from '../models/backbones/BundleLinkValidator';
+import { BundleEntryRequestValidator } from '../models/backbones/BundleEntryRequestValidator';
+import { BundleEntryResponseValidator } from '../models/backbones/BundleEntryResponseValidator';
+import { BundleEntrySearchValidator } from '../models/backbones/BundleEntrySearchValidator';
+import { NarrativeValidator } from '../models/datatypes/NarrativeValidator';
+import { CompositionSectionValidator } from '../models/backbones/CompositionSectionValidator';
+import { CompositionAttesterValidator } from '../models/backbones/CompositionAttesterValidator';
+import { CompositionRelatesToValidator } from '../models/backbones/CompositionRelatesToValidator';
+import { CompositionEventValidator } from '../models/backbones/CompositionEventValidator';
+import { GroupCharacteristicValidator } from '../models/backbones/GroupCharacteristicValidator';
+import { GroupMemberValidator } from '../models/backbones/GroupMemberValidator';
+import { LocationPositionValidator } from '../models/backbones/LocationPositionValidator';
+import { LocationHoursOfOperationValidator } from '../models/backbones/LocationHoursOfOperationValidator';
+import { OrganizationContactValidator } from '../models/backbones/OrganizationContactValidator';
+import { PatientContactValidator } from '../models/backbones/PatientContactValidator';
+import { PatientCommunicationValidator } from '../models/backbones/PatientCommunicationValidator';
+import { PatientLinkValidator } from '../models/backbones/PatientLinkValidator';
+import { PersonLinkValidator } from '../models/backbones/PersonLinkValidator';
+import { PractitionerQualificationValidator } from '../models/backbones/PractitionerQualificationValidator';
+import { PractitionerRoleAvailableTimeValidator } from '../models/backbones/PractitionerRoleAvailableTimeValidator';
+import { PractitionerRoleNotAvailableValidator } from '../models/backbones/PractitionerRoleNotAvailableValidator';
+import { RelatedPersonCommunicationValidator } from '../models/backbones/RelatedPersonCommunicationValidator';
+import { PatientValidator } from '../models/resources/PatientValidator';
+import { BundleValidator } from '../models/resources/BundleValidator';
+import { CompositionValidator } from '../models/resources/CompositionValidator';
+import { LocationValidator } from '../models/resources/LocationValidator';
+import { OrganizationValidator } from '../models/resources/OrganizationValidator';
+import { GroupValidator } from '../models/resources/GroupValidator';
+import { RelatedPersonValidator } from '../models/resources/RelatedPersonValidator';
+import { PractitionerRoleValidator } from '../models/resources/PractitionerRoleValidator';
+import { PractitionerValidator } from '../models/resources/PractitionerValidator';
 
 const Base64BinaryValidator = (value: string, path: string) => {
   // regex for /^(\s*([0-9a-zA-Z\+\=]){4}\s*)+$/
@@ -338,7 +338,7 @@ export const Validator: ValidatorType = {
   Extension: ExtensionValidator,
   Element: ElementValidator,
   Period: PeriodValidator,
-  Address: AddressValidator,
+  Address: (data, path) => AddressValidator(data, path),
   ContactPoint: ContactPointValidator,
   HumanName: HumanNameValidator,
   Identifier: IdentifierValidator,

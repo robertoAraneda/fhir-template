@@ -1,7 +1,7 @@
 import Element from '../base/Element';
 import { INarrative } from '../../interfaces/datatypes';
-import { NarrativeStatusEnum } from '../../../enums';
-import { NarrativeStatusType } from '../../../types';
+import { NarrativeStatusEnum } from '../../enums';
+import { NarrativeStatusType } from '../../types';
 import { NarrativeBuilder } from './NarrativeBuilder';
 
 export class Narrative extends Element implements INarrative {

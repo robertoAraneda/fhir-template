@@ -2,7 +2,7 @@ import { ICompositionSection } from '../../interfaces/backbones';
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { CodeableConceptValidator } from '../datatypes/CodeableConceptValidator';
 import { ReferenceValidator } from '../datatypes/ReferenceValidator';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const compositionSectionKeysDefinitions = BackboneAttributesHelperR4<ICompositionSection>([
   {

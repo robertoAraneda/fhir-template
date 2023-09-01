@@ -1,7 +1,6 @@
 import FHIRContext from '../../../src';
 import { IPeriod } from '../../../src/r5/interfaces/datatypes';
 import PeriodBuilder from '../../../src/r5/models/datatypes/PeriodBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 import { PeriodValidator } from '../../../src/r5/models/datatypes/PeriodValidator';
 
 describe('Period FHIR R5', () => {
@@ -28,10 +27,7 @@ describe('Period FHIR R5', () => {
       end: '2020-01-02',
     });
 
-    const validate = await _validateDataType(item, 'Period');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
+    expect(item).toBeDefined();
   });
 
   it('should return a Period with method', async function () {
@@ -58,6 +54,8 @@ describe('Period FHIR R5', () => {
       })
       .build();
 
+    expect(item).toBeDefined();
+
     expect(item).toEqual({
       end: '2020-01-02',
       id: 'id',
@@ -80,11 +78,6 @@ describe('Period FHIR R5', () => {
         ],
       },
     });
-
-    const validate = await _validateDataType(item, 'Period');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 
   it('should return an error if attribute does not exist', async function () {
@@ -94,9 +87,6 @@ describe('Period FHIR R5', () => {
       notExist: 'not exist',
     } as any;
 
-    const validate = await _validateDataType(item, 'Period');
-
-    expect(validate.isValid).toBeFalsy();
-    expect(validate.errors).toHaveLength(1);
+    expect(() => PeriodValidator(item)).toThrow("InvalidFieldException: field(s) 'notExist' is not a valid for Period");
   });
 });

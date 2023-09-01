@@ -1,6 +1,6 @@
 import FHIRContext from '../../../src';
 import { IPersonLink } from '../../../src/r4/interfaces/backbones';
-import { IdentityAssuranceLevelEnum } from '../../../src/enums';
+import { IdentityAssuranceLevelEnum } from '../../../src/r4/enums';
 import { PersonLinkBuilder } from '../../../src/r4/models/backbones/PersonLinkBuilder';
 
 import { PersonLinkValidator } from '../../../src/r4/models/backbones/PersonLinkValidator';

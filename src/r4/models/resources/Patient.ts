@@ -10,8 +10,8 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import { PatientBuilder } from './PatientBuilder';
 import { PatientValidator } from './PatientValidator';

@@ -1,7 +1,7 @@
 import { IDomainResource, IElement } from '../base';
 import { IIdentifier, IHumanName, IContactPoint, IAddress, IAttachment, IReference } from '../datatypes';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { IPersonLink } from '../backbones';
 
 export interface IPerson extends IDomainResource {

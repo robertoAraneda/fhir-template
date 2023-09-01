@@ -1,6 +1,6 @@
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IPeriod } from '../../interfaces/datatypes';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 export const periodKeysDefinitions = DataTypeAttributesHelperR4<IPeriod>([
   {
     name: 'start',

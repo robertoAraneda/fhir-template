@@ -2,8 +2,8 @@ import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/Backbon
 import { IBuildable } from '../../../globals/interfaces';
 import CompositionRelatesTo from './CompositionRelatesTo';
 import { IElementBuilder } from '../base/ElementBuilder';
-import { CompositionDocumentRelationshipTypeEnum } from '../../../enums';
-import { CompositionDocumentRelationshipType } from '../../../types';
+import { CompositionDocumentRelationshipTypeEnum } from '../../enums';
+import { CompositionDocumentRelationshipType } from '../../types';
 import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';

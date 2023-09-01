@@ -1,5 +1,5 @@
 import { IResource } from '../../interfaces/base';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const resourceKeysDefinitions: ReadonlyArray<any> = [
   {

@@ -1,6 +1,6 @@
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IPractitionerRole } from '../../interfaces/resources';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const practitionerRoleKeysDefinitions = ResourceAttributesHelperR4<IPractitionerRole>([
   {

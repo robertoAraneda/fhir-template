@@ -1,8 +1,8 @@
 import BackboneElement from '../base/BackboneElement';
 import { IBundleEntryRequest } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { BundleEntryRequestMethodType } from '../../../types';
-import { BundleEntryRequestMethodEnum } from '../../../enums';
+import { BundleEntryRequestMethodType } from '../../types';
+import { BundleEntryRequestMethodEnum } from '../../enums';
 import { BundleEntryRequestBuilder } from './BundleEntryRequestBuilder';
 import { bundleEntryRequestAttributes, BundleEntryRequestValidator } from './BundleEntryRequestValidator';
 

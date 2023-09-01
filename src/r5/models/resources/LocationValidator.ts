@@ -1,6 +1,6 @@
 import { ResourceAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ILocation } from '../../interfaces/resources';
-import { LocationModeEnum } from '../../../enums';
+import { LocationModeEnum } from '../../../r4/enums';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const locationKeysDefinitions = ResourceAttributesHelperR5<ILocation>([

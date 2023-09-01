@@ -9,13 +9,13 @@ import {
   ICompositionSection,
 } from '../../interfaces/backbones';
 import { ICodeableConcept, IIdentifier, IReference } from '../../interfaces/datatypes';
-import { CompositionStatusEnum } from '../../../enums';
-import { CompositionStatusType } from '../../../types';
+import { CompositionStatusEnum } from '../../enums';
+import { CompositionStatusType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import CompositionSection from '../backbones/CompositionSection';
 import IComposition from '../../interfaces/resources/IComposition';
-import CompositionConfidentialityEnum from '../../../enums/CompositionConfidentialityEnum';
-import CompositionConfidentialityType from '../../../types/CompositionConfidentialityType';
+import CompositionConfidentialityEnum from '../../enums/CompositionConfidentialityEnum';
+import CompositionConfidentialityType from '../../types/CompositionConfidentialityType';
 
 export interface ICompositionBuilder
   extends IBuildable<Composition>,

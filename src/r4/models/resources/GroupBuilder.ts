@@ -3,8 +3,8 @@ import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainRes
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, IIdentifier, IReference } from '../../interfaces/datatypes';
-import { GroupTypeEnum } from '../../../enums';
-import { GroupType } from '../../../types';
+import { GroupTypeEnum } from '../../enums';
+import { GroupType } from '../../types';
 import { IGroupCharacteristic, IGroupMember } from '../../interfaces/backbones';
 import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import Group from './Group';

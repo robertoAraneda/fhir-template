@@ -9,8 +9,8 @@ import {
   IIdentifier,
 } from '../../interfaces/datatypes';
 import { IPractitionerQualification } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import { PractitionerBuilder } from './PractitionerBuilder';
 import { PractitionerValidator } from './PractitionerValidator';

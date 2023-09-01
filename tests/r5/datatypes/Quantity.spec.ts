@@ -2,7 +2,6 @@ import { IQuantity } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import { QuantityComparatorEnum } from '../../../src/r5/enums';
 import QuantityBuilder from '../../../src/r5/models/datatypes/QuantityBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 import { QuantityValidator } from '../../../src/r5/models/datatypes/QuantityValidator';
 
 describe('Quantity FHIR R5', () => {

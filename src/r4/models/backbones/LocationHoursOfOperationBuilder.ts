@@ -1,8 +1,8 @@
 import { IBuildable } from '../../../globals/interfaces';
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElementBuilder } from '../base/ElementBuilder';
-import { DaysOfWeekEnum } from '../../../enums';
-import { DaysOfWeekType } from '../../../types';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 import LocationHoursOfOperation from './LocationHoursOfOperation';
 import { ILocationHoursOfOperation } from '../../interfaces/backbones';
 

@@ -1,7 +1,7 @@
 import BackboneElement from '../base/BackboneElement';
 import { ICompositionRelatesTo } from '../../interfaces/backbones';
-import { CompositionDocumentRelationshipTypeEnum } from '../../../enums';
-import { CompositionDocumentRelationshipType } from '../../../types';
+import { CompositionDocumentRelationshipTypeEnum } from '../../enums';
+import { CompositionDocumentRelationshipType } from '../../types';
 import { IIdentifier, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import CompositionRelatesToBuilder from './CompositionRelatesToBuilder';

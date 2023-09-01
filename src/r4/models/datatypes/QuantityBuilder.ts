@@ -1,8 +1,8 @@
 import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { IQuantity } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
-import { QuantityComparatorEnum } from '../../../enums';
-import { QuantityComparatorType } from '../../../types';
+import { QuantityComparatorEnum } from '../../enums';
+import { QuantityComparatorType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import Quantity from './Quantity';
 

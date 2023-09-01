@@ -1,6 +1,6 @@
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IBundleEntryResponse } from '../../interfaces/backbones';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const bundleEntryResponseKeysDefinitions = DataTypeAttributesHelperR4<IBundleEntryResponse>([
   {

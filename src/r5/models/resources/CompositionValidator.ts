@@ -2,7 +2,7 @@ import { ResourceAttributesHelperR5 } from '../../../globals/helpers/generateLis
 import IComposition from '../../interfaces/resources/IComposition';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 import Composition from './Composition';
-import { CompositionStatusEnum } from '../../../enums';
+import { CompositionStatusEnum } from '../../../r4/enums';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const isComposition = (obj: unknown): obj is Composition => {

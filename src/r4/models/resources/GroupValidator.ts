@@ -1,7 +1,7 @@
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IGroup } from '../../interfaces/resources';
-import { GroupTypeEnum } from '../../../enums';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { GroupTypeEnum } from '../../enums';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 
 export const groupKeysDefinitions = ResourceAttributesHelperR4<IGroup>([

@@ -1,6 +1,6 @@
 import { DataTypeAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IIdentifier } from '../../interfaces/datatypes';
-import { IdentifierUseEnum } from '../../../enums';
+import { IdentifierUseEnum } from '../../../r4/enums';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const identifierKeyDefinitions = DataTypeAttributesHelperR5<IIdentifier>([

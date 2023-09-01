@@ -1,6 +1,6 @@
 import { DataTypeAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import IAddress from '../../interfaces/datatypes/IAddress';
-import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
+import { AddressTypeEnum, AddressUseEnum } from '../../../r4/enums';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const addressType: string[] = Object.values(AddressTypeEnum);

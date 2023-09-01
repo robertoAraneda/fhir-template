@@ -11,8 +11,8 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import { RelatedPersonBuilder } from './RelatedPersonBuilder';
 import { RelatedPersonValidator } from './RelatedPersonValidator';

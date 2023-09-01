@@ -1,8 +1,8 @@
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IQuantity } from '../../interfaces/datatypes';
 import InvalidFieldException from '../../../globals/exceptions/InvalidFieldException';
-import { QuantityComparatorEnum } from '../../../enums';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { QuantityComparatorEnum } from '../../enums';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const quantityKeysDefinitions = DataTypeAttributesHelperR4<IQuantity>([
   {

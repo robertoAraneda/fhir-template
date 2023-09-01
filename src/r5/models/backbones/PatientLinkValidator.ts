@@ -1,5 +1,5 @@
 import { IPatientLink } from '../../interfaces/backbones';
-import { LinkTypeEnum } from '../../../enums';
+import { LinkTypeEnum } from '../../../r4/enums';
 import { BackboneAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 

@@ -2,8 +2,8 @@ import { IBuildable } from '../../../globals/interfaces';
 import { IAddress, IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
-import { AddressTypeType, AddressUseType } from '../../../types';
+import { AddressTypeEnum, AddressUseEnum } from '../../enums';
+import { AddressTypeType, AddressUseType } from '../../types';
 import Address from './Address';
 
 type ParamExtensionType = 'use' | 'type' | 'text' | 'line' | 'city' | 'district' | 'state' | 'postalCode' | 'country';

@@ -1,7 +1,7 @@
 import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { DaysOfWeekEnum } from '../../../enums';
-import { DaysOfWeekType } from '../../../types';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 import BackboneElement from '../base/BackboneElement';
 import { PractitionerRoleAvailableTimeBuilder } from './PractitionerRoleAvailableTimeBuilder';
 import { PractitionerRoleAvailableTimeValidator } from './PractitionerRoleAvailableTimeValidator';

@@ -1,7 +1,7 @@
 import { IRelatedPerson } from '../../interfaces/resources';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../../r4/validators/ValidatorHelperR4';
 import { ResourceAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
-import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderEnum } from '../../../r4/enums';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const relatedPersonKeysDefinitions = ResourceAttributesHelperR5<IRelatedPerson>([

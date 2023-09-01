@@ -1,6 +1,6 @@
 import { IQuantity } from '../../../src/r4/interfaces/datatypes';
 import FHIRContext from '../../../src';
-import { QuantityComparatorEnum } from '../../../src/enums';
+import { QuantityComparatorEnum } from '../../../src/r4/enums';
 import { QuantityBuilder } from '../../../src/r4/models/datatypes/QuantityBuilder';
 import InvalidFieldException from '../../../src/globals/exceptions/InvalidFieldException';
 import { QuantityValidator } from '../../../src/r4/models/datatypes/QuantityValidator';

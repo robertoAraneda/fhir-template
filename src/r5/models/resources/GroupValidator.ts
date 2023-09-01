@@ -1,6 +1,6 @@
 import { ResourceAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IGroup } from '../../interfaces/resources';
-import { GroupTypeEnum } from '../../../enums';
+import { GroupTypeEnum } from '../../../r4/enums';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 import { GroupMembershipBasisEnum } from '../../enums';
 

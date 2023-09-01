@@ -1,5 +1,5 @@
 import { IPersonLink } from '../../interfaces/backbones';
-import { IdentityAssuranceLevelEnum } from '../../../enums';
+import { IdentityAssuranceLevelEnum } from '../../../r4/enums';
 import { BackboneAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 

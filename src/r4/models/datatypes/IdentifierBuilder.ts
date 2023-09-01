@@ -2,8 +2,8 @@ import { IBuildable, ISerializable } from '../../../globals/interfaces';
 import { ICodeableConcept, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { IdentifierUseEnum } from '../../../enums';
-import { IdentifierUseType } from '../../../types';
+import { IdentifierUseEnum } from '../../enums';
+import { IdentifierUseType } from '../../types';
 import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import Identifier from './Identifier';
 

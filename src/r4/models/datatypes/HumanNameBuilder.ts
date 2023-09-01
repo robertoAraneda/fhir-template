@@ -2,8 +2,8 @@ import { IBuildable } from '../../../globals/interfaces';
 import { IHumanName, IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { NameUseEnum } from '../../../enums';
-import { NameUseType } from '../../../types';
+import { NameUseEnum } from '../../enums';
+import { NameUseType } from '../../types';
 import HumanName from './HumanName';
 
 type ParamType = 'use' | 'text' | 'family' | 'given' | 'prefix' | 'suffix';

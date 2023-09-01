@@ -3,8 +3,8 @@ import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/Backbon
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { IReference } from '../../interfaces/datatypes';
-import { LinkTypeEnum } from '../../../enums';
-import { LinkTypeType } from '../../../types';
+import { LinkTypeEnum } from '../../enums';
+import { LinkTypeType } from '../../types';
 import PatientLink from './PatientLink';
 import { IPatientLink } from '../../interfaces/backbones';
 

@@ -1,6 +1,6 @@
 import { IBackboneElement, IElement } from '../base';
-import { BundleEntryRequestMethodType } from '../../../types';
-import { BundleEntryRequestMethodEnum } from '../../../enums';
+import { BundleEntryRequestMethodType } from '../../types';
+import { BundleEntryRequestMethodEnum } from '../../enums';
 
 export interface IBundleEntryRequest extends IBackboneElement {
   method: BundleEntryRequestMethodType | BundleEntryRequestMethodEnum;

@@ -1,7 +1,7 @@
 import { IRange } from '../../interfaces/datatypes';
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import ConstraintException from '../../../globals/exceptions/ConstraintException';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 export const rangeKeysDefinitions = DataTypeAttributesHelperR4<IRange>([
   {
     name: 'low',

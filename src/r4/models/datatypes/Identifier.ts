@@ -1,7 +1,7 @@
 import { ICodeableConcept, IExtension, IIdentifier, IPeriod, IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { IdentifierUseEnum } from '../../../enums';
-import { IdentifierUseType } from '../../../types';
+import { IdentifierUseEnum } from '../../enums';
+import { IdentifierUseType } from '../../types';
 import Element from '../base/Element';
 import { IdentifierBuilder } from './IdentifierBuilder';
 import { IdentifierValidator } from './IdentifierValidator';

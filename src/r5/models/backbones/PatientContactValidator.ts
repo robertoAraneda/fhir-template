@@ -1,12 +1,12 @@
 import { IPatientContact } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../../r4/enums';
+import { AdministrativeGenderType } from '../../../r4/types';
 import assert from 'assert';
 import {
   BackboneAttributesHelperR4,
   BackboneAttributesHelperR5,
 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../../r4/validators/ValidatorHelperR4';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 

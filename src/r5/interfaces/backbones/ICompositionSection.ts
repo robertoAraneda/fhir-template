@@ -1,7 +1,7 @@
 import { IBackboneElement, IElement } from '../base';
 import { ICodeableConcept, INarrative, IReference } from '../datatypes';
-import { CompositionSectionListModeEnum } from '../../../enums';
-import { CompositionSectionListModeType } from '../../../types';
+import { CompositionSectionListModeEnum } from '../../../r4/enums';
+import { CompositionSectionListModeType } from '../../../r4/types';
 
 export default interface ICompositionSection extends IBackboneElement {
   title?: string;

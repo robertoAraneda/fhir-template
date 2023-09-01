@@ -3,8 +3,8 @@ import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/Backbon
 import { IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
 import { IReference } from '../../interfaces/datatypes';
-import { IdentityAssuranceLevelEnum } from '../../../enums';
-import { IdentityAssuranceLevelType } from '../../../types';
+import { IdentityAssuranceLevelEnum } from '../../enums';
+import { IdentityAssuranceLevelType } from '../../types';
 import PersonLink from './PersonLink';
 import { IPersonLink } from '../../interfaces/backbones';
 

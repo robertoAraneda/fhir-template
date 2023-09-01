@@ -2,8 +2,8 @@ import BackboneElement from '../base/BackboneElement';
 import { ICompositionSection } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { ICodeableConcept, INarrative, IReference } from '../../interfaces/datatypes';
-import { CompositionSectionListModeEnum } from '../../../enums';
-import { CompositionSectionListModeType } from '../../../types';
+import { CompositionSectionListModeEnum } from '../../enums';
+import { CompositionSectionListModeType } from '../../types';
 import CompositionSectionBuilder from './CompositionSectionBuilder';
 import { CompositionSectionValidator } from './CompositionSectionValidator';
 

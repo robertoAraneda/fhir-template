@@ -1,6 +1,6 @@
 import { ILocationHoursOfOperation } from '../../interfaces/backbones';
-import { DaysOfWeekEnum } from '../../../enums';
-import { DaysOfWeekType } from '../../../types';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 import BackboneElement from '../base/BackboneElement';
 import { LocationHoursOfOperationBuilder } from './LocationHoursOfOperationBuilder';
 import { IElement } from '../../interfaces/base';

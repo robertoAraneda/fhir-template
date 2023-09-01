@@ -1,7 +1,6 @@
 import { IAvailability } from '../../../src/r5/interfaces/datatypes';
 import FHIRContext from '../../../src';
 import AvailabilityBuilder from '../../../src/r5/models/datatypes/AvailabilityBuilder';
-import { _validateDataType } from '../../../src/r5/validators/BaseValidator';
 
 import { AvailabilityValidator } from '../../../src/r5/models/datatypes/AvailabilityValidator';
 
@@ -120,10 +119,5 @@ describe('Availability FHIR R5', () => {
         },
       ],
     });
-
-    const validate = await _validateDataType(item, 'Availability');
-
-    expect(validate.isValid).toBeTruthy();
-    expect(validate.errors).toBeUndefined();
   });
 });

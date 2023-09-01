@@ -1,7 +1,7 @@
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IPractitionerRoleNotAvailable } from '../../interfaces/backbones';
 import { PeriodValidator } from '../datatypes/PeriodValidator';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const practitionerRoleNotAvailableKeysDefinitions = BackboneAttributesHelperR4<IPractitionerRoleNotAvailable>([
   {

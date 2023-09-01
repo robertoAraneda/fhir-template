@@ -1,7 +1,7 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IBuildable } from '../../../globals/interfaces';
-import { NarrativeStatusEnum } from '../../../enums';
-import { NarrativeStatusType } from '../../../types';
+import { NarrativeStatusEnum } from '../../../r4/enums';
+import { NarrativeStatusType } from '../../../r4/types';
 import { INarrative } from '../../interfaces/datatypes';
 import { Narrative } from './Narrative';
 

@@ -9,8 +9,8 @@ import {
   IIdentifier,
   IReference,
 } from '../../interfaces/datatypes';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { IPatientCommunication, IPatientContact, IPatientLink } from '../../interfaces/backbones';
 import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder } from '../base/ResourceBuilder';

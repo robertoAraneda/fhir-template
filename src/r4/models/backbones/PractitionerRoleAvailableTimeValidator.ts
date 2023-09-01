@@ -1,7 +1,7 @@
 import { IPractitionerRoleAvailableTime } from '../../interfaces/backbones';
-import { DaysOfWeekEnum } from '../../../enums';
+import { DaysOfWeekEnum } from '../../enums';
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const practitionerRoleAvailableTimeKeysDefinitions = BackboneAttributesHelperR4<IPractitionerRoleAvailableTime>([
   {

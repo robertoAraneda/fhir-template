@@ -1,6 +1,6 @@
 import FHIRContext from '../../../src';
 import { IBundleEntryRequest } from '../../../src/r4/interfaces/backbones';
-import BundleEntryRequestMethodEnum from '../../../src/enums/BundleEntryRequestMethodEnum';
+import BundleEntryRequestMethodEnum from '../../../src/r4/enums/BundleEntryRequestMethodEnum';
 import { BundleEntryRequestBuilder } from '../../../src/r4/models/backbones/BundleEntryRequestBuilder';
 import InvalidFieldException from '../../../src/globals/exceptions/InvalidFieldException';
 import { BundleEntryRequestValidator } from '../../../src/r4/models/backbones/BundleEntryRequestValidator';

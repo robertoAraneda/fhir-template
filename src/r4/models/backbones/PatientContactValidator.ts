@@ -1,9 +1,9 @@
 import { IPatientContact } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import assert from 'assert';
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 
 export const patientContactKeysDefinitions = BackboneAttributesHelperR4<IPatientContact>([

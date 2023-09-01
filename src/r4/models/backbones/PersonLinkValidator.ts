@@ -1,8 +1,8 @@
 import { IPersonLink } from '../../interfaces/backbones';
-import { IdentityAssuranceLevelEnum } from '../../../enums';
+import { IdentityAssuranceLevelEnum } from '../../enums';
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ReferenceValidator } from '../datatypes/ReferenceValidator';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const personLinkKeysDefinitions = BackboneAttributesHelperR4<IPersonLink>([
   {

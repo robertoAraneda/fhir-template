@@ -1,7 +1,7 @@
 import BackboneElement from '../base/BackboneElement';
 import { ICompositionAttester } from '../../interfaces/backbones';
-import { CompositionAttestationModeEnum } from '../../../enums';
-import { CompositionAttestationModeType } from '../../../types';
+import { CompositionAttestationModeEnum } from '../../enums';
+import { CompositionAttestationModeType } from '../../types';
 import { IReference } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import CompositionAttesterBuilder from './CompositionAttesterBuilder';

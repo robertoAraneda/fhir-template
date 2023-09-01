@@ -12,8 +12,8 @@ import {
   IReference,
 } from '../../interfaces/datatypes';
 import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { IRelatedPersonCommunication } from '../../interfaces/backbones';
 import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder } from '../base/ResourceBuilder';

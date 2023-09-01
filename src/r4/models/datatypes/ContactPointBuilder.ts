@@ -2,8 +2,8 @@ import { IBuildable } from '../../../globals/interfaces';
 import { IContactPoint, IPeriod } from '../../interfaces/datatypes';
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { ContactPointSystemEnum, ContactPointUseEnum } from '../../../enums';
-import { ContactPointSystemType, ContactPointUseType } from '../../../types';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
+import { ContactPointSystemType, ContactPointUseType } from '../../types';
 import CodeableConcept from './CodeableConcept';
 import ContactPoint from './ContactPoint';
 

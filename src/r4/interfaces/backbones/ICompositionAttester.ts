@@ -1,6 +1,6 @@
 import { IBackboneElement, IElement } from '../base';
-import { CompositionAttestationModeEnum } from '../../../enums';
-import { CompositionAttestationModeType } from '../../../types';
+import { CompositionAttestationModeEnum } from '../../enums';
+import { CompositionAttestationModeType } from '../../types';
 import { IReference } from '../datatypes';
 
 type CompositionAttesterMode = CompositionAttestationModeEnum | CompositionAttestationModeType;

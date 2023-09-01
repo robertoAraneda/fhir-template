@@ -1,8 +1,8 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { Address } from './index';
 import { IBuildable } from '../../../globals/interfaces';
-import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
-import { AddressTypeType, AddressUseType } from '../../../types';
+import { AddressTypeEnum, AddressUseEnum } from '../../../r4/enums';
+import { AddressTypeType, AddressUseType } from '../../../r4/types';
 import { IElement } from '../../interfaces/base';
 import { IAddress, IPeriod } from '../../interfaces/datatypes';
 

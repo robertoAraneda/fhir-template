@@ -1,4 +1,4 @@
-import { BundleTypeEnum } from '../../../enums';
+import { BundleTypeEnum } from '../../../r4/enums';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 import { ResourceAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import Bundle from './Bundle';

@@ -2,7 +2,7 @@ import { IAttachment } from '../../interfaces/datatypes';
 import ConstraintException from '../../../globals/exceptions/ConstraintException';
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import assert from 'assert';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const attachmentKeys = DataTypeAttributesHelperR4<IAttachment>([
   {

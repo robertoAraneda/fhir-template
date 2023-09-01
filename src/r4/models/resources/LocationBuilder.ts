@@ -9,8 +9,8 @@ import {
 } from '../../interfaces/datatypes';
 import { ILocationHoursOfOperation, ILocationPosition } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
-import { LocationModeEnum, LocationStatusEnum } from '../../../enums';
-import { LocationModeType, LocationStatusType } from '../../../types';
+import { LocationModeEnum, LocationStatusEnum } from '../../enums';
+import { LocationModeType, LocationStatusType } from '../../types';
 import { IBuildable } from '../../../globals/interfaces';
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import Location from './Location';

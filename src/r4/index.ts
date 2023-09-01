@@ -1,4 +1,3 @@
-import ResourceValidator from './validators/ResourceValidator';
 import {
   Address,
   Attachment,
@@ -54,6 +53,8 @@ import {
   CompositionRelatesTo,
   CompositionSection,
 } from './models/backbones';
+
+import { PatientValidator } from './models/resources/PatientValidator';
 
 export class FhirContextR4 {
   getInstances() {
@@ -112,7 +113,7 @@ export class FhirContextR4 {
 
   public getValidator() {
     return {
-      ...ResourceValidator,
+      PatientValidator,
     };
   }
 }

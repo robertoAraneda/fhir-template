@@ -11,8 +11,8 @@ import {
   IIdentifier,
 } from '../../interfaces/datatypes';
 import { IPractitionerQualification } from '../../interfaces/backbones';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
 import Practitioner from './Practitioner';
 import { IPractitioner } from '../../interfaces/resources';

@@ -1,5 +1,5 @@
-import { DaysOfWeekEnum } from '../../../enums';
-import { DaysOfWeekType } from '../../../types';
+import { DaysOfWeekEnum } from '../../enums';
+import { DaysOfWeekType } from '../../types';
 import { IBackboneElement, IElement } from '../base';
 
 export interface ILocationHoursOfOperation extends IBackboneElement {

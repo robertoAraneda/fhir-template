@@ -1,5 +1,5 @@
 import { IHumanName } from '../../interfaces/datatypes';
-import { NameUseEnum } from '../../../enums';
+import { NameUseEnum } from '../../../r4/enums';
 import { DataTypeAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 

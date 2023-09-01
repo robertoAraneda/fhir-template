@@ -1,7 +1,7 @@
 import { IPersonLink } from '../../interfaces/backbones';
 import { IReference } from '../../interfaces/datatypes';
-import { IdentityAssuranceLevelEnum } from '../../../enums';
-import { IdentityAssuranceLevelType } from '../../../types';
+import { IdentityAssuranceLevelEnum } from '../../enums';
+import { IdentityAssuranceLevelType } from '../../types';
 import { IElement } from '../../interfaces/base';
 import BackboneElement from '../base/BackboneElement';
 import { PersonLinkBuilder } from './PersonLinkBuilder';

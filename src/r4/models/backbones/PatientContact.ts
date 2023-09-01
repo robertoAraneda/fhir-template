@@ -1,8 +1,8 @@
 import { IPatientContact } from '../../interfaces/backbones';
 import { IElement } from '../../interfaces/base';
 import { IAddress, ICodeableConcept, IContactPoint, IHumanName, IPeriod, IReference } from '../../interfaces/datatypes';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import BackboneElement from '../base/BackboneElement';
 import { PatientContactBuilder } from './PatientContactBuilder';
 import { PatientContactValidator } from './PatientContactValidator';

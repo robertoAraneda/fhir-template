@@ -1,8 +1,8 @@
 import { IPatient } from '../../interfaces/resources';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { AdministrativeGenderEnum } from '../../../enums';
+import { AdministrativeGenderEnum } from '../../enums';
 
 export const patientKeysDefinitions = ResourceAttributesHelperR4<IPatient>([
   {

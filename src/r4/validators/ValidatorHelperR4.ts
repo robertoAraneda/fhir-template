@@ -1,8 +1,8 @@
-import { AttributeHelperDefinitionR4 } from './generateListAttributesHelper';
+import { AttributeHelperDefinitionR4 } from '../../globals/helpers/generateListAttributesHelper';
 import { ValidatorType, Validator } from './ValidatorDefinitionR4';
-import InvalidFieldException from '../exceptions/InvalidFieldException';
-import { ElementValidator } from '../../r4/models/base/ElementValidator';
-import { IElement as IElementR4, IResource as IResourceR4 } from '../../r4/interfaces/base';
+import InvalidFieldException from '../../globals/exceptions/InvalidFieldException';
+import { ElementValidator } from '../models/base/ElementValidator';
+import { IElement as IElementR4, IResource as IResourceR4 } from '../interfaces/base';
 
 export const ValidatorHelperR4 = <T extends {}>(
   payload: T,
@@ -60,7 +60,11 @@ export const ValidatorHelperR4 = <T extends {}>(
         const validator = Validator[element.type] as (data: any, path: string) => void;
 
         payloadArray.forEach((item: any, index: number) => {
-          validator(item, `${path}.${String(element.name)}[${index}]`);
+          if (validator) {
+            validator(item, `${path}.${String(element.name)}[${index}]`);
+          } else {
+            console.warn("Validator doesn't exist", element.type);
+          }
         });
       }
 

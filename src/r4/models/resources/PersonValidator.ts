@@ -1,7 +1,7 @@
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IPerson } from '../../interfaces/resources';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { AdministrativeGenderEnum } from '../../enums';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const personKeysDefinitions = ResourceAttributesHelperR4<IPerson>([
   {

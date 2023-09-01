@@ -1,7 +1,7 @@
 import { BackboneElementBuilder, IBackboneElementBuilder } from '../base/BackboneElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { BundleEntryRequestMethodEnum } from '../../../enums';
-import { BundleEntryRequestMethodType } from '../../../types';
+import { BundleEntryRequestMethodEnum } from '../../enums';
+import { BundleEntryRequestMethodType } from '../../types';
 import { IBuildable } from '../../../globals/interfaces';
 import { IElementBuilder } from '../base/ElementBuilder';
 import BundleEntryRequest from './BundleEntryRequest';

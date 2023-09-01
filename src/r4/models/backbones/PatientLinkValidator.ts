@@ -1,8 +1,8 @@
 import { IPatientLink } from '../../interfaces/backbones';
-import { LinkTypeEnum } from '../../../enums';
+import { LinkTypeEnum } from '../../enums';
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ReferenceValidator } from '../datatypes/ReferenceValidator';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const patientLinkKeysDefinitions = BackboneAttributesHelperR4<IPatientLink>([
   {

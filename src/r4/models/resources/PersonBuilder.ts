@@ -3,8 +3,8 @@ import { DomainResourceBuilder, IDomainResourceBuilder } from '../base/DomainRes
 import { IResourceBuilder } from '../base/ResourceBuilder';
 import { IElement } from '../../interfaces/base';
 import { IAddress, IAttachment, IContactPoint, IHumanName, IIdentifier, IReference } from '../../interfaces/datatypes';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { IPersonLink } from '../../interfaces/backbones';
 import Person from './Person';
 import { IPerson } from '../../interfaces/resources';

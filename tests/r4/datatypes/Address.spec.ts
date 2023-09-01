@@ -1,5 +1,5 @@
 import FHIRContext from '../../../src';
-import { AddressTypeEnum } from '../../../src/enums';
+import { AddressTypeEnum } from '../../../src/r4/enums';
 import { IAddress } from '../../../src/r4/interfaces/datatypes';
 import { AddressBuilder } from '../../../src/r4/models/datatypes/AddressBuilder';
 

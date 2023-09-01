@@ -1,6 +1,6 @@
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { INarrative } from '../../interfaces/datatypes';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const narrativeKeysDefinitions = DataTypeAttributesHelperR4<INarrative>([
   {

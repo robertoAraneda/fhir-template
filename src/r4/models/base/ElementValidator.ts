@@ -1,7 +1,7 @@
 import { IElement } from '../../interfaces/base';
 import { recursiveValidateExtension } from '../../../globals/helpers/validateExtensionHelper';
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const elementKeys = DataTypeAttributesHelperR4<IElement>([]);
 

@@ -1,6 +1,6 @@
 import FHIRContext from '../../../src';
 import { IBundleEntry } from '../../../src/r4/interfaces/backbones';
-import { AdministrativeGenderEnum, BundleEntryRequestMethodEnum } from '../../../src/enums';
+import { AdministrativeGenderEnum, BundleEntryRequestMethodEnum } from '../../../src/r4/enums';
 import { BundleEntryBuilder } from '../../../src/r4/models/backbones/BundleEntryBuilder';
 import InvalidFieldException from '../../../src/globals/exceptions/InvalidFieldException';
 import { BundleEntryValidator } from '../../../src/r4/models/backbones/BundleEntryValidator';

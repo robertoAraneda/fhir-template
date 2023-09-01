@@ -1,10 +1,9 @@
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import IComposition from '../../interfaces/resources/IComposition';
 import ResourceException from '../../../globals/exceptions/ResourceException';
-import { ValidateResourceFormatHelper } from '../../../globals/helpers/validateFormatHelper';
 import Composition from './Composition';
-import { CompositionStatusEnum } from '../../../enums';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { CompositionStatusEnum } from '../../enums';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const isComposition = (obj: unknown): obj is Composition => {
   return obj !== undefined && obj !== null && (obj as Composition).resourceType === 'Composition';

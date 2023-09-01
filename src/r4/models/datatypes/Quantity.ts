@@ -1,7 +1,7 @@
 import { IQuantity } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
-import { QuantityComparatorEnum } from '../../../enums';
-import { QuantityComparatorType } from '../../../types';
+import { QuantityComparatorEnum } from '../../enums';
+import { QuantityComparatorType } from '../../types';
 import Element from '../base/Element';
 import { QuantityBuilder } from './QuantityBuilder';
 import { QuantityValidator } from './QuantityValidator';

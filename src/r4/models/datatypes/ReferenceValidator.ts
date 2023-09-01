@@ -2,7 +2,7 @@ import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateLis
 import { IReference } from '../../interfaces/datatypes';
 import { ResourceTypeR4FromArray } from '../../GlobalResourceTypes';
 import { ValidateReferenceFormatHelper } from '../../../globals/helpers/validateReferenceFormatHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 export const referenceKeysDefinitions = DataTypeAttributesHelperR4<IReference>([
   {
     name: 'reference',

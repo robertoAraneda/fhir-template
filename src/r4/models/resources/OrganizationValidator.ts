@@ -1,5 +1,5 @@
 import { IOrganization } from '../../interfaces/resources';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 import ResourceException from '../../../globals/exceptions/ResourceException';
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 

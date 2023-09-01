@@ -1,7 +1,7 @@
 import { IDomainResource, IElement } from '../base';
 import { IIdentifier, IHumanName, IContactPoint, IAddress, IAttachment, ICodeableConcept } from '../datatypes';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { IPractitionerQualification } from '../backbones';
 
 export interface IPractitioner extends IDomainResource {

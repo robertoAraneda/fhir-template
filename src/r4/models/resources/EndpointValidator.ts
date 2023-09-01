@@ -1,10 +1,7 @@
 import { ResourceAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IEndpoint } from '../../interfaces/resources';
-import { ValidateResourceFormatHelper } from '../../../globals/helpers/validateFormatHelper';
-import { EndpointStatusEnum } from '../../../enums';
-import { EndpointStatusType } from '../../../types';
-import InvalidFieldException from '../../../globals/exceptions/InvalidFieldException';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { EndpointStatusEnum } from '../../enums';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const isEndpoint = (obj: unknown): obj is IEndpoint => {
   return obj !== undefined && obj !== null && (obj as IEndpoint).resourceType === 'Endpoint';

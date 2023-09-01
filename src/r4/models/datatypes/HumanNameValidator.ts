@@ -1,9 +1,9 @@
 import { IHumanName } from '../../interfaces/datatypes';
-import { NameUseEnum } from '../../../enums';
+import { NameUseEnum } from '../../enums';
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 
 import { PeriodValidator } from './PeriodValidator';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const humanNameKeyDefinitions = DataTypeAttributesHelperR4<IHumanName>([
   {

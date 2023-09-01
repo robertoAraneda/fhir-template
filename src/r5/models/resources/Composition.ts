@@ -1,7 +1,7 @@
 import DomainResource from '../base/DomainResource';
 import { ICodeableConcept, IIdentifier, IReference } from '../../interfaces/datatypes';
-import { CompositionStatusEnum } from '../../../enums';
-import { CompositionStatusType } from '../../../types';
+import { CompositionStatusEnum } from '../../../r4/enums';
+import { CompositionStatusType } from '../../../r4/types';
 import { IElement } from '../../interfaces/base';
 import CompositionBuilder from './CompositionBuilder';
 import { CompositionValidator } from './CompositionValidator';

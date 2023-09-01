@@ -8,8 +8,8 @@ import {
   IAttachment,
   IReference,
 } from '../datatypes';
-import { AdministrativeGenderEnum } from '../../../enums';
-import { AdministrativeGenderType } from '../../../types';
+import { AdministrativeGenderEnum } from '../../enums';
+import { AdministrativeGenderType } from '../../types';
 import { IPatientContact, IPatientCommunication, IPatientLink } from '../backbones';
 
 export interface IPatient extends IDomainResource {

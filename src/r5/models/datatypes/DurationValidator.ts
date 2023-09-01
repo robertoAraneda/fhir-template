@@ -1,7 +1,7 @@
 import { IDuration } from '../../interfaces/datatypes';
 import ConstraintException from '../../../globals/exceptions/ConstraintException';
 import { DataTypeAttributesHelperR5 } from '../../../globals/helpers/generateListAttributesHelper';
-import { QuantityComparatorEnum } from '../../../enums';
+import { QuantityComparatorEnum } from '../../../r4/enums';
 import { ValidatorHelperR5 } from '../../validators/ValidatorHelperR5';
 
 export const durationKeysDefinitions = DataTypeAttributesHelperR5<IDuration>([

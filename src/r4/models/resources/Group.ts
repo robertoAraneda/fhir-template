@@ -2,8 +2,8 @@ import { IGroup } from '../../interfaces/resources/IGroup';
 import { IElement } from '../../interfaces/base';
 import { IGroupCharacteristic, IGroupMember } from '../../interfaces/backbones';
 import { ICodeableConcept, IIdentifier, IReference } from '../../interfaces/datatypes';
-import { GroupTypeEnum } from '../../../enums';
-import { GroupType } from '../../../types';
+import { GroupTypeEnum } from '../../enums';
+import { GroupType } from '../../types';
 import DomainResource from '../base/DomainResource';
 import { GroupBuilder } from './GroupBuilder';
 

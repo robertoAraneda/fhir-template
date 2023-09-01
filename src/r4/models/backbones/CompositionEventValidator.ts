@@ -1,6 +1,6 @@
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { ICompositionEvent } from '../../interfaces/backbones';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const compositionEventKeysDefinitions = BackboneAttributesHelperR4<ICompositionEvent>([
   {

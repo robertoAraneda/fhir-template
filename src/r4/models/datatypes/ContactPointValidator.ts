@@ -1,8 +1,8 @@
 import { DataTypeAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
 import { IContactPoint } from '../../interfaces/datatypes';
 import ConstraintException from '../../../globals/exceptions/ConstraintException';
-import { ContactPointSystemEnum, ContactPointUseEnum } from '../../../enums';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ContactPointSystemEnum, ContactPointUseEnum } from '../../enums';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 export const contactPointSystems = Object.values(ContactPointSystemEnum);
 export const contactPointUses = Object.values(ContactPointUseEnum);

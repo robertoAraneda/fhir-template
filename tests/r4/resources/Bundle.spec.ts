@@ -1,6 +1,6 @@
 import FHIRContext from '../../../src';
 import { IBundle } from '../../../src/r4/interfaces/resources';
-import { BundleTypeEnum } from '../../../src/enums';
+import { BundleTypeEnum } from '../../../src/r4/enums';
 import { BundleBuilder } from '../../../src/r4/models/resources/BundleBuilder';
 
 import { BundleValidator } from '../../../src/r4/models/resources/BundleValidator';

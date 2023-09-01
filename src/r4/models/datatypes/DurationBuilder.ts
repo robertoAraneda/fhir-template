@@ -1,7 +1,7 @@
 import { ElementBuilder, IElementBuilder } from '../base/ElementBuilder';
 import { IElement } from '../../interfaces/base';
-import { QuantityComparatorEnum } from '../../../enums';
-import { QuantityComparatorType } from '../../../types';
+import { QuantityComparatorEnum } from '../../enums';
+import { QuantityComparatorType } from '../../types';
 import { IBuildable } from '../../../globals/interfaces';
 import Duration from './Duration';
 import { IDuration } from '../../interfaces/datatypes';

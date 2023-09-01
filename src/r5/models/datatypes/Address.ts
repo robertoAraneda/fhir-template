@@ -1,7 +1,7 @@
 import Element from '../base/Element';
 import AddressBuilder from './AddressBuilder';
-import { AddressTypeEnum, AddressUseEnum } from '../../../enums';
-import { AddressTypeType, AddressUseType } from '../../../types';
+import { AddressTypeEnum, AddressUseEnum } from '../../../r4/enums';
+import { AddressTypeType, AddressUseType } from '../../../r4/types';
 import { IAddress, IPeriod } from '../../interfaces/datatypes';
 import { IElement } from '../../interfaces/base';
 import { AddressValidator } from './AddressValidator';

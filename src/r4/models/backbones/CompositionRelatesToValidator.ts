@@ -1,6 +1,6 @@
 import { ICompositionRelatesTo } from '../../interfaces/backbones';
 import { BackboneAttributesHelperR4 } from '../../../globals/helpers/generateListAttributesHelper';
-import { ValidatorHelperR4 } from '../../../globals/helpers/ValidatorHelperR4';
+import { ValidatorHelperR4 } from '../../validators/ValidatorHelperR4';
 
 function ValidateConstraint(payload: ICompositionRelatesTo, path: string = 'CompositionRelatesTo') {
   if (!payload.targetIdentifier && !payload.targetReference)

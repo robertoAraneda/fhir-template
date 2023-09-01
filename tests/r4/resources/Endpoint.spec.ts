@@ -7,7 +7,7 @@ import { EndpointValidator } from '../../../src/r4/models/resources/EndpointVali
 describe('Endpoint Resource FHIR R4', () => {
   let builder: EndpointBuilder;
   const context = new FHIRContext();
-  const { Endpoint, Validator } = context.forR4();
+  const { Endpoint } = context.forR4();
 
   // create global
   beforeEach(() => {
